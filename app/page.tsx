@@ -34,10 +34,17 @@ export default function Home() {
       <ScrollToTop />
 
       {/* Hero Section */}
-      <section ref={ref} className="relative h-screen flex items-center justify-center overflow-visible">
-        <HeroCanvas />
+      <section
+        ref={ref}
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+      >
+        {/* 🎨 Fondo Animado */}
+        <div className="absolute inset-0 w-full h-full">
+          <HeroCanvas />
+        </div>
 
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center items-center min-h-screen">
+        {/* 📌 Contenido Centrado */}
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center items-center h-screen">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -59,13 +66,11 @@ export default function Home() {
               </h1>
             </motion.div>
 
-
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="my-10"  // 🔹 Espaciado de 6 (puedes ajustarlo)
+              className="my-10"
             >
               <p className="my-10 text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones
@@ -73,6 +78,7 @@ export default function Home() {
               </p>
             </motion.div>
 
+            {/* 🏆 Botones de Acción */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -92,6 +98,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* 🔽 Indicador de Scroll */}
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}
@@ -102,6 +109,7 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
+
 
       {/* About Section */}
       <section id="about" className="py-24 md:py-32 bg-background">
@@ -132,9 +140,9 @@ export default function Home() {
           </div>
 
           {/* Grid con Timeline + Historia */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-          {/* Timeline en la izquierda */}
-          <Timeline />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+            {/* Timeline en la izquierda */}
+            <Timeline />
 
             <div>
               <motion.div
