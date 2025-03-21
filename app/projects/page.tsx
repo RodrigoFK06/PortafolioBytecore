@@ -81,7 +81,7 @@ export default function ProjectsPage() {
                 tags={project.tags}
                 imageSrc={project.imageSrc}
                 link={project.link}
-                githubLink={project.githubLink}
+                //githubLink={project.githubLink}
                 delay={0.1 * (index + 1)}
               />
             ))}

@@ -86,27 +86,27 @@ export function Footer() {
             <h3 className="text-sm font-medium uppercase tracking-wider mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Web Development
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   UI/UX Design
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Frontend Development
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Responsive Design
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Animation & Interaction
                 </Link>
               </li>
@@ -119,11 +119,11 @@ export function Footer() {
             &copy; {new Date().getFullYear()} ByteCore. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Privacy Policy
+            <Link href="/politicadeprivacidad" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+              Política de privacidad
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Terms of Service
+            <Link href="/terminosycondiciones" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+              Términos y condiciones
             </Link>
           </div>
         </div>

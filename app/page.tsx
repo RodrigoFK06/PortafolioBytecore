@@ -14,6 +14,7 @@ import { AnimatedText } from "@/components/animated-text"
 import { CursorFollower } from "@/components/cursor-follower"
 import { ProjectFilter } from "@/components/project-filter"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { WhatsAppButton } from "@/components/wspbutton"
 import { projects } from "@/data/projects"
 import HeroCanvas from "@/components/HeroCanvas"
 import Timeline from "@/components/Timeline"
@@ -32,19 +33,19 @@ export default function Home() {
   const { theme } = useTheme()
   const testimonialsData = [
     {
-      name: "Sarah Johnson",
-      position: "CEO, TechStart Inc.",
-      text: "An exceptional developer who consistently delivers high-quality work. Their attention to detail and creative problem-solving skills made our project a success.",
+      name: "Guillermo Sánchez",
+      position: "Gerente comercial, Clínica Juan Pablo II",
+      text: "Una agencia desarrolladora excepcional que entrega constantemente un trabajo de alta calidad. Su atención al detalle y su capacidad creativa para resolver problemas hicieron que nuestro proyecto fuera un éxito.",
     },
     {
-      name: "Michael Chen",
-      position: "Marketing Director, Innovate Solutions",
-      text: "Working with this developer was a pleasure. They understood our vision immediately and transformed it into a beautiful, functional website that exceeded our expectations.",
+      name: "Dharcy Villafuerte",
+      position: "Fundadora y Gerente, Solutec DHA",
+      text: "Trabajar con este ellos es un muy tranquilo. Para cada necesidad nueva, entienden nuestra visión de inmediato y la transforman en una plataforma web bonito y funcional que superó nuestras expectativas.",
     },
     {
-      name: "Emily Rodriguez",
-      position: "Founder, Design Collective",
-      text: "Not only is their technical skill impressive, but their communication and project management made the entire process smooth and stress-free. I highly recommend their services.",
+      name: "Luis Rodriguez",
+      position: "Gerente comercial, EcoDrive+",
+      text: "La comunicación y gestión de proyectos hicieron que todo el proceso fuera fluido y sin estrés.Los recomiendo encarecidamente.",
     },
   ];
   const [activeFilter, setActiveFilter] = useState("all");
@@ -86,6 +87,8 @@ export default function Home() {
   return (
     <main className="relative">
       <CursorFollower />
+      <ScrollToTop/>
+      <WhatsAppButton/>
 
       {/* Hero Section */}
       <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -537,7 +540,7 @@ export default function Home() {
                 tags={project.tags}
                 imageSrc={project.imageSrc}
                 link={project.link}
-                githubLink={project.githubLink}
+                //githubLink={project.githubLink}
                 delay={0.1 * (index + 1)}
               />
             ))}
@@ -546,13 +549,17 @@ export default function Home() {
           <div className="mt-16 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Button asChild variant="outline" className="group">
-                <Link href="/projects" className="flex items-center">
-                  Ver Todos los Proyectos
+              <Button
+                asChild
+                size="lg"
+                className="group relative bg-gray-800/60 backdrop-blur-md p-4 rounded-xl border border-blue-500/20 shadow-lg hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300"
+              >
+                <Link href="/projects" className="text-white flex items-center">
+                  Ver todos los proyectos
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
@@ -704,11 +711,12 @@ export default function Home() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/brochure.pdf" target="_blank" rel="noopener noreferrer">
-                    Descargar Brochure
+                  <Link href="/planesyservicios.pdf" download="planesyservicios.pdf" target="_blank" rel="noopener noreferrer">
+                    Descargar Planes y Servicios
                     <ExternalLink className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
+
               </div>
             </motion.div>
 
