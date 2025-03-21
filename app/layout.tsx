@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "ByteCore",
     images: [
       {
-        url: "/fondobytecore.png",  // Cambié aquí a la ruta correcta
+        url: "/fondobytecore.PNG",  // Cambié aquí a la ruta correcta
         width: 1200,
         height: 630,
         alt: "ByteCore - Agencia Digital",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description:
       "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
     creator: "@bytecore",
-    images: ["/fondobytecore.png"],  // También cambié aquí
+    images: ["/fondobytecore.PNG"],  // También cambié aquí
   },
   generator: 'v0.dev',
 }
