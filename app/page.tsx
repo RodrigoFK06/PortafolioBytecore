@@ -18,7 +18,7 @@ import { projects } from "@/data/projects"
 import HeroCanvas from "@/components/HeroCanvas"
 import Timeline from "@/components/Timeline"
 import { useTheme } from "next-themes";
-import { useState as useReactState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const ref = useRef(null)
@@ -57,8 +57,30 @@ export default function Home() {
 
   const handleFilterChange = (filterId: string) => {
     setActiveFilter(filterId);
-  };
 
+  };
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Efecto para detectar pantalla móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Verificar al cargar
+    checkMobile();
+
+    // Configurar listener para redimensionamiento
+    window.addEventListener("resize", checkMobile);
+
+    // Limpiar
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Determinar cuántos proyectos mostrar
+  const displayedProjects = isMobile
+    ? filteredProjects.slice(0, 3)
+    : filteredProjects;
 
 
   return (
@@ -476,8 +498,6 @@ export default function Home() {
         </div>
       </section>
 
-
-
       {/* Projects Section */}
       <section id="projects" className="py-24 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -509,7 +529,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
+            {displayedProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 title={project.title}
@@ -552,7 +572,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <h2 className={`text-3xl md:text-4xl font-bold mb-6 tracking-tight ${theme === "light" ? "text-gray-900" : "text-white"}`}>
-                Client <span className="text-primary">Testimonials</span>
+                Testimonios <span className="text-primary">de Clientes</span>
               </h2>
             </motion.div>
 
@@ -563,7 +583,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <p className={`text-muted-foreground mb-8 leading-relaxed ${theme === "light" ? "text-gray-800" : "text-white/90"}`}>
-                What clients and colleagues have to say about working with me.
+                Lo que dicen los clientes y colegas sobre trabajar conmigo.
               </p>
             </motion.div>
           </div>
@@ -578,8 +598,8 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.1 * index }}
                 className={`p-8 rounded-xl border border-blue-500/20 shadow-lg transform hover:scale-105 transition-all duration-300
             ${theme === "light"
-                    ? "bg-gradient-to-b from-gray-100 to-gray-300 shadow-md hover:shadow-xl"
-                    : "bg-gradient-to-b from-gray-800 to-gray-900 shadow-xl hover:shadow-2xl"
+                    ? "bg-gradient-to-b from-gray-100 to-gray-300 shadow-md hover:shadow-xl hover:bg-white/50 backdrop-blur-lg"
+                    : "bg-gradient-to-b from-gray-800 to-gray-900 shadow-xl hover:shadow-2xl hover:bg-white/50 backdrop-blur-lg"
                   }`}
               >
                 <div className="flex flex-col h-full relative">
@@ -609,6 +629,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Contact Section */}
       <section id="contact" className="py-24 md:py-32 bg-muted/30">
@@ -650,21 +671,21 @@ export default function Home() {
                   <Mail className="h-5 w-5 mr-3 mt-1 text-primary" />
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-muted-foreground">info@bytecore.com</p>
+                    <p className="text-muted-foreground">rodrigoan.torresp@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Linkedin className="h-5 w-5 mr-3 mt-1 text-primary" />
                   <div>
                     <h4 className="font-medium">LinkedIn</h4>
-                    <p className="text-muted-foreground">linkedin.com/company/bytecore</p>
+                    <p className="text-muted-foreground">linkedin.com/in/rodrigo-torres-bytecore/</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Github className="h-5 w-5 mr-3 mt-1 text-primary" />
                   <div>
                     <h4 className="font-medium">GitHub</h4>
-                    <p className="text-muted-foreground">github.com/bytecore</p>
+                    <p className="text-muted-foreground">github.com/RodrigoFK06</p>
                   </div>
                 </div>
               </div>
@@ -677,7 +698,7 @@ export default function Home() {
 
               <div className="flex gap-4">
                 <Button asChild className="group">
-                  <Link href="mailto:info@bytecore.com">
+                  <Link href="mailto:rodrigoan.torresp@gmail.com">
                     Enviar Email
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -706,8 +727,5 @@ export default function Home() {
       </section>
     </main>
   )
-}
-function useState<T>(initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  return useReactState(initialValue);
 }
 
