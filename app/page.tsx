@@ -17,6 +17,8 @@ import { ScrollToTop } from "@/components/scroll-to-top"
 import { projects } from "@/data/projects"
 import HeroCanvas from "@/components/HeroCanvas"
 import Timeline from "@/components/Timeline"
+import { useTheme } from "next-themes";
+import { useState as useReactState } from "react";
 
 export default function Home() {
   const ref = useRef(null)
@@ -27,17 +29,44 @@ export default function Home() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const { theme } = useTheme()
+  const testimonialsData = [
+    {
+      name: "Sarah Johnson",
+      position: "CEO, TechStart Inc.",
+      text: "An exceptional developer who consistently delivers high-quality work. Their attention to detail and creative problem-solving skills made our project a success.",
+    },
+    {
+      name: "Michael Chen",
+      position: "Marketing Director, Innovate Solutions",
+      text: "Working with this developer was a pleasure. They understood our vision immediately and transformed it into a beautiful, functional website that exceeded our expectations.",
+    },
+    {
+      name: "Emily Rodriguez",
+      position: "Founder, Design Collective",
+      text: "Not only is their technical skill impressive, but their communication and project management made the entire process smooth and stress-free. I highly recommend their services.",
+    },
+  ];
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  // Filtrar los proyectos según la categoría seleccionada
+  const filteredProjects = projects.filter((project) => {
+    if (activeFilter === "all") return true;
+    return project.category === activeFilter;
+  });
+
+  const handleFilterChange = (filterId: string) => {
+    setActiveFilter(filterId);
+  };
+
+
 
   return (
     <main className="relative">
       <CursorFollower />
-      <ScrollToTop />
 
       {/* Hero Section */}
-      <section
-        ref={ref}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
-      >
+      <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* 🎨 Fondo Animado */}
         <div className="absolute inset-0 w-full h-full">
           <HeroCanvas />
@@ -52,15 +81,15 @@ export default function Home() {
               transition={{ duration: 0.5 }}
               className="mt-4 md:mt-0 flex justify-center"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight text-center">
+              <h1 className={`text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-center ${theme === "light" ? "text-gray-900" : "text-white"}`}>
                 <AnimatedText text={
                   <>
                     Tu Software Hecho{" "}
-                    <span className="inline-flex flex-wrap gap-2 md:gap-4 justify-center items-center">
-                      <span className="glass-effect px-3 py-1 md:px-4 md:py-2">Byte</span>
+                    <div className="inline-flex flex-wrap gap-2 md:gap-4 justify-center items-center">
+                      <span className="glass-effect px-3 py-1 md:px-4 md:py-2 md:pb-4">Byte</span>
                       <span className="inline-block text-xl md:text-2xl lg:text-3xl">x</span>
-                      <span className="glass-effect px-3 py-1 md:px-4 md:py-2">Byte</span>
-                    </span>
+                      <span className="glass-effect px-3 py-1 md:px-4 md:py-2 md:pb-4">Byte</span>
+                    </div>
                   </>
                 } />
               </h1>
@@ -72,31 +101,43 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="my-10"
             >
-              <p className="my-10 text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones
-                tecnológicas innovadoras.
+              <p className={`my-10 text-lg md:text-xl mb-8 max-w-2xl mx-auto ${theme === "light" ? "text-gray-800" : "text-white/90"}`}>
+                Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
               </p>
             </motion.div>
 
-            {/* 🏆 Botones de Acción */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Button asChild size="lg" className="group">
-                <Link href="#projects">
+              <Button
+                asChild
+                size="lg"
+                className={`group relative p-4 rounded-xl border shadow-lg transition-all duration-300 hover:scale-105 ${theme === "light" ? "bg-gray-800/60 border-blue-500/20 text-white" : "bg-white/60 border-blue-500/50 text-gray-900"}`}
+              >
+                <Link href="#projects" className="flex items-center">
                   Ver Proyectos
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                <Link href="#contact">Contáctanos</Link>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className={`group relative p-4 rounded-xl transition-all duration-300 transform hover:scale-105 ${theme === "light" ? "border-gray-900 text-gray-900 hover:bg-gray-100/10" : "border-white text-white hover:bg-white/10"}`}
+              >
+                <Link href="#contact" className="flex items-center">
+                  Contáctanos
+                </Link>
               </Button>
             </motion.div>
+
           </div>
         </div>
+
 
         {/* 🔽 Indicador de Scroll */}
         <motion.div
@@ -155,7 +196,7 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-6">Nuestra Historia</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   Fundada con la visión de transformar el panorama digital, ByteCore ha evolucionado hasta convertirse
-                  en una agencia líder en desarrollo web y diseño UI/UX. Nuestro equipo multidisciplinario combina
+                  en una agencia destacada en desarrollo web y diseño UI/UX. Nuestro equipo multidisciplinario combina
                   experiencia técnica con creatividad para ofrecer soluciones digitales que destacan en el mercado.
                 </p>
                 <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -169,13 +210,13 @@ export default function Home() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
                 <div className="text-center">
                   <h4 className="text-3xl font-bold text-primary mb-2">
-                    <AnimatedCounter from={0} to={5} duration={2} />+
+                    <AnimatedCounter from={0} to={4} duration={2} />+
                   </h4>
                   <p className="text-sm text-muted-foreground">Años de Experiencia</p>
                 </div>
                 <div className="text-center">
                   <h4 className="text-3xl font-bold text-primary mb-2">
-                    <AnimatedCounter from={0} to={50} duration={2} />+
+                    <AnimatedCounter from={0} to={40} duration={2} />+
                   </h4>
                   <p className="text-sm text-muted-foreground">Proyectos Completados</p>
                 </div>
@@ -187,7 +228,7 @@ export default function Home() {
                 </div>
                 <div className="text-center">
                   <h4 className="text-3xl font-bold text-primary mb-2">
-                    <AnimatedCounter from={0} to={15} duration={2} />+
+                    <AnimatedCounter from={0} to={9} duration={2} />+
                   </h4>
                   <p className="text-sm text-muted-foreground">Premios Ganados</p>
                 </div>
@@ -197,7 +238,7 @@ export default function Home() {
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Button variant="outline" size="icon" asChild>
                     <Link
-                      href="https://github.com/bytecore"
+                      href="https://github.com/RodrigoFK06"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="GitHub"
@@ -209,7 +250,7 @@ export default function Home() {
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Button variant="outline" size="icon" asChild>
                     <Link
-                      href="https://linkedin.com/company/bytecore"
+                      href="https://www.linkedin.com/in/rodrigo-torres-bytecore"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="LinkedIn"
@@ -220,7 +261,7 @@ export default function Home() {
                 </motion.div>
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Button variant="outline" size="icon" asChild>
-                    <Link href="mailto:info@bytecore.com" aria-label="Email">
+                    <Link href="mailto:rodrigoan.torresp@gmail.com" aria-label="Email">
                       <Mail className="h-5 w-5" />
                     </Link>
                   </Button>
@@ -335,12 +376,16 @@ export default function Home() {
           <div className="mt-16 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Button asChild className="group">
-                <Link href="/services" className="flex items-center">
+              <Button
+                asChild
+                size="lg"
+                className="group relative bg-gray-800/60 backdrop-blur-md p-4 rounded-xl border border-blue-500/20 shadow-lg hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300"
+              >
+                <Link href="/services" className="text-white flex items-center">
                   Ver todos los servicios
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -444,7 +489,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-                Featured <span className="text-primary">Projects</span>
+                Proyectos <span className="text-primary">Destacados</span>
               </h2>
             </motion.div>
 
@@ -455,15 +500,16 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                A selection of my recent work showcasing my skills in design, development, and animation.
+                Una selección de mi trabajo reciente que muestra mis habilidades
+                en diseño, desarrollo y animación.
               </p>
             </motion.div>
 
-            <ProjectFilter />
+            <ProjectFilter onFilterChange={handleFilterChange} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 title={project.title}
@@ -486,7 +532,7 @@ export default function Home() {
             >
               <Button asChild variant="outline" className="group">
                 <Link href="/projects" className="flex items-center">
-                  View All Projects
+                  Ver Todos los Proyectos
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
@@ -505,7 +551,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-6 tracking-tight ${theme === "light" ? "text-gray-900" : "text-white"}`}>
                 Client <span className="text-primary">Testimonials</span>
               </h2>
             </motion.div>
@@ -516,90 +562,50 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <p className="text-muted-foreground mb-8 leading-relaxed">
+              <p className={`text-muted-foreground mb-8 leading-relaxed ${theme === "light" ? "text-gray-800" : "text-white/90"}`}>
                 What clients and colleagues have to say about working with me.
               </p>
             </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-card p-8 rounded-lg shadow-sm border"
-            >
-              <div className="flex flex-col h-full">
-                <div className="mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-lg">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic mb-6 flex-grow">
-                  "An exceptional developer who consistently delivers high-quality work. Their attention to detail and
-                  creative problem-solving skills made our project a success."
-                </p>
-                <div>
-                  <p className="font-semibold">Sarah Johnson</p>
-                  <p className="text-sm text-muted-foreground">CEO, TechStart Inc.</p>
-                </div>
-              </div>
-            </motion.div>
+            {testimonialsData.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                className={`p-8 rounded-xl border border-blue-500/20 shadow-lg transform hover:scale-105 transition-all duration-300
+            ${theme === "light"
+                    ? "bg-gradient-to-b from-gray-100 to-gray-300 shadow-md hover:shadow-xl"
+                    : "bg-gradient-to-b from-gray-800 to-gray-900 shadow-xl hover:shadow-2xl"
+                  }`}
+              >
+                <div className="flex flex-col h-full relative">
+                  {/* Brillo interactivo */}
+                  <motion.div
+                    className="absolute inset-0 bg-white/10 rounded-lg blur-2xl opacity-0 pointer-events-none"
+                    style={{ x: "0", y: "0", opacity: 0.5 }}
+                  />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-card p-8 rounded-lg shadow-sm border"
-            >
-              <div className="flex flex-col h-full">
-                <div className="mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-lg">
-                      ★
-                    </span>
-                  ))}
+                  <div className="mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-white-400 text-lg">
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <p className={`text-muted-foreground italic mb-6 flex-grow ${theme === "light" ? "text-gray-800" : "text-white"}`}>
+                    "{testimonial.text}"
+                  </p>
+                  <div>
+                    <p className={`font-semibold ${theme === "light" ? "text-gray-900" : "text-white"}`}>{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                  </div>
                 </div>
-                <p className="text-muted-foreground italic mb-6 flex-grow">
-                  "Working with this developer was a pleasure. They understood our vision immediately and transformed it
-                  into a beautiful, functional website that exceeded our expectations."
-                </p>
-                <div>
-                  <p className="font-semibold">Michael Chen</p>
-                  <p className="text-sm text-muted-foreground">Marketing Director, Innovate Solutions</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-card p-8 rounded-lg shadow-sm border"
-            >
-              <div className="flex flex-col h-full">
-                <div className="mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-lg">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic mb-6 flex-grow">
-                  "Not only is their technical skill impressive, but their communication and project management made the
-                  entire process smooth and stress-free. I highly recommend their services."
-                </p>
-                <div>
-                  <p className="font-semibold">Emily Rodriguez</p>
-                  <p className="text-sm text-muted-foreground">Founder, Design Collective</p>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -700,5 +706,8 @@ export default function Home() {
       </section>
     </main>
   )
+}
+function useState<T>(initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  return useReactState(initialValue);
 }
 

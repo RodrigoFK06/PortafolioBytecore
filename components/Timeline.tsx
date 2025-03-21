@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { useTheme } from "next-themes"; // Importar useTheme para obtener el tema actual
 
 // Define el tipo de evento
 type TimelineEventType = {
@@ -12,14 +13,15 @@ type TimelineEventType = {
 
 // Lista de eventos en zig-zag
 const timelineEvents: TimelineEventType[] = [
-  { year: "2018", title: "Inicio de ByteCore", description: "Fundamos ByteCore con una visión de innovación tecnológica." },
-  { year: "2020", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma SaaS para empresas." },
-  { year: "2021", title: "Expansión", description: "Crecimos y ampliamos nuestro equipo con más talento especializado." },
-  { year: "2023", title: "Reconocimiento Internacional", description: "Fuimos reconocidos como una de las startups más innovadoras." },
-  { year: "2024", title: "Lanzamiento de Nuevos Servicios", description: "Incorporamos soluciones avanzadas con IA y blockchain." },
+  { year: "2020", title: "Inicio de ByteCore", description: "Fundamos ByteCore con una visión de innovación tecnológica." },
+  { year: "2021", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma móvil para una empresa." },
+  { year: "2022", title: "Crecimiento a través del estudio", description: "Hemos dedicado tiempo a estudiar, aprender y mejorar nuestras habilidades para ofrecer un servicio de calidad." },
+  { year: "2023", title: "Foco en la dedicación y gestión con clientes", description: "Logramos una excelente gestión con los clientes, que es la base de nuestro éxito y crecimiento continuo." },
+  { year: "2024", title: "Lanzamiento de Nuevos Servicios", description: "Incorporamos soluciones avanzadas con IA y nuestro SaaS CRM-ERP." },
 ];
 
 export default function Timeline() {
+  const { theme } = useTheme(); // Obtener el tema actual
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -29,7 +31,11 @@ export default function Timeline() {
   const lineHeight = useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]);
 
   return (
-    <div className="relative py-16 bg-gradient-to-b from-gray-900 to-gray-990 rounded-3xl">
+    <div
+      className={`relative py-16 rounded-3xl ${
+        theme === "light" ? "bg-gradient-to-b from-blue-50 to-blue-10" : "bg-gradient-to-b from-gray-900 to-gray-990"
+      }`}
+    >
       <motion.div ref={containerRef} className="relative max-w-4xl mx-auto px-6">
         {/* Línea central estática */}
         <div className="absolute left-1/2 top-10 bottom-10 w-1 bg-gray-700 transform -translate-x-1/2 rounded-lg" />

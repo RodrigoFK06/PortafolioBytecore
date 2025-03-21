@@ -1,10 +1,20 @@
-import { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { useTheme } from "next-themes";  // Importar useTheme desde next-themes
 
 export default function HeroCanvas() {
   const canvasRef = useRef();
+  const { theme } = useTheme(); // Obtenemos el tema
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true); // Asegura que el código se ejecute solo en el cliente
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return; // Evita que el código se ejecute en el servidor
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -33,13 +43,14 @@ export default function HeroCanvas() {
     flareSprite.position.set(0, 0, -1);
     scene.add(flareSprite);
 
-    // ✨ Glassmorfismo: Fondo animado con cambio de colores
+    // ✨ Glassmorfismo: Fondo animado con cambio de colores basado en el tema
     const gradient = new THREE.Mesh(
       new THREE.PlaneGeometry(5, 3),
       new THREE.ShaderMaterial({
         uniforms: {
           u_time: { value: 0 },
           u_mouse: { value: new THREE.Vector2(0.5, 0.5) },
+          u_theme: { value: theme === "light" ? 1 : 0 }, // Usamos el valor del tema para cambiar colores
         },
         vertexShader: `
           varying vec2 vUv;
@@ -51,17 +62,19 @@ export default function HeroCanvas() {
         fragmentShader: `
           uniform float u_time;
           uniform vec2 u_mouse;
+          uniform float u_theme;
           varying vec2 vUv;
 
           void main() {
-            // 🌈 Cambio de colores dinámico
-            vec3 baseColor = mix(vec3(0.0, 0.2, 0.6), vec3(0.0, 0.0, 0.1), 
-                                 sin(vUv.y * 4.0 + u_time * 0.6) * 0.5 + 0.5);
-            
+            // 🌈 Colores dinámicos basados en el tema
+            vec3 baseColor = mix(vec3(0.0, 0.2, 0.6), vec3(0.0, 0.0, 0.1), sin(vUv.y * 4.0 + u_time * 0.6) * 0.5 + 0.5);
+            if (u_theme == 1.0) { baseColor = mix(baseColor, vec3(0.7, 0.9, 0.9), 0.7); // Agregar claro al tema
+            }
+
             // ✨ Efecto glassmorfismo con luz difusa
             float glassEffect = smoothstep(0.2, 0.7, sin(u_time * 0.5 + vUv.x * 3.0) * 0.5 + 0.5);
             vec3 finalColor = mix(baseColor, vec3(1.0, 1.0, 1.0), glassEffect * 0.1);
-            
+
             // 🌟 Brillo que sigue al mouse
             float dist = distance(vUv, u_mouse);
             finalColor += vec3(1.0, 0.9, 0.8) * 0.3 * smoothstep(0.3, 0.0, dist);
@@ -150,7 +163,7 @@ export default function HeroCanvas() {
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
     };
-  }, []);
+  }, [mounted, theme]);  // Cambia el tema cuando cambia el tema
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }

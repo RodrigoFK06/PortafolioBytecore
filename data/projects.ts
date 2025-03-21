@@ -1,66 +1,102 @@
 export const projects = [
   {
     id: 1,
-    title: "E-Commerce Premium",
+    title: "EcoDrive+",
     description:
-      "Plataforma de comercio electrónico con filtrado avanzado, animaciones y una experiencia de compra fluida para una marca de moda.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/ecommerce",
-    githubLink: "https://github.com/bytecore/ecommerce",
+      "Plataforma que transforma cada viaje en una oportunidad, ofreciendo recompensas, regalos y beneficios exclusivos para conductores, con el objetivo de mejorar la calidad de vida de las familias peruanas.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js"],
+    imageSrc: "/ecodriveplus.webp",
+    link: "https://www.ecodriveplus.com/",
+    githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
   },
   {
     id: 2,
-    title: "Portal Inmobiliario",
-    description: "Plataforma inmobiliaria con búsqueda avanzada, mapas interactivos y visualización 3D de propiedades.",
-    tags: ["React", "Node.js", "MongoDB", "Google Maps API"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/realestate",
-    githubLink: "https://github.com/bytecore/realestate",
+    title: "Vigo Tulich Servicios Generales",
+    description:
+      "Empresa especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería, destacando por su experiencia en el sector industrial y su enfoque en diseños modernos y funcionales.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js"],
+    imageSrc: "/vigotulich.webp",
+    link: "https://www.vigotulich.site/",
+    githubLink: "https://github.com/bytecore/vigotulich",
     category: "web",
   },
   {
     id: 3,
-    title: "Dashboard Empresarial",
+    title: "Encrypted Escape Room",
     description:
-      "Panel de administración intuitivo con visualización de datos, modo oscuro y diseño responsive para una empresa fintech.",
-    tags: ["Next.js", "Chart.js", "Tailwind CSS", "Firebase"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/dashboard",
-    githubLink: "https://github.com/bytecore/dashboard",
-    category: "ui",
+      "Experiencia de escape room en línea que desafía a los jugadores a resolver enigmas y descifrar códigos en un tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.",
+    tags: ["React", "Node.js", "Socket.io", "Express.js"],
+    imageSrc: "/encrypted.webp",
+    link: "https://kevin-escape-room.vercel.app/",
+    githubLink: "https://github.com/bytecore/kevin-escape-room",
+    category: "web",
   },
   {
     id: 4,
-    title: "Aplicación de Salud",
-    description: "Diseño UI/UX y prototipo para una aplicación móvil de seguimiento de salud con animaciones fluidas.",
-    tags: ["Figma", "Prototyping", "UI/UX", "React Native"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/health-app",
-    category: "mobile",
+    title: "Casaroma Hostels",
+    description:
+      "Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.",
+    tags: ["Next.js", "Tailwind CSS", "Node.js", "MongoDB"],
+    imageSrc: "/casaromahotel.webp",
+    link: "https://casaromahostels.com/",
+    githubLink: "https://github.com/bytecore/casaroma-hostels",
+    category: "web",
   },
   {
     id: 5,
-    title: "Landing Page SaaS",
+    title: "ReLu Coffee",
     description:
-      "Página de aterrizaje de alta conversión con elementos interactivos y rendimiento optimizado para una startup SaaS.",
-    tags: ["HTML", "CSS", "JavaScript", "GSAP"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/saas-landing",
-    githubLink: "https://github.com/bytecore/saas-landing",
+      "Empresa que combina la pasión por el café con la tecnología, ofreciendo cafés gourmet y cafeteras automáticas de alto rendimiento para hogares, oficinas y negocios.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js"],
+    imageSrc: "/relucoffee.webp",
+    link: "https://www.relucoffee.com/",
+    githubLink: "https://github.com/bytecore/relu-coffee",
     category: "web",
   },
   {
     id: 6,
-    title: "Plataforma Educativa",
+    title: "Mantenimiento y Reparación JK",
     description:
-      "Plataforma de e-learning con autenticación, actualizaciones en tiempo real y sistema de gestión de cursos.",
-    tags: ["React", "Firebase", "Tailwind CSS", "WebRTC"],
-    imageSrc: "/placeholder.svg?height=600&width=800",
-    link: "https://example.com/elearning",
-    githubLink: "https://github.com/bytecore/elearning",
+      "Servicios especializados en mantenimiento y reparación de electrodomésticos, ofreciendo soluciones rápidas y eficientes para garantizar el funcionamiento óptimo de los equipos en el hogar.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js"],
+    imageSrc: "/mantenimientojk.webp",
+    link: "https://xn--mantenimientoyreparacinjk-cqc.com/",
+    githubLink: "https://github.com/bytecore/mantenimiento-jk",
     category: "web",
   },
-]
-
+  {
+    id: 7,
+    title: "Sistema de Gestión Hospitalaria",
+    description:
+      "Plataforma integral para la gestión hospitalaria, permitiendo la administración eficiente de pacientes, empleados, traslados y otros recursos del hospital. Facilita la gestión de registros médicos, programación de citas, seguimiento de pacientes, y la gestión de inventarios de productos farmacéuticos, todo dentro de una interfaz moderna y fácil de usar.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+    imageSrc: "/dashboardhms.jpeg", // Imagen representativa del sistema hospitalario
+    link: "https://www.sistemahospitalario.com/", // Este enlace debe ser el de tu proyecto real
+    githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
+    category: "web",
+  },
+  {
+    id: 8,
+    title: "Aplicación móvil para gestión de producción y venta de bebidas",
+    description:
+      "Plataforma integral para la gestión hospitalaria, permitiendo la administración eficiente de pacientes, empleados, traslados y otros recursos del hospital. Facilita la gestión de registros médicos, programación de citas, seguimiento de pacientes, y la gestión de inventarios de productos farmacéuticos, todo dentro de una interfaz moderna y fácil de usar.",
+    tags: ["React", "Node.js", "MongoDB", "Express.js", "Tailwind CSS"],
+    imageSrc: "/unumiskii.jpg", // Imagen representativa del sistema hospitalario
+    link: "https://www.sistemahospitalario.com/", // Este enlace debe ser el de tu proyecto real
+    githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
+    category: "mobile",
+  },
+  {
+    id: 9,
+    title: "Maquetado y diseño de módulo de administración",
+    description:
+      "Diseño creado con el fin de mantener el estilo de la marca y la funcionalidad de la plataforma, con una interfaz moderna y fácil de usar.",
+    tags: ["React", "Node.js"],
+    imageSrc: "/uxui.png",
+    link: "https://xn--mantenimientoyreparacinjk-cqc.com/",
+    githubLink: "https://github.com/bytecore/mantenimiento-jk",
+    category: "ui",
+  }
+  
+];

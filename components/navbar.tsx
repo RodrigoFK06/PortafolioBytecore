@@ -1,48 +1,50 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
-import Image from "next/image"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const { theme } = useTheme(); // Hook para obtener el tema actual
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
-        setIsScrolled(true)
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false)
+        setIsScrolled(false);
       }
 
       // Update active section based on scroll position
-      const sections = ["home", "about", "services", "projects", "testimonials", "contact"]
+      const sections = ["home", "about", "services", "projects", "testimonials", "contact"];
 
       for (const section of sections.reverse()) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const rect = element.getBoundingClientRect()
+          const rect = element.getBoundingClientRect();
           if (rect.top <= 100) {
-            setActiveSection(section)
-            break
+            setActiveSection(section);
+            break;
           }
         }
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header
@@ -68,9 +70,9 @@ export function Navbar() {
                 whileHover={{ opacity: 0.5 }} // Se activa con hover
               />
 
-              {/* Logo ByteCore */}
+              {/* Logo ByteCore, cambia según el tema */}
               <Image
-                src="/bytecorelogo.png"
+                src={theme === "light" ? "/bytecorelogo2.png" : "/bytecorelogo.png"}
                 alt="ByteCore Logo"
                 width={250}
                 height={100}
@@ -79,6 +81,7 @@ export function Navbar() {
               />
             </Link>
           </motion.div>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -89,8 +92,7 @@ export function Navbar() {
             >
               <Link
                 href="#about"
-                className={`text-sm hover:text-primary transition-colors ${activeSection === "about" ? "text-primary font-medium" : ""
-                  }`}
+                className={`text-sm transition-colors hover:text-primary ${activeSection === "about" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Nosotros
               </Link>
@@ -102,8 +104,7 @@ export function Navbar() {
             >
               <Link
                 href="#services"
-                className={`text-sm hover:text-primary transition-colors ${activeSection === "services" ? "text-primary font-medium" : ""
-                  }`}
+                className={`text-sm transition-colors hover:text-primary ${activeSection === "services" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Servicios
               </Link>
@@ -115,8 +116,7 @@ export function Navbar() {
             >
               <Link
                 href="#projects"
-                className={`text-sm hover:text-primary transition-colors ${activeSection === "projects" ? "text-primary font-medium" : ""
-                  }`}
+                className={`text-sm transition-colors hover:text-primary ${activeSection === "projects" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Proyectos
               </Link>
@@ -128,8 +128,7 @@ export function Navbar() {
             >
               <Link
                 href="#testimonials"
-                className={`text-sm hover:text-primary transition-colors ${activeSection === "testimonials" ? "text-primary font-medium" : ""
-                  }`}
+                className={`text-sm transition-colors hover:text-primary ${activeSection === "testimonials" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Testimonios
               </Link>
@@ -141,8 +140,7 @@ export function Navbar() {
             >
               <Link
                 href="#contact"
-                className={`text-sm hover:text-primary transition-colors ${activeSection === "contact" ? "text-primary font-medium" : ""
-                  }`}
+                className={`text-sm transition-colors hover:text-primary ${activeSection === "contact" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Contacto
               </Link>
@@ -166,6 +164,7 @@ export function Navbar() {
               </Button>
             </motion.div>
           </nav>
+
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
@@ -236,6 +235,5 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }
-

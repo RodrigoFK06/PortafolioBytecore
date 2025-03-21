@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import emailjs from 'emailjs-com'
+import { CursorFollower } from "@/components/cursor-follower";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
@@ -38,8 +40,19 @@ export function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      // En una aplicación real, enviarías los datos a tu API aquí
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      // Enviar los datos a través de EmailJS
+      await emailjs.send(
+        'service_wvts5fi', // Reemplaza con tu Service ID
+        'template_lnjw36s', // Reemplaza con tu Template ID
+        {
+          name: values.name, // Se usa 'name' en lugar de 'from_name'
+          email: values.email, // Se usa 'email' en lugar de 'from_email'
+          company: values.company || 'No empresa', // Si no se envía, se pone 'No empresa'
+          subject: values.subject,
+          message: values.message,
+        },
+        'HgPDjJ0T82sSGGuVt' // Reemplaza con tu User ID de EmailJS
+      )
 
       toast({
         title: "¡Mensaje enviado!",
@@ -142,7 +155,6 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
           <Button type="submit" disabled={isSubmitting} className="w-full">
             {isSubmitting ? (
@@ -171,4 +183,3 @@ export function ContactForm() {
     </Form>
   )
 }
-
