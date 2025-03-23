@@ -1,4 +1,4 @@
-import { CursorFollower } from "@/components/cursor-follower";
+import  CursorFollower  from "@/components/cursor-follower";
 import { ServiceCard } from "@/components/service-card";
 
 export default function ServicesPage() {

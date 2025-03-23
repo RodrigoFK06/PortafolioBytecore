@@ -1,6 +1,6 @@
 "use client"
 
-import { CursorFollower } from "@/components/cursor-follower"
+import  CursorFollower  from "@/components/cursor-follower"
 import { motion } from "framer-motion"
 
 export default function TermsAndConditionsPage() {

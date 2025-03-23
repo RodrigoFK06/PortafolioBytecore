@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CursorFollower } from "@/components/cursor-follower"
+import  CursorFollower  from "@/components/cursor-follower"
 
 export default function PrivacyPolicyPage() {
   return (

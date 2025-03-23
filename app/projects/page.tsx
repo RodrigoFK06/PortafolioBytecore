@@ -2,7 +2,7 @@
 import { ProjectCard } from "@/components/project-card"
 import { ProjectFilter } from "@/components/project-filter"
 import { projects } from "@/data/projects"
-import { CursorFollower } from "@/components/cursor-follower"
+import  CursorFollower  from "@/components/cursor-follower"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useState, useEffect } from "react";
 

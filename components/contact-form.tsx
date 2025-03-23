@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import emailjs from 'emailjs-com'
-import { CursorFollower } from "@/components/cursor-follower";
+import  CursorFollower  from "@/components/cursor-follower";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
