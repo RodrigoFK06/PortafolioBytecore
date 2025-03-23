@@ -6,7 +6,7 @@ interface Testimonial {
   text: string
 }
 
-export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
+export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
     <section id="testimonials" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

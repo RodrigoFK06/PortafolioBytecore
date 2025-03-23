@@ -22,14 +22,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://www.bytecore.com/",
+    url: "https://portafolio-bytecore.vercel.app/",
     title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
     description:
       "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
     siteName: "ByteCore",
     images: [
       {
-        url: "/fondobytecore.PNG",  // Cambié aquí a la ruta correcta
+        url: "/og-image.webp",  // Cambié aquí a la ruta correcta
         width: 1200,
         height: 630,
         alt: "ByteCore - Agencia Digital",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description:
       "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
     creator: "@bytecore",
-    images: ["/fondobytecore.PNG"],  // También cambié aquí
+    images: ["/og-image.webp"],  // También cambié aquí
   },
   generator: 'v0.dev',
 }

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function ScrollToTop() {
+export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

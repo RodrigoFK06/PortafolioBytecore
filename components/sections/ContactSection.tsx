@@ -10,7 +10,7 @@ const ContactClient = dynamic(() => import("./ContactClient").then(mod => mod.Co
   ssr: false,
 })
 
-export function ContactSection() {
+export default function ContactSection() {
   return (
     <section id="contact" className="py-24 md:py-32 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

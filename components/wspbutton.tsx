@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function WhatsAppButton() {
+export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

@@ -40,7 +40,7 @@ export function ProjectCard({
         <div className="relative h-48 w-full overflow-hidden">
           <Image
             src={imageSrc || "/placeholder.svg"}
-            alt={title || "Project"}
+            alt={`Captura de pantalla del proyecto: ${title}`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
