@@ -12,24 +12,34 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
+const baseUrl = "https://portafolio-bytecore.vercel.app"
+
 export const metadata: Metadata = {
   title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
   description:
     "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
-  keywords: ["agencia digital", "desarrollo web", "diseño UI/UX", "ByteCore", "tecnología", "React", "Next.js"],
+  keywords: [
+    "agencia digital",
+    "desarrollo web",
+    "diseño UI/UX",
+    "ByteCore",
+    "tecnología",
+    "React",
+    "Next.js",
+  ],
   authors: [{ name: "ByteCore" }],
   creator: "ByteCore",
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://portafolio-bytecore.vercel.app/",
+    url: baseUrl,
     title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
     description:
       "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
     siteName: "ByteCore",
     images: [
       {
-        url: "/og-image.webp",  // Cambié aquí a la ruta correcta
+        url: `${baseUrl}/og-image.webp`,
         width: 1200,
         height: 630,
         alt: "ByteCore - Agencia Digital",
@@ -42,11 +52,10 @@ export const metadata: Metadata = {
     description:
       "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
     creator: "@bytecore",
-    images: ["/og-image.webp"],  // También cambié aquí
+    images: [`${baseUrl}/og-image.webp`],
   },
-  generator: 'v0.dev',
+  generator: "v0.dev",
 }
-
 
 export default function RootLayout({
   children,
@@ -54,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
@@ -69,7 +78,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-
-import './globals.css'
