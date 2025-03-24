@@ -3,13 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);
@@ -68,7 +66,7 @@ export default function HeroCanvas() {
     scene.add(gradient);
 
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = isMobile ? 100 : 300;
+    const particlesCount = 300;
     const positions = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 6;
@@ -77,16 +75,17 @@ export default function HeroCanvas() {
     }
     particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.02,
+      size: 0.025,
       color: 0xffffff,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
     });
     const particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
 
     camera.position.z = 2.5;
+
     const clock = new THREE.Clock();
     let animationFrameId: number;
 
@@ -102,7 +101,6 @@ export default function HeroCanvas() {
     animate();
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (isMobile) return;
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = -(e.clientY / window.innerHeight) * 2 + 1;
       gradient.material.uniforms.u_mouse.value.lerp(
@@ -117,16 +115,12 @@ export default function HeroCanvas() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    if (!isMobile) {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("resize", handleResize);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (!isMobile) {
-        window.removeEventListener("mousemove", handleMouseMove);
-      }
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       particlesGeometry.dispose();
       particlesMaterial.dispose();
@@ -134,7 +128,7 @@ export default function HeroCanvas() {
       gradient.material.dispose();
       renderer.dispose();
     };
-  }, [mounted, theme, isMobile]);
+  }, [mounted, theme]);
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
