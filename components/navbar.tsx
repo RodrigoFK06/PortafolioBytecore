@@ -72,7 +72,7 @@ export function Navbar() {
 
               {/* Logo ByteCore, cambia según el tema */}
               <Image
-                src={theme === "light" ? "/bytecorelogo2.png" : "/bytecorelogo.png"}
+                src={theme === "light" ? "/logonegro.webp" : "/logoblanco.webp"}
                 alt="ByteCore Logo"
                 width={250}
                 height={100}

@@ -10,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-2">
           <Link href="/">
               <Image
-                src="/bytecorelogo.png"
+                src="/logoblanco.webp"
                 alt="ByteCore Logo"
                 width={250}  
                 height={100}
