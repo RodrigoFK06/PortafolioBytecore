@@ -13,9 +13,7 @@ export default function ChatbotButton() {
   const [input, setInput] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // Generar sessionId único por sesión
   const [sessionId] = useState(() => Date.now().toString(36) + Math.random().toString(36).substring(2))
-
   const webhookUrl = "https://n8n-latest-7g9v.onrender.com/webhook/7c460c7f-810b-431f-a1ff-d363248d0d8e/chat"
 
   useEffect(() => {
@@ -50,7 +48,7 @@ export default function ChatbotButton() {
       })
 
       const data = await res.json()
-      const botReply = data?.[0]?.text ?? "Lo siento, hubo un error al responder."
+      const botReply = data?.[0]?.output ?? "Lo siento, hubo un error al responder."
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }])
     } catch (error) {
       setMessages((prev) => [...prev, { sender: "bot", text: "Ups, no se pudo conectar al asistente. 😓" }])
@@ -63,7 +61,6 @@ export default function ChatbotButton() {
 
   return (
     <>
-      {/* Botón flotante */}
       <AnimatePresence>
         {isVisible && (
           <motion.div
@@ -85,7 +82,6 @@ export default function ChatbotButton() {
         )}
       </AnimatePresence>
 
-      {/* Modal del chatbot */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -95,7 +91,6 @@ export default function ChatbotButton() {
             exit={{ opacity: 0 }}
           >
             <div className="relative bg-background border border-white/10 shadow-xl rounded-xl w-[95%] max-w-md h-[90%] p-4 md:p-6 flex flex-col glass-effect">
-              {/* Botón cerrar */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-2 right-2 text-sm text-muted-foreground hover:text-white"
@@ -103,7 +98,6 @@ export default function ChatbotButton() {
                 <X />
               </button>
 
-              {/* Área de mensajes */}
               <div className="overflow-y-auto flex-1 space-y-3 pr-1">
                 {messages.map((msg, i) => (
                   <div
@@ -120,7 +114,6 @@ export default function ChatbotButton() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Input y botón enviar */}
               <div className="mt-4 flex gap-2">
                 <Input
                   value={input}
