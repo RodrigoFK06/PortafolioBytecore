@@ -13,6 +13,8 @@ const ContactSection = dynamic(() => import("./sections/ContactSection"), { ssr:
 const CursorFollower = dynamic(() => import("./cursor-follower"), { ssr: false })
 const ScrollToTop = dynamic(() => import("./scroll-to-top"), { ssr: false })
 const WhatsAppButton = dynamic(() => import("./wspbutton"), { ssr: false })
+const ChatbotButton = dynamic(() => import("./ChatbotButton"), { ssr: false })
+
 
 export default function HomeClient() {
   const testimonialsData = [
@@ -37,6 +39,7 @@ export default function HomeClient() {
     <main>
       <CursorFollower />
       <ScrollToTop />
+      <ChatbotButton />
       <WhatsAppButton />
       <HeroSection />
       <AboutSection />
