@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 
 type ServiceModalProps = {
   title: string;
@@ -11,13 +11,22 @@ type ServiceModalProps = {
 };
 
 export default function ServiceModal({ title, description, icon, isOpen, onClose }: ServiceModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   // Evita el scroll del fondo cuando el modal está abierto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      // Focus al modal para accesibilidad
+      modalRef.current?.focus();
     } else {
       document.body.style.overflow = "auto";
     }
+
+    // Cleanup al desmontar
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isOpen]);
 
   // Cierra el modal con "Escape"
@@ -34,6 +43,13 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
     };
   }, [isOpen, handleKeyDown]);
 
+  // Maneja clics fuera del modal
+  const handleBackdropClick = useCallback((e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -43,9 +59,14 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        onClick={onClose} // Cierra al hacer clic fuera del modal
+        onClick={handleBackdropClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
       >
         <motion.div
+          ref={modalRef}
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 50, scale: 0.95 }}

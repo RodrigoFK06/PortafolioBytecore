@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Bot, SendHorizonal, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { LoadingSpinner } from "@/components/ui/loading"
+import { SITE_CONFIG } from "@/lib/constants"
 import dynamic from "next/dynamic"
-import { Markdown } from "@/components/markdown" // tu componente de ReactMarkdown estilizado
+import { Markdown } from "@/components/markdown"
 
 const CursorFollower = dynamic(() => import("./cursor-follower"), { ssr: false })
 
@@ -19,7 +21,7 @@ export default function ChatbotButton() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const [sessionId] = useState(() => Date.now().toString(36) + Math.random().toString(36).substring(2))
-  const webhookUrl = "https://n8n-latest-7g9v.onrender.com/webhook/7c460c7f-810b-431f-a1ff-d363248d0d8e/chat"
+  const webhookUrl = SITE_CONFIG.chatbot.webhookUrl
 
   useEffect(() => {
     const toggleVisibility = () => {

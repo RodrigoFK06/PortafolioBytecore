@@ -1,29 +1,33 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
 import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { useThemeState } from "@/hooks/use-theme-state"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const { theme, toggleTheme, mounted } = useThemeState()
 
   if (!mounted) {
-    return null
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Toggle theme"
+        disabled
+      >
+        <div className="h-5 w-5" />
+      </Button>
+    )
   }
 
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      aria-label="Toggle theme"
+      onClick={toggleTheme}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      className="transition-all duration-200 hover:scale-105"
     >
       <motion.div
         animate={{ rotate: theme === "dark" ? 0 : 180 }}

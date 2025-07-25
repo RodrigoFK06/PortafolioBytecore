@@ -1,30 +1,143 @@
-import { NextResponse } from "next/server"
+// app/api/contact/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
+import { sendContactEmail, validateSMTPConfig } from '@/lib/email'
+import { rateLimit } from '@/lib/rate-limit'
 
-export async function POST(request: Request) {
+// Schema de validación para el formulario de contacto
+const contactSchema = z.object({
+  name: z.string()
+    .min(2, { message: "El nombre debe tener al menos 2 caracteres." })
+    .max(50, { message: "El nombre no puede exceder 50 caracteres." })
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, { message: "El nombre solo puede contener letras y espacios." }),
+  email: z.string()
+    .email({ message: "Por favor, introduce un email válido." })
+    .max(100, { message: "El email no puede exceder 100 caracteres." }),
+  company: z.string()
+    .max(50, { message: "El nombre de la empresa no puede exceder 50 caracteres." })
+    .optional(),
+  subject: z.string()
+    .min(5, { message: "El asunto debe tener al menos 5 caracteres." })
+    .max(100, { message: "El asunto no puede exceder 100 caracteres." }),
+  message: z.string()
+    .min(10, { message: "El mensaje debe tener al menos 10 caracteres." })
+    .max(1000, { message: "El mensaje no puede exceder 1000 caracteres." }),
+})
+
+// Función para obtener la IP del cliente
+const getClientIP = (request: NextRequest): string => {
+  const forwarded = request.headers.get('x-forwarded-for')
+  const realIP = request.headers.get('x-real-ip')
+  const remoteAddr = request.headers.get('remote-addr')
+  
+  if (forwarded) {
+    return forwarded.split(',')[0].trim()
+  }
+  
+  if (realIP) {
+    return realIP
+  }
+  
+  if (remoteAddr) {
+    return remoteAddr
+  }
+  
+  return 'unknown'
+}
+
+export async function POST(request: NextRequest) {
   try {
-    const data = await request.json()
-
-    // Validate required fields
-    const requiredFields = ["fullName", "email", "phone", "caseDetails"]
-    for (const field of requiredFields) {
-      if (!data[field]) {
-        return NextResponse.json({ error: `${field} is required` }, { status: 400 })
-      }
+    // Verificar configuración SMTP
+    if (!validateSMTPConfig()) {
+      console.error('Configuración SMTP incompleta')
+      return NextResponse.json({
+        success: false,
+        message: 'Configuración del servidor de correo incompleta'
+      }, { status: 500 })
     }
 
-    // In a real implementation, you would:
-    // 1. Send data to CRM or email service
-    // 2. Store in database
-    // 3. Send confirmation email
+    // Rate limiting - máximo 3 intentos por IP cada 15 minutos
+    const clientIP = getClientIP(request)
+    const rateLimitResult = await rateLimit(clientIP, 3, 15 * 60 * 1000) // 15 minutos
 
-    // For demo purposes, we'll just return success
-    return NextResponse.json({
-      success: true,
-      message: "Your case evaluation request has been received. We'll contact you shortly.",
-    })
+    if (!rateLimitResult.success) {
+      return NextResponse.json({
+        success: false,
+        message: `Demasiadas solicitudes. Intenta nuevamente en ${Math.ceil(rateLimitResult.resetTime! / 60000)} minutos.`
+      }, { status: 429 })
+    }
+
+    // Parsear y validar el cuerpo de la petición
+    const body = await request.json()
+    const validationResult = contactSchema.safeParse(body)
+
+    if (!validationResult.success) {
+      return NextResponse.json({
+        success: false,
+        message: 'Datos del formulario inválidos',
+        errors: validationResult.error.format()
+      }, { status: 400 })
+    }
+
+    // Sanitizar datos para prevenir inyecciones
+    const sanitizedData = {
+      name: validationResult.data.name.trim(),
+      email: validationResult.data.email.trim().toLowerCase(),
+      company: validationResult.data.company?.trim() || '',
+      subject: validationResult.data.subject.trim(),
+      message: validationResult.data.message.trim(),
+    }
+
+    // Enviar el correo
+    const emailResult = await sendContactEmail(sanitizedData)
+
+    if (emailResult.success) {
+      // Log exitoso (sin datos sensibles)
+      console.log(`Correo enviado exitosamente desde ${clientIP} - ${sanitizedData.email}`)
+      
+      return NextResponse.json({
+        success: true,
+        message: '¡Mensaje enviado exitosamente! Te responderemos pronto.'
+      }, { status: 200 })
+    } else {
+      // Log del error (sin datos sensibles)
+      console.error(`Error enviando correo desde ${clientIP}:`, emailResult.message)
+      
+      return NextResponse.json({
+        success: false,
+        message: emailResult.message
+      }, { status: 500 })
+    }
+
   } catch (error) {
-    console.error("Error processing contact form:", error)
-    return NextResponse.json({ error: "Failed to process your request. Please try again." }, { status: 500 })
+    console.error('Error en API de contacto:', error)
+    
+    return NextResponse.json({
+      success: false,
+      message: 'Error interno del servidor. Por favor, intenta nuevamente.'
+    }, { status: 500 })
   }
+}
+
+// Manejar métodos no permitidos
+export async function GET() {
+  return NextResponse.json({
+    success: false,
+    message: 'Método no permitido'
+  }, { status: 405 })
+}
+
+export async function PUT() {
+  return NextResponse.json({
+    success: false,
+    message: 'Método no permitido'
+  }, { status: 405 })
+}
+
+export async function DELETE() {
+  return NextResponse.json({
+    success: false,
+    message: 'Método no permitido'
+  }, { status: 405 })
 }
 

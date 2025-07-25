@@ -1,28 +1,35 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 
 export default function CursorFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
 
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY })
+  }, [])
+
   useEffect(() => {
     // Only show custom cursor on desktop
-    if (window.innerWidth > 768) {
-      setIsVisible(true)
-
-      const handleMouseMove = (e: MouseEvent) => {
-        setMousePosition({ x: e.clientX, y: e.clientY })
-      }
-
-      window.addEventListener("mousemove", handleMouseMove)
-
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove)
-      }
+    const checkDevice = () => {
+      const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window
+      setIsVisible(!isMobile)
     }
-  }, [])
+
+    checkDevice()
+    window.addEventListener("resize", checkDevice)
+
+    if (window.innerWidth > 768) {
+      window.addEventListener("mousemove", handleMouseMove)
+    }
+
+    return () => {
+      window.removeEventListener("resize", checkDevice)
+      window.removeEventListener("mousemove", handleMouseMove)
+    }
+  }, [handleMouseMove])
 
   if (!isVisible) return null
 
@@ -46,6 +53,12 @@ export default function CursorFollower() {
         animate={{
           x: mousePosition.x - 4,
           y: mousePosition.y - 4,
+        }}
+        transition={{
+          type: "spring",
+          damping: 35,
+          stiffness: 400,
+          mass: 0.3,
         }}
       />
     </>

@@ -4,17 +4,14 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SITE_CONFIG } from "@/lib/constants"
 
 export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 500) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
+      setIsVisible(window.scrollY > 500)
     }
 
     window.addEventListener("scroll", toggleVisibility)
@@ -22,9 +19,11 @@ export default function WhatsAppButton() {
   }, [])
 
   const openWhatsApp = () => {
-    const message = encodeURIComponent("Hola, estoy interesado en contratar tus servicios de desarrollo web. ¿Podemos conversar más?");
-    const url = `https://wa.me/51961869348?text=${message}`;
-    window.open(url, "_blank");
+    const message = encodeURIComponent(
+      "Hola, estoy interesado en contratar los servicios de ByteCore. ¿Podemos conversar más sobre mi proyecto?"
+    );
+    const url = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${message}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (

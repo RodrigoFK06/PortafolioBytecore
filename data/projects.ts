@@ -1,4 +1,16 @@
-export const projects = [
+export interface Project {
+  id: number
+  title: string
+  description: string
+  tags: string[]
+  imageSrc: string
+  link: string
+  githubLink?: string
+  category: string
+  featured?: boolean
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "EcoDrive+",
@@ -98,5 +110,20 @@ export const projects = [
     //githubLink: "https://github.com/bytecore/mantenimiento-jk",
     category: "ui",
   }
-  
 ];
+
+// Funciones de utilidad para filtrar proyectos
+export const getFeaturedProjects = () => projects.filter(project => project.featured)
+
+export const getProjectsByCategory = (category: string) => 
+  category === "all" ? projects : projects.filter(project => project.category === category)
+
+export const getProjectById = (id: number) => projects.find(project => project.id === id)
+
+// Categorías disponibles
+export const projectCategories = [
+  { id: "all", label: "Todos" },
+  { id: "web", label: "Desarrollo Web" },
+  { id: "ui", label: "UX/UI Design" },
+  { id: "mobile", label: "Móvil" },
+] as const

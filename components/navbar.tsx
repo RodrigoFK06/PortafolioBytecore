@@ -7,13 +7,13 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
-import { useTheme } from "next-themes";
+import { useThemeState } from "@/hooks/use-theme-state";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { theme } = useTheme(); // Hook para obtener el tema actual
+  const { theme, mounted } = useThemeState();
 
   useEffect(() => {
     const handleScroll = () => {

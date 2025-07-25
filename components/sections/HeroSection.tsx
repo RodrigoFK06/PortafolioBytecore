@@ -4,12 +4,39 @@ import { Button } from "@/components/ui/button"
 import { AnimatedText } from "@/components/animated-text"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+import { useState, useEffect } from "react"
 import clsx from "clsx"
 
 const HeroClient = dynamic(() => import("./HeroClient"), { ssr: false })
 
 export function HeroSection() {
+  const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Valores por defecto para evitar hydration mismatch
+  const textColor = mounted 
+    ? (theme === "light" ? "text-gray-900" : "text-white")
+    : "text-gray-900" // Default fallback
+
+  const descriptionColor = mounted
+    ? (theme === "light" ? "text-gray-800" : "text-white/90")
+    : "text-gray-800" // Default fallback
+
+  const primaryButtonClass = mounted
+    ? (theme === "light"
+        ? "bg-gray-800/60 border-blue-500/20 text-white"
+        : "bg-white/60 border-blue-500/50 text-gray-900")
+    : "bg-gray-800/60 border-blue-500/20 text-white" // Default fallback
+
+  const secondaryButtonClass = mounted
+    ? (theme === "light"
+        ? "border-gray-900 text-gray-900 hover:bg-gray-100/10"
+        : "border-white text-white hover:bg-white/10")
+    : "border-gray-900 text-gray-900 hover:bg-gray-100/10" // Default fallback
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-background">
@@ -21,7 +48,7 @@ export function HeroSection() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className={clsx(
             "text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-center",
-            theme === "light" ? "text-gray-900" : "text-white"
+            textColor
           )}>
             <AnimatedText
               text={
@@ -39,7 +66,7 @@ export function HeroSection() {
 
           <p className={clsx(
             "my-10 text-lg md:text-xl mb-8 max-w-2xl mx-auto transition-colors",
-            theme === "light" ? "text-gray-800" : "text-white/90"
+            descriptionColor
           )}>
             Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
           </p>
@@ -50,9 +77,7 @@ export function HeroSection() {
               size="lg"
               className={clsx(
                 "group relative p-4 rounded-xl border shadow-lg transition-all duration-300 hover:scale-105",
-                theme === "light"
-                  ? "bg-gray-800/60 border-blue-500/20 text-white"
-                  : "bg-white/60 border-blue-500/50 text-gray-900"
+                primaryButtonClass
               )}
             >
               <Link href="#projects" className="flex items-center">
@@ -67,9 +92,7 @@ export function HeroSection() {
               variant="outline"
               className={clsx(
                 "group relative p-4 rounded-xl transition-all duration-300 transform hover:scale-105",
-                theme === "light"
-                  ? "border-gray-900 text-gray-900 hover:bg-gray-100/10"
-                  : "border-white text-white hover:bg-white/10"
+                secondaryButtonClass
               )}
             >
               <Link href="#contact" className="flex items-center">

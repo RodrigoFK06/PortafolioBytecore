@@ -1,8 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react"
+import { SITE_CONFIG } from "@/lib/constants"
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-muted/50 py-12 border-t">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,12 +22,11 @@ export function Footer() {
               />
             </Link>
             <p className="text-muted-foreground max-w-md mb-6">
-              Agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras que
-              transforman ideas en experiencias digitales excepcionales.
+              {SITE_CONFIG.description}
             </p>
             <div className="flex space-x-4">
               <Link
-                href="https://github.com"
+                href={SITE_CONFIG.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -33,7 +35,7 @@ export function Footer() {
                 <Github className="h-5 w-5" />
               </Link>
               <Link
-                href="https://linkedin.com"
+                href={SITE_CONFIG.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -42,7 +44,7 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link
-                href="mailto:hello@example.com"
+                href={`mailto:${SITE_CONFIG.contact.email}`}
                 className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Email"
               >
