@@ -17,12 +17,12 @@ export default function ServicesPage() {
 
         {/* Tarjetas de Servicios */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ServiceCard title="Desarrollo Web" description="Creamos sitios web y aplicaciones a medida utilizando las últimas tecnologías." icon="Code" href="/services/desarrollo-web" />
-          <ServiceCard title="Diseño UI/UX" description="Diseñamos interfaces intuitivas y atractivas centradas en el usuario." icon="Palette" href="/services/diseno-ui-ux" />
-          <ServiceCard title="E-Commerce" description="Desarrollamos tiendas online personalizadas y optimizadas para conversión." icon="Monitor" href="/services/e-commerce" />
-          <ServiceCard title="Aplicaciones Móviles" description="Creamos aplicaciones nativas y multiplataforma con excelente UX." icon="Box" href="/services/aplicaciones-moviles" />
-          <ServiceCard title="Desarrollo Backend" description="Construimos APIs robustas, bases de datos optimizadas y sistemas escalables." icon="Database" href="/services/desarrollo-backend" />
-          <ServiceCard title="Consultoría Digital" description="Proporcionamos asesoramiento estratégico y técnico en tecnología digital." icon="MessageSquare" href="/services/consultoria-digital" />
+          <ServiceCard title="Desarrollo Web" description="Creamos sitios web y aplicaciones a medida utilizando las últimas tecnologías." icon="Code" />
+          <ServiceCard title="Diseño UI/UX" description="Diseñamos interfaces intuitivas y atractivas centradas en el usuario." icon="Palette" />
+          <ServiceCard title="E-Commerce" description="Desarrollamos tiendas online personalizadas y optimizadas para conversión." icon="Monitor" />
+          <ServiceCard title="Aplicaciones Móviles" description="Creamos aplicaciones nativas y multiplataforma con excelente UX." icon="Box" />
+          <ServiceCard title="Desarrollo Backend" description="Construimos APIs robustas, bases de datos optimizadas y sistemas escalables." icon="Database" />
+          <ServiceCard title="Consultoría Digital" description="Proporcionamos asesoramiento estratégico y técnico en tecnología digital." icon="MessageSquare" />
         </div>
       </div>
     </main>

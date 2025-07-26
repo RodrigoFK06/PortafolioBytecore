@@ -11,7 +11,9 @@ interface ProjectPageProps {
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
-  // In a real app, you would fetch project data based on the slug
+  const { slug } = params
+
+  // Simulación: deberías cargar los datos reales del proyecto usando `slug`
   const project = {
     title: "Luminance Residence",
     category: "Interior Design",
@@ -97,4 +99,3 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     </main>
   )
 }
-
