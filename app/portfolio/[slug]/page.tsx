@@ -5,13 +5,11 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ProjectPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = params
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params
 
   // Simulación: deberías cargar los datos reales del proyecto usando `slug`
   const project = {
