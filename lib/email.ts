@@ -1,6 +1,7 @@
 // lib/email.ts
 import nodemailer from 'nodemailer'
 import type { ContactFormData, EmailResponse, SMTPConfig, EmailTemplate } from '@/types/email'
+import type { Lead, ChatMessage } from '@/types/chatbot'
 
 // Configuración SMTP
 const createTransporter = () => {
@@ -201,4 +202,122 @@ export const validateSMTPConfig = (): boolean => {
     const value = process.env[varName]
     return value && value.trim() !== ''
   })
+}
+
+// --- NUEVO CÓDIGO PARA INFORMES DEL CHATBOT ---
+
+// Función para generar el template HTML del informe del chatbot
+const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
+  const { name, email, company, phone, score, status, conversation } = lead
+
+  const formatConversation = (messages: ChatMessage[]) => {
+    return messages
+      .map(
+        (msg) =>
+          `<div class="message ${msg.role}"><strong>${
+            msg.role === 'assistant' ? 'ByteBot' : 'Usuario'
+          }:</strong><p>${msg.message.replace(/\n/g, '<br>')}</p></div>`
+      )
+      .join('')
+  }
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <title>Informe de Lead del Chatbot - ByteCore</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 700px; margin: auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 30px; }
+        .lead-details { background: #f9f9f9; border: 1px solid #eee; border-left: 5px solid #007bff; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        .lead-details h2 { margin-top: 0; color: #007bff; }
+        .lead-details p { margin: 5px 0; }
+        .conversation-log { margin-top: 20px; }
+        .conversation-log h2 { color: #007bff; }
+        .message { padding: 10px; border-radius: 5px; margin-bottom: 10px; }
+        .message.user { background: #e9ecef; }
+        .message.assistant { background: #d1e7fd; }
+        .message p { margin: 0; white-space: pre-wrap; }
+        .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Informe de Lead del Chatbot</h1>
+        </div>
+        <div class="content">
+          <div class="lead-details">
+            <h2>Detalles del Lead</h2>
+            <p><strong>Nombre:</strong> ${name || 'No proporcionado'}</p>
+            <p><strong>Email:</strong> ${email ? `<a href="mailto:${email}">${email}</a>` : 'No proporcionado'}</p>
+            <p><strong>Teléfono:</strong> ${phone || 'No proporcionado'}</p>
+            <p><strong>Empresa:</strong> ${company || 'No proporcionada'}</p>
+            <p><strong>Puntuación (Lead Score):</strong> ${score}</p>
+            <p><strong>Estado:</strong> ${status}</p>
+          </div>
+          <div class="conversation-log">
+            <h2>Registro de la Conversación</h2>
+            ${formatConversation(conversation)}
+          </div>
+        </div>
+        <div class="footer">
+          <p>Este es un informe automático generado por ByteCore.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `
+
+  const text = `
+Informe de Lead del Chatbot - ByteCore
+--------------------------------------
+Detalles del Lead:
+- Nombre: ${name || 'No proporcionado'}
+- Email: ${email || 'No proporcionado'}
+- Teléfono: ${phone || 'No proporcionado'}
+- Empresa: ${company || 'No proporcionada'}
+- Puntuación: ${score}
+- Estado: ${status}
+
+Conversación:
+${conversation.map((msg) => `${msg.role === 'assistant' ? 'ByteBot' : 'Usuario'}: ${msg.message}`).join('\n\n')}
+  `.trim()
+
+  return {
+    subject: `[ByteCore Chatbot] Nuevo Lead Calificado: ${name || email || 'Visitante'}`,
+    html,
+    text,
+  }
+}
+
+// Función para enviar el informe del chatbot
+export const sendChatbotReportEmail = async (lead: Lead): Promise<EmailResponse> => {
+  try {
+    const transporter = createTransporter()
+    const template = generateChatbotReportTemplate(lead)
+
+    const mailOptions = {
+      from: {
+        name: 'ByteCore Chatbot',
+        address: process.env.SMTP_FROM || process.env.SMTP_USER || '',
+      },
+      to: process.env.CONTACT_EMAIL, // Se envía a tu correo de contacto
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    }
+
+    const info = await transporter.sendMail(mailOptions)
+    console.log(`Informe de lead enviado a ${process.env.CONTACT_EMAIL}. MessageId: ${info.messageId}`)
+
+    return { success: true, message: 'Informe enviado' }
+  } catch (error) {
+    console.error('Error enviando informe de lead:', error)
+    return { success: false, message: 'Error al enviar el informe' }
+  }
 }

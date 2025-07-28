@@ -367,7 +367,7 @@ export class ByteChatbot {
     }
   })
 
-  async generateResponse(sessionId: string, userMessage: string): Promise<ChatbotResponse> {
+  async generateResponse(sessionId: string, userMessage: string): Promise<ChatbotResponse & { lead?: Lead; shouldSendReport?: boolean }> {
     try {
       // Validar configuración
       if (!config.enabled) {
@@ -380,6 +380,10 @@ export class ByteChatbot {
 
       // Obtener o crear lead
       let lead = leadManager.getLead(sessionId) || leadManager.createLead(sessionId)
+      
+      // Guardar información de contacto previa para detectar cambios
+      const oldEmail = lead.email
+      const oldPhone = lead.phone
       
       // Agregar mensaje del usuario
       leadManager.addMessage(sessionId, 'user', userMessage)
@@ -444,6 +448,14 @@ BYTEBOT:`
       // Determinar acciones sugeridas
       const suggestedActions = analysis.nextActions.slice(0, 3) // Máximo 3 acciones
 
+      // NUEVA LÓGICA: Detectar si se debe enviar informe por correo
+      const isNewContactInfo = (!oldEmail && lead.email) || (!oldPhone && lead.phone)
+      const shouldSendReport = isNewContactInfo && lead.score >= 30 // Solo si tiene score mínimo
+
+      if (shouldSendReport) {
+        console.log(`📧 [Chatbot] Se detectó nueva información de contacto para sesión ${sessionId}. Se marcará para enviar informe.`)
+      }
+
       console.log(`✅ Respuesta generada para lead ${lead.id}`)
 
       return {
@@ -451,7 +463,9 @@ BYTEBOT:`
         response: response.trim(),
         shouldCollectContact: analysis.score >= 50 && !lead.email,
         suggestedActions,
-        leadScore: analysis.score
+        leadScore: analysis.score,
+        lead: lead, // Devolver el lead actualizado
+        shouldSendReport: shouldSendReport // Nueva bandera para el informe
       }
 
     } catch (error) {

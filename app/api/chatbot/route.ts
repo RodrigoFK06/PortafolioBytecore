@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { chatbot, validateChatbotConfig } from '@/lib/chatbot'
 import { rateLimit } from '@/lib/rate-limit'
+import { sendChatbotReportEmail } from '@/lib/email'
 
 // Schema de validación para el chat
 const chatSchema = z.object({
@@ -110,6 +111,16 @@ export async function POST(request: NextRequest) {
         message: result.response, // Ya contiene mensaje amigable
         error: 'AI_ERROR'
       }, { status: 500 })
+    }
+
+    // NUEVO: Enviar informe por correo si es necesario
+    if (result.shouldSendReport && result.lead) {
+      // Envío asíncrono para no bloquear la respuesta al usuario
+      sendChatbotReportEmail(result.lead).catch(err => {
+        console.error(`[API Chatbot] Error enviando informe por correo para sesión ${sessionId}:`, err)
+      })
+      
+      console.log(`📧 [API Chatbot] Informe de lead programado para envío: ${result.lead.email || result.lead.phone || sessionId}`)
     }
 
     // Log de éxito
