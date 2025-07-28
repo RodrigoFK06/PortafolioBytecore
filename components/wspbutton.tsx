@@ -30,7 +30,7 @@ export default function WhatsAppButton() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed bottom-24 right-8 z-50"
+          className="fixed bottom-32 right-8 z-50"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}

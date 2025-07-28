@@ -9,7 +9,7 @@ export const SITE_CONFIG = {
   
   // Contacto
   contact: {
-    email: "hola@bytecore.dev",
+    email: "rodrigoan.torresp@gmail.com",
     phone: "+51 961 869 348",
     whatsapp: "51961869348",
     address: "Lima, Perú",
@@ -31,9 +31,26 @@ export const SITE_CONFIG = {
     apiEndpoint: "/api/contact",
   },
 
-  // Chatbot
+  // Chatbot con Gemini AI
   chatbot: {
-    webhookUrl: "https://n8n-latest-7g9v.onrender.com/webhook/7c460c7f-810b-431f-a1ff-d363248d0d8e/chat",
+    apiEndpoint: "/api/chatbot",
+    enabled: true,
+    welcomeMessage: "¡Hola! Soy ByteBot, tu asistente de ventas de ByteCore 👋",
+    model: "gemini-2.0-flash-exp",
+    features: {
+      leadQualification: true,
+      quotationGeneration: true,
+      appointmentScheduling: true,
+      crmIntegration: true,
+      realTimeAnalytics: true
+    },
+    ui: {
+      primaryColor: "from-blue-600 to-purple-600",
+      accentColor: "blue-600",
+      borderRadius: "rounded-xl",
+      maxWidth: "380px",
+      maxHeight: "520px"
+    }
   }
 } as const
 
