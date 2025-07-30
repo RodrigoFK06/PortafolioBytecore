@@ -13,21 +13,7 @@ import type {
 const config: ChatbotConfig = {
   enabled: process.env.CHATBOT_ENABLED === 'true',
   model: process.env.CHATBOT_MODEL || 'gemini-2.0-flash-exp',
-  maxTokens: parseInt(process.env.CHATBOT_MAX_TOKENS |      // NUEVA LÓGICA: Detectar si se debe enviar informe por correo
-      const isNewContactInfo = (!oldEmail && lead.email) || (!oldPhone && lead.phone)
-      const hasSubstantialConversation = lead.conversation.length >= 8 // Al menos 4 intercambios
-      const hasContactInfo = lead.email || lead.phone
-      const isQualifiedLead = lead.score >= 30
-      
-      // Enviar informe cuando:
-      // 1. Se capture nueva información de contacto POR PRIMERA VEZ
-      // 2. O cuando la conversación sea sustancial Y tenga información de contacto
-      const shouldSendReport = (isNewContactInfo && isQualifiedLead) || 
-                              (hasSubstantialConversation && hasContactInfo && isQualifiedLead)
-
-      if (shouldSendReport) {
-        console.log(`📧 [Chatbot] Informe marcado para envío - Sesión: ${sessionId}, Motivo: ${isNewContactInfo ? 'Nueva info contacto' : 'Conversación sustancial'}`)
-      }'),
+  maxTokens: parseInt(process.env.CHATBOT_MAX_TOKENS || '1000'),
   temperature: parseFloat(process.env.CHATBOT_TEMPERATURE || '0.7'),
   apiKey: process.env.GEMINI_API_KEY || ''
 }
