@@ -13,7 +13,21 @@ import type {
 const config: ChatbotConfig = {
   enabled: process.env.CHATBOT_ENABLED === 'true',
   model: process.env.CHATBOT_MODEL || 'gemini-2.0-flash-exp',
-  maxTokens: parseInt(process.env.CHATBOT_MAX_TOKENS || '1000'),
+  maxTokens: parseInt(process.env.CHATBOT_MAX_TOKENS |      // NUEVA LÓGICA: Detectar si se debe enviar informe por correo
+      const isNewContactInfo = (!oldEmail && lead.email) || (!oldPhone && lead.phone)
+      const hasSubstantialConversation = lead.conversation.length >= 8 // Al menos 4 intercambios
+      const hasContactInfo = lead.email || lead.phone
+      const isQualifiedLead = lead.score >= 30
+      
+      // Enviar informe cuando:
+      // 1. Se capture nueva información de contacto POR PRIMERA VEZ
+      // 2. O cuando la conversación sea sustancial Y tenga información de contacto
+      const shouldSendReport = (isNewContactInfo && isQualifiedLead) || 
+                              (hasSubstantialConversation && hasContactInfo && isQualifiedLead)
+
+      if (shouldSendReport) {
+        console.log(`📧 [Chatbot] Informe marcado para envío - Sesión: ${sessionId}, Motivo: ${isNewContactInfo ? 'Nueva info contacto' : 'Conversación sustancial'}`)
+      }'),
   temperature: parseFloat(process.env.CHATBOT_TEMPERATURE || '0.7'),
   apiKey: process.env.GEMINI_API_KEY || ''
 }
@@ -91,7 +105,7 @@ const SYSTEM_PROMPTS = {
 - ADAPTA tu tono según el nivel técnico del cliente
 - MENCIONA casos de éxito similares cuando sea relevante`,
 
-  qualifying: `El usuario está en fase de CALIFICACIÓN. Tu objetivo es entender sus necesidades sin ser invasivo:
+  qualifying: `El usuario está en fase de CALIFICACIÓN. Tu objetivo es entender sus necesidades Y solicitar datos de contacto de manera natural:
 
 🔍 PREGUNTAS CLAVE A EXPLORAR (una por vez):
 - ¿Qué tipo de negocio o proyecto tienes?
@@ -100,26 +114,34 @@ const SYSTEM_PROMPTS = {
 - ¿Actualmente tienes página web o sistema?
 - ¿Es urgente o puedes planificarlo?
 
+📞 RECOLECCIÓN DE DATOS (después de 3-4 intercambios):
+- "Para enviarte información más detallada, ¿podrías compartir tu email?"
+- "¿Tienes un número donde pueda contactarte para agendar una llamada?"
+- "¿Cómo te llamas? Me gusta personalizar mis recomendaciones"
+- "¿Representas a alguna empresa o es un proyecto personal?"
+
 💡 ESTRATEGIA DE DESCUBRIMIENTO:
 - Haz UNA pregunta por vez, conversacional
+- Después del 3er mensaje, solicita datos de contacto naturalmente
 - Relaciona las preguntas con lo que ya mencionó
-- Ofrece ejemplos para guiar su respuesta
-- Muestra interés genuino en su proyecto
+- Ofrece valor a cambio de la información (propuesta, material, llamada)
 - SIN MENCIONAR PRECIOS AÚN (solo si pregunta directamente)
 - Enfócate en entender el PROBLEMA antes que la solución`,
 
-  interested: `El usuario muestra INTERÉS. Construye valor antes de cotizar:
+  interested: `El usuario muestra INTERÉS. Construye valor y recolecta información faltante:
 
 📈 ESTRATEGIAS PARA ESTA FASE:
 - Explica cómo tu solución resuelve su problema específico
 - Menciona casos de éxito similares (sin datos sensibles)
 - Describe beneficios técnicos y de negocio
 - Ofrece insights valiosos sobre su industria/proyecto
-- Pregunta por detalles más específicos del proyecto
+- 📞 RECOLECTA INFO FALTANTE: Si no tienes email/teléfono, solicítalo ahora
+- "Para enviarte una propuesta detallada, necesito tu email"
+- "¿Tienes un número donde coordinemos una videollamada?"
 - Sugiere mejoras que no había considerado
 - SOLO menciona rangos de precio si score >50
 
-🎯 OBJETIVO: Posicionarte como el experto que necesita y construir confianza`,
+🎯 OBJETIVO: Posicionarte como el experto que necesita y completar datos de contacto`,
 
   ready: `El usuario está LISTO para avanzar. Facilita la decisión:
 
@@ -500,12 +522,14 @@ BYTEBOT:`
       updates.phone = phoneMatch[0].replace(/\s/g, '')
     }
 
-    // Extraer nombre (patrones comunes)
+    // Extraer nombre (patrones comunes más amplios)
     if (!lead.name) {
       const namePatterns = [
         /mi nombre es ([a-záéíóúñ\s]{2,30})/i,
         /me llamo ([a-záéíóúñ\s]{2,30})/i,
-        /soy ([a-záéíóúñ\s]{2,30})/i
+        /soy ([a-záéíóúñ\s]{2,30})/i,
+        /nombre:\s*([a-záéíóúñ\s]{2,30})/i,
+        /^([a-záéíóúñ]{2,15})\s+([a-záéíóúñ]{2,15})$/i // Captura "Juan Pérez" al inicio
       ]
       
       for (const pattern of namePatterns) {
