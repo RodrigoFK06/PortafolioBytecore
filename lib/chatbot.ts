@@ -450,7 +450,7 @@ BYTEBOT:`
 
       // NUEVA LÓGICA: Detectar si se debe enviar informe por correo
       const isNewContactInfo = (!oldEmail && lead.email) || (!oldPhone && lead.phone)
-      const shouldSendReport = isNewContactInfo && lead.score >= 30 // Solo si tiene score mínimo
+      const shouldSendReport = Boolean(isNewContactInfo && lead.score >= 30) // Solo si tiene score mínimo
 
       if (shouldSendReport) {
         console.log(`📧 [Chatbot] Se detectó nueva información de contacto para sesión ${sessionId}. Se marcará para enviar informe.`)
