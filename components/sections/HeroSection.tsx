@@ -2,6 +2,7 @@ import dynamic from "next/dynamic"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AnimatedText } from "@/components/animated-text"
+import { GlassStatsGrid } from "@/components/glass-stat-card"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { useState, useEffect } from "react"
@@ -16,6 +17,13 @@ export function HeroSection() {
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Estadísticas con nuevo sistema visual
+  const heroStats = [
+    { value: 285, suffix: "%", label: "Aumento Promedio", gradient: "mint" as const },
+    { value: 50, suffix: "+", label: "Negocios Transformados", gradient: "blue" as const },
+    { value: 100, suffix: "%", label: "Clientes Satisfechos", gradient: "cyan" as const }
+  ]
 
   // Valores por defecto para evitar hydration mismatch
   const textColor = mounted 
@@ -53,35 +61,37 @@ export function HeroSection() {
             <AnimatedText
               text={
                 <>
-                  Tu Software Hecho{" "}
-                  <div className="inline-flex flex-wrap gap-2 md:gap-4 justify-center items-center">
-                    <span className="glass-effect px-3 py-1 md:px-4 md:py-2 md:pb-4">Byte</span>
-                    <span className="inline-block text-xl md:text-2xl lg:text-3xl">x</span>
-                    <span className="glass-effect px-3 py-1 md:px-4 md:py-2 md:pb-4">Byte</span>
-                  </div>
+                  No Solo Hacemos Webs,{" "}
+                  <span className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_100%]">
+                    Multiplicamos Ventas
+                  </span>
                 </>
               }
             />
           </h1>
 
           <p className={clsx(
-            "my-10 text-lg md:text-xl mb-8 max-w-2xl mx-auto transition-colors",
+            "my-10 text-lg md:text-xl mb-8 max-w-3xl mx-auto transition-colors",
             descriptionColor
           )}>
-            Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
+            <strong>Transformamos negocios con tecnología inteligente.</strong> Nuestros clientes promedian{" "}
+            <span className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent font-bold">
+              +285% de aumento en ventas
+            </span>{" "}
+            en los primeros 6 meses. ¿Listo para ser el próximo?
           </p>
+
+          {/* Stats con glassmorphism */}
+          <GlassStatsGrid stats={heroStats} className="mb-12" />
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               asChild
               size="lg"
-              className={clsx(
-                "group relative p-4 rounded-xl border shadow-lg transition-all duration-300 hover:scale-105",
-                primaryButtonClass
-              )}
+              className="group relative p-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 bg-gradient-mint hover:shadow-mint-400/50 text-white border-0"
             >
               <Link href="#projects" className="flex items-center">
-                Ver Proyectos
+                🚀 Ver Casos de Éxito
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -90,13 +100,11 @@ export function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className={clsx(
-                "group relative p-4 rounded-xl transition-all duration-300 transform hover:scale-105",
-                secondaryButtonClass
-              )}
+              className="group relative p-4 rounded-xl transition-all duration-300 transform hover:scale-105 bg-glass-light dark:bg-glass-dark backdrop-blur-md border-mint-400/30 dark:border-mint-300/20 text-mint-600 dark:text-mint-300 hover:bg-mint-50/50 dark:hover:bg-mint-900/20"
             >
               <Link href="#contact" className="flex items-center">
-                Contáctanos
+                📞 Consulta Gratuita
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>

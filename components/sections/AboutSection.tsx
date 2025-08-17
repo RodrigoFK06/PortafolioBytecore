@@ -2,10 +2,17 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { AnimatedCounter } from "@/components/animated-counter"
+import { GlassStatsGrid } from "@/components/glass-stat-card"
 import Timeline from "@/components/Timeline"
 
 export function AboutSection() {
+  const aboutStats = [
+    { value: 285, suffix: "%", label: "Aumento Promedio de Ventas", gradient: "mint" as const },
+    { value: 50, suffix: "+", label: "Negocios Transformados", gradient: "blue" as const },
+    { value: 2.5, suffix: "M", label: "Soles Generados", gradient: "cyan" as const },
+    { value: 100, suffix: "%", label: "Clientes que Nos Recomiendan", gradient: "teal" as const }
+  ]
+
   return (
     <section id="about" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,7 +24,11 @@ export function AboutSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Sobre <span className="text-primary">Nosotros</span>
+              Transformamos{" "}
+              <span className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent">
+                Negocios
+              </span>{" "}
+              con Tecnología
             </h2>
           </motion.div>
 
@@ -28,8 +39,13 @@ export function AboutSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              ByteCore es una agencia digital comprometida con la creación de experiencias web excepcionales,
-              combinando diseño innovador con desarrollo técnico de alta calidad.
+              No somos solo otra agencia digital. Somos{" "}
+              <strong className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent">
+                multiplicadores de resultados
+              </strong>. 
+              Cada línea de código, cada diseño y cada estrategia está pensada para{" "}
+              <strong>generar ROI real</strong> 
+              y transformar tu negocio en una máquina de generar ingresos las 24/7.
             </p>
           </motion.div>
         </div>
@@ -44,46 +60,26 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-2xl font-bold mb-6">Nuestra Historia</h3>
+              <h3 className="text-2xl font-bold mb-6">Nuestra Metodología de Éxito</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Fundada con la visión de transformar el panorama digital, ByteCore ha evolucionado hasta convertirse
-                en una agencia destacada en desarrollo web y diseño UI/UX. Nuestro equipo multidisciplinario combina
-                experiencia técnica con creatividad para ofrecer soluciones digitales que destacan en el mercado.
+                Durante los últimos 4 años, hemos perfeccionado una metodología que combina{" "}
+                <strong className="text-teal-600 dark:text-teal-400">estrategia comercial</strong>, 
+                diseño centrado en conversión y tecnología de punta. No solo entregamos sitios web bonitos, 
+                <strong className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent">
+                  {" "}entregamos sistemas que venden
+                </strong>.
               </p>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                Nos apasiona crear experiencias digitales accesibles, intuitivas y visualmente atractivas que conectan
-                marcas con sus audiencias. Nuestro enfoque colaborativo nos permite entender profundamente las
-                necesidades de cada cliente para desarrollar soluciones personalizadas que generan resultados
-                tangibles.
+                Nuestro enfoque data-driven nos permite identificar exactamente qué necesita tu negocio para crecer. 
+                Cada proyecto incluye análisis de mercado, optimización para conversiones y métricas de seguimiento 
+                que garantizan que tu inversión genere{" "}
+                <strong className="bg-gradient-to-r from-mint-400 to-teal-500 dark:from-mint-200 dark:to-teal-300 bg-clip-text text-transparent">
+                  retornos medibles
+                </strong>.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter from={0} to={4} duration={2} />+
-                </h4>
-                <p className="text-sm text-muted-foreground">Años de Experiencia</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter from={0} to={40} duration={2} />+
-                </h4>
-                <p className="text-sm text-muted-foreground">Proyectos Completados</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter from={0} to={30} duration={2} />+
-                </h4>
-                <p className="text-sm text-muted-foreground">Clientes Satisfechos</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter from={0} to={9} duration={2} />+
-                </h4>
-                <p className="text-sm text-muted-foreground">Premios Ganados</p>
-              </div>
-            </div>
+            <GlassStatsGrid stats={aboutStats} className="mb-8" />
 
             <div className="flex gap-4">
               <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>

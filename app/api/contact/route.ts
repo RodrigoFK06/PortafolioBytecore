@@ -45,6 +45,35 @@ const getClientIP = (request: NextRequest): string => {
   return 'unknown'
 }
 
+// Utilidad para adjuntar headers CORS coherentes con el middleware
+function withCORS(res: NextResponse, req: NextRequest) {
+  const origin = req.headers.get("origin") || ""
+  const allowedEnv = process.env.CORS_ALLOWED_ORIGINS || "*"
+  const allowedOrigins = allowedEnv.split(",").map((s) => s.trim()).filter(Boolean)
+  const allowAll = allowedOrigins.includes("*")
+
+  if (allowAll) {
+    res.headers.set("Access-Control-Allow-Origin", "*")
+  } else if (origin && allowedOrigins.includes(origin)) {
+    res.headers.set("Access-Control-Allow-Origin", origin)
+  }
+
+  res.headers.set("Vary", "Origin")
+  res.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+  res.headers.set("Access-Control-Allow-Headers", "Content-Type, x-api-key")
+  return res
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const res = new NextResponse(null, { status: 204 })
+  return withCORS(res, req)
+}
+
+export async function GET(req: NextRequest) {
+  const res = NextResponse.json({ ok: true })
+  return withCORS(res, req)
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Verificar configuración SMTP
@@ -95,38 +124,34 @@ export async function POST(request: NextRequest) {
       // Log exitoso (sin datos sensibles)
       console.log(`Correo enviado exitosamente desde ${clientIP} - ${sanitizedData.email}`)
       
-      return NextResponse.json({
+      const res = NextResponse.json({
         success: true,
         message: '¡Mensaje enviado exitosamente! Te responderemos pronto.'
       }, { status: 200 })
+      return withCORS(res, request)
     } else {
       // Log del error (sin datos sensibles)
       console.error(`Error enviando correo desde ${clientIP}:`, emailResult.message)
       
-      return NextResponse.json({
+      const res = NextResponse.json({
         success: false,
         message: emailResult.message
       }, { status: 500 })
+      return withCORS(res, request)
     }
 
   } catch (error) {
     console.error('Error en API de contacto:', error)
     
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: false,
       message: 'Error interno del servidor. Por favor, intenta nuevamente.'
     }, { status: 500 })
+    return withCORS(res, request)
   }
 }
 
 // Manejar métodos no permitidos
-export async function GET() {
-  return NextResponse.json({
-    success: false,
-    message: 'Método no permitido'
-  }, { status: 405 })
-}
-
 export async function PUT() {
   return NextResponse.json({
     success: false,

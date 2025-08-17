@@ -13,35 +13,34 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "EcoDrive+",
+    title: "EcoDrive+ - ROI 450%",
     description:
-      "Plataforma que transforma cada viaje en una oportunidad, ofreciendo recompensas, regalos y beneficios exclusivos para conductores, con el objetivo de mejorar la calidad de vida de las familias peruanas.",
+      "De startup a líder del mercado: Transformamos su idea en una plataforma que generó +320% más usuarios y S/ 2.5M en valor de mercado. Ahora es referente en su industria.",
     tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
     imageSrc: "/ecodriveplus.webp",
     link: "https://www.ecodriveplus.com/",
-    //githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
+    featured: true
   },
   {
     id: 2,
-    title: "Vigo Tulich Servicios Generales",
+    title: "Vigo Tulich - +200% Consultas",
     description:
-      "Empresa especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería, destacando por su experiencia en el sector industrial y su enfoque en diseños modernos y funcionales.",
+      "Empresa tradicional convertida en líder digital: Su nueva presencia web generó 200% más consultas mensuales y les permitió competir con las grandes constructoras de Lima.",
     tags: ["Astro", "Tailwind CSS"],
     imageSrc: "/vigotulich.webp",
     link: "https://www.vigotulich.site/",
-    //githubLink: "https://github.com/bytecore/vigotulich",
     category: "web",
+    featured: true
   },
   {
     id: 3,
-    title: "Encrypted Escape Room",
+    title: "Encrypted Games - Ingresos 24/7",
     description:
-      "Experiencia de escape room en línea que desafía a los jugadores a resolver enigmas y descifrar códigos en un tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.",
+      "De idea a negocio rentable: Creamos una experiencia que genera ingresos pasivos las 24 horas. Break-even en 2 meses, ahora es un modelo de negocio escalable.",
     tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
     imageSrc: "/encrypted.webp",
     link: "https://kevin-escape-room.vercel.app/",
-    //githubLink: "https://github.com/bytecore/kevin-escape-room",
     category: "web",
   },
   {

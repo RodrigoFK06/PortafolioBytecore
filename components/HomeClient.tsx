@@ -5,6 +5,7 @@ import { HeroSection } from "./sections/HeroSection"
 import { AboutSection } from "./sections/AboutSection"
 import { ServicesSection } from "./sections/ServicesSection"
 import TechnologiesSection from "./sections/TechnologiesSection"
+import { BusinessImpactBanner } from "./business-impact-banner"
 
 // 🔹 Dynamic imports para mejorar rendimiento y evitar enviar JS innecesario al cliente
 const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"), { ssr: false })
@@ -42,6 +43,7 @@ export default function HomeClient() {
       <ChatbotButton />
       <WhatsAppButton />
       <HeroSection />
+      <BusinessImpactBanner />
       <AboutSection />
       <ServicesSection />
       <TechnologiesSection />
