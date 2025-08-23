@@ -79,34 +79,34 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: "Sistema de Gestión Hospitalaria",
+    title: "Agencia. Landing Page",
     description:
-      "Plataforma integral para la gestión hospitalaria, permitiendo la administración eficiente de pacientes, empleados, traslados y otros recursos del hospital. Facilita la gestión de registros médicos, programación de citas, seguimiento de pacientes, y la gestión de inventarios de productos farmacéuticos, todo dentro de una interfaz moderna y fácil de usar.",
-    tags: ["React", "Next.js", "MySQL", "Spring Boot", "Docker"],
-    imageSrc: "/dashboardhms.jpeg",
-    link: "https://portafolio-bytecore.vercel.app/projects", 
+      "Landing page para una agencia de diseño web, destacando sus servicios, proyectos y equipo. Incluye secciones de testimonios, portafolio y un formulario de contacto.",
+    tags: ["React", "Next.js", "Tailwind CSS"],
+    imageSrc: "/agencialandingpage.jpeg",
+    link: "https://landing-page-place-holder.vercel.app/",
     //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
     category: "web",
   },
   {
     id: 8,
-    title: "Aplicación móvil para gestión de producción y venta de bebidas",
+    title: "Rapiditos | Aplicación móvil para delivery",
     description:
-      "Plataforma integral para la gestión hospitalaria, permitiendo la administración eficiente de pacientes, empleados, traslados y otros recursos del hospital. Facilita la gestión de registros médicos, programación de citas, seguimiento de pacientes, y la gestión de inventarios de productos farmacéuticos, todo dentro de una interfaz moderna y fácil de usar.",
+      "Aplicación móvil para la gestión de pedidos de delivery, permitiendo a los usuarios realizar pedidos de manera rápida y sencilla. Incluye funcionalidades como seguimiento de pedidos, gestión de menús y pagos en línea.",
     tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
-    imageSrc: "/unumiskii.jpg",
-    link: "https://portafolio-bytecore.vercel.app/projects",
+    imageSrc: "/rapiditosvz.png",
+    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
     //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
     category: "mobile",
   },
   {
     id: 9,
-    title: "Maquetado y diseño de módulo de administración",
+    title: "Tu sonrisa perfecta landing page",
     description:
-      "Diseño creado con el fin de mantener el estilo de la marca y la funcionalidad de la plataforma, con una interfaz moderna y fácil de usar.",
-    tags: ["Figma", "Adobe XD", "Adobe Illustrator"],
-    imageSrc: "/uxui.png",
-    link: "https://portafolio-bytecore.vercel.app/projects",
+      "Diseño de una landing page para una clínica dental, enfocada en resaltar los servicios ofrecidos y facilitar la captación de nuevos pacientes.",
+    tags: ["Next.js", "Tailwind CSS", "React"],
+    imageSrc: "/sonrisaperfectalanding.jpeg",
+    link: "https://clinica-dental-landing-ten.vercel.app/",
     //githubLink: "https://github.com/bytecore/mantenimiento-jk",
     category: "ui",
   }
