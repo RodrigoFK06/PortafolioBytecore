@@ -23,6 +23,9 @@
   --input: 214.3 31.8% 91.4%;
   --ring: 199 89% 48%;
   --radius: 0.5rem;
+  /* Brand tokens (alias of primary for now) */
+  --brand: 199 89% 48%;
+  --brand-foreground: 210 40% 98%;
 }
 
 .dark {
@@ -45,6 +48,9 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 199 89% 48%;
+  /* Brand tokens (alias of primary for now) */
+  --brand: 199 89% 48%;
+  --brand-foreground: 222 47% 11%;
 }
 
 @layer base {

@@ -14,7 +14,7 @@ export default function ProjectsSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Proyectos <span className="text-primary">Destacados</span>
+              Proyectos <span className="text-brand">Destacados</span>
             </h2>
           </motion.div>
 

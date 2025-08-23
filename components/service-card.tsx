@@ -38,7 +38,7 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
         className="cursor-pointer"
       >
         <div className="p-8 border border-border rounded-lg bg-card hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-          <div className="mb-6 text-primary">
+          <div className="mb-6 text-brand">
             <IconComponent className="h-10 w-10" />
           </div>
           <h3 className="text-xl font-bold mb-3">{title}</h3>
@@ -47,7 +47,7 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
           {/* Botón para abrir modal */}
           <button
             onClick={() => setIsOpen(true)}
-            className="inline-flex items-center text-sm font-medium text-primary group focus:outline-none"
+            className="inline-flex items-center text-sm font-medium text-brand group focus:outline-none"
           >
             Saber más
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -59,7 +59,7 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
       <ServiceModal
         title={title}
         description={description}
-        icon={<IconComponent className="w-12 h-12 text-primary" />}
+  icon={<IconComponent className="w-12 h-12 text-brand" />}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />

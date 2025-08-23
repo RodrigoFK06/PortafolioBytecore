@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Markdown } from "@/components/markdown"
 import { SITE_CONFIG } from "@/lib/constants"
 import type { ChatMessage } from "@/types/chatbot"
+import CursorFollower from "@/components/cursor-follower";
 
 interface SuggestedAction {
   icon: React.ReactNode
@@ -27,10 +28,10 @@ export default function ChatbotButton() {
   const [leadScore, setLeadScore] = useState(0)
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'connecting' | 'error'>('connected')
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const [sessionId] = useState(() => 
-    `session_${Date.now()}_${Math.random().toString(36).substring(2)}`
-  )
+  
+  const [sessionId] = useState(() =>
+      `session_${Date.now()}_${Math.random().toString(36).substring(2)}`
+    )
 
   // Efecto para mostrar/ocultar el botón según scroll
   useEffect(() => {
@@ -70,7 +71,7 @@ Estoy aquí para ayudarte con:
 
   const sendMessage = async () => {
     if (!input.trim() || isTyping) return
-    
+
     const userMessage = input.trim()
     const newUserMessage: ChatMessage = {
       role: "user",
@@ -118,10 +119,10 @@ Estoy aquí para ayudarte con:
       }
     } catch (error) {
       console.error('Error en chatbot:', error)
-      
+
       const errorMessage: ChatMessage = {
         role: "assistant",
-        message: error instanceof Error && error.message.includes('rate limit') 
+        message: error instanceof Error && error.message.includes('rate limit')
           ? "Has enviado muchos mensajes muy rápido. Espera un momento antes de continuar."
           : "Disculpa, hubo un problema de conexión. ¿Podrías intentar de nuevo?",
         timestamp: new Date()
@@ -194,13 +195,13 @@ Estoy aquí para ayudarte con:
               className="relative rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-110 transition-all duration-300 w-16 h-16 hover:shadow-xl hover:shadow-blue-500/25"
             >
               <Bot className="h-8 w-8" />
-              
+
               <motion.div
                 className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              
+
               <motion.div
                 className="absolute -top-2 -left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold"
                 initial={{ scale: 0 }}
@@ -210,7 +211,7 @@ Estoy aquí para ayudarte con:
                 AI
               </motion.div>
             </Button>
-            
+
             <motion.div
               className="absolute bottom-full right-0 mb-2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 pointer-events-none"
               animate={{ opacity: [0, 1, 0] }}
@@ -237,30 +238,29 @@ Estoy aquí para ayudarte con:
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <Bot className="w-6 h-6" />
-                  <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border border-white ${
-                    connectionStatus === 'connected' ? 'bg-green-500' : 
-                    connectionStatus === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'
-                  }`} />
+                  <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border border-white ${connectionStatus === 'connected' ? 'bg-green-500' :
+                      connectionStatus === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'
+                    }`} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-base">ByteBot</h3>
                   <p className="text-xs opacity-90">
-                    {connectionStatus === 'connected' ? 'Asistente IA • En línea' : 
-                     connectionStatus === 'connecting' ? 'Conectando...' : 'Sin conexión'}
+                    {connectionStatus === 'connected' ? 'Asistente IA • En línea' :
+                      connectionStatus === 'connecting' ? 'Conectando...' : 'Sin conexión'}
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 {leadScore > 0 && (
-                  <Badge 
-                    variant="secondary" 
+                  <Badge
+                    variant="secondary"
                     className="text-xs bg-white/20 text-white border-none"
                   >
                     {getScoreLabel(leadScore)}
                   </Badge>
                 )}
-                
+
                 <Button
                   variant="ghost"
                   size="icon"
@@ -316,13 +316,12 @@ Estoy aquí para ayudarte con:
                       <span className="text-xs text-muted-foreground font-medium">ByteBot</span>
                     </div>
                   )}
-                  
+
                   <div
-                    className={`max-w-[85%] p-3 rounded-xl transition-all duration-200 ${
-                      msg.role === "user"
+                    className={`max-w-[85%] p-3 rounded-xl transition-all duration-200 ${msg.role === "user"
                         ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white ml-auto shadow-md"
                         : "bg-muted border border-border shadow-sm"
-                    }`}
+                      }`}
                   >
                     {msg.role === "assistant" ? (
                       <Markdown content={msg.message} />
@@ -332,7 +331,7 @@ Estoy aquí para ayudarte con:
                   </div>
                 </motion.div>
               ))}
-              
+
               {isTyping && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -348,7 +347,7 @@ Estoy aquí para ayudarte con:
                   </div>
                 </motion.div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 
@@ -364,8 +363,8 @@ Estoy aquí para ayudarte con:
                   className="flex-1 border-border focus:border-blue-500 transition-colors"
                   maxLength={1000}
                 />
-                <Button 
-                  size="icon" 
+                <Button
+                  size="icon"
                   onClick={sendMessage}
                   disabled={isTyping || !input.trim()}
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 transition-opacity"
@@ -377,7 +376,7 @@ Estoy aquí para ayudarte con:
                   )}
                 </Button>
               </div>
-              
+
               <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
                 <span>Powered by Gemini AI • ByteCore</span>
                 {input.length > 0 && (
@@ -390,6 +389,7 @@ Estoy aquí para ayudarte con:
           </motion.div>
         )}
       </AnimatePresence>
+      
     </>
   )
 }

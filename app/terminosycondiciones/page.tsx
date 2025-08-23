@@ -16,7 +16,7 @@ export default function TermsAndConditionsPage() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Términos y <span className="text-primary">Condiciones</span>
+              Términos y <span className="text-brand">Condiciones</span>
             </h2>
           </motion.div>
 

@@ -13,7 +13,7 @@ export default function TechnologiesSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Nuestras <span className="text-primary">Tecnologías</span>
+              Nuestras <span className="text-brand">Tecnologías</span>
             </h2>
           </motion.div>
 
@@ -31,7 +31,7 @@ export default function TechnologiesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-primary">Frontend</h3>
+            <h3 className="text-xl font-bold text-brand">Frontend</h3>
             <SkillBar name="React / Next.js" percentage={95} delay={0.1} />
             <SkillBar name="Angular / Ionic" percentage={85} delay={0.2} />
             <SkillBar name="JavaScript / TypeScript" percentage={90} delay={0.3} />
@@ -40,7 +40,7 @@ export default function TechnologiesSection() {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-xl font-bold text-primary">Backend</h3>
+            <h3 className="text-xl font-bold text-brand">Backend</h3>
             <SkillBar name="Node.js / Express" percentage={90} delay={0.1} />
             <SkillBar name="PHP (CodeIgniter / Laravel)" percentage={85} delay={0.2} />
             <SkillBar name="Spring Boot (Java)" percentage={85} delay={0.3} />
@@ -49,7 +49,7 @@ export default function TechnologiesSection() {
           </div>
 
           <div className="hidden md:block space-y-6">
-            <h3 className="text-xl font-bold text-primary">Bases de Datos</h3>
+            <h3 className="text-xl font-bold text-brand">Bases de Datos</h3>
             <SkillBar name="SQL Server / MySQL" percentage={90} delay={0.1} />
             <SkillBar name="PostgreSQL / Oracle" percentage={85} delay={0.2} />
             <SkillBar name="MongoDB / Firebase" percentage={80} delay={0.3} />
@@ -57,7 +57,7 @@ export default function TechnologiesSection() {
           </div>
 
           <div className="hidden lg:block space-y-6">
-            <h3 className="text-xl font-bold text-primary">DevOps & Cloud</h3>
+            <h3 className="text-xl font-bold text-brand">DevOps & Cloud</h3>
             <SkillBar name="AWS / Vercel / Netlify" percentage={80} delay={0.1} />
             <SkillBar name="Docker / Kubernetes" percentage={75} delay={0.2} />
             <SkillBar name="CI/CD Pipelines" percentage={70} delay={0.3} />
@@ -65,7 +65,7 @@ export default function TechnologiesSection() {
           </div>
 
           <div className="hidden lg:block space-y-6">
-            <h3 className="text-xl font-bold text-primary">Seguridad & Arquitectura</h3>
+            <h3 className="text-xl font-bold text-brand">Seguridad & Arquitectura</h3>
             <SkillBar name="Clean Code / SOLID" percentage={95} delay={0.1} />
             <SkillBar name="Arquitectura Hexagonal / CQRS" percentage={85} delay={0.2} />
             <SkillBar name="Autenticación JWT / OAuth" percentage={90} delay={0.3} />

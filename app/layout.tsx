@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
   description:
     "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
+  metadataBase: new URL(baseUrl),
+  alternates: { canonical: "/" },
   keywords: [
     "agencia digital",
     "desarrollo web",
@@ -98,6 +100,39 @@ export default function RootLayout({
     <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          type="application/ld+json"
+          // Organization schema
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ByteCore",
+              url: baseUrl,
+              logo: `${baseUrl}/logoblanco.webp`,
+              sameAs: [
+                "https://github.com/RodrigoFK06",
+                "https://www.linkedin.com/in/rodrigo-torres-bytecore/"
+              ]
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          // WebSite with SearchAction schema
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              url: baseUrl,
+              potentialAction: {
+                "@type": "SearchAction",
+                target: `${baseUrl}/search?q={search_term_string}`,
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

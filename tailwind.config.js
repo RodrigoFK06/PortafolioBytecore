@@ -23,6 +23,16 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        // Aliases and brand token
+        text: "hsl(var(--foreground))",
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
+        // Surface aliases
+        "surface-1": "hsl(var(--card))",
+        "surface-2": "hsl(var(--secondary))",
+        "surface-3": "hsl(var(--popover))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

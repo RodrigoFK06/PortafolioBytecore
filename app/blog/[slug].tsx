@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: BlogPostProps): Promise<Metad
   return {
     title: data.title,
     description: data.description,
+  alternates: { canonical: `/blog/${params.slug}` },
     openGraph: {
       title: data.title,
       description: data.description,
@@ -43,11 +44,24 @@ export default function BlogPostPage({ params }: BlogPostProps) {
 
   return (
     <main className="py-24 px-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">{data.title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-brand">{data.title}</h1>
       <p className="text-muted-foreground mb-6">{data.description}</p>
       <article className="prose prose-neutral dark:prose-invert">
         <Markdown>{content}</Markdown>
       </article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: data.title,
+            description: data.description,
+            image: data.image || "/og-image.webp",
+            mainEntityOfPage: { "@type": "WebPage", "@id": `/blog/${params.slug}` },
+          }),
+        }}
+      />
     </main>
   )
 }

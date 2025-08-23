@@ -49,15 +49,15 @@ export function ExperienceTimeline() {
           className={`relative flex flex-col md:flex-row gap-8 mb-12 ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}
         >
           {/* Timeline dot */}
-          <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center">
-            <Briefcase className="h-5 w-5 text-primary" />
+          <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-background border-2 border-brand flex items-center justify-center">
+            <Briefcase className="h-5 w-5 text-brand" />
           </div>
 
           {/* Content */}
           <div className={`md:w-1/2 ${index % 2 === 0 ? "md:pr-16 text-right" : "md:pl-16"} pl-16 md:pl-0`}>
             <div className="bg-card p-6 rounded-lg shadow-sm border">
               <h3 className="text-xl font-bold">{exp.role}</h3>
-              <p className="text-primary font-medium">{exp.company}</p>
+              <p className="text-brand font-medium">{exp.company}</p>
               <p className="text-sm text-muted-foreground mb-4">{exp.period}</p>
               <p className="text-muted-foreground mb-4">{exp.description}</p>
               <div className="flex flex-wrap gap-2 justify-start">

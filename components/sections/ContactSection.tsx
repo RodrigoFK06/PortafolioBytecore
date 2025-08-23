@@ -22,7 +22,7 @@ export default function ContactSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Ponte en <span className="text-primary">Contacto</span>
+              Ponte en <span className="text-brand">Contacto</span>
             </h2>
           </motion.div>
 
@@ -48,21 +48,21 @@ export default function ContactSection() {
             <h3 className="text-2xl font-bold mb-6">Información de Contacto</h3>
             <div className="space-y-4 mb-8">
               <div className="flex items-start">
-                <Mail className="h-5 w-5 mr-3 mt-1 text-primary" />
+                <Mail className="h-5 w-5 mr-3 mt-1 text-brand" />
                 <div>
                   <h4 className="font-medium">Email</h4>
                   <p className="text-muted-foreground">rodrigoan.torresp@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <Linkedin className="h-5 w-5 mr-3 mt-1 text-primary" />
+                <Linkedin className="h-5 w-5 mr-3 mt-1 text-brand" />
                 <div>
                   <h4 className="font-medium">LinkedIn</h4>
                   <p className="text-muted-foreground">linkedin.com/in/rodrigo-torres-bytecore/</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <Github className="h-5 w-5 mr-3 mt-1 text-primary" />
+                <Github className="h-5 w-5 mr-3 mt-1 text-brand" />
                 <div>
                   <h4 className="font-medium">GitHub</h4>
                   <p className="text-muted-foreground">github.com/RodrigoFK06</p>

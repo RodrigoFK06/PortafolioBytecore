@@ -92,7 +92,7 @@ export function Navbar() {
             >
               <Link
                 href="#about"
-                className={`text-sm transition-colors hover:text-primary ${activeSection === "about" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
+                className={`text-sm transition-colors hover:text-brand ${activeSection === "about" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Nosotros
               </Link>
@@ -104,7 +104,7 @@ export function Navbar() {
             >
               <Link
                 href="#services"
-                className={`text-sm transition-colors hover:text-primary ${activeSection === "services" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
+                className={`text-sm transition-colors hover:text-brand ${activeSection === "services" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Servicios
               </Link>
@@ -116,7 +116,7 @@ export function Navbar() {
             >
               <Link
                 href="#projects"
-                className={`text-sm transition-colors hover:text-primary ${activeSection === "projects" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
+                className={`text-sm transition-colors hover:text-brand ${activeSection === "projects" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Proyectos
               </Link>
@@ -128,7 +128,7 @@ export function Navbar() {
             >
               <Link
                 href="#testimonials"
-                className={`text-sm transition-colors hover:text-primary ${activeSection === "testimonials" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
+                className={`text-sm transition-colors hover:text-brand ${activeSection === "testimonials" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Testimonios
               </Link>
@@ -140,7 +140,7 @@ export function Navbar() {
             >
               <Link
                 href="#contact"
-                className={`text-sm transition-colors hover:text-primary ${activeSection === "contact" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
+                className={`text-sm transition-colors hover:text-brand ${activeSection === "contact" ? "font-black" : theme === "light" ? "text-gray-800 font-bold" : "text-white font-bold"}`}
               >
                 Contacto
               </Link>
@@ -189,7 +189,7 @@ export function Navbar() {
             <nav className="container mx-auto px-4 py-6 flex flex-col space-y-4">
               <Link
                 href="#about"
-                className={`text-foreground text-sm hover:text-primary transition-colors py-2 ${activeSection === "about" ? "text-primary font-medium" : ""
+                className={`text-foreground text-sm hover:text-brand transition-colors py-2 ${activeSection === "about" ? "text-brand font-medium" : ""
                   }`}
                 onClick={closeMenu}
               >
@@ -197,7 +197,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="#services"
-                className={`text-foreground text-sm hover:text-primary transition-colors py-2 ${activeSection === "services" ? "text-primary font-medium" : ""
+                className={`text-foreground text-sm hover:text-brand transition-colors py-2 ${activeSection === "services" ? "text-brand font-medium" : ""
                   }`}
                 onClick={closeMenu}
               >
@@ -205,7 +205,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="#projects"
-                className={`text-foreground text-sm hover:text-primary transition-colors py-2 ${activeSection === "projects" ? "text-primary font-medium" : ""
+                className={`text-foreground text-sm hover:text-brand transition-colors py-2 ${activeSection === "projects" ? "text-brand font-medium" : ""
                   }`}
                 onClick={closeMenu}
               >
@@ -213,7 +213,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="#testimonials"
-                className={`text-foreground text-sm hover:text-primary transition-colors py-2 ${activeSection === "testimonials" ? "text-primary font-medium" : ""
+                className={`text-foreground text-sm hover:text-brand transition-colors py-2 ${activeSection === "testimonials" ? "text-brand font-medium" : ""
                   }`}
                 onClick={closeMenu}
               >
@@ -221,7 +221,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="#contact"
-                className={`text-foreground text-sm hover:text-primary transition-colors py-2 ${activeSection === "contact" ? "text-primary font-medium" : ""
+                className={`text-foreground text-sm hover:text-brand transition-colors py-2 ${activeSection === "contact" ? "text-brand font-medium" : ""
                   }`}
                 onClick={closeMenu}
               >

@@ -15,7 +15,7 @@ export function ServicesSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Nuestros <span className="text-primary">Servicios</span>
+              Nuestros <span className="text-brand">Servicios</span>
             </h2>
           </motion.div>
 
@@ -40,7 +40,7 @@ export function ServicesSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="bg-card p-8 border border-border rounded-lg h-full flex flex-col">
-              <div className="mb-6 text-primary">
+              <div className="mb-6 text-brand">
                 <Layout className="h-12 w-12" />
               </div>
               <h3 className="text-xl font-bold mb-4">Desarrollo Web</h3>
@@ -65,7 +65,7 @@ export function ServicesSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="bg-card p-8 border border-border rounded-lg h-full flex flex-col">
-              <div className="mb-6 text-primary">
+              <div className="mb-6 text-brand">
                 <Palette className="h-12 w-12" />
               </div>
               <h3 className="text-xl font-bold mb-4">Diseño UI/UX</h3>
@@ -90,7 +90,7 @@ export function ServicesSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <div className="bg-card p-8 border border-border rounded-lg h-full flex flex-col">
-              <div className="mb-6 text-primary">
+              <div className="mb-6 text-brand">
                 <Monitor className="h-12 w-12" />
               </div>
               <h3 className="text-xl font-bold mb-4">E-Commerce</h3>

@@ -21,7 +21,7 @@ export function SkillBar({ name, percentage, delay = 0 }: SkillBarProps) {
       </div>
       <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-primary rounded-full"
+          className="h-full bg-brand rounded-full"
           initial={{ width: 0 }}
           animate={isInView ? { width: `${percentage}%` } : { width: 0 }}
           transition={{ duration: 1, delay, ease: "easeOut" }}

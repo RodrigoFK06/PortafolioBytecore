@@ -18,7 +18,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-gray-900 dark:text-white">
-              Testimonios <span className="text-primary">de Clientes</span>
+              Testimonios <span className="text-brand">de Clientes</span>
             </h2>
           </motion.div>
 

@@ -17,7 +17,7 @@ export function AboutSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Sobre <span className="text-primary">Nosotros</span>
+              Sobre <span className="text-brand">Nosotros</span>
             </h2>
           </motion.div>
 
@@ -60,25 +60,25 @@ export function AboutSection() {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
               <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
+                <h4 className="text-3xl font-bold text-brand mb-2">
                   <AnimatedCounter from={0} to={4} duration={2} />+
                 </h4>
                 <p className="text-sm text-muted-foreground">Años de Experiencia</p>
               </div>
               <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
+                <h4 className="text-3xl font-bold text-brand mb-2">
                   <AnimatedCounter from={0} to={40} duration={2} />+
                 </h4>
                 <p className="text-sm text-muted-foreground">Proyectos Completados</p>
               </div>
               <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
+                <h4 className="text-3xl font-bold text-brand mb-2">
                   <AnimatedCounter from={0} to={30} duration={2} />+
                 </h4>
                 <p className="text-sm text-muted-foreground">Clientes Satisfechos</p>
               </div>
               <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary mb-2">
+                <h4 className="text-3xl font-bold text-brand mb-2">
                   <AnimatedCounter from={0} to={9} duration={2} />+
                 </h4>
                 <p className="text-sm text-muted-foreground">Premios Ganados</p>

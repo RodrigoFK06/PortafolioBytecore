@@ -10,7 +10,7 @@ export default function PortfolioPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-            My <span className="text-primary">Portfolio</span>
+            My <span className="text-brand">Portfolio</span>
           </h1>
           <p className="text-muted-foreground mb-8 leading-relaxed">
             A curated selection of my recent work showcasing my skills in design, development, and animation.
