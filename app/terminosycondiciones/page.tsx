@@ -1,5 +1,4 @@
 "use client"
-
 import  CursorFollower  from "@/components/cursor-follower"
 import { motion } from "framer-motion"
 

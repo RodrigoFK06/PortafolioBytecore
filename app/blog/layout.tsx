@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <link rel="alternate" type="application/rss+xml" title="ByteCore Blog RSS" href="/rss.xml" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

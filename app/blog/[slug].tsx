@@ -1,46 +1,43 @@
-// blog/[slug]/page.tsx - Ruta dinámica para cada artículo
-"use client"
-
+// blog/[slug]/page.tsx - Ruta dinámica para cada artículo (Server Component)
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { notFound } from "next/navigation"
 import Markdown from "react-markdown"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
-interface BlogPostProps {
-  params: {
-    slug: string
-  }
+const BLOG_DIR = path.join(process.cwd(), "content/blog")
+
+export async function generateStaticParams() {
+  if (!fs.existsSync(BLOG_DIR)) return []
+  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md"))
+  return files.map((file) => ({ slug: file.replace(/\.md$/, "") }))
 }
 
-export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.md`)
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const filePath = path.join(BLOG_DIR, `${params.slug}.md`)
   if (!fs.existsSync(filePath)) {
     return { title: "Artículo no encontrado" }
   }
-  const fileContent = fs.readFileSync(filePath, "utf-8")
-  const { data } = matter(fileContent)
-
+  const { data } = matter(fs.readFileSync(filePath, "utf-8"))
   return {
     title: data.title,
     description: data.description,
-  alternates: { canonical: `/blog/${params.slug}` },
+    alternates: { canonical: `/blog/${params.slug}` },
     openGraph: {
       title: data.title,
       description: data.description,
-      images: [{ url: data.image || "/fondobytecore.png" }],
+      images: [{ url: data.image || "/og-image.webp" }],
+      type: "article",
     },
   }
 }
 
-export default function BlogPostPage({ params }: BlogPostProps) {
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.md`)
-
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const filePath = path.join(BLOG_DIR, `${params.slug}.md`)
   if (!fs.existsSync(filePath)) return notFound()
 
-  const fileContent = fs.readFileSync(filePath, "utf-8")
-  const { data, content } = matter(fileContent)
+  const { data, content } = matter(fs.readFileSync(filePath, "utf-8"))
 
   return (
     <main className="py-24 px-6 max-w-4xl mx-auto">

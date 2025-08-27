@@ -133,6 +133,26 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          type="application/ld+json"
+          // LocalBusiness schema
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "ByteCore",
+              url: baseUrl,
+              image: `${baseUrl}/og-image.webp`,
+              telephone: "+51 961 869 348",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "PE",
+                addressLocality: "Lima",
+              },
+              areaServed: "PE",
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
