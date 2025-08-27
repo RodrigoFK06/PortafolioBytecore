@@ -1,7 +1,12 @@
 import { projects } from "@/data/projects"
 
-export default function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const q = (searchParams?.q || "").toLowerCase().trim()
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>
+}) {
+  const { q: rawQ } = await searchParams
+  const q = (rawQ || "").toLowerCase().trim()
   const results = q
     ? projects.filter((p) => [p.title, p.description, ...(p.tags || [])].some((v) => v?.toLowerCase().includes(q)))
     : []
