@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bytecore · Cotización & Propuesta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+</head>
+<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+  <!-- Top Bar -->
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Bytecore
+        </span>
+  <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Notas & Constancias (módulo servicios)</span>
+  <span class="hidden sm:inline-flex rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Tiempo de entrega: ≈ 2–3 días hábiles (≈ 10 h)</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" aria-selected="true" data-active="true" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización 1‑página
+        </button>
+        <button id="btnProposal" role="tab" aria-selected="false" data-active="false" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Propuesta detallada
+        </button>
+  <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Wrapper -->
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <!-- Client Info Card -->
+    <section class="page rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Cotización & Propuesta — Notas y Constancias en Servicios</h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Documento listo para enviar. Modo claro/oscuro, badges y cajas suaves.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Versión 1.0</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Vigencia: 7 días</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Datos del cliente</h3>
+            <div class="mt-2 text-sm">
+              <p><span class="font-semibold">Cliente/empresa:</span> SOLUTEC</p>
+              <p><span class="font-semibold">Contacto:</span> Dharcy Villafuerte</p>
+              <p><span class="font-semibold">Rubro:</span> Reparación y mantenimiento de electrodomésticos</p>
+              <p><span class="font-semibold">Fecha:</span> [26/8/2025]</p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Resumen</h3>
+            <p class="mt-2 text-sm leading-relaxed">Se añadirá un apartado de Notas y Advertencias dentro del módulo de servicios para registrar observaciones, advertencias y recomendaciones, con búsqueda/filtros, y generación de constancia en PDF (formato tipo boleta: encabezado, cuerpo, pie con responsables y espacio para firma), lista para imprimir/descargar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs content -->
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <!-- QUOTE (A) -->
+      <section id="quote" class="p-6 sm:p-8 space-y-8">
+        <!-- Alcance -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">Alcance</h2>
+          <ul class="mt-3 grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm list-disc pl-5">
+            <li>Sección “Notas y Advertencias” en el detalle del servicio (botón y panel).</li>
+            <li>Campos: título, contenido, tipo (nota/advertencia), prioridad y etiquetas (opcional).</li>
+            <li>Listado y búsqueda por servicio, técnico, fecha y tipo; filtros rápidos.</li>
+            <li>Historial de notas por servicio (orden cronológico) y control de edición/eliminación.</li>
+            <li>Plantilla PDF tipo boleta/constancia (A4, 1 página): encabezado con logo/datos del cliente, cuerpo de la nota, metadatos (fecha/hora/servicio/técnico), pie con responsable y espacio de firma.</li>
+            <li>Imprimir/Descargar con numeración simple y previsualización.</li>
+            <li>Permisos básicos (solo roles autorizados) y validaciones de campos requeridos.</li>
+            <li>Exclusiones de esta cotización: múltiples plantillas avanzadas, firma digital certificada, QR, envío por email automatizado, integración con ERP/BI. Se pueden cotizar como add-ons.</li>
+          </ul>
+        </div>
+
+        <!-- Cronograma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">Cronograma (días hábiles)</h2>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Fase</th>
+                  <th class="py-2 px-3">Actividades</th>
+                  <th class="py-2 px-3 text-right">Duración</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Descubrimiento & UI</td>
+                  <td class="py-3 px-3">Brief, accesos, wireframe y micro-copys</td>
+                  <td class="py-3 px-3 text-right">1</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Implementación CRUD</td>
+                  <td class="py-3 px-3">Alta/edición/eliminación y listado/filtros</td>
+                  <td class="py-3 px-3 text-right">1</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">PDF & QA</td>
+                  <td class="py-3 px-3">Plantilla PDF, numeración, pruebas e impresión</td>
+                  <td class="py-3 px-3 text-right">0–1</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Lanzamiento</td>
+                  <td class="py-3 px-3">Handoff, mini capacitación y checklist</td>
+                  <td class="py-3 px-3 text-right">0–1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Total estimado: <span class="font-semibold">≈ 2–3</span> días hábiles (según entregables a tiempo).</p>
+        </div>
+
+        <!-- Inversión -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <div class="flex items-end justify-between gap-3">
+            <h2 class="text-lg font-semibold">Inversión</h2>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Descuento 10% por pago 100% adelantado</span>
+              <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Moneda: PEN</span>
+            </div>
+          </div>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Ítem</th>
+                  <th class="py-2 px-3 text-center">Qty</th>
+                  <th class="py-2 px-3 text-center">Unit</th>
+                  <th class="py-2 px-3 text-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Estructura y campos de notas</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">80.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">UI/UX de registro y filtros</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">120.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">CRUD + listado/búsqueda</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">160.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Plantilla PDF tipo constancia</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">100.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Impresión/descarga + numeración</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">40.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-neutral-500">Subtotal</td>
+                  <td class="py-2 px-3 text-right font-semibold">S/ 500.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-[#1D4E6A] dark:text-[#D6EFF2]">Descuento pago 100% (-10%)</td>
+                  <td class="py-2 px-3 text-right font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">- S/ 50.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-neutral-500">Subtotal con descuento (Total)</td>
+                  <td class="py-2 px-3 text-right font-semibold">S/ 450.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Terminos / Requisitos / CTA -->
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 md:col-span-2">
+            <h2 class="text-lg font-semibold">Términos de pago y vigencia</h2>
+            <ul class="mt-3 text-sm space-y-2">
+              <li>Estándar: <span class="font-semibold">50% inicio</span> · <span class="font-semibold">50%</span> contra aprobación antes del go‑live.</li>
+              <li>Alternativa: <span class="font-semibold">100% adelantado</span> (<span class="font-semibold">-10% de descuento</span>).</li>
+              <li>Métodos: transferencia bancaria, Yape/Plin, tarjeta (Stripe/Culqi).</li>
+              <li>Vigencia de la oferta: <span class="font-semibold">7 días</span> calendario.</li>
+              <li>Formato incluido: A4, 1 página, diseño simple. Variantes adicionales o rediseños se cotizan aparte.</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+            <h2 class="text-lg font-semibold">Requisitos del cliente</h2>
+            <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+              <li>Logo e identidad (para encabezado PDF), datos de cabecera de la constancia (razón social, RUC/DNI, dirección si aplica).</li>
+              <li>Ejemplos de nota y advertencia reales y campos obligatorios.</li>
+              <li>Definición de roles/permiso para crear/editar/eliminar/descargar.</li>
+              <li>Lineamientos de micro-copy y textos legales (si aplica).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Total honorarios: <span class="font-semibold">S/ 450.00</span> (con descuento aplicado)</span>
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Ahorro por pago anticipado: <span class="font-semibold">S/ 50.00</span> — Nota: Si no se aplica descuento, el total permanece en S/ 500.00.</span>
+          </div>
+          <!--<div class="no-print flex items-center gap-2">
+            <a href="#firma" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">Aprobar ahora</a>
+            <a href="https://cal.com/" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar reunión</a>
+          </div> -->
+        </div>
+
+        <!-- FAQ estilo chips -->
+        <div class="mt-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+          <div class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Importantes</div>
+          <div class="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="font-semibold">¿Cuánto demora el proyecto?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">≈ <strong>2–3 días hábiles</strong> (≈ 10 h) desde la recepción de materiales y accesos.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿Cómo son las formas de pago?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">50/50 (inicio/aprobación). Con pago 100% adelantado aplicamos <strong>10% de descuento</strong>.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿El PDF es editable?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">Se entrega plantilla fija (A4, 1 página) con tus datos y logo; variantes adicionales son add-on.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿Incluye firma digital/QR/envío por email?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">No, están fuera de alcance. Pueden cotizarse como add-ons.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROPOSAL (B) -->
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-8">
+        <!-- Contexto -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">1) Contexto y objetivos</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>registro ordenado de notas y emisión de constancias imprimibles.</li>
+          </ul>
+        </div>
+
+        <!-- Solución y entregables -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+          <h2 class="text-lg font-semibold">2) Solución y entregables (por módulo)</h2>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Sección Notas</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Botón y panel en detalle del servicio.</li>
+                <li>Campos: título, contenido, tipo, prioridad, etiquetas.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">CRUD y filtros</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Alta/edición/eliminación.</li>
+                <li>Listado, búsqueda y filtros rápidos.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Plantilla PDF</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Formato tipo boleta/constancia (A4, 1 página).</li>
+                <li>Encabezado, cuerpo, metadatos y pie con firma.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Numeración</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Numeración simple y previsualización.</li>
+                <li>Descarga/impresión.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Permisos básicos</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Roles autorizados para crear/editar/eliminar/descargar.</li>
+                <li>Validaciones de campos requeridos.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Historial</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Orden cronológico por servicio.</li>
+                <li>Control de edición/eliminación.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan de trabajo -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">3) Plan de trabajo y hitos (Gantt simple)</h2>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Semana</th>
+                  <th class="py-2 px-3">Hito</th>
+                  <th class="py-2 px-3">Entregable</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">1</td>
+                  <td class="py-3 px-3">Kickoff + accesos + definición de evidencias/estados</td>
+                  <td class="py-3 px-3">Brief validado</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">2</td>
+                  <td class="py-3 px-3">Implementación CRUD</td>
+                  <td class="py-3 px-3">Alta/edición/listado + filtros</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">3</td>
+                  <td class="py-3 px-3">PDF & QA</td>
+                  <td class="py-3 px-3">Plantilla, numeración, pruebas</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">4</td>
+                  <td class="py-3 px-3">Lanzamiento</td>
+                  <td class="py-3 px-3">Handoff + mini capacitación</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">6</td>
+                  <td class="py-3 px-3">Lanzamiento + capacitación</td>
+                  <td class="py-3 px-3">Módulo listo + handoff + grabación</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Inversión y Addons -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+  <h2 class="text-lg font-semibold">4) Inversión desglosada + opciones</h2>
+  <p class="text-sm">Paquete base: <span class="font-semibold">S/ 500.00</span> · Descuento -10%: <span class="font-semibold">S/ 50.00</span> · Total con descuento: <span class="font-semibold">S/ 450.00</span>.</p>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+      <h3 class="font-semibold">Add‑ons opcionales</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+    <li>Firma digital certificada / código QR con verificación</li>
+    <li>Múltiples plantillas PDF (boleta, constancia extendida, aviso)</li>
+    <li>Envío por email automático con adjunto</li>
+    <li>Soporte mensual (hasta 6 h, SLA 24–72 h): <strong>S/ 450.00 / mes</strong></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Totales de referencia</h3>
+              <ul class="mt-2 space-y-1">
+    <li>Subtotal: <strong>S/ 500.00</strong></li>
+    <li>Descuento pago 100% (-10%): <strong>- S/ 50.00</strong></li>
+    <li>Subtotal con descuento (Total): <strong>S/ 450.00</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soporte / Supuestos / Firma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+          <h2 class="text-lg font-semibold">5) Soporte, mantenimiento, garantías y SLA</h2>
+          <ul class="mt-2 text-sm list-disc pl-5 space-y-1">
+            <li>Garantía 2 meses por defectos de implementación.</li>
+            <li>Soporte post‑lanzamiento 30 días (incluido).</li>
+            <li>SLA: respuestas en 24–72 h hábiles según severidad.</li>
+          </ul>
+          <h2 class="text-lg font-semibold mt-6">6) Supuestos, exclusiones, PI y confidencialidad</h2>
+          <ul class="mt-2 text-sm list-disc pl-5 space-y-1">
+            <li>Sin ERP/BI, sin firma digital/QR, sin plantillas múltiples por defecto.</li>
+            <li>PI/NDA conforme normativa peruana vigente.</li>
+          </ul>
+          <h2 id="firma" class="text-lg font-semibold mt-6">7) Firma / aceptación</h2>
+          <div class="mt-3 grid md:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">Nombre / Cargo</p>
+              <div class="mt-8 border-t border-dashed border-neutral-300 dark:border-neutral-700 pt-6">[_____________________________________]</div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">DNI / RUC</p>
+              <div class="mt-8 border-t border-dashed border-neutral-300 dark:border-neutral-700 pt-6">[_____________________________________]</div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">Método de pago</p>
+              <div class="mt-4 space-y-2">
+        <label class="flex items-center gap-2"><input type="checkbox" class="accent-[#328298]"> 50/50</label>
+        <label class="flex items-center gap-2"><input type="checkbox" class="accent-[#328298]"> 100% (-10%)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-print flex items-center gap-2">
+      <a href="#" onclick="window.print()" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">Descargar PDF</a>
+          <!-- <a href="https://cal.com/" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar reunión</a> -->
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+  const SELECTED = ['bg-[#328298]','text-white'];
+  const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+  const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+  const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.setAttribute('aria-selected','true');
+        btn.dataset.active = 'true';
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+        btn.setAttribute('aria-selected','false');
+        btn.dataset.active = 'false';
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    // Estado inicial
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>

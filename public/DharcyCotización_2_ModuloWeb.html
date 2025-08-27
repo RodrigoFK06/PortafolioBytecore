@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bytecore · Cotización & Propuesta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+</head>
+<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+  <!-- Top Bar -->
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Bytecore
+        </span>
+  <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Módulo web (sistema existente)</span>
+  <span class="hidden sm:inline-flex rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Tiempo de entrega: ≈ 10–12 días hábiles (≈ 40 h)</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" aria-selected="true" data-active="true" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización 1‑página
+        </button>
+        <button id="btnProposal" role="tab" aria-selected="false" data-active="false" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Propuesta detallada
+        </button>
+  <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Wrapper -->
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <!-- Client Info Card -->
+    <section class="page rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Cotización & Propuesta — Módulo web de seguimiento de técnicos (sin notificaciones)</h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Documento listo para enviar. Modo claro/oscuro, badges y cajas suaves.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Versión 1.0</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Vigencia: 7 días</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Datos del cliente</h3>
+            <div class="mt-2 text-sm">
+              <p><span class="font-semibold">Cliente/empresa:</span> SOLUTEC</p>
+              <p><span class="font-semibold">Contacto:</span> Dharcy Villafuerte</p>
+              <p><span class="font-semibold">Rubro:</span> Reparación y mantenimiento de electrodomésticos</p>
+              <p><span class="font-semibold">Fecha:</span> [26/8/2025]</p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Resumen</h3>
+            <p class="mt-2 text-sm leading-relaxed">Módulo web responsivo dentro del sistema actual para registrar entradas y salidas de técnicos con evidencia obligatoria (ubicación del navegador + foto con timestamp), agenda de actividades programadas, visualización de premios/penalidades y validación desde el panel administrativo. Sin notificaciones push (puede evaluarse como add-on).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs content -->
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <!-- QUOTE (A) -->
+      <section id="quote" class="p-6 sm:p-8 space-y-8">
+        <!-- Alcance -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">Alcance</h2>
+          <ul class="mt-3 grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm list-disc pl-5">
+            <li>Acceso con sesión existente y perfil básico del técnico.</li>
+            <li>Agenda: actividades asignadas (hoy/próximas), estados y detalle.</li>
+            <li>Check-in / Check-out con Geolocation API y captura de foto desde cámara/navegador con hora.</li>
+            <li>Evidencias: guardado seguro y traza (fecha, hora y geo).</li>
+            <li>Premios/penalidades (reglas básicas y visualización al técnico).</li>
+            <li>Admin (básico): consulta/validación de evidencias y exportación CSV simple.</li>
+            <li>Sin notificaciones push (el sistema web mostrará alertas/estados en pantalla).</li>
+          </ul>
+        </div>
+
+        <!-- Cronograma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">Cronograma (días hábiles)</h2>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Fase</th>
+                  <th class="py-2 px-3">Actividades</th>
+                  <th class="py-2 px-3 text-right">Duración</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Descubrimiento</td>
+                  <td class="py-3 px-3">Kickoff, accesos, definición de evidencias/estados</td>
+                  <td class="py-3 px-3 text-right">2</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">UX/UI web</td>
+                  <td class="py-3 px-3">Flujo, wireframes y UI clave (lista/agenda/detalle/check-in)</td>
+                  <td class="py-3 px-3 text-right">3</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Implementación módulo web</td>
+                  <td class="py-3 px-3">Datos, pantallas, flujos y validaciones</td>
+                  <td class="py-3 px-3 text-right">4</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Integraciones + QA</td>
+                  <td class="py-3 px-3">Geolocalización, cámara, pruebas y ajustes</td>
+                  <td class="py-3 px-3 text-right">2</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Lanzamiento</td>
+                  <td class="py-3 px-3">Handoff, capacitación breve y checklist</td>
+                  <td class="py-3 px-3 text-right">1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Total estimado: <span class="font-semibold">≈ 10–12</span> días hábiles (según entregables a tiempo).</p>
+        </div>
+
+        <!-- Inversión -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <div class="flex items-end justify-between gap-3">
+            <h2 class="text-lg font-semibold">Inversión</h2>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Descuento 10% por pago 100% adelantado</span>
+              <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Moneda: PEN</span>
+            </div>
+          </div>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Ítem</th>
+                  <th class="py-2 px-3 text-center">Qty</th>
+                  <th class="py-2 px-3 text-center">Unit</th>
+                  <th class="py-2 px-3 text-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Análisis y definición funcional</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">200.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">UI web responsiva (componentes/estados)</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">250.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Agenda y listados</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">250.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Check-in/out con geo + foto (navegador)</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">350.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Validación/admin básico</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">200.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Reportes y exportación CSV</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">100.00</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">QA y capacitación</td>
+                  <td class="py-3 px-3 text-center">1</td>
+                  <td class="py-3 px-3 text-center">S/</td>
+                  <td class="py-3 px-3 text-right font-medium">50.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-neutral-500">Subtotal</td>
+                  <td class="py-2 px-3 text-right font-semibold">S/ 1,400.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-[#1D4E6A] dark:text-[#D6EFF2]">Descuento pago 100% (-10%)</td>
+                  <td class="py-2 px-3 text-right font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">- S/ 140.00</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="py-2 px-3 text-right text-neutral-500">Subtotal con descuento (Total)</td>
+                  <td class="py-2 px-3 text-right font-semibold">S/ 1,260.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Terminos / Requisitos / CTA -->
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 md:col-span-2">
+            <h2 class="text-lg font-semibold">Términos de pago y vigencia</h2>
+            <ul class="mt-3 text-sm space-y-2">
+              <li>Estándar: <span class="font-semibold">50% inicio</span> · <span class="font-semibold">50%</span> contra aprobación antes del go‑live.</li>
+              <li>Alternativa: <span class="font-semibold">100% adelantado</span> (<span class="font-semibold">-10% de descuento</span>).</li>
+              <li>Métodos: transferencia bancaria, Yape/Plin, tarjeta (Stripe/Culqi).</li>
+              <li>Vigencia de la oferta: <span class="font-semibold">7 días</span> calendario.</li>
+              <li>Notificaciones push no incluidas en el módulo web; pueden cotizarse como add-on o implementarse en la app móvil (ver Presupuesto 1).</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+            <h2 class="text-lg font-semibold">Requisitos del cliente</h2>
+            <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+              <li>Accesos al sistema existente (dev/stage), roles y endpoints necesarios.</li>
+              <li>Aceptación explícita del uso de Geolocalización y cámara en el navegador.</li>
+              <li>Definición de reglas de premios/penalidades y estados operativos.</li>
+              <li>Textos de pantallas y políticas de privacidad actualizadas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Total honorarios: <span class="font-semibold">S/ 1,260.00</span> (con descuento aplicado)</span>
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Ahorro por pago anticipado: <span class="font-semibold">S/ 140.00</span> — Nota: Si no se aplica descuento, el total permanece en S/ 1,400.00.</span>
+          </div>
+          <!--<div class="no-print flex items-center gap-2">
+            <a href="#firma" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">Aprobar ahora</a>
+            <a href="https://cal.com/" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar reunión</a>
+          </div> -->
+        </div>
+
+        <!-- FAQ estilo chips -->
+        <div class="mt-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+          <div class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Importantes</div>
+          <div class="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="font-semibold">¿Cuánto demora el proyecto?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">≈ <strong>10–12 días hábiles</strong> (≈ 40 h) desde la recepción de materiales y accesos.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿Cómo son las formas de pago?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">50/50 (inicio/aprobación). Con pago 100% adelantado aplicamos <strong>10% de descuento</strong>.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿Qué pasa con las notificaciones?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">Este módulo web no incluye push. Se muestran alertas/estados en pantalla. Push puede cotizarse como add-on o va en la app móvil.</p>
+            </div>
+            <div>
+              <p class="font-semibold">¿Privacidad y evidencias (GPS/foto)?</p>
+              <p class="text-neutral-600 dark:text-neutral-400">Se solicitan permisos del navegador y se guardan fecha, hora y ubicación solo para control operativo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROPOSAL (B) -->
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-8">
+        <!-- Contexto -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">1) Contexto y objetivos</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>puntualidad, trazabilidad y evidencias dentro del sistema actual.</li>
+          </ul>
+        </div>
+
+        <!-- Solución y entregables -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+          <h2 class="text-lg font-semibold">2) Solución y entregables (por módulo)</h2>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Sesión/Perfil</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Acceso con sesión existente (SSO o login actual).</li>
+                <li>Perfil básico del técnico.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Agenda</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Actividades asignadas (hoy/próximas).</li>
+                <li>Estados y detalle por servicio.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Check‑in / Check‑out</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Geolocation API + foto desde navegador con timestamp.</li>
+                <li>Validación de permisos y estados.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Evidencias</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Almacenamiento seguro y traza (fecha/hora/geo).</li>
+                <li>Exportación simple.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Admin básico</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Consulta/validación de evidencias; historial por técnico/servicio.</li>
+                <li>Métricas básicas de cumplimiento.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Reporte CSV</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Exportación CSV simple por rangos de fechas.</li>
+                <li>Descarga por técnico/servicio.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan de trabajo -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">3) Plan de trabajo y hitos (Gantt simple)</h2>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Semana</th>
+                  <th class="py-2 px-3">Hito</th>
+                  <th class="py-2 px-3">Entregable</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">1</td>
+                  <td class="py-3 px-3">Kickoff + accesos + definición de evidencias/estados</td>
+                  <td class="py-3 px-3">Brief validado</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">1–2</td>
+                  <td class="py-3 px-3">UX/UI web</td>
+                  <td class="py-3 px-3">Flujo + wireframes + UI clave</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">3–4</td>
+                  <td class="py-3 px-3">Implementación módulo web</td>
+                  <td class="py-3 px-3">Datos + pantallas + flujos</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">5</td>
+                  <td class="py-3 px-3">Integraciones + QA</td>
+                  <td class="py-3 px-3">Geolocalización y cámara verificados; pruebas ok</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">6</td>
+                  <td class="py-3 px-3">Lanzamiento + capacitación</td>
+                  <td class="py-3 px-3">Módulo listo + handoff + grabación</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Inversión y Addons -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+  <h2 class="text-lg font-semibold">4) Inversión desglosada + opciones</h2>
+  <p class="text-sm">Paquete base: <span class="font-semibold">S/ 1,400.00</span> · Descuento -10%: <span class="font-semibold">S/ 140.00</span> · Total con descuento: <span class="font-semibold">S/ 1,260.00</span>.</p>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+      <h3 class="font-semibold">Add‑ons opcionales</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+    <li>App móvil con push: <strong>S/ 2,100.00</strong> (ver Presupuesto 1)</li>
+    <li>Notificaciones por correo/SMS: <strong>a cotizar según proveedor</strong></li>
+    <li>Soporte mensual (hasta 6 h, SLA 24–72 h): <strong>S/ 450.00 / mes</strong></li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Totales de referencia</h3>
+              <ul class="mt-2 space-y-1">
+    <li>Subtotal: <strong>S/ 1,400.00</strong></li>
+    <li>Descuento pago 100% (-10%): <strong>- S/ 140.00</strong></li>
+    <li>Subtotal con descuento (Total): <strong>S/ 1,260.00</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soporte / Supuestos / Firma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-4">
+          <h2 class="text-lg font-semibold">5) Soporte, mantenimiento, garantías y SLA</h2>
+          <ul class="mt-2 text-sm list-disc pl-5 space-y-1">
+            <li>Garantía 2 meses por defectos de implementación.</li>
+            <li>Soporte post‑lanzamiento 30 días (incluido).</li>
+            <li>SLA: respuestas en 24–72 h hábiles según severidad.</li>
+          </ul>
+          <h2 class="text-lg font-semibold mt-6">6) Supuestos, exclusiones, PI y confidencialidad</h2>
+          <ul class="mt-2 text-sm list-disc pl-5 space-y-1">
+            <li>No incluye ERP/biometría; no incluye push.</li>
+            <li>PI/NDA conforme normativa peruana vigente.</li>
+          </ul>
+          <h2 id="firma" class="text-lg font-semibold mt-6">7) Firma / aceptación</h2>
+          <div class="mt-3 grid md:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">Nombre / Cargo</p>
+              <div class="mt-8 border-t border-dashed border-neutral-300 dark:border-neutral-700 pt-6">[_____________________________________]</div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">DNI / RUC</p>
+              <div class="mt-8 border-t border-dashed border-neutral-300 dark:border-neutral-700 pt-6">[_____________________________________]</div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4">
+              <p class="text-neutral-500">Método de pago</p>
+              <div class="mt-4 space-y-2">
+        <label class="flex items-center gap-2"><input type="checkbox" class="accent-[#328298]"> 50/50</label>
+        <label class="flex items-center gap-2"><input type="checkbox" class="accent-[#328298]"> 100% (-10%)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-print flex items-center gap-2">
+      <a href="#" onclick="window.print()" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">Descargar PDF</a>
+          <!-- <a href="https://cal.com/" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar reunión</a> -->
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+  const SELECTED = ['bg-[#328298]','text-white'];
+  const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+  const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+  const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.setAttribute('aria-selected','true');
+        btn.dataset.active = 'true';
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+        btn.setAttribute('aria-selected','false');
+        btn.dataset.active = 'false';
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    // Estado inicial
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>
