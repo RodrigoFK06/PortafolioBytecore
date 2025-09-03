@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bytecore · Cotización & Propuesta — Chatbot WhatsApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+    }
+    pre { white-space: pre-wrap; }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#25D366', hover:'#1EA654', deep:'#128C7E', tint:'#E7F8EF' }
+    }}}}
+  </script>
+</head>
+<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+  <!-- Top Bar -->
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Bytecore
+        </span>
+        <span class="hidden sm:inline-flex rounded-full bg-[color:var(--tw-prose-invert-hr,theme(colors.brand.tin t))] bg-[#E7F8EF] text-[#128C7E] dark:bg-[#128C7E]/30 dark:text-[#E7F8EF] px-3 py-1 text-xs font-medium">Chatbot WhatsApp (pago previo)</span>
+        <span class="hidden sm:inline-flex rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs">Tiempo de entrega: 10–12 días hábiles</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" aria-selected="true" data-active="true" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización 1‑página
+        </button>
+        <button id="btnProposal" role="tab" aria-selected="false" data-active="false" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Propuesta detallada
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#25D366] text-[#05300f] hover:bg-[#1EA654]">
+          Descargar PDF
+        </button>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Wrapper -->
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <!-- Client Info Card -->
+    <section class="page rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Cotización & Propuesta — Chatbot WhatsApp con pago previo, validación humana y entregables IA</h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Documento listo para enviar. Modo claro/oscuro, tabs y tablas. Incluye CTA para aprobación y agenda.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Versión 1.0</span>
+            <span class="rounded-full bg-[#E7F8EF] text-[#128C7E] dark:bg-[#128C7E]/30 dark:text-[#E7F8EF] px-3 py-1 text-xs font-semibold">Vigencia: 7 días</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Datos del cliente</h3>
+            <div class="mt-2 text-sm">
+              <p><span class="font-semibold">Cliente/empresa:</span> [Cliente]</p>
+              <p><span class="font-semibold">Contacto:</span> [Nombre / email / celular]</p>
+              <p><span class="font-semibold">Rubro:</span> —</p>
+              <p><span class="font-semibold">Fecha:</span> 03/09/2025</p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Resumen</h3>
+            <p class="mt-2 text-sm leading-relaxed">Asistente en WhatsApp Business con 3 menús (FAQs, Precios/Promos, Asesorías/Planes). Pago previo obligatorio, validación humana del comprobante y entrega IA (texto en Plan A / PDF/Excel en Plan B). Orquestación n8n, Redis para contexto (4–5 mensajes) y seguimiento 3–7 días post‑compra.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <!-- QUOTE (A) -->
+      <section id="quote" class="p-6 sm:p-8 space-y-8">
+        <!-- Resumen ejecutivo destacado -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">1) Resumen ejecutivo</h2>
+          <div class="mt-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800 text-sm">
+            Asistente en WhatsApp Business con menús de FAQs, Precios/Promos y Asesorías/Planes. Pago previo obligatorio, validación humana del comprobante y entrega IA (texto en A / PDF/Excel en B). n8n para orquestación; Redis para memoria corta (4–5 mensajes) y rate‑limit; seguimiento 3–7 días post‑compra.
+          </div>
+        </div>
+
+        <!-- Cronograma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">2) Cronograma (días hábiles)</h2>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500">
+                  <th class="py-2 px-3">Fase</th>
+                  <th class="py-2 px-3">Hito</th>
+                  <th class="py-2 px-3 text-right">Días</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Descubrimiento & diseño conversacional</td>
+                  <td class="py-3 px-3">Árbol de flujo aprobado</td>
+                  <td class="py-3 px-3 text-right">1–2</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Setup WABA, n8n, webhooks, pasarela</td>
+                  <td class="py-3 px-3">Sandbox OK</td>
+                  <td class="py-3 px-3 text-right">2</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Flujos + pago previo + validación</td>
+                  <td class="py-3 px-3">Demo end‑to‑end</td>
+                  <td class="py-3 px-3 text-right">4–5</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">UAT + hardening + métricas</td>
+                  <td class="py-3 px-3">Checklist UAT</td>
+                  <td class="py-3 px-3 text-right">2</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-medium">Producción + training</td>
+                  <td class="py-3 px-3">Go‑live</td>
+                  <td class="py-3 px-3 text-right">1</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="py-2 px-3 text-right text-neutral-500">Total estimado</td>
+                  <td class="py-2 px-3 text-right font-semibold">10–12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Los tiempos dependen de accesos, corpus y pasarelas.</p>
+        </div>
+
+        <!-- Inversión – Setup único (PEN) y OPEX -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Setup -->
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+            <h2 class="text-lg font-semibold">3) Inversión – Setup único (PEN)</h2>
+            <div class="mt-3 overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+                <thead>
+                  <tr class="text-left text-neutral-500">
+                    <th class="py-2 px-3">Ítem</th>
+                    <th class="py-2 px-3 text-right">Hrs</th>
+                    <th class="py-2 px-3 text-right">Subtotal (PEN)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Descubrimiento & diseño conversacional</td><td class="py-3 px-3 text-right">6</td><td class="py-3 px-3 text-right">213.33</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Setup WABA, n8n, webhooks</td><td class="py-3 px-3 text-right">8</td><td class="py-3 px-3 text-right">284.44</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Flujos base + pago previo + validación</td><td class="py-3 px-3 text-right">16</td><td class="py-3 px-3 text-right">568.89</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Orquestación n8n + seguimiento 3–7 días</td><td class="py-3 px-3 text-right">6</td><td class="py-3 px-3 text-right">213.33</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Redis (memoria / rate‑limit)</td><td class="py-3 px-3 text-right">3</td><td class="py-3 px-3 text-right">106.67</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">QA/UAT, observabilidad, hardening</td><td class="py-3 px-3 text-right">4</td><td class="py-3 px-3 text-right">142.22</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Go‑live + capacitación</td><td class="py-3 px-3 text-right">2</td><td class="py-3 px-3 text-right">71.11</td></tr>
+                  <tr><td colspan="2" class="py-2 px-3 text-right text-neutral-500">Total Plan A</td><td class="py-2 px-3 text-right font-semibold">S/ 1,600.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">ASR + generador PDF/Excel (Plan B)</td><td class="py-3 px-3 text-right">+12</td><td class="py-3 px-3 text-right">+S/ 432.00</td></tr>
+                  <tr><td colspan="2" class="py-2 px-3 text-right text-neutral-500">Total Plan B</td><td class="py-2 px-3 text-right font-semibold">S/ 2,032.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Sin IGV. Si requiere factura, adicionar 18%.</p>
+          </div>
+
+          <!-- OPEX -->
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+            <h2 class="text-lg font-semibold">4) OPEX mensual (con supuestos)</h2>
+            <div class="mt-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800 text-sm">
+              <p><span class="font-semibold">Cálculo WA:</span> Servicio/utilidad 1,000 × US$ 0.02 = US$ 20.00; Marketing 100 × US$ 0.07 = US$ 7.00 → <span class="font-semibold">Total WA: US$ 27.00/mes</span></p>
+              <p class="mt-1"><span class="font-semibold">LLM (GPT‑4o mini):</span> ~0.33M tokens in + 0.33M out ≈ <span class="font-semibold">US$ 1.00/mes</span></p>
+            </div>
+            <div class="mt-3 overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+                <thead>
+                  <tr class="text-left text-neutral-500">
+                    <th class="py-2 px-3">Componente</th>
+                    <th class="py-2 px-3 text-right">Plan A (USD)</th>
+                    <th class="py-2 px-3 text-right">Plan B (USD)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">WhatsApp API (1,100 msg)</td><td class="py-3 px-3 text-right">27.00</td><td class="py-3 px-3 text-right">27.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">n8n (hosted)</td><td class="py-3 px-3 text-right">25.00</td><td class="py-3 px-3 text-right">25.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Redis</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">PostgreSQL (Render – obligatorio)</td><td class="py-3 px-3 text-right">7.00</td><td class="py-3 px-3 text-right">7.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Storage S3‑compatible</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Monitoreo/logs</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">LLM GPT‑4o mini</td><td class="py-3 px-3 text-right">1.00</td><td class="py-3 px-3 text-right">1.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">ASR (voz→texto)</td><td class="py-3 px-3 text-right">—</td><td class="py-3 px-3 text-right">3.00</td></tr>
+                  <tr><td class="py-2 px-3 text-right text-neutral-500" colspan="1">Subtotal mensual (USD)</td><td class="py-2 px-3 text-right font-semibold">75.00</td><td class="py-2 px-3 text-right font-semibold">78.00</td></tr>
+                  <tr><td class="py-2 px-3 text-right text-neutral-500" colspan="1">Subtotal mensual (PEN)</td><td class="py-2 px-3 text-right font-semibold">S/ 270.00</td><td class="py-2 px-3 text-right font-semibold">S/ 280.80</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Costos de terceros referenciales; pueden variar por país, categoría WA y consumo real.</p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <div class="text-sm text-neutral-600 dark:text-neutral-400">Sin IGV. Si requiere factura, adicionar 18%.</div>
+            <div class="no-print flex items-center gap-2">
+              <a href="mailto:[correo]?subject=Aprobar%20Cotizaci%C3%B3n%20Chatbot%20WhatsApp&body=Aprobar%20Plan%20[A|B]%20-%20Datos%20de%20facturaci%C3%B3n:%20..." class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#25D366] text-[#05300f] hover:bg-[#1EA654]">Aprobar Cotización</a>
+              <a href="[link-calendly]" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar 15’</a>
+              <button onclick="window.print()" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">Descargar PDF</button>
+            </div>
+          </div>
+          <p class="mt-2 text-xs text-neutral-500">Reemplace [correo] y [link-calendly] con los datos reales.</p>
+        </div>
+      </section>
+
+      <!-- PROPOSAL (B) -->
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-8">
+        <!-- 1) Contexto y objetivos -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">1) Contexto y objetivos</h2>
+          <p class="mt-3 text-sm">Cierre de ventas en WhatsApp con pago previo y validación humana previa a la entrega IA (A: texto / B: PDF/Excel). Seguimiento 3–7 días para elevar conversión y NPS. Redis mantiene coherencia (4–5 mensajes) y rate‑limit evita spam.</p>
+          <h3 class="mt-4 font-semibold text-sm">Diagrama ASCII</h3>
+          <pre class="mt-2 rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800 text-sm">Usuario WA → Menú (FAQs | Precios | Asesorías)
+                      │           │
+                      └→ IA FAQ   └→ Pago (QR/Link/JPEG) → Notifica dueño → Confirma
+                                                      └→ Entrega IA (Texto | PDF/Excel)
+n8n (flujos, colas, reintentos) → Redis (contexto 4–5 / rate-limit)
+                              → LLM (GPT-4o mini) → Storage S3
+                              → PostgreSQL (métricas/ventas/estado)
+                              → Seguimiento 3–7 días (tips/upsell/NPS)</pre>
+        </div>
+
+        <!-- 2) Alcance funcional (resumen) -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">2) Alcance funcional (resumen)</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>Menú FAQs/Contexto (búsqueda en corpus), Precios/Promos, Asesorías/Planes con pago previo.</li>
+            <li>Validación humana (WhatsApp del dueño: Aprobar/Rechazar) y registro en PostgreSQL.</li>
+            <li>Entrega: Plan A texto; Plan B PDF/Excel con link firmado (expiración).</li>
+            <li>Seguimiento: drip 3–7 días + encuesta NPS.</li>
+            <li>Guardrails: lista de contenido sensible, cooldown, bloqueo temporal.</li>
+          </ul>
+        </div>
+
+        <!-- 3) Arquitectura técnica -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">3) Arquitectura técnica</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>WhatsApp Business Cloud API (Meta) con webhooks y plantillas aprobadas.</li>
+            <li>n8n (orquestación, ramas de aprobación, reintentos).</li>
+            <li>Redis (memoria corta, rate‑limit).</li>
+            <li>PostgreSQL (Render) obligatorio para trazabilidad, ventas y auditoría.</li>
+            <li>Storage S3 para medios/PDF; URLs firmadas.</li>
+            <li>LLM GPT‑4o mini; parámetros conservadores y cache de prompts cuando aplique.</li>
+            <li>(Plan B) ASR para voz→texto; generador PDF/Excel.</li>
+            <li>Seguridad: HMAC webhooks, RBAC, rotación de secretos, logs estructurados.</li>
+            <li>Métricas: panel de éxito/fallo, tiempos y aprobaciones.</li>
+          </ul>
+        </div>
+
+        <!-- 4) Planes y entregables -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-5">
+          <h2 class="text-lg font-semibold">4) Planes y entregables</h2>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Plan A – Básico (solo texto)</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Incluye: FAQs • Precios/Promos • Asesorías con pago previo • Validación humana • Entrega texto • Seguimiento 3–7 días • Redis • Postgres • Métricas base</li>
+                <li>Límites: 3 menús; corpus inicial ≤ 200 MB; 5 plantillas WA.</li>
+                <li>SLA: 8×5; P1 &lt; 8 h; P2 1 día; P3 2–3 días.</li>
+                <li>No incluye: voz/imágenes, PDFs/Excels, integraciones ERP, BI avanzado.</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">Plan B – Pro (voz/imagen + PDF/Excel)</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Incluye todo lo de A + ASR (voz→texto), lectura básica de imágenes y generación de PDF/Excel con branding.</li>
+                <li>Límites: corpus ≤ 500 MB; 10 plantillas; 1 h de audio/mes incluido (estimación).</li>
+                <li>SLA: 12×5; P1 &lt; 6 h; P2 &lt; 12 h.</li>
+                <li>No incluye: integraciones contables/ERP, multicliente, BI avanzado.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5) Cronograma -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">5) Cronograma</h2>
+          <p class="mt-3 text-sm">Mismo cuadro del 1‑página; +1–2 días si se agregan plantillas extra o compliance.</p>
+        </div>
+
+        <!-- 6) Inversión y 6.2 OPEX -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 space-y-5">
+          <h2 class="text-lg font-semibold">6) Inversión</h2>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800">
+              <h3 class="font-semibold">6.1 Setup único (PEN)</h3>
+              <ul class="mt-2 list-disc pl-5 space-y-1">
+                <li>Plan A: S/ 1,600 (45 h)</li>
+                <li>Plan B: S/ 2,032 (A + 12 h ASR/PDF/Excel = S/ 432)</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-neutral-50 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-800 overflow-x-auto">
+              <h3 class="font-semibold">6.2 OPEX mensual (con PostgreSQL obligatorio)</h3>
+              <table class="mt-2 w-full text-xs sm:text-sm border-separate border-spacing-y-2">
+                <thead><tr class="text-left text-neutral-500"><th class="py-2 px-3">Componente</th><th class="py-2 px-3">Supuesto</th><th class="py-2 px-3 text-right">Plan A (USD)</th><th class="py-2 px-3 text-right">Plan B (USD)</th></tr></thead>
+                <tbody>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">WhatsApp API</td><td class="py-3 px-3">1,000×0.02 + 100×0.07</td><td class="py-3 px-3 text-right">27.00</td><td class="py-3 px-3 text-right">27.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">n8n</td><td class="py-3 px-3">plan hosted</td><td class="py-3 px-3 text-right">25.00</td><td class="py-3 px-3 text-right">25.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Redis</td><td class="py-3 px-3">plan básico</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">PostgreSQL (Render)</td><td class="py-3 px-3">plan básico</td><td class="py-3 px-3 text-right">7.00</td><td class="py-3 px-3 text-right">7.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Storage S3</td><td class="py-3 px-3">50–100 GB</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">Monitoreo/logs</td><td class="py-3 px-3">uptime + alertas</td><td class="py-3 px-3 text-right">5.00</td><td class="py-3 px-3 text-right">5.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">LLM GPT‑4o mini</td><td class="py-3 px-3">~0.33M in + 0.33M out</td><td class="py-3 px-3 text-right">1.00</td><td class="py-3 px-3 text-right">1.00</td></tr>
+                  <tr class="bg-neutral-50 dark:bg-neutral-950/60"><td class="py-3 px-3 font-medium">ASR</td><td class="py-3 px-3">~500 min/mes</td><td class="py-3 px-3 text-right">—</td><td class="py-3 px-3 text-right">3.00</td></tr>
+                  <tr><td class="py-2 px-3 text-right text-neutral-500" colspan="2">Total mensual (USD)</td><td class="py-2 px-3 text-right font-semibold">75.00</td><td class="py-2 px-3 text-right font-semibold">78.00</td></tr>
+                  <tr><td class="py-2 px-3 text-right text-neutral-500" colspan="2">Total mensual (PEN)</td><td class="py-2 px-3 text-right font-semibold">S/ 270.00</td><td class="py-2 px-3 text-right font-semibold">S/ 280.80</td></tr>
+                </tbody>
+              </table>
+              <p class="mt-2 text-xs text-neutral-500">Los costos WA dependen de la categoría (servicio/marketing), país y plantilla aprobada.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7) Mantenimiento y SLA -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">7) Mantenimiento y SLA</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>Soporte L‑V 9–18h (Perú).</li>
+            <li>P1 (caída total/pagos) 6–8 h; P2 1 día; P3 2–3 días.</li>
+            <li>Ventanas de mantenimiento fuera de horario laboral.</li>
+          </ul>
+        </div>
+
+        <!-- 8) Supuestos y exclusiones -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">8) Supuestos y exclusiones</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>Cliente provee corpus y valida políticas WA.</li>
+            <li>Uso de plantillas conformes a Meta para mensajes proactivos.</li>
+            <li>Límite de archivos/voz según plan; sin traducciones ni etiquetado manual.</li>
+            <li>No incluye ERP/CRM legado ni BI; multicliente se cotiza aparte.</li>
+          </ul>
+        </div>
+
+        <!-- 9) RACI & criterios de aceptación -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">9) RACI & criterios de aceptación</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li><span class="font-semibold">Cliente:</span> A/R en objetivos, corpus, accesos WABA/pagos; R en validación de pagos.</li>
+            <li><span class="font-semibold">Bytecore:</span> A/R en diseño conversacional, flujos, n8n/Redis/Postgres/LLM, observabilidad.</li>
+            <li><span class="font-semibold">Aceptación:</span> pago previo obligatorio; validación humana efectiva; entrega (texto / PDF/Excel); métricas de tiempo de respuesta y tasa de entrega operativas.</li>
+          </ul>
+        </div>
+
+        <!-- 10) Riesgos y mitigaciones -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5">
+          <h2 class="text-lg font-semibold">10) Riesgos y mitigaciones</h2>
+          <ul class="mt-3 text-sm list-disc pl-5 space-y-1">
+            <li>Bloqueos WA → plantillas aprobadas, opt‑in, monitoreo.</li>
+            <li>Picos → colas/reintentos, rate‑limit, backoff.</li>
+            <li>Caídas de terceros → circuit‑breakers, reintentos y fallback informativo.</li>
+            <li>Contenido sensible → guardrails y listas de bloqueo.</li>
+          </ul>
+        </div>
+
+        <!-- CTA final -->
+        <div class="no-print flex items-center gap-2">
+          <a href="mailto:[correo]?subject=Aprobar%20Cotizaci%C3%B3n%20Chatbot%20WhatsApp&body=Aprobar%20Plan%20[A|B]%20-%20Datos%20de%20facturaci%C3%B3n:%20..." class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#25D366] text-[#05300f] hover:bg-[#1EA654]">Aprobar Cotización</a>
+          <a href="[link-calendly]" target="_blank" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">Agendar 15’</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#25D366]','text-[#05300f]'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-white','dark:text-neutral-900'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.setAttribute('aria-selected','true');
+        btn.dataset.active = 'true';
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+        btn.setAttribute('aria-selected','false');
+        btn.dataset.active = 'false';
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    // Estado inicial
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>
