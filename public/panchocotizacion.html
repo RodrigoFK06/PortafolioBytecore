@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Bytecore · Plataforma de Reservas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #8b8b8b 0%, #b5b5b5 35%, #ffffff 50%, #b5b5b5 65%, #8b8b8b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Bytecore
+        </span>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Plataforma de Reservas</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 24 Ene 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Plataforma de Reservas para Eventos</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Registro de visitantes, pasarela multi-método y panel administrativo en tiempo real.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Propuesta comercial</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Entrega ágil</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Cliente / Proyecto</h3>
+              <p class="text-sm mt-1 font-medium">Francisco Carvajal · Plataforma de Reservas para Evento</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: BC-RES-0101</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-5 sm:grid-cols-3">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-neutral-500">Módulo</p>
+            <p class="mt-2 text-sm font-semibold">Reservas + Pagos + Admin</p>
+            <p class="mt-1 text-xs text-neutral-500">Evento, registro, pasarela y control</p>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-neutral-500">Tiempo de entrega</p>
+            <p class="mt-2 text-2xl font-bold text-[#328298]">7 - 14 días</p>
+            <p class="mt-1 text-xs text-neutral-500">Incluye pruebas y despliegue</p>
+          </div>
+          <div class="rounded-2xl border border-[#328298]/30 bg-[#D6EFF2]/40 dark:border-[#328298]/40 dark:bg-[#1D4E6A]/20 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2]">Inversión Total</p>
+            <p class="mt-2 text-2xl font-bold text-[#1D4E6A] dark:text-white">S/ 700.00</p>
+            <p class="mt-1 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80">Precio con rebaja</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <section id="quote" class="p-6 sm:p-8 space-y-10">
+        
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-lg font-semibold mb-4"><span class="shiny-text">Alcance del Desarrollo</span></h2>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6">Solución integral de reservas con pagos multi-método y control administrativo para validación de asistentes.</p>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-separate border-spacing-y-2">
+              <thead>
+                <tr class="text-left text-neutral-500 text-xs uppercase tracking-wide">
+                  <th class="py-2 px-3">Módulo</th>
+                  <th class="py-2 px-3">Funcionalidad</th>
+                  <th class="py-2 px-3 text-right">Carga Est.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-semibold text-neutral-900 dark:text-white">Portal del Evento</td>
+                  <td class="py-3 px-3 text-neutral-600 dark:text-neutral-400">Página informativa con detalles del evento, agenda y llamadas a la acción.</td>
+                  <td class="py-3 px-3 text-right font-medium">2d</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-semibold text-neutral-900 dark:text-white">Registro de Visitantes</td>
+                  <td class="py-3 px-3 text-neutral-600 dark:text-neutral-400">Formulario de registro con validación y emisión de constancia.</td>
+                  <td class="py-3 px-3 text-right font-medium">2d</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-semibold text-neutral-900 dark:text-white">Pagos Multi-método</td>
+                  <td class="py-3 px-3 text-neutral-600 dark:text-neutral-400">Tarjeta, Yape, Plin y PayPal con confirmación automática y webhooks.</td>
+                  <td class="py-3 px-3 text-right font-medium">3d</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-semibold text-neutral-900 dark:text-white">Panel Admin</td>
+                  <td class="py-3 px-3 text-neutral-600 dark:text-neutral-400">Acceso seguro para ver registrados, pagos y estados de asistencia.</td>
+                  <td class="py-3 px-3 text-right font-medium">2d</td>
+                </tr>
+                <tr class="bg-neutral-50 dark:bg-neutral-950/60">
+                  <td class="py-3 px-3 font-semibold text-neutral-900 dark:text-white">QA & Deploy</td>
+                  <td class="py-3 px-3 text-neutral-600 dark:text-neutral-400">Pruebas integrales, validación de pagos y despliegue final.</td>
+                  <td class="py-3 px-3 text-right font-medium">1d</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 grid gap-5 md:grid-cols-2">
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-2">Requerimientos clave</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Pagos con tarjeta, Yape, Plin y PayPal.</li>
+                <li>Detalles del evento visibles para el visitante.</li>
+                <li>Registro y pago en un flujo simple.</li>
+                <li>Panel admin para ver registrados y estados.</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-2">Valor agregado</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Diseño premium y adaptable a móviles.</li>
+                <li>Seguridad de pagos con validación automática.</li>
+                <li>Reportes básicos para control operativo.</li>
+                <li>Soporte post-entrega incluido.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-5 md:grid-cols-2">
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Entregables</h3>
+              <div class="grid gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Portal del evento</p>
+                    <p class="text-xs text-neutral-500">Información, agenda y registro.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Pasarela multi-método</p>
+                    <p class="text-xs text-neutral-500">Tarjetas, Yape, Plin y PayPal.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Panel administrativo</p>
+                    <p class="text-xs text-neutral-500">Listado y estados de pagos.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Garantía y soporte</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Garantía de 15 días post-entrega.</li>
+                <li>Acompañamiento en despliegue final.</li>
+                <li>Capacitación breve al administrador.</li>
+                <li>Soporte para ajustes menores.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h3 class="font-semibold mb-4">Cronograma estimado</h3>
+            <div class="grid gap-4 md:grid-cols-4 text-sm">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 1</p>
+                <p class="mt-2 font-semibold">Descubrimiento</p>
+                <p class="text-xs text-neutral-500 mt-1">Requisitos & alcance</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 2</p>
+                <p class="mt-2 font-semibold">Implementación</p>
+                <p class="text-xs text-neutral-500 mt-1">Frontend & backend</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 3</p>
+                <p class="mt-2 font-semibold">Pruebas</p>
+                <p class="text-xs text-neutral-500 mt-1">Pagos y seguridad</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 4</p>
+                <p class="mt-2 font-semibold">Entrega</p>
+                <p class="text-xs text-neutral-500 mt-1">Deploy & handover</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row justify-end items-center gap-5">
+            <div class="text-right px-4">
+                <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">Valor Regular (Mercado)</p>
+                <p class="text-xl font-medium text-neutral-400 line-through decoration-red-500 decoration-2">S/ 1,500.00</p>
+                <p class="text-[10px] text-neutral-500">(Ref: $15/h · estimación 7–14 días)</p>
+                <p class="text-[10px] text-neutral-500">Tarifa aplicada: $7/h (rebaja)</p>
+            </div>
+            
+            <div class="rounded-xl border border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 p-5 w-full sm:w-72 relative overflow-hidden shadow-sm fx-card">
+                <div class="absolute top-0 right-0 bg-[#328298] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">PRECIO CON REBAJA</div>
+                <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold">Total Final</p>
+                <p class="text-4xl font-bold text-[#1D4E6A] dark:text-white mt-2">S/ 700.00</p>
+                <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">Incluye garantía de integración</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-xl font-bold text-center mb-6 uppercase tracking-wide">Detalles Técnicos</h2>
+          
+          <div class="space-y-4 text-sm text-justify leading-relaxed">
+            <div>
+              <h3 class="font-bold text-neutral-900 dark:text-white">1. Pasarela Multi-método</h3>
+              <p>Se habilitan pagos con tarjeta, Yape, Plin y PayPal mediante integraciones seguras y webhooks de confirmación, evitando registros no pagados.</p>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 dark:text-white">2. Experiencia del Visitante</h3>
+              <p>El portal del evento presentará información clara y un flujo de registro + pago en pocos pasos, optimizado para móviles.</p>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 dark:text-white">3. Panel Administrativo</h3>
+              <p>Acceso privado con búsqueda de registrados, validación de pago y control de estados en tiempo real.</p>
+            </div>
+          </div>
+
+          <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+             <div class="grid md:grid-cols-2 gap-10 text-sm">
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">FRANCISCO CARVAJAL</p>
+              </div>
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">BYTECORE · Rodrigo Torres</p>
+                <p class="text-center text-xs text-neutral-500">DNI: 75893674</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>
