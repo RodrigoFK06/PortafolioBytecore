@@ -12,7 +12,7 @@ import type {
 // Configuración del chatbot
 const config: ChatbotConfig = {
   enabled: process.env.CHATBOT_ENABLED === 'true',
-  model: process.env.CHATBOT_MODEL || 'gemini-2.0-flash-exp',
+  model: process.env.CHATBOT_MODEL || 'gemini-2.5-flash',
   maxTokens: parseInt(process.env.CHATBOT_MAX_TOKENS || '1000'),
   temperature: parseFloat(process.env.CHATBOT_TEMPERATURE || '0.7'),
   apiKey: process.env.GEMINI_API_KEY || ''
