@@ -68,14 +68,14 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: "Mantenimiento y Reparación JK",
-    description:
-      "Servicios especializados en mantenimiento y reparación de electrodomésticos, ofreciendo soluciones rápidas y eficientes para garantizar el funcionamiento óptimo de los equipos en el hogar.",
-    tags: ["HTML", "CSS", "JavaScript", "PHP"],
-    imageSrc: "/mantenimientojk.webp",
-    link: "https://xn--mantenimientoyreparacinjk-cqc.com/",
-    //githubLink: "https://github.com/bytecore/mantenimiento-jk",
-    category: "web",
+  title: "ATELIER Clinic",
+  description:
+    "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
+  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+  imageSrc: "/atelier.png",
+  link: "https://atelier-seven-beta.vercel.app/",
+  githubLink: "https://atelier-seven-beta.vercel.app/",
+  category: "web",
   },
   {
     id: 7,

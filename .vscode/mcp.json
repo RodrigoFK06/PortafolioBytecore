@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "react-bits": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    }
+  }
+}
