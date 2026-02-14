@@ -65,9 +65,9 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
           <Button
             asChild
             size="lg"
-            className="group relative bg-gray-800/60 backdrop-blur-md p-4 rounded-xl border border-blue-500/20 shadow-lg hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300"
+            className="group"
           >
-            <Link href="/projects" className="text-white flex items-center">
+            <Link href="/projects" className="flex items-center">
               Ver todos los proyectos
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>

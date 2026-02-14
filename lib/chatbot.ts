@@ -1,12 +1,19 @@
 // lib/chatbot.ts
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import type { 
-  Lead, 
-  ChatMessage, 
-  LeadAnalysis, 
+
+// Logger silenciable: solo imprime en desarrollo
+const isDev = process.env.NODE_ENV === 'development'
+const debug = {
+  log: (...args: unknown[]) => isDev && console.log(...args),
+  error: (...args: unknown[]) => console.error(...args), // errores siempre visibles
+}
+import type {
+  Lead,
+  ChatMessage,
+  LeadAnalysis,
   ExtractedInfo,
   ChatbotResponse,
-  ChatbotConfig 
+  ChatbotConfig
 } from '@/types/chatbot'
 
 // Configuración del chatbot
@@ -170,7 +177,7 @@ class LeadManager {
       updatedAt: new Date()
     }
     this.leads.set(sessionId, lead)
-    console.log(`✅ Nuevo lead creado: ${lead.id}`)
+    debug.log(`✅ Nuevo lead creado: ${lead.id}`)
     return lead
   }
 
@@ -183,7 +190,7 @@ class LeadManager {
     if (lead) {
       Object.assign(lead, updates, { updatedAt: new Date() })
       this.leads.set(sessionId, lead)
-      console.log(`📝 Lead actualizado: ${lead.id}, Score: ${lead.score}`)
+      debug.log(`📝 Lead actualizado: ${lead.id}, Score: ${lead.score}`)
       return lead
     }
     return undefined
@@ -198,7 +205,7 @@ class LeadManager {
         timestamp: new Date()
       })
       lead.updatedAt = new Date()
-      console.log(`💬 Mensaje agregado (${role}): ${message.substring(0, 50)}...`)
+      debug.log(`💬 Mensaje agregado (${role}): ${message.substring(0, 50)}...`)
     }
   }
 
@@ -245,14 +252,14 @@ class LeadManager {
       'precio', 'costo', 'cuanto', 'cotización', 'presupuesto',
       'reunión', 'llamada', 'contacto', 'contratar', 'trabajar'
     ]
-    
+
     const urgencyKeywords = [
-      'urgente', 'rápido', 'pronto', 'ya', 'inmediato', 
+      'urgente', 'rápido', 'pronto', 'ya', 'inmediato',
       'necesito ya', 'para ayer'
     ]
-    
+
     const projectKeywords = [
-      'web', 'app', 'tienda', 'ecommerce', 'diseño', 
+      'web', 'app', 'tienda', 'ecommerce', 'diseño',
       'desarrollo', 'página', 'sitio', 'plataforma'
     ]
 
@@ -306,7 +313,7 @@ class LeadManager {
 
     // Determinar estado basado en score y comportamiento
     let status: Lead['status'] = 'qualifying'
-    
+
     if (score >= 75) {
       status = 'ready'
       nextActions.push('🚀 Proponer reunión inmediata')
@@ -329,21 +336,21 @@ class LeadManager {
   getStats() {
     const leads = Array.from(this.leads.values())
     const total = leads.length
-    
+
     const byStatus = leads.reduce((acc, lead) => {
       acc[lead.status] = (acc[lead.status] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
-    const avgScore = total > 0 
+    const avgScore = total > 0
       ? (leads.reduce((sum, lead) => sum + lead.score, 0) / total).toFixed(1)
       : '0'
 
-    const conversionRate = total > 0 
-      ? ((byStatus.converted || 0) / total * 100).toFixed(1) 
+    const conversionRate = total > 0
+      ? ((byStatus.converted || 0) / total * 100).toFixed(1)
       : '0'
 
-    const recent = leads.filter(l => 
+    const recent = leads.filter(l =>
       Date.now() - l.updatedAt.getTime() < 24 * 60 * 60 * 1000
     ).length
 
@@ -367,7 +374,7 @@ const leadManager = new LeadManager()
 
 // Servicio principal del chatbot
 export class ByteChatbot {
-  private model = genAI.getGenerativeModel({ 
+  private model = genAI.getGenerativeModel({
     model: config.model,
     generationConfig: {
       maxOutputTokens: config.maxTokens,
@@ -388,11 +395,11 @@ export class ByteChatbot {
 
       // Obtener o crear lead
       let lead = leadManager.getLead(sessionId) || leadManager.createLead(sessionId)
-      
+
       // Guardar información de contacto previa para detectar cambios
       const oldEmail = lead.email
       const oldPhone = lead.phone
-      
+
       // Agregar mensaje del usuario
       leadManager.addMessage(sessionId, 'user', userMessage)
 
@@ -400,22 +407,22 @@ export class ByteChatbot {
       const extractedInfo = this.extractLeadInfo(userMessage, lead)
       if (extractedInfo && Object.keys(extractedInfo).length > 0) {
         lead = leadManager.updateLead(sessionId, extractedInfo) || lead
-        console.log('📊 Información extraída:', extractedInfo)
+        debug.log('📊 Información extraída:', extractedInfo)
       }
 
       // Analizar lead y ajustar estado
       const analysis = leadManager.analyzeLead(lead)
       if (analysis.status !== lead.status || analysis.score !== lead.score) {
-        lead = leadManager.updateLead(sessionId, { 
-          status: analysis.status, 
-          score: analysis.score 
+        lead = leadManager.updateLead(sessionId, {
+          status: analysis.status,
+          score: analysis.score
         }) || lead
-        console.log(`📈 Lead actualizado: ${analysis.status} (Score: ${analysis.score})`)
+        debug.log(`📈 Lead actualizado: ${analysis.status} (Score: ${analysis.score})`)
       }
 
       // Generar contexto para Gemini
       const context = this.buildContext(lead, userMessage, analysis)
-      
+
       // Construir prompt completo
       const fullPrompt = `${SYSTEM_PROMPTS.base}
 
@@ -440,9 +447,9 @@ INSTRUCCIONES ESPECÍFICAS:
 - NO repitas información ya mencionada anteriormente
 
 BYTEBOT:`
-      
+
       // Llamar a Gemini
-      console.log('🤖 Enviando prompt a Gemini...')
+      debug.log('🤖 Enviando prompt a Gemini...')
       const result = await this.model.generateContent(fullPrompt)
       const response = result.response.text()
 
@@ -461,10 +468,10 @@ BYTEBOT:`
       const shouldSendReport = Boolean(isNewContactInfo && lead.score >= 30) // Solo si tiene score mínimo
 
       if (shouldSendReport) {
-        console.log(`📧 [Chatbot] Se detectó nueva información de contacto para sesión ${sessionId}. Se marcará para enviar informe.`)
+        debug.log(`📧 [Chatbot] Se detectó nueva información de contacto para sesión ${sessionId}. Se marcará para enviar informe.`)
       }
 
-      console.log(`✅ Respuesta generada para lead ${lead.id}`)
+      debug.log(`✅ Respuesta generada para lead ${lead.id}`)
 
       return {
         success: true,
@@ -477,11 +484,11 @@ BYTEBOT:`
       }
 
     } catch (error) {
-      console.error('❌ Error en generateResponse:', error)
-      
+      debug.error('❌ Error en generateResponse:', error)
+
       // Respuesta de fallback
       const fallbackResponse = 'Disculpa, tuve un problema técnico momentáneo. ¿Podrías repetir tu consulta? Estoy aquí para ayudarte con tu proyecto. 😊'
-      
+
       return {
         success: false,
         response: fallbackResponse,
@@ -517,7 +524,7 @@ BYTEBOT:`
         /nombre:\s*([a-záéíóúñ\s]{2,30})/i,
         /^([a-záéíóúñ]{2,15})\s+([a-záéíóúñ]{2,15})$/i // Captura "Juan Pérez" al inicio
       ]
-      
+
       for (const pattern of namePatterns) {
         const match = message.match(pattern)
         if (match) {
@@ -535,7 +542,7 @@ BYTEBOT:`
         /trabajo en ([a-záéíóúñ\s]{2,50})/i,
         /represento a ([a-záéíóúñ\s]{2,50})/i
       ]
-      
+
       for (const pattern of companyPatterns) {
         const match = message.match(pattern)
         if (match) {
@@ -581,7 +588,7 @@ BYTEBOT:`
         /para (el próximo mes|la próxima semana|fin de mes)/i,
         /(urgente|rápido|pronto)/i
       ]
-      
+
       for (const pattern of timelinePatterns) {
         const match = message.match(pattern)
         if (match) {
@@ -596,14 +603,14 @@ BYTEBOT:`
 
   private buildContext(lead: Lead, currentMessage: string, analysis: LeadAnalysis): string {
     const info = []
-    
+
     if (lead.name) info.push(`👤 Cliente: ${lead.name}`)
     if (lead.company) info.push(`🏢 Empresa: ${lead.company}`)
     if (lead.email) info.push(`📧 Email: ${lead.email}`)
     if (lead.projectType) info.push(`💻 Proyecto: ${lead.projectType}`)
     if (lead.budget) info.push(`💰 Presupuesto: ${lead.budget}`)
     if (lead.timeline) info.push(`⏰ Timeline: ${lead.timeline}`)
-    
+
     const recentMessages = lead.conversation
       .slice(-6) // Últimos 6 mensajes para contexto
       .map(m => `${m.role === 'user' ? '👤 Usuario' : '🤖 ByteBot'}: ${m.message}`)

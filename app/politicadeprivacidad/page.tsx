@@ -1,11 +1,9 @@
 "use client"
 import { motion } from "framer-motion"
-import  CursorFollower  from "@/components/cursor-follower"
 
 export default function PrivacyPolicyPage() {
   return (
     <main className="pt-24 pb-16">
-      <CursorFollower />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.div

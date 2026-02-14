@@ -1,78 +1,193 @@
-import { motion } from "framer-motion";
-import { SkillBar } from "@/components/skill-bar";
+"use client"
+
+import { useRef, useEffect, useState } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+import { RevealText } from "@/components/gsap-reveal"
+
+import {
+  SiReact,
+  SiNextdotjs,
+  SiAngular,
+  SiTypescript,
+  SiTailwindcss,
+  SiFlutter,
+  SiNodedotjs,
+  SiExpress,
+  SiLaravel,
+  SiSpringboot,
+  SiGraphql,
+  SiPostgresql,
+  SiMysql,
+  SiMongodb,
+  SiFirebase,
+  SiPrisma,
+  SiAmazonwebservices,
+  SiDocker,
+  SiVercel,
+  SiKubernetes,
+  SiGit,
+} from "react-icons/si"
+import { TbApi, TbRefresh, TbDatabase } from "react-icons/tb"
+import type { IconType } from "react-icons"
+
+gsap.registerPlugin(ScrollTrigger)
+
+interface TechItem {
+  name: string
+  Icon: IconType
+}
+
+const rows: TechItem[][] = [
+  [
+    { name: "React", Icon: SiReact },
+    { name: "Next.js", Icon: SiNextdotjs },
+    { name: "Angular", Icon: SiAngular },
+    { name: "TypeScript", Icon: SiTypescript },
+    { name: "Tailwind CSS", Icon: SiTailwindcss },
+    { name: "Flutter", Icon: SiFlutter },
+    { name: "PostgreSQL", Icon: SiPostgresql },
+    { name: "MongoDB", Icon: SiMongodb },
+  ],
+  [
+    { name: "Node.js", Icon: SiNodedotjs },
+    { name: "Express", Icon: SiExpress },
+    { name: "Laravel", Icon: SiLaravel },
+    { name: "Spring Boot", Icon: SiSpringboot },
+    { name: "GraphQL", Icon: SiGraphql },
+    { name: "REST APIs", Icon: TbApi },
+    { name: "AWS", Icon: SiAmazonwebservices },
+    { name: "Docker", Icon: SiDocker },
+  ],
+  [
+    { name: "MySQL", Icon: SiMysql },
+    { name: "Firebase", Icon: SiFirebase },
+    { name: "Prisma", Icon: SiPrisma },
+    { name: "SQL Server", Icon: TbDatabase },
+    { name: "Vercel", Icon: SiVercel },
+    { name: "CI/CD", Icon: TbRefresh },
+    { name: "Kubernetes", Icon: SiKubernetes },
+    { name: "Git", Icon: SiGit },
+  ],
+]
+
+function TechChip({ tech }: { tech: TechItem }) {
+  return (
+    <div className="flex items-center gap-3 px-5 py-3 border border-border bg-card rounded-md hover:border-brand/40 transition-colors duration-200 shrink-0">
+      <tech.Icon className="w-5 h-5 text-foreground/70" />
+      <span className="text-sm font-medium text-foreground/80 whitespace-nowrap">
+        {tech.name}
+      </span>
+    </div>
+  )
+}
+
+function MarqueeRow({
+  items,
+  speed,
+  reverse = false,
+}: {
+  items: TechItem[]
+  speed: number
+  reverse?: boolean
+}) {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [ready, setReady] = useState(false)
+
+  // Wait for layout to be painted before measuring
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setReady(true))
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
+  useGSAP(
+    () => {
+      if (!trackRef.current || !ready) return
+
+      const track = trackRef.current
+      // Get the total width of one set of items (first half)
+      const children = track.children
+      const itemCount = items.length
+      let oneSetWidth = 0
+
+      for (let i = 0; i < itemCount; i++) {
+        const child = children[i] as HTMLElement
+        if (child) {
+          oneSetWidth += child.offsetWidth + 16 // 16 = gap-4 (1rem)
+        }
+      }
+
+      if (oneSetWidth <= 0) return
+
+      // Set initial position for reverse
+      if (reverse) {
+        gsap.set(track, { x: -oneSetWidth })
+      }
+
+      gsap.to(track, {
+        x: reverse ? 0 : -oneSetWidth,
+        duration: speed,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: (x) => {
+            const val = parseFloat(x)
+            if (reverse) {
+              // Going right: when reaches 0, wrap to -oneSetWidth
+              return `${((val % oneSetWidth) + oneSetWidth) % oneSetWidth - oneSetWidth}px`
+            } else {
+              // Going left: when reaches -oneSetWidth, wrap to 0
+              return `${((val % oneSetWidth) - oneSetWidth) % oneSetWidth}px`
+            }
+          },
+        },
+      })
+    },
+    { scope: trackRef, dependencies: [ready] }
+  )
+
+  // Triple the items for seamless wrapping on wide screens
+  const allItems = [...items, ...items, ...items]
+
+  return (
+    <div className="overflow-hidden">
+      <div
+        ref={trackRef}
+        className="flex gap-4 w-max"
+      >
+        {allItems.map((tech, i) => (
+          <TechChip key={`${tech.name}-${i}`} tech={tech} />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function TechnologiesSection() {
   return (
-    <section id="technologies" className="py-24 md:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-              Nuestras <span className="text-brand">Tecnologías</span>
-            </h2>
-          </motion.div>
+    <section id="technologies" className="py-24 md:py-32 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div className="max-w-3xl mx-auto text-center">
+          <RevealText as="h2" className="text-3xl md:text-4xl font-black mb-6 tracking-tighter">
+            Nuestras <span className="text-brand">Tecnologías</span>
+          </RevealText>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <RevealText delay={0.2}>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              Utilizamos las tecnologías más avanzadas para crear soluciones digitales robustas, escalables y de alto rendimiento.
+              Utilizamos las tecnologías más avanzadas para crear soluciones
+              digitales robustas, escalables y de alto rendimiento.
             </p>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-          <div className="space-y-6">
-            <h3 className="text-xl font-bold text-brand">Frontend</h3>
-            <SkillBar name="React / Next.js" percentage={95} delay={0.1} />
-            <SkillBar name="Angular / Ionic" percentage={85} delay={0.2} />
-            <SkillBar name="JavaScript / TypeScript" percentage={90} delay={0.3} />
-            <SkillBar name="Material UI / Tailwind CSS" percentage={90} delay={0.4} />
-            <SkillBar name="Flutter Web / Dart" percentage={85} delay={0.5} />
-          </div>
-
-          <div className="space-y-6">
-            <h3 className="text-xl font-bold text-brand">Backend</h3>
-            <SkillBar name="Node.js / Express" percentage={90} delay={0.1} />
-            <SkillBar name="PHP (CodeIgniter / Laravel)" percentage={85} delay={0.2} />
-            <SkillBar name="Spring Boot (Java)" percentage={85} delay={0.3} />
-            <SkillBar name="TypeORM / Sequelize" percentage={80} delay={0.4} />
-            <SkillBar name="API REST / GraphQL" percentage={85} delay={0.5} />
-          </div>
-
-          <div className="hidden md:block space-y-6">
-            <h3 className="text-xl font-bold text-brand">Bases de Datos</h3>
-            <SkillBar name="SQL Server / MySQL" percentage={90} delay={0.1} />
-            <SkillBar name="PostgreSQL / Oracle" percentage={85} delay={0.2} />
-            <SkillBar name="MongoDB / Firebase" percentage={80} delay={0.3} />
-            <SkillBar name="MSSQL-JS / Prisma" percentage={75} delay={0.4} />
-          </div>
-
-          <div className="hidden lg:block space-y-6">
-            <h3 className="text-xl font-bold text-brand">DevOps & Cloud</h3>
-            <SkillBar name="AWS / Vercel / Netlify" percentage={80} delay={0.1} />
-            <SkillBar name="Docker / Kubernetes" percentage={75} delay={0.2} />
-            <SkillBar name="CI/CD Pipelines" percentage={70} delay={0.3} />
-            <SkillBar name="WordPress / Shopify" percentage={85} delay={0.4} />
-          </div>
-
-          <div className="hidden lg:block space-y-6">
-            <h3 className="text-xl font-bold text-brand">Seguridad & Arquitectura</h3>
-            <SkillBar name="Clean Code / SOLID" percentage={95} delay={0.1} />
-            <SkillBar name="Arquitectura Hexagonal / CQRS" percentage={85} delay={0.2} />
-            <SkillBar name="Autenticación JWT / OAuth" percentage={90} delay={0.3} />
-            <SkillBar name="Express Validator / Bcrypt" percentage={80} delay={0.4} />
-          </div>
+          </RevealText>
         </div>
       </div>
+
+      {/* Marquee rows — full-bleed, seamless infinite loop */}
+      <div className="space-y-4">
+        <MarqueeRow items={rows[0]} speed={25} />
+        <MarqueeRow items={rows[1]} speed={30} reverse />
+        <MarqueeRow items={rows[2]} speed={20} />
+      </div>
     </section>
-  );
+  )
 }

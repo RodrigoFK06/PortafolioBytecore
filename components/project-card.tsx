@@ -33,9 +33,9 @@ export function ProjectCard({
       transition={{ duration: 0.5, delay }}
     >
       <motion.div
-        whileHover={{ y: -10 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="group bg-card rounded-lg overflow-hidden shadow-sm border border-border h-full flex flex-col"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="group bg-card rounded-lg overflow-hidden border border-border hover:border-brand/30 transition-colors duration-300 h-full flex flex-col"
       >
         <div className="relative h-48 w-full overflow-hidden">
           <Image

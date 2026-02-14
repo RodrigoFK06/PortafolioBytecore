@@ -10,7 +10,6 @@ import TechnologiesSection from "./sections/TechnologiesSection"
 const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"), { ssr: false })
 const TestimonialsSection = dynamic(() => import("./sections/TestimonialsSection"), { ssr: false })
 const ContactSection = dynamic(() => import("./sections/ContactSection"), { ssr: false })
-const CursorFollower = dynamic(() => import("./cursor-follower"), { ssr: false })
 const ScrollToTop = dynamic(() => import("./scroll-to-top"), { ssr: false })
 const WhatsAppButton = dynamic(() => import("./wspbutton"), { ssr: false })
 const ChatbotButton = dynamic(() => import("./ChatbotButton"), { ssr: false })
@@ -37,7 +36,6 @@ export default function HomeClient() {
 
   return (
     <main>
-      <CursorFollower />
       <ScrollToTop />
       <ChatbotButton />
       <WhatsAppButton />

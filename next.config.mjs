@@ -1,10 +1,3 @@
-let userConfig = undefined
-try {
-  userConfig = await import('./v0-user-next.config')
-} catch (e) {
-  // ignore error
-}
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -60,7 +53,7 @@ const nextConfig = {
   },
   // Configuración de compresión
   compress: true,
-  
+
   // Configuración de bundle analyzer (solo en desarrollo)
   ...(process.env.ANALYZE === 'true' && {
     webpack: (config) => {
@@ -74,26 +67,5 @@ const nextConfig = {
   }),
 }
 
-mergeConfig(nextConfig, userConfig)
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
-      }
-    } else {
-      nextConfig[key] = userConfig[key]
-    }
-  }
-}
-
 export default nextConfig
+

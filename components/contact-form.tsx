@@ -12,7 +12,6 @@ import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { LoadingSpinner } from "@/components/ui/loading"
 import { SITE_CONFIG } from "@/lib/constants"
-import CursorFollower from "@/components/cursor-follower"
 
 const formSchema = z.object({
   name: z.string()

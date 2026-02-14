@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge"
 import { Markdown } from "@/components/markdown"
 import { SITE_CONFIG } from "@/lib/constants"
 import type { ChatMessage } from "@/types/chatbot"
-import CursorFollower from "@/components/cursor-follower";
 
 interface SuggestedAction {
   icon: React.ReactNode

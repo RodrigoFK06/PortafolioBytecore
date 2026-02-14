@@ -1,4 +1,3 @@
-import  CursorFollower  from "@/components/cursor-follower";
 export const metadata = {
   title: "Servicios | ByteCore",
   description: "Desarrollo web, UI/UX, e‑commerce y más.",
@@ -9,7 +8,6 @@ import { ServiceCard } from "@/components/service-card";
 export default function ServicesPage() {
   return (
     <main className="pt-24 pb-16">
-      <CursorFollower />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">

@@ -88,7 +88,6 @@ export const metadata: Metadata = {
     creator: "@bytecore",
     images: [`${baseUrl}/og-image.webp`],
   },
-  generator: "v0.dev",
 }
 
 export default function RootLayout({

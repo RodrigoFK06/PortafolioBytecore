@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import  CursorFollower  from "@/components/cursor-follower";
 import {
   ArrowRight,
   Building,
@@ -29,22 +28,19 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
 
   return (
     <>
-      {/* Tarjeta con hover */}
-      <CursorFollower />
       <motion.div
-        whileHover={{ y: -10 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        onClick={() => setIsOpen(true)} // Abre el modal al hacer clic
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        onClick={() => setIsOpen(true)}
         className="cursor-pointer"
       >
-        <div className="p-8 border border-border rounded-lg bg-card hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+        <div className="p-8 border border-border rounded-lg bg-card hover:border-brand/30 transition-colors duration-300 h-full flex flex-col">
           <div className="mb-6 text-brand">
             <IconComponent className="h-10 w-10" />
           </div>
           <h3 className="text-xl font-bold mb-3">{title}</h3>
           <p className="text-muted-foreground mb-6 flex-grow">{description}</p>
 
-          {/* Botón para abrir modal */}
           <button
             onClick={() => setIsOpen(true)}
             className="inline-flex items-center text-sm font-medium text-brand group focus:outline-none"
