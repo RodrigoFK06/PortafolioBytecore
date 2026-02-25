@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Propuesta Árkós · Sistema Integral de Gestión y Reservas</title>
+  <title>Propuesta Árkos · Sistema Integral de Gestión y Reservas</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +78,7 @@
       <div class="flex items-center gap-2 flex-wrap">
         <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
-          Árkós
+          Árkos
         </span>
         <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Gestión de Propiedades</span>
       </div>
@@ -256,7 +256,7 @@
                   <div class="h-10 w-10 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2] text-lg font-bold">1</div>
                   <h4 class="font-bold text-sm">Pago Único Fijo</h4>
                 </div>
-                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Esquema directo sin recurrencia. El código fuente es <strong class="text-neutral-900 dark:text-white">100% propiedad del cliente</strong>.</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Esquema directo de pago único. El cliente adquiere una licencia de uso perpetuo (el sistema es suyo para operar sin mensualidades). <strong class="text-neutral-900 dark:text-white"> La propiedad intelectual y el código base se mantienen bajo la autoría de Árkos.</strong>.</p>
                 <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-4">
                   <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-2">Opciones de fraccionamiento</p>
                   <div class="space-y-2 text-sm">
@@ -409,24 +409,278 @@
       </section>
 
       <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- STACK TECNOLÓGICO                                          -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
         <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
-          <h2 class="text-xl font-bold text-center mb-6 uppercase tracking-wide">Detalles Técnicos</h2>
-          
-          <div class="space-y-4 text-sm text-justify leading-relaxed">
-            <div>
-              <h3 class="font-bold text-neutral-900 dark:text-white">1. Motor de Búsqueda y Filtrado</h3>
-              <p>Se implementa un motor de búsqueda avanzado con filtros por fecha de disponibilidad, capacidad de huéspedes, ubicación y rango de precios. La experiencia está optimizada para móviles mediante tecnología PWA.</p>
-            </div>
-            <div>
-              <h3 class="font-bold text-neutral-900 dark:text-white">2. Módulo Financiero y Comisiones</h3>
-              <p>Cálculo automático de comisiones por cada propiedad, generación de reportes financieros y facturación integrada para un control transparente de ingresos.</p>
-            </div>
-            <div>
-              <h3 class="font-bold text-neutral-900 dark:text-white">3. Calendarios y Sistema de Roles</h3>
-              <p>Calendario master con vista consolidada y calendarios individuales por propiedad. Control de acceso basado en roles (RBAC) con perfiles de vendedor restringidos y auditoría de acciones.</p>
+          <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Especificación Técnica del Proyecto</span></h2>
+          <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Documento de arquitectura y stack tecnológico — Proyecto Shali / Árkos</p>
+
+          <!-- Stack Table -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">⚙</span>
+              Stack Tecnológico de Producción
+            </h3>
+            <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-2.5 px-4 text-left">Capa</th>
+                    <th class="py-2.5 px-4 text-left">Tecnología</th>
+                    <th class="py-2.5 px-4 text-left">Versión</th>
+                    <th class="py-2.5 px-4 text-left">Justificación</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Framework Frontend</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Next.js</code> <span class="text-xs text-neutral-500">(App Router + React Server Components)</span></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">16.0.10</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">RSC elimina JS innecesario en cliente; streaming con Suspense para TTFB &lt;200ms. Partial Prerendering (PPR) para rutas híbridas estáticas/dinámicas.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">UI / Estilos</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">TailwindCSS v4</code> + <code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Radix UI</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Latest</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Utilidad-first con zero-runtime CSS; Radix provee primitivos accesibles (WAI-ARIA) para modals, calendarios y dropdowns sin depender de librerías pesadas.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Autenticación</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Supabase Auth</code> + <code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">@supabase/ssr</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">0.8.x</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Auth basado en JWT con PKCE flow; cookies HttpOnly SSR-safe para proteger tokens. Soporta MFA, OAuth social y magic links out-of-the-box.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Base de Datos</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">PostgreSQL</code> <span class="text-xs text-neutral-500">(Supabase managed)</span></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">15+</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">RLS (Row Level Security) nativo para multi-tenancy seguro. Funciones PL/pgSQL para cálculos de comisiones en servidor. Realtime subscriptions vía WebSockets para cambios de calendario en vivo.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Validación</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Zod</code> + <code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">React Hook Form</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Latest</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Schemas tipados end-to-end (client → server actions → DB). Validación isomorfa: el mismo schema Zod protege formularios y API routes, eliminando vectores de inyección.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Hosting / CDN</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Vercel</code> <span class="text-xs text-neutral-500">(Edge Network)</span></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">—</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">CDN global con edge functions en 30+ regiones. Automatic ISR (Incremental Static Regeneration) para cachear páginas de propiedades. CI/CD integrado con preview deploys por cada push.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
+          <!-- Arquitectura -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">🏗</span>
+              Arquitectura del Sistema
+            </h3>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+              <div class="grid md:grid-cols-3 gap-4 text-xs">
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Capa de Presentación</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• React Server Components (RSC) para renderizado en servidor sin hidratación innecesaria</li>
+                    <li>• Client Components solo para interactividad (calendarios, formularios, filtros dinámicos)</li>
+                    <li>• Streaming SSR con <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">Suspense</code> boundaries para carga progresiva</li>
+                    <li>• Service Worker + Manifest para instalación PWA nativa</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Capa de Lógica / API</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Next.js Server Actions para mutaciones tipadas sin API boilerplate</li>
+                    <li>• Route Handlers (<code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">app/api/*</code>) para webhooks e integraciones</li>
+                    <li>• Middleware edge para auth guards, rate limiting y redirecciones por rol</li>
+                    <li>• Validación Zod en cada boundary (form → action → DB)</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Capa de Datos</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• PostgreSQL con Row Level Security (RLS) — cada usuario solo ve sus datos permitidos</li>
+                    <li>• Supabase Realtime para sincronización de calendarios entre dispositivos</li>
+                    <li>• Funciones PL/pgSQL para cálculos de comisiones atómicos</li>
+                    <li>• Políticas de seguridad a nivel de fila para RBAC sin lógica adicional en backend</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detalle de Módulos -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">📦</span>
+              Detalle de Ingeniería por Módulo
+            </h3>
+            <div class="space-y-4 text-sm leading-relaxed">
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">1. Motor de Búsqueda y Filtrado Avanzado</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Queries optimizadas con índices GIN/GiST en PostgreSQL para búsquedas por rango de fechas y geolocalización</li>
+                      <li>• Filtros composables en cliente con URL state sync (<code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">useSearchParams</code> + <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">nuqs</code>)</li>
+                      <li>• Debounce inteligente + <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">startTransition</code> para UX sin bloqueos</li>
+                      <li>• Server-side pagination con cursores para datasets grandes</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Performance</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• ISR para páginas de listado (revalidación cada 60s)</li>
+                      <li>• Optimistic UI en favoritos y acciones rápidas</li>
+                      <li>• Image optimization con <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">next/image</code> (WebP/AVIF auto)</li>
+                      <li>• Lazy loading de cards con Intersection Observer</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">2. Módulo Financiero y Comisiones</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Cálculos de comisiones ejecutados como funciones PL/pgSQL en transacciones atómicas (ACID compliance)</li>
+                      <li>• Schemas Zod dedicados para cada tipo de operación financiera</li>
+                      <li>• Tablas de auditoría con triggers automáticos para trazabilidad completa</li>
+                      <li>• Separación de concerns: lógica financiera aislada en <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">server actions</code></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Reportes</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Dashboard con métricas en tiempo real via Supabase Realtime</li>
+                      <li>• Exportación a CSV/PDF con generación server-side</li>
+                      <li>• Filtros por período, propiedad y agente vendedor</li>
+                      <li>• Vistas materializadas para reportes agregados sin afectar queries transaccionales</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">3. Calendarios Avanzados con Sincronización en Tiempo Real</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Componentes Radix UI con calendario interactivo y selección de rangos</li>
+                      <li>• Supabase Realtime (WebSockets) para reflejar bloqueos/reservas instantáneamente entre usuarios</li>
+                      <li>• Locking optimista con detección de conflictos en reservas simultáneas</li>
+                      <li>• Vista master consolidada + vistas individuales por propiedad</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">UX</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Drag-and-drop para ajustar reservas</li>
+                      <li>• Color coding por estado (disponible, reservado, bloqueado, mantenimiento)</li>
+                      <li>• Tooltips con detalle de cada reserva sin navegación extra</li>
+                      <li>• Responsive: vista semanal en mobile, mensual en desktop</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">4. Sistema de Roles y Seguridad (RBAC)</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• RBAC implementado a nivel de base de datos con PostgreSQL RLS policies</li>
+                      <li>• Supabase Auth JWT con claims personalizados por rol (admin, vendedor, viewer)</li>
+                      <li>• Middleware Next.js en edge para validar roles antes de renderizar rutas protegidas</li>
+                      <li>• Principio de mínimo privilegio: cada rol solo accede a lo estrictamente necesario</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Auditoría</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Log de acciones con timestamp, usuario, IP y detalle del cambio</li>
+                      <li>• Triggers PostgreSQL para auditoría automática de tablas sensibles</li>
+                      <li>• Vista de actividad reciente para administradores</li>
+                      <li>• Protección CSRF + rate limiting en Server Actions</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">5. Progressive Web App (PWA)</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Service Worker con estrategia cache-first para assets estáticos y network-first para datos</li>
+                      <li>• Web App Manifest completo con splash screens, iconos adaptativos y tema de color</li>
+                      <li>• Prompt de instalación personalizado con A2HS (Add to Home Screen)</li>
+                      <li>• Offline fallback para consultar calendarios y propiedades en caché</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Performance targets</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Lighthouse PWA score ≥ 95</li>
+                      <li>• LCP (Largest Contentful Paint) &lt; 1.5s</li>
+                      <li>• CLS (Cumulative Layout Shift) &lt; 0.05</li>
+                      <li>• FID (First Input Delay) &lt; 50ms</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Infraestructura y DevOps -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">☁</span>
+              Infraestructura y Prácticas de Desarrollo
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">CI/CD & Despliegue</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• Git-based workflow con preview deploys automáticos por branch</li>
+                  <li>• Vercel Edge Network: CDN global, SSL automático, HTTP/3</li>
+                  <li>• Zero-downtime deploys con rollback instantáneo</li>
+                  <li>• Environment variables cifradas por proyecto</li>
+                </ul>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">Calidad & Seguridad</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• TypeScript strict mode end-to-end (frontend + backend)</li>
+                  <li>• Validación Zod isomorfa en cada boundary del sistema</li>
+                  <li>• Headers de seguridad: CSP, HSTS, X-Frame-Options</li>
+                  <li>• Supabase RLS policies auditadas → defensa en profundidad</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nota de valor -->
+          <div class="rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
+            <p class="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              <strong class="text-[#1D4E6A] dark:text-[#D6EFF2]">Nota sobre el stack elegido:</strong> Esta combinación (Next.js 16 + Supabase + Vercel) es la misma utilizada por empresas como Notion, Vercel misma, y múltiples startups Y Combinator valoradas en +$100M. El uso de React Server Components reduce hasta un 60% el JavaScript enviado al cliente comparado con un SPA tradicional, y PostgreSQL RLS elimina la necesidad de un backend middleware complejo, reduciendo costos operativos y surface de ataque. El costo total de infraestructura en producción para este proyecto se estima en <strong>$0/mes</strong> en los tiers gratuitos de Vercel + Supabase, escalando con transparencia si el tráfico lo requiere.
+            </p>
+          </div>
+
+          <!-- Firmas -->
           <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
              <div class="grid md:grid-cols-2 gap-10 text-sm">
               <div class="flex flex-col gap-8">
@@ -435,7 +689,7 @@
               </div>
               <div class="flex flex-col gap-8">
                 <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
-                <p class="text-center font-semibold">ÁRKÓS · Rodrigo Torres</p>
+                <p class="text-center font-semibold">ÁRKOS · Rodrigo Torres</p>
                 <p class="text-center text-xs text-neutral-500">DNI: 75893674</p>
               </div>
             </div>
