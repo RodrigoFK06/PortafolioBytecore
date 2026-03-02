@@ -30,7 +30,7 @@ export default function ProjectsSection() {
           </motion.div>
         </div>
 
-        <ProjectsClient projects={projects} />
+        <ProjectsClient projects={projects.slice(0, 6)} />
       </div>
     </section>
   )

@@ -9,7 +9,9 @@ import { RevealText, RevealBlock, StaggerReveal } from "@/components/gsap-reveal
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-24 md:py-32 bg-background">
+    <section id="about" className="py-24 md:py-32 bg-background" itemScope itemType="https://schema.org/Organization">
+      <meta itemProp="name" content="Árkos" />
+      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Perú." />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <RevealText as="h2" className="text-3xl md:text-4xl font-black mb-6 tracking-tighter">
@@ -18,7 +20,7 @@ export function AboutSection() {
 
           <RevealText delay={0.2}>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              ByteCore es una agencia digital comprometida con la creación de experiencias web excepcionales,
+              Árkos es una agencia digital comprometida con la creación de experiencias web excepcionales,
               combinando diseño innovador con desarrollo técnico de alta calidad.
             </p>
           </RevealText>
@@ -33,7 +35,7 @@ export function AboutSection() {
             <RevealBlock direction="right">
               <h3 className="text-2xl font-bold mb-6">Nuestra Historia</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Fundada con la visión de transformar el panorama digital, ByteCore ha evolucionado hasta convertirse
+                Fundada con la visión de transformar el panorama digital, Árkos ha evolucionado hasta convertirse
                 en una agencia destacada en desarrollo web y diseño UI/UX. Nuestro equipo multidisciplinario combina
                 experiencia técnica con creatividad para ofrecer soluciones digitales que destacan en el mercado.
               </p>
@@ -85,7 +87,7 @@ export function AboutSection() {
               </Button>
               <Button variant="outline" size="icon" asChild className="hover:-translate-y-0.5 transition-transform">
                 <Link
-                  href="https://www.linkedin.com/in/rodrigo-torres-bytecore"
+                  href="https://www.linkedin.com/in/rodrigo-torres-arkos"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"

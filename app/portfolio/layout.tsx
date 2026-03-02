@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Portfolio | ByteCore",
+  title: "Portfolio | Árkos",
   description: "Selección de proyectos y trabajos recientes.",
   alternates: { canonical: "/portfolio" },
 }

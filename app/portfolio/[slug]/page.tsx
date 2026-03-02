@@ -15,8 +15,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
   const project = projects.find((p) => String(p.id) === slug)
-  const title = project ? `${project.title} | Portfolio | ByteCore` : "Proyecto | Portfolio | ByteCore"
-  const description = project?.description || "Detalle del proyecto del portfolio de ByteCore"
+  const title = project ? `${project.title} | Portfolio | Árkos` : "Proyecto | Portfolio | Árkos"
+  const description = project?.description || "Detalle del proyecto del portfolio de Árkos"
   const canonical = `/portfolio/${slug}`
   return {
     title,

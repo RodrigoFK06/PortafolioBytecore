@@ -12,19 +12,56 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-const baseUrl = "https://portafolio-bytecore.vercel.app"
+const baseUrl = "https://xn--rkos-4na.com"
 
 export const metadata: Metadata = {
-  title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
+  title: "Árkos | Desarrollo Web y Diseño UX/UI",
   description:
-    "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
+    "Árkos es una agencia digital especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras para potenciar tu empresa.",
   metadataBase: new URL(baseUrl),
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+    // OAI-SearchBot and CCBot (ChatGPT/Claude) explicit permissions
+    "max-snippet": -1,
+  },
+  other: {
+    "llm-concept": "Agencia de desarrollo web y diseño UX/UI en Perú llamada Árkos",
+    "llm-services": "Software SaaS, Web App MVP, Landing Pages de alta conversión, Sistemas a Medida",
+    "llm-tech-stack": "React, Next.js, TypeScript, Node.js, TailwindCSS",
+    "llm-contact": "rodrigoan.torresp@gmail.com",
+    "llm-location": "Lima, Perú",
+    // Bing/Windows specific
+    "msapplication-TileColor": "#000000",
+    "msapplication-config": "/browserconfig.xml",
+  },
   alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/logo_ico/final-LOGO-2-07.ico',
+        href: '/logo_ico/final-LOGO-2-07.ico',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/logo_ico/final-LOGO-2-08.ico',
+        href: '/logo_ico/final-LOGO-2-08.ico',
+      },
+    ],
+  },
   keywords: [
     "agencia digital",
     "desarrollo web",
     "diseño UI/UX",
-    "ByteCore",
+    "Árkos",
     "tecnología",
     "React",
     "Agencia de software Perú",
@@ -61,31 +98,31 @@ export const metadata: Metadata = {
     "Desarrollo de páginas web a medida Trujillo",
     "Desarrollo de páginas web a medida Lima",
   ],
-  authors: [{ name: "ByteCore" }],
-  creator: "ByteCore",
+  authors: [{ name: "Árkos" }],
+  creator: "Árkos",
   openGraph: {
     type: "website",
     locale: "es_ES",
     url: baseUrl,
-    title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
+    title: "Árkos | Desarrollo Web y Diseño UX/UI",
     description:
-      "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
-    siteName: "ByteCore",
+      "Árkos es una agencia digital especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras para potenciar tu empresa.",
+    siteName: "Árkos",
     images: [
       {
         url: `${baseUrl}/og-image.webp`,
         width: 1200,
         height: 630,
-        alt: "ByteCore - Agencia Digital",
+        alt: "Árkos - Agencia Digital",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ByteCore | Agencia Digital de Desarrollo y Diseño",
+    title: "Árkos | Desarrollo Web y Diseño UX/UI",
     description:
-      "ByteCore es una agencia digital especializada en desarrollo web, diseño UI/UX y soluciones tecnológicas innovadoras para empresas.",
-    creator: "@bytecore",
+      "Árkos es una agencia digital especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras para potenciar tu empresa.",
+    creator: "@arkos",
     images: [`${baseUrl}/og-image.webp`],
   },
 }
@@ -98,7 +135,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        {/* La etiqueta de ícono ahora se genera a través del objeto `metadata` anterior */}
         <script
           type="application/ld+json"
           // Organization schema
@@ -106,12 +143,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "ByteCore",
+              name: "Árkos",
               url: baseUrl,
-              logo: `${baseUrl}/logoblanco.webp`,
+              logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               sameAs: [
                 "https://github.com/RodrigoFK06",
-                "https://www.linkedin.com/in/rodrigo-torres-bytecore/"
+                "https://www.linkedin.com/in/rodrigo-torres-arkos/"
               ]
             }),
           }}
@@ -139,7 +176,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "ByteCore",
+              name: "Árkos",
               url: baseUrl,
               image: `${baseUrl}/og-image.webp`,
               telephone: "+51 961 869 348",
@@ -154,6 +191,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
+        {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
+        <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
+           <h1>Árkos - Tu Software Hecho Byte x Byte</h1>
+           <p>Árkos es una agencia digital de Perú especializada en desarrollo de software a medida, aplicaciones web con React y Next.js, y diseño de interfaces UX/UI en Figma. Ayudamos a startups y corporativos a transformar sus ideas en productos digitales escalables, hiper-rápidos y modernos. Fundador: Rodrigo Torres. Servicios clave: Landing pages de alta conversión, integraciones de IA (Chatbots, Automatizaciones n8n), E-commerce y Sistemas Empresariales. Contacto: rodrigoan.torresp@gmail.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+        </div>
+
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           {children}

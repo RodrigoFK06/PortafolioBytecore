@@ -118,13 +118,13 @@ export function HeroSection() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           {/* Tagline */}
-          <p
+          <h2
             ref={taglineRef}
             className="text-sm md:text-base font-medium text-brand tracking-widest uppercase mb-6"
             style={{ opacity: 0 }}
           >
             Agencia Digital
-          </p>
+          </h2>
 
           {/* Headline — each word in an overflow wrapper */}
           <h1
@@ -145,14 +145,14 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p
+          <h3
             ref={descRef}
-            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
             style={{ opacity: 0 }}
           >
-            Somos ByteCore, una agencia digital especializada en desarrollo web,
+            Somos Árkos, una agencia digital especializada en desarrollo web,
             diseño UX/UI y soluciones tecnológicas innovadoras.
-          </p>
+          </h3>
 
           {/* CTAs */}
           <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">

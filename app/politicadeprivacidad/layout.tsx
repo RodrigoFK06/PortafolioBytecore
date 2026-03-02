@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Política de Privacidad | ByteCore",
+  title: "Política de Privacidad | Árkos",
   description: "Cómo tratamos y protegemos tus datos personales.",
   alternates: { canonical: "/politicadeprivacidad" },
 }

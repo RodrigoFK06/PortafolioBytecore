@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import React from "react"
 
 export const metadata: Metadata = {
-  title: "Blog | ByteCore",
+  title: "Blog | Árkos",
   description: "Artículos y guías sobre desarrollo, UX/UI y tecnología.",
   alternates: { canonical: "/blog" },
 }
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <link rel="alternate" type="application/rss+xml" title="ByteCore Blog RSS" href="/rss.xml" />
+      <link rel="alternate" type="application/rss+xml" title="Árkos Blog RSS" href="/rss.xml" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

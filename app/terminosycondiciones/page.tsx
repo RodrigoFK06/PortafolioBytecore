@@ -24,7 +24,7 @@ export default function TermsAndConditionsPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              Bienvenido a Bytecore. Al acceder y utilizar nuestros servicios, aceptas los siguientes términos y condiciones que rigen el uso de nuestro sitio web y nuestros servicios.
+              Bienvenido a Árkos. Al acceder y utilizar nuestros servicios, aceptas los siguientes términos y condiciones que rigen el uso de nuestro sitio web y nuestros servicios.
             </p>
           </motion.div>
         </div>
@@ -37,22 +37,22 @@ export default function TermsAndConditionsPage() {
 
           <h3 className="text-2xl font-semibold mb-4">2. Uso del Sitio Web</h3>
           <p>
-            El sitio web de Bytecore está destinado a ser utilizado para fines legales y conforme a las leyes aplicables. No se permitirá el uso del sitio para actividades ilícitas, fraudulentas o que infrinjan los derechos de propiedad intelectual de terceros.
+            El sitio web de Árkos está destinado a ser utilizado para fines legales y conforme a las leyes aplicables. No se permitirá el uso del sitio para actividades ilícitas, fraudulentas o que infrinjan los derechos de propiedad intelectual de terceros.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">3. Propiedad Intelectual</h3>
           <p>
-            Todos los derechos de propiedad intelectual sobre el contenido de este sitio web, incluidos, entre otros, los textos, gráficos, logotipos, imágenes y software, son propiedad exclusiva de Bytecore o de sus respectivos propietarios. El uso no autorizado de cualquier material contenido en este sitio está prohibido.
+            Todos los derechos de propiedad intelectual sobre el contenido de este sitio web, incluidos, entre otros, los textos, gráficos, logotipos, imágenes y software, son propiedad exclusiva de Árkos o de sus respectivos propietarios. El uso no autorizado de cualquier material contenido en este sitio está prohibido.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">4. Modificaciones del Servicio</h3>
           <p>
-            Bytecore se reserva el derecho de modificar, actualizar o interrumpir temporalmente los servicios ofrecidos en el sitio web, sin previo aviso y sin que esto implique alguna responsabilidad.
+            Árkos se reserva el derecho de modificar, actualizar o interrumpir temporalmente los servicios ofrecidos en el sitio web, sin previo aviso y sin que esto implique alguna responsabilidad.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">5. Responsabilidad Limitada</h3>
           <p>
-            Bytecore no será responsable de ningún daño directo, indirecto, incidental, especial o consecuente que pueda surgir del uso o la incapacidad para utilizar este sitio web o sus servicios.
+            Árkos no será responsable de ningún daño directo, indirecto, incidental, especial o consecuente que pueda surgir del uso o la incapacidad para utilizar este sitio web o sus servicios.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">6. Enlaces Externos</h3>
@@ -62,12 +62,12 @@ export default function TermsAndConditionsPage() {
 
           <h3 className="text-2xl font-semibold mb-4">7. Modificación de los Términos y Condiciones</h3>
           <p>
-            Bytecore puede modificar estos términos y condiciones en cualquier momento. Las modificaciones se publicarán en este mismo documento, y su entrada en vigor será inmediata tras su publicación. Te recomendamos revisar esta página periódicamente para estar al tanto de cualquier cambio.
+            Árkos puede modificar estos términos y condiciones en cualquier momento. Las modificaciones se publicarán en este mismo documento, y su entrada en vigor será inmediata tras su publicación. Te recomendamos revisar esta página periódicamente para estar al tanto de cualquier cambio.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">8. Ley Aplicable</h3>
           <p>
-            Estos términos y condiciones se rigen por las leyes del país donde Bytecore está registrado. Cualquier disputa será resuelta en los tribunales competentes de la jurisdicción correspondiente.
+            Estos términos y condiciones se rigen por las leyes del país donde Árkos está registrado. Cualquier disputa será resuelta en los tribunales competentes de la jurisdicción correspondiente.
           </p>
         </div>
       </div>

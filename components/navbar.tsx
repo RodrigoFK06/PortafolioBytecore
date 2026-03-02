@@ -69,8 +69,8 @@ export function Navbar() {
           {/* Logo — clean, no glow */}
           <Link href="/" className="relative opacity-90 hover:opacity-100 transition-opacity duration-200">
             <Image
-              src={theme === "light" ? "/logonegro.webp" : "/logoblanco.webp"}
-              alt="ByteCore Logo"
+              src={theme === "light" ? "/logo_ico/final - LOGO 2-01.png" : "/logo_ico/final - LOGO 2-02.png"}
+              alt="Árkos Logo"
               width={250}
               height={100}
               className="w-auto h-10 md:h-12 lg:h-14 object-contain"

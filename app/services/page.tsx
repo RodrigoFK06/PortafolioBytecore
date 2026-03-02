@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Servicios | ByteCore",
+  title: "Servicios | Árkos",
   description: "Desarrollo web, UI/UX, e‑commerce y más.",
   alternates: { canonical: "/services" },
 }
@@ -14,7 +14,7 @@ export default function ServicesPage() {
             Nuestros <span className="text-brand">Servicios</span>
           </h1>
           <p className="text-muted-foreground leading-relaxed">
-            En ByteCore ofrecemos una gama completa de servicios digitales, cada uno entregado con el mismo compromiso inquebrantable de excelencia y atención al detalle.
+            En Árkos ofrecemos una gama completa de servicios digitales, cada uno entregado con el mismo compromiso inquebrantable de excelencia y atención al detalle.
           </p>
         </div>
 

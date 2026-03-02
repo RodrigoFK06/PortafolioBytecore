@@ -1,0 +1,4 @@
+final - LOGO 2-01.png: 4167x4167, Brillo: 53 -> Dark/Black (modo CLARO)
+final - LOGO 2-02.png: 4167x4167, Brillo: 233 -> Light/White (modo OSCURO)
+final - LOGO 2-07.png: 4167x4167, Brillo: 111 -> Dark/Black (modo CLARO)
+final - LOGO 2-08.png: 4167x4167, Brillo: 204 -> Light/White (modo OSCURO)

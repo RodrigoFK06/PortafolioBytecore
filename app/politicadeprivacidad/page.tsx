@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              Bienvenido a Bytecore. En esta página te explicamos cómo manejamos tu información personal y tus derechos relacionados con nuestra política de privacidad.
+              Bienvenido a Árkos. En esta página te explicamos cómo manejamos tu información personal y tus derechos relacionados con nuestra política de privacidad.
             </p>
           </motion.div>
         </div>
@@ -62,17 +62,17 @@ export default function PrivacyPolicyPage() {
 
           <h3 className="text-2xl font-semibold mb-4">7. Modificación de la Política</h3>
           <p>
-            Bytecore puede actualizar esta política de privacidad en cualquier momento. Las modificaciones se publicarán en esta página, y estarán en vigor tan pronto como se publiquen.
+            Árkos puede actualizar esta política de privacidad en cualquier momento. Las modificaciones se publicarán en esta página, y estarán en vigor tan pronto como se publiquen.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">8. Derechos del Usuario</h3>
           <p>
-            Tienes derecho a acceder, corregir o eliminar tu información personal. Si deseas ejercer cualquiera de estos derechos, por favor contacta con nosotros a través de nuestro formulario de contacto o enviando un correo electrónico a <strong>privacidad@bytecore.com</strong>.
+            Tienes derecho a acceder, corregir o eliminar tu información personal. Si deseas ejercer cualquiera de estos derechos, por favor contacta con nosotros a través de nuestro formulario de contacto o enviando un correo electrónico a <strong>privacidad@arkos.com</strong>.
           </p>
 
           <h3 className="text-2xl font-semibold mb-4">9. Contacto</h3>
           <p>
-            Si tienes preguntas sobre nuestra política de privacidad o cómo tratamos tus datos, por favor contáctanos a través de nuestro correo electrónico: <strong>privacidad@bytecore.com</strong>.
+            Si tienes preguntas sobre nuestra política de privacidad o cómo tratamos tus datos, por favor contáctanos a través de nuestro correo electrónico: <strong>privacidad@arkos.com</strong>.
           </p>
         </div>
       </div>

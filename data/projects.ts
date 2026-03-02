@@ -1,4 +1,4 @@
-export interface Project {
+﻿export interface Project {
   id: number
   title: string
   description: string
@@ -13,24 +13,54 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "EcoDrive+",
+    title: "OrquestadorADM",
     description:
-      "Plataforma que transforma cada viaje en una oportunidad, ofreciendo recompensas, regalos y beneficios exclusivos para conductores, con el objetivo de mejorar la calidad de vida de las familias peruanas.",
-    tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
-    imageSrc: "/ecodriveplus.webp",
-    link: "https://www.ecodriveplus.com/",
+      "Moderno sistema integral de gestión hotelera (PMS + RMS) diseñado para hoteles de lujo y resorts. Su fortaleza principal es el Revenue Management avanzado, incorporando análisis predictivo (forecasting y What-If), precios dinámicos automáticos y analítica diaria granular.",
+    tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+    imageSrc: "/LoginOrquestador.jpeg",
+    link: "https://orquestador-adm.vercel.app",
     //githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
   },
   {
-    id: 2,
-    title: "Vigo Tulich Servicios Generales",
+    id: 6,
+    title: "ATELIER Clinic",
     description:
-      "Empresa especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería, destacando por su experiencia en el sector industrial y su enfoque en diseños modernos y funcionales.",
-    tags: ["Astro", "Tailwind CSS"],
-    imageSrc: "/vigotulich.webp",
-    link: "https://www.vigotulich.site/",
-    //githubLink: "https://github.com/bytecore/vigotulich",
+      "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    imageSrc: "/atelier.png",
+    link: "https://atelier-seven-beta.vercel.app/",
+    githubLink: "https://atelier-seven-beta.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 16,
+    title: "Megalodon Pro",
+    description:
+      "Sistema integral de gestión para restaurantes que permite el control de ventas, inventario, cocina y recursos humanos desde un panel centralizado.",
+    tags: ["React", "Next.js", "Dashboard", "POS"],
+    imageSrc: "/v0-app.png",
+    link: "https://megalodon-blue.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 13,
+    title: "CalzaFlow",
+    description:
+      "Sistema ERP especializado para la fabricación de calzado que permite optimizar la producción, gestionar pedidos y realizar un seguimiento detallado de talleres externos y stock de materiales.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/calzaflow.png",
+    link: "https://calzaflow.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 14,
+    title: "Ñawi",
+    description:
+      "Productora audiovisual dedicada al cine documental que busca conservar la memoria y fortalecer la identidad cultural a través de relatos comunitarios.",
+    tags: ["Next.js", "React", "Tailwind CSS", "Audiovisual"],
+    imageSrc: "/nawi.png",
+    link: "https://nawi-lac.vercel.app/",
     category: "web",
   },
   {
@@ -45,47 +75,34 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 4,
-    title: "Casaroma Hostels",
+    id: 15,
+    title: "II Simposio Veterinario Internacional 2026",
     description:
-      "Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.",
-    tags: ["HTML", "CSS", "JavaScript", "PHP"],
-    imageSrc: "/casaromahotel.webp",
-    link: "https://casaromahostels.com/",
-    //githubLink: "https://github.com/bytecore/casaroma-hostels",
+      "Sistema de registro y landing page para el Segundo Simposio Veterinario Internacional 2026, facilitando la inscripción y el acceso a la agenda para profesionales veterinarios en Trujillo.",
+    tags: ["Next.js", "Tailwind CSS", "React", "v0"],
+    imageSrc: "/simposio.png",
+    link: "https://v0-veterinary-symposium-registratio.vercel.app/",
     category: "web",
   },
   {
-    id: 5,
-    title: "ReLu Coffee",
+    id: 10,
+    title: "EcoDrive+",
     description:
-      "Empresa que combina la pasión por el café con la tecnología, ofreciendo cafés gourmet y cafeteras automáticas de alto rendimiento para hogares, oficinas y negocios.",
-    tags: ["Astro", "Tailwind CSS"],
-    imageSrc: "/relucoffee.webp",
-    link: "https://www.relucoffee.com/",
-    //githubLink: "https://github.com/bytecore/relu-coffee",
+      "Plataforma que transforma cada viaje en una oportunidad, ofreciendo recompensas, regalos y beneficios exclusivos para conductores, con el objetivo de mejorar la calidad de vida de las familias peruanas.",
+    tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
+    imageSrc: "/ecodriveplus.webp",
+    link: "https://ecodrive-two.vercel.app/",
+    //githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
   },
   {
-    id: 6,
-  title: "ATELIER Clinic",
-  description:
-    "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
-  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
-  imageSrc: "/atelier.png",
-  link: "https://atelier-seven-beta.vercel.app/",
-  githubLink: "https://atelier-seven-beta.vercel.app/",
-  category: "web",
-  },
-  {
-    id: 7,
-    title: "Agencia. Landing Page",
+    id: 11,
+    title: "VR PMS",
     description:
-      "Landing page para una agencia de diseño web, destacando sus servicios, proyectos y equipo. Incluye secciones de testimonios, portafolio y un formulario de contacto.",
-    tags: ["React", "Next.js", "Tailwind CSS"],
-    imageSrc: "/agencialandingpage.jpeg",
-    link: "https://landing-page-place-holder.vercel.app/",
-    //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
+      "Sistema integral de gestión para propiedades de alquiler vacacional, diseñado para facilitar el control de reservas, huéspedes y el rendimiento de las propiedades desde un panel intuitivo.",
+    tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
+    imageSrc: "/vr-pms.png",
+    link: "https://overbookingsol.vercel.app/",
     category: "web",
   },
   {
@@ -100,6 +117,28 @@ export const projects: Project[] = [
     category: "mobile",
   },
   {
+    id: 5,
+    title: "ReLu Coffee",
+    description:
+      "Empresa que combina la pasión por el café con la tecnología, ofreciendo cafés gourmet y cafeteras automáticas de alto rendimiento para hogares, oficinas y negocios.",
+    tags: ["Astro", "Tailwind CSS"],
+    imageSrc: "/relucoffee.webp",
+    link: "https://www.relucoffee.com/",
+    //githubLink: "https://github.com/bytecore/relu-coffee",
+    category: "web",
+  },
+  {
+    id: 4,
+    title: "Casaroma Hostels",
+    description:
+      "Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.",
+    tags: ["HTML", "CSS", "JavaScript", "PHP"],
+    imageSrc: "/casaromahotel.webp",
+    link: "https://casaromahostels.com/",
+    //githubLink: "https://github.com/bytecore/casaroma-hostels",
+    category: "web",
+  },
+  {
     id: 9,
     title: "Tu sonrisa perfecta landing page",
     description:
@@ -109,13 +148,45 @@ export const projects: Project[] = [
     link: "https://clinica-dental-landing-ten.vercel.app/",
     //githubLink: "https://github.com/bytecore/mantenimiento-jk",
     category: "ui",
+  },
+  {
+    id: 7,
+    title: "Agencia. Landing Page",
+    description:
+      "Landing page para una agencia de diseño web, destacando sus servicios, proyectos y equipo. Incluye secciones de testimonios, portafolio y un formulario de contacto.",
+    tags: ["React", "Next.js", "Tailwind CSS"],
+    imageSrc: "/agencialandingpage.jpeg",
+    link: "https://landing-page-place-holder.vercel.app/",
+    //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
+    category: "web",
+  },
+  {
+    id: 12,
+    title: "Solutec System",
+    description:
+      "Sistema integral para la gestión de clientes, permitiendo el registro, filtrado y exportación de datos detallados con una interfaz moderna y funcional basada en React.",
+    tags: ["React", "Material UI", "Frontend", "ERP"],
+    imageSrc: "/solutec.png",
+    link: "https://front-dharcy.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 2,
+    title: "Solutec DHA",
+    description:
+      "Empresa especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería, destacando por su experiencia en el sector industrial y su enfoque en diseños modernos y funcionales.",
+    tags: ["Next.js", "Tailwind CSS", "React"],
+    imageSrc: "/solutecdha.png",
+    link: "https://www.solutecdha.com",
+    //githubLink: "https://github.com/bytecore/vigotulich",
+    category: "web",
   }
 ];
 
 // Funciones de utilidad para filtrar proyectos
 export const getFeaturedProjects = () => projects.filter(project => project.featured)
 
-export const getProjectsByCategory = (category: string) => 
+export const getProjectsByCategory = (category: string) =>
   category === "all" ? projects : projects.filter(project => project.category === category)
 
 export const getProjectById = (id: number) => projects.find(project => project.id === id)

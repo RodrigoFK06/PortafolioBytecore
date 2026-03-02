@@ -1,4 +1,4 @@
-# 📧 Sistema de Correos ByteCore
+# 📧 Sistema de Correos Árkos
 
 ## Configuración del Sistema de Correos
 

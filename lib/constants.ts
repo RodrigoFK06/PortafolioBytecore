@@ -1,12 +1,12 @@
 // Configuración general del sitio
 export const SITE_CONFIG = {
-  name: "ByteCore",
-  title: "ByteCore - Tu Software Hecho Byte x Byte",
-  description: "Somos ByteCore, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.",
-  url: "https://bytecore.dev",
-  creator: "@ByteCore",
+  name: "Árkos",
+  title: "Árkos - Tu Software Hecho Byte x Byte",
+  description: "Somos Árkos, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.",
+  url: "https://arkos.dev",
+  creator: "@Árkos",
   keywords: ["desarrollo web", "diseño UX/UI", "soluciones tecnológicas", "Next.js", "React", "TypeScript"],
-  
+
   // Contacto
   contact: {
     email: "rodrigoan.torresp@gmail.com",
@@ -14,13 +14,13 @@ export const SITE_CONFIG = {
     whatsapp: "51961869348",
     address: "Lima, Perú",
   },
-  
+
   // Redes sociales
   social: {
-    twitter: "https://twitter.com/bytecore",
-    github: "https://github.com/bytecore",
-    linkedin: "https://linkedin.com/company/bytecore",
-    instagram: "https://instagram.com/bytecore",
+    twitter: "https://twitter.com/arkos",
+    github: "https://github.com/arkos",
+    linkedin: "https://linkedin.com/company/arkos",
+    instagram: "https://instagram.com/arkos",
   },
 
   // Sistema de correos (variables de entorno)
@@ -35,7 +35,7 @@ export const SITE_CONFIG = {
   chatbot: {
     apiEndpoint: "/api/chatbot",
     enabled: true,
-    welcomeMessage: "¡Hola! Soy ByteBot, tu asistente de ventas de ByteCore 👋",
+    welcomeMessage: "¡Hola! Soy ByteBot, tu asistente de ventas de Árkos 👋",
     model: "gemini-2.0-flash-exp",
     features: {
       leadQualification: true,

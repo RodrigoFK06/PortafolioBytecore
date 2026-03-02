@@ -51,7 +51,7 @@ CHATBOT_ENABLED=true
 
 ### Diseño Profesional
 - 📱 **Responsive**: Se ve bien en móvil y desktop
-- 🎨 **HTML Estilizado**: Formato profesional con colores ByteCore
+- 🎨 **HTML Estilizado**: Formato profesional con colores Árkos
 - 📊 **Secciones Claras**: Información organizada y fácil de leer
 - 💬 **Conversación Formateada**: Distinción visual entre usuario y bot
 

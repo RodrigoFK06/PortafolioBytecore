@@ -13,7 +13,7 @@ type TimelineEventType = {
 
 // Lista de eventos en zig-zag
 const timelineEvents: TimelineEventType[] = [
-  { year: "2020", title: "Inicio de ByteCore", description: "Fundamos ByteCore con una visión de innovación tecnológica." },
+  { year: "2020", title: "Inicio de Árkos", description: "Fundamos Árkos con una visión de innovación tecnológica." },
   { year: "2021", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma móvil para una empresa." },
   { year: "2022", title: "Crecimiento a través del estudio", description: "Hemos dedicado tiempo a estudiar, aprender y mejorar nuestras habilidades para ofrecer un servicio de calidad." },
   { year: "2023", title: "Foco en la dedicación y gestión con clientes", description: "Logramos una excelente gestión con los clientes, que es la base de nuestro éxito y crecimiento continuo." },

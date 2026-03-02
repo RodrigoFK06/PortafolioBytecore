@@ -1,10 +1,14 @@
+"use client";
+
 import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react"
 import { SITE_CONFIG } from "@/lib/constants"
+import { useThemeState } from "@/hooks/use-theme-state";
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const { theme, mounted } = useThemeState();
 
   return (
     <footer className="bg-muted/50 py-12 border-t">
@@ -13,8 +17,8 @@ export function Footer() {
           <div className="md:col-span-2">
           <Link href="/">
               <Image
-                src="/logoblanco.webp"
-                alt="ByteCore Logo"
+                src={theme === "light" ? "/logo_ico/final - LOGO 2-01.png" : "/logo_ico/final - LOGO 2-02.png"}
+                alt="Árkos Logo"
                 width={250}  
                 height={100}
                 className="w-auto h-10 md:h-12 lg:h-14 object-contain"
@@ -118,7 +122,7 @@ export function Footer() {
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} ByteCore. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} Árkos. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/politicadeprivacidad" className="text-muted-foreground hover:text-foreground transition-colors text-sm">

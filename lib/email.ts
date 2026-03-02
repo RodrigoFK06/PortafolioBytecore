@@ -28,7 +28,7 @@ const generateEmailTemplate = (data: ContactFormData): EmailTemplate => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Nuevo contacto - ByteCore</title>
+      <title>Nuevo contacto - Árkos</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -91,7 +91,7 @@ const generateEmailTemplate = (data: ContactFormData): EmailTemplate => {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo">ByteCore</div>
+          <div class="logo">Árkos</div>
           <p>Nuevo mensaje de contacto</p>
         </div>
         
@@ -123,7 +123,7 @@ const generateEmailTemplate = (data: ContactFormData): EmailTemplate => {
         </div>
         
         <div class="footer">
-          <p>Este correo fue enviado desde el formulario de contacto de ByteCore</p>
+          <p>Este correo fue enviado desde el formulario de contacto de Árkos</p>
           <p>Fecha: ${new Date().toLocaleString('es-ES')}</p>
         </div>
       </div>
@@ -132,7 +132,7 @@ const generateEmailTemplate = (data: ContactFormData): EmailTemplate => {
   `
 
   const text = `
-Nuevo contacto desde ByteCore
+Nuevo contacto desde Árkos
 
 Nombre: ${name}
 Email: ${email}
@@ -143,12 +143,12 @@ Mensaje:
 ${message}
 
 ---
-Este correo fue enviado desde el formulario de contacto de ByteCore
+Este correo fue enviado desde el formulario de contacto de Árkos
 Fecha: ${new Date().toLocaleString('es-ES')}
   `.trim()
 
   return {
-    subject: `[ByteCore] ${subject}`,
+    subject: `[Árkos] ${subject}`,
     html,
     text,
   }
@@ -159,14 +159,14 @@ export const sendContactEmail = async (data: ContactFormData): Promise<EmailResp
   try {
     const transporter = createTransporter()
     const template = generateEmailTemplate(data)
-    
+
     // Verificar la configuración
     await transporter.verify()
-    
+
     // Configurar las opciones del correo
     const mailOptions = {
       from: {
-        name: 'ByteCore Portfolio',
+        name: 'Árkos Portfolio',
         address: process.env.SMTP_FROM || process.env.SMTP_USER || '',
       },
       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER || '',
@@ -178,7 +178,7 @@ export const sendContactEmail = async (data: ContactFormData): Promise<EmailResp
 
     // Enviar el correo
     const info = await transporter.sendMail(mailOptions)
-    
+
     return {
       success: true,
       message: 'Correo enviado exitosamente',
@@ -186,7 +186,7 @@ export const sendContactEmail = async (data: ContactFormData): Promise<EmailResp
     }
   } catch (error) {
     console.error('Error enviando correo:', error)
-    
+
     return {
       success: false,
       message: 'Error al enviar el correo. Por favor, intenta nuevamente.',
@@ -197,7 +197,7 @@ export const sendContactEmail = async (data: ContactFormData): Promise<EmailResp
 // Función para validar la configuración SMTP
 export const validateSMTPConfig = (): boolean => {
   const requiredEnvVars = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASS']
-  
+
   return requiredEnvVars.every(varName => {
     const value = process.env[varName]
     return value && value.trim() !== ''
@@ -228,7 +228,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
   // Calcular duración de la conversación
   const firstMessage = conversation[0]?.timestamp
   const lastMessage = conversation[conversation.length - 1]?.timestamp
-  const duration = firstMessage && lastMessage 
+  const duration = firstMessage && lastMessage
     ? `${Math.round((lastMessage.getTime() - firstMessage.getTime()) / (1000 * 60))} minutos`
     : 'N/A'
 
@@ -237,7 +237,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
     <html lang="es">
     <head>
       <meta charset="UTF-8">
-      <title>📊 Informe Completo de Lead - ByteCore</title>
+      <title>📊 Informe Completo de Lead - Árkos</title>
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f5f7fa; padding: 20px; margin: 0; }
         .container { max-width: 800px; margin: auto; background: #fff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); overflow: hidden; }
@@ -283,7 +283,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
       <div class="container">
         <div class="header">
           <h1>📊 Informe Completo de Lead</h1>
-          <p>ByteCore - Sistema de Seguimiento Automático</p>
+          <p>Árkos - Sistema de Seguimiento Automático</p>
         </div>
         
         <div class="content">
@@ -358,12 +358,12 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
         </div>
         
         <div class="footer">
-          <p><strong>🤖 Informe generado automáticamente por ByteCore</strong></p>
-          <p>📅 ${new Date().toLocaleString('es-ES')} | 🔗 <a href="https://portafolio-bytecore.vercel.app" style="color: #007bff;">portafolio-bytecore.vercel.app</a></p>
+          <p><strong>🤖 Informe generado automáticamente por Árkos</strong></p>
+          <p>📅 ${new Date().toLocaleString('es-ES')} | 🔗 <a href="https://xn--rkos-4na.com" style="color: #007bff;">xn--rkos-4na.com</a></p>
           <p style="margin-top: 10px; font-size: 12px;">
-            ${score >= 70 ? '🚨 <strong>ACCIÓN REQUERIDA:</strong> Lead de alta prioridad, contactar inmediatamente' : 
-              score >= 40 ? '⚡ Lead calificado, agendar seguimiento en 24-48h' : 
-              '📝 Lead inicial, continuar nurturing'}
+            ${score >= 70 ? '🚨 <strong>ACCIÓN REQUERIDA:</strong> Lead de alta prioridad, contactar inmediatamente' :
+      score >= 40 ? '⚡ Lead calificado, agendar seguimiento en 24-48h' :
+        '📝 Lead inicial, continuar nurturing'}
           </p>
         </div>
       </div>
@@ -392,23 +392,23 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
 
 💬 CONVERSACIÓN COMPLETA:
 ${conversation.map((msg, index) => {
-  const time = new Date(msg.timestamp).toLocaleString('es-ES')
-  return `[${time}] ${msg.role === 'assistant' ? '🤖 ByteBot' : '👤 Usuario'}: ${msg.message}`
-}).join('\n\n')}
+    const time = new Date(msg.timestamp).toLocaleString('es-ES')
+    return `[${time}] ${msg.role === 'assistant' ? '🤖 ByteBot' : '👤 Usuario'}: ${msg.message}`
+  }).join('\n\n')}
 
 📋 PRÓXIMOS PASOS RECOMENDADOS:
-${score >= 70 ? '🚨 CONTACTAR INMEDIATAMENTE - Lead caliente listo para cierre' : 
-  score >= 40 ? '⚡ Agendar seguimiento en 24-48h - Lead calificado' : 
-  '📝 Continuar nurturing - Lead en fase inicial'}
+${score >= 70 ? '🚨 CONTACTAR INMEDIATAMENTE - Lead caliente listo para cierre' :
+      score >= 40 ? '⚡ Agendar seguimiento en 24-48h - Lead calificado' :
+        '📝 Continuar nurturing - Lead en fase inicial'}
 
 ---
-🤖 Informe generado automáticamente por ByteCore
+🤖 Informe generado automáticamente por Árkos
 📅 ${new Date().toLocaleString('es-ES')}
-🔗 https://portafolio-bytecore.vercel.app
+🔗 https://xn--rkos-4na.com
   `.trim()
 
   return {
-    subject: `🚨 [ByteCore] ${score >= 70 ? 'LEAD CALIENTE' : score >= 40 ? 'Lead Calificado' : 'Nuevo Lead'}: ${name || email || phone || 'Contacto Potencial'}`,
+    subject: `🚨 [Árkos] ${score >= 70 ? 'LEAD CALIENTE' : score >= 40 ? 'Lead Calificado' : 'Nuevo Lead'}: ${name || email || phone || 'Contacto Potencial'}`,
     html,
     text,
   }
@@ -422,7 +422,7 @@ export const sendChatbotReportEmail = async (lead: Lead): Promise<EmailResponse>
 
     const mailOptions = {
       from: {
-        name: 'ByteCore Chatbot',
+        name: 'Árkos Chatbot',
         address: process.env.SMTP_FROM || process.env.SMTP_USER || '',
       },
       to: process.env.CONTACT_EMAIL, // Se envía a tu correo de contacto

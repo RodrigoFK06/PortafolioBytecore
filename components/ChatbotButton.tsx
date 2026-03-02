@@ -377,7 +377,7 @@ Estoy aquí para ayudarte con:
               </div>
 
               <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
-                <span>Powered by Gemini AI • ByteCore</span>
+                <span>Powered by Gemini AI • Árkos</span>
                 {input.length > 0 && (
                   <span className={input.length > 900 ? "text-red-500" : "text-muted-foreground"}>
                     {input.length}/1000

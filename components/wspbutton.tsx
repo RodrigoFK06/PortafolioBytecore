@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent(
-      "Hola, estoy interesado en contratar los servicios de ByteCore. ¿Podemos conversar más sobre mi proyecto?"
+      "Hola, estoy interesado en contratar los servicios de Árkos. ¿Podemos conversar más sobre mi proyecto?"
     );
     const url = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${message}`;
     window.open(url, "_blank", "noopener,noreferrer");
