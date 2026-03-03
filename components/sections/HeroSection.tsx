@@ -12,8 +12,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 function HeroWord({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className="inline-block overflow-hidden pb-2">
-      <span className={`hero-word inline-block ${className}`} style={{ transform: "translateY(110%)" }}>
+    <span className="inline-block overflow-hidden pb-[0.25em] -mb-[0.25em] pr-[0.25em] -mr-[0.25em]">
+      <span className={`hero-word inline-block pr-[0.1em] ${className}`} style={{ transform: "translateY(110%)" }}>
         {children}
       </span>
     </span>
@@ -27,6 +27,7 @@ export function HeroSection() {
   const descRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const noteRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -34,12 +35,20 @@ export function HeroSection() {
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
 
+      // 0. Marginal note
+      tl.fromTo(
+        noteRef.current,
+        { y: -10, opacity: 0, rotation: -6 },
+        { y: 0, opacity: 1, rotation: -2, duration: 1 },
+        0.2
+      )
+
       // 1. Tagline — slide in from left
       tl.fromTo(
         taglineRef.current,
         { x: -40, opacity: 0 },
         { x: 0, opacity: 1, duration: 0.8 },
-        0.3
+        0.4
       )
 
       // 2. Headline words — slide up from below the overflow wrapper
@@ -53,16 +62,16 @@ export function HeroSection() {
             stagger: 0.1,
             ease: "power4.out",
           },
-          0.5
+          0.6
         )
       }
 
-      // 3. Description — slide up
+      // 3. Description — slide in from right (+ glass reveal)
       tl.fromTo(
         descRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
-        1.2
+        { x: 30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8 },
+        1.3
       )
 
       // 4. CTAs — stagger in
@@ -72,7 +81,7 @@ export function HeroSection() {
           buttons,
           { y: 30, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.6, stagger: 0.12 },
-          1.5
+          1.6
         )
       }
 
@@ -81,7 +90,7 @@ export function HeroSection() {
         scrollRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.8 },
-        2.0
+        2.1
       )
 
       // Scroll indicator bounce (infinite)
@@ -92,6 +101,14 @@ export function HeroSection() {
         yoyo: true,
         repeat: -1,
       })
+
+      // Logo spin (infinite)
+      gsap.to(".logo-spin", {
+        rotate: 360,
+        duration: 20,
+        repeat: -1,
+        ease: "linear",
+      })
     },
     { scope: sectionRef }
   )
@@ -99,87 +116,120 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-[#050505] transition-colors duration-500"
     >
-      {/* Mesh gradient background */}
-      <div className="absolute inset-0 hero-mesh-gradient opacity-30 dark:opacity-20" />
+      {/* Noise Texture Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
 
-      {/* Grid overlay */}
+      {/* Mesh gradient background */}
+      <div className="absolute inset-0 hero-mesh-gradient opacity-15 dark:opacity-40" />
+
+      {/* Grid overlay - Reduced opacity for subtle effect */}
       <div
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.02]"
         style={{
           backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
                            linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
+          backgroundSize: "80px 80px",
         }}
       />
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 pt-32 md:pt-40 pb-20 lg:pb-0 min-h-screen flex flex-col justify-center">
+        <div className="max-w-7xl mx-auto relative text-left w-full">
+          
+          {/* Anotación Marginal (Human-First text) */}
+          <div 
+            ref={noteRef}
+            className="absolute -top-16 left-4 md:-top-12 md:left-12 font-mono text-[10px] md:text-sm text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20"
+            style={{ opacity: 0 }}
+            aria-hidden="true"
+          >
+            // Iteración v2.4 — Diseño a mano
+          </div>
+
           {/* Tagline */}
           <h2
             ref={taglineRef}
-            className="text-sm md:text-base font-medium text-brand tracking-widest uppercase mb-6"
+            className="text-sm md:text-base font-bold text-brand tracking-[0.2em] uppercase mb-8 ml-2 md:ml-12"
             style={{ opacity: 0 }}
           >
             Agencia Digital
           </h2>
 
-          {/* Headline — each word in an overflow wrapper */}
+          {/* Headline — Left Aligned, overlapping */}
           <h1
             ref={headlineRef}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter leading-[1] mb-8"
+            className="text-[3rem] sm:text-6xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-black tracking-tighter leading-[0.9] mb-8 md:mb-12 relative z-10 w-full"
           >
-            <HeroWord>Tu</HeroWord>{" "}
-            <HeroWord>Software</HeroWord>
+            <HeroWord>Mejoramos</HeroWord>
             <br />
-            <HeroWord>Hecho</HeroWord>{" "}
-            <HeroWord className="text-brand">
-              Byte
-              <span className="text-foreground/30 mx-1 md:mx-2 text-3xl md:text-5xl lg:text-6xl align-middle font-light">
-                ×
-              </span>
-              Byte
-            </HeroWord>
+            <span className="ml-0 md:ml-[1.5em] inline-block">
+               <HeroWord>tus</HeroWord>{" "}
+               <HeroWord className="text-brand relative">
+                 pr
+                 <span className="inline-block align-baseline mx-[0.05em] w-[0.75em] h-[0.75em] relative logo-spin origin-center translate-y-[0.1em]">
+                   <img
+                     src="/logo_ico/final - LOGO 2-071.svg"
+                     alt="o"
+                     className="absolute inset-0 w-full h-full object-contain dark:hidden"
+                   />
+                   <img
+                     src="/logo_ico/final - LOGO 2-081.svg"
+                     alt="o"
+                     className="absolute inset-0 w-full h-full object-contain hidden dark:block"
+                   />
+                 </span>
+                 cesos
+               </HeroWord>
+            </span>
           </h1>
 
-          {/* Description */}
-          <h3
-            ref={descRef}
-            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
-            style={{ opacity: 0 }}
-          >
-            Somos Árkos, una agencia digital especializada en desarrollo web,
-            diseño UX/UI y soluciones tecnológicas innovadoras.
-          </h3>
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 lg:gap-12 mt-4 lg:-mt-8 w-full relative z-20 mb-16 md:mb-24 lg:mb-32">
+            {/* CTAs - Shifted left */}
+            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 ml-0 md:ml-2 lg:ml-12 order-2 lg:order-1 self-start lg:self-end w-full sm:w-auto">
+              <Button asChild size="lg" className="group rounded-xl relative overflow-hidden bg-brand text-brand-foreground hover:bg-brand/90 w-full sm:w-auto" style={{ opacity: 0 }}>
+                <Link href="#projects" className="flex items-center justify-center">
+                  <span className="relative z-10 flex items-center">
+                    Ver Proyectos
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </Button>
 
-          {/* CTAs */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="group" style={{ opacity: 0 }}>
-              <Link href="#projects" className="flex items-center">
-                Ver Proyectos
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
+              <Button asChild size="lg" variant="outline" className="group rounded-xl bg-black/5 dark:bg-white/5 backdrop-blur-[12px] border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground transition-colors w-full sm:w-auto" style={{ opacity: 0 }}>
+                <Link href="#contact" className="flex items-center justify-center">
+                  Contáctanos
+                </Link>
+              </Button>
+            </div>
 
-            <Button asChild size="lg" variant="outline" className="group" style={{ opacity: 0 }}>
-              <Link href="#contact" className="flex items-center">
-                Contáctanos
-              </Link>
-            </Button>
+            {/* Description - Glassmorphism Card on the right */}
+            <div 
+              ref={descRef}
+              className="w-full lg:w-[45%] xl:w-[40%] text-base md:text-lg text-foreground/80 leading-relaxed font-normal p-6 md:p-8 rounded-2xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative order-1 lg:order-2 transition-colors"
+              style={{ opacity: 0 }}
+            >
+              <div className="absolute inset-0 rounded-2xl border border-black/10 dark:border-white/10 pointer-events-none transition-colors" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
+              <p className="relative z-10">
+                Somos <strong className="text-foreground">Árkos</strong>, una agencia digital especializada en traducir tus procesos empresariales 
+                en soluciones web rápidas, software a medida y un diseño UI/UX de alto rendimiento.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - Hidden on mobile, overlapping risk */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 inset-x-0 flex justify-center z-10"
+        className="hidden md:block absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10"
         style={{ opacity: 0 }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-foreground/20 flex justify-center items-start p-1">
-          <div className="scroll-dot w-1 h-2 bg-foreground/40 rounded-full" />
+        <div className="w-12 h-12 flex items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-md hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors cursor-pointer text-foreground/70 dark:text-white/70">
+           <div className="scroll-dot w-6 h-6 flex flex-col items-center justify-center">
+              <ArrowRight className="w-4 h-4 rotate-90" />
+           </div>
         </div>
       </div>
     </section>

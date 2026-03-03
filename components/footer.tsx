@@ -11,9 +11,12 @@ export function Footer() {
   const { theme, mounted } = useThemeState();
 
   return (
-    <footer className="bg-muted/50 py-12 border-t">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-slate-50 dark:bg-[#050505] py-16 border-t border-black/5 dark:border-white/5 relative overflow-hidden transition-colors duration-500">
+      {/* Noise Texture Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
+      
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
           <Link href="/">
               <Image
@@ -25,7 +28,7 @@ export function Footer() {
                 priority
               />
             </Link>
-            <p className="text-muted-foreground max-w-md mb-6">
+            <p className="text-foreground/60 max-w-md mt-6 mb-8 leading-relaxed">
               {SITE_CONFIG.description}
             </p>
             <div className="flex space-x-4">
@@ -33,7 +36,7 @@ export function Footer() {
                 href={SITE_CONFIG.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/10 hover:text-brand transition-all duration-300"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" />
@@ -42,14 +45,14 @@ export function Footer() {
                 href={SITE_CONFIG.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/10 hover:text-brand transition-all duration-300"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link
                 href={`mailto:${SITE_CONFIG.contact.email}`}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/10 hover:text-brand transition-all duration-300"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
@@ -58,30 +61,30 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider mb-4">Navegación</h3>
-            <ul className="space-y-2">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Navegación</h3>
+            <ul className="space-y-4">
               <li>
-                <Link href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="#about" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Nosotros
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Servicios
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="#projects" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Proyectos
                 </Link>
               </li>
               <li>
-                <Link href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="#testimonials" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Testimonios
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="#contact" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Contacto
                 </Link>
               </li>
@@ -89,47 +92,42 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider mb-4">Services</h3>
-            <ul className="space-y-2">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Servicios</h3>
+            <ul className="space-y-4">
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Web Development
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Mapeo Frontend
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  UI/UX Design
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Sistemas Reactivos
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Frontend Development
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Arquitectura Edge
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Responsive Design
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Animation & Interaction
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Glassmorphism 2.0
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Árkos. Todos los derechos reservados.
+        <div className="border-t border-black/5 dark:border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-foreground/50 text-sm font-medium">
+            &copy; {currentYear} Árkos. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/politicadeprivacidad" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Política de privacidad
+            <Link href="/politicadeprivacidad" className="text-foreground/50 hover:text-brand transition-colors text-sm font-medium">
+              Privacidad
             </Link>
-            <Link href="/terminosycondiciones" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Términos y condiciones
+            <Link href="/terminosycondiciones" className="text-foreground/50 hover:text-brand transition-colors text-sm font-medium">
+              Términos
             </Link>
           </div>
         </div>

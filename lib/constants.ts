@@ -1,7 +1,7 @@
 // Configuración general del sitio
 export const SITE_CONFIG = {
   name: "Árkos",
-  title: "Árkos - Tu Software Hecho Byte x Byte",
+  title: "Árkos - Mejoramos tus procesos",
   description: "Somos Árkos, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.",
   url: "https://arkos.dev",
   creator: "@Árkos",

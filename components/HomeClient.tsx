@@ -10,9 +10,7 @@ import TechnologiesSection from "./sections/TechnologiesSection"
 const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"), { ssr: false })
 const TestimonialsSection = dynamic(() => import("./sections/TestimonialsSection"), { ssr: false })
 const ContactSection = dynamic(() => import("./sections/ContactSection"), { ssr: false })
-const ScrollToTop = dynamic(() => import("./scroll-to-top"), { ssr: false })
-const WhatsAppButton = dynamic(() => import("./wspbutton"), { ssr: false })
-const ChatbotButton = dynamic(() => import("./ChatbotButton"), { ssr: false })
+const FloatingDock = dynamic(() => import("./floating-dock"), { ssr: false })
 
 
 export default function HomeClient() {
@@ -36,9 +34,7 @@ export default function HomeClient() {
 
   return (
     <main>
-      <ScrollToTop />
-      <ChatbotButton />
-      <WhatsAppButton />
+      <FloatingDock />
       <HeroSection />
       <AboutSection />
       <ServicesSection />

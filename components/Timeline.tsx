@@ -1,27 +1,24 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useTheme } from "next-themes"; // Importar useTheme para obtener el tema actual
 
-// Define el tipo de evento
 type TimelineEventType = {
   year: string;
   title: string;
   description: string;
 };
 
-// Lista de eventos en zig-zag
+// Lista de eventos
 const timelineEvents: TimelineEventType[] = [
-  { year: "2020", title: "Inicio de Árkos", description: "Fundamos Árkos con una visión de innovación tecnológica." },
-  { year: "2021", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma móvil para una empresa." },
-  { year: "2022", title: "Crecimiento a través del estudio", description: "Hemos dedicado tiempo a estudiar, aprender y mejorar nuestras habilidades para ofrecer un servicio de calidad." },
-  { year: "2023", title: "Foco en la dedicación y gestión con clientes", description: "Logramos una excelente gestión con los clientes, que es la base de nuestro éxito y crecimiento continuo." },
-  { year: "2024", title: "Lanzamiento de Nuevos Servicios", description: "Incorporamos soluciones avanzadas con IA y nuestro SaaS CRM-ERP." },
+  { year: "2020", title: "Inicio de Árkos", description: "Fundamos Árkos con una visión de innovación tecnológica y disrupción." },
+  { year: "2021", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma móvil a medida para una empresa transnacional." },
+  { year: "2022", title: "Crecimiento de habilidades", description: "Dedicamos horas núcleo a la investigación y el desarrollo para lograr una calidad premium." },
+  { year: "2023", title: "Gestión con clientes", description: "Establecimos métodos de gestión ágil que hoy son la columna vertebral de nuestro éxito." },
+  { year: "2024", title: "Nuevos Servicios SaaS", description: "Incorporamos soluciones avanzadas con IA y lanzamos nuestro propio SaaS CRM-ERP." },
 ];
 
 export default function Timeline() {
-  const { theme } = useTheme(); // Obtener el tema actual
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -31,23 +28,19 @@ export default function Timeline() {
   const lineHeight = useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]);
 
   return (
-    <div
-      className={`relative py-16 rounded-3xl ${
-        theme === "light" ? "bg-gradient-to-b from-blue-50 to-blue-10" : "bg-gradient-to-b from-gray-900 to-gray-990"
-      }`}
-    >
-      <motion.div ref={containerRef} className="relative max-w-4xl mx-auto px-6">
-        {/* Línea central estática */}
-        <div className="absolute left-1/2 top-10 bottom-10 w-1 bg-gray-700 transform -translate-x-1/2 rounded-lg" />
+    <div className="relative py-8">
+      <motion.div ref={containerRef} className="relative max-w-2xl mx-auto md:ml-0 md:mr-auto">
+        {/* Línea asimétrica (off-center to the left) */}
+        <div className="absolute left-6 md:left-[10%] top-4 bottom-0 w-[1px] bg-black/10 dark:bg-white/10 transition-colors" />
         
         {/* Línea animada de progreso */}
         <motion.div
-          className="absolute left-1/2 top-10 w-1 bg-blue-500 transform -translate-x-1/2 origin-top rounded-lg"
+          className="absolute left-6 md:left-[10%] top-4 w-[1px] bg-brand origin-top shadow-[0_0_10px_#4FF8D2]"
           style={{ height: lineHeight }}
         />
 
         {/* Contenedor de eventos */}
-        <div className="relative space-y-16">
+        <div className="relative space-y-12">
           {timelineEvents.map((event, index) => (
             <TimelineEvent key={event.year} event={event} index={index} />
           ))}
@@ -60,56 +53,60 @@ export default function Timeline() {
 function TimelineEvent({ event, index }: { event: TimelineEventType; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const isLeft = index % 2 === 0;
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isClient, setIsClient] = useState(false);
 
-  // Manejar la posición del mouse para efectos dinámicos
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    if (!isClient) return;
+    const { left, top } = e.currentTarget.getBoundingClientRect();
     setMousePos({
-      x: e.clientX - left - width / 2,
-      y: e.clientY - top - height / 2,
+      x: e.clientX - left,
+      y: e.clientY - top,
     });
   };
 
   return (
-    <div className="relative" ref={ref}>
-      {/* Punto en la línea central */}
-      <div className="absolute left-1/2 top-7 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 z-10">
-        <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-      </div>
+    <div className="relative pl-16 md:pl-[25%]" ref={ref}>
+      {/* Punto en la línea asimétrica */}
+      <div className="absolute left-6 md:left-[10%] top-6 w-3 h-3 border border-brand bg-slate-50 dark:bg-[#050505] rounded-none transform -translate-x-1/2 z-10 rotate-45 transition-all duration-300 group-hover:scale-150 group-hover:bg-brand" />
 
       <motion.div
-        initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
+        initial={{ opacity: 0, x: 20 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`grid grid-cols-1 md:grid-cols-2 items-start`}
+        transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }}
+        className="relative"
       >
-        {/* Tarjeta del evento - alternando posición */}
         <div
-          className={`${isLeft ? "md:col-start-1 md:pr-10" : "md:col-start-2 md:pl-10"} col-span-1 relative`}
+          className="relative group cursor-crosshair"
           onMouseMove={handleMouseMove}
         >
-          {/* Brillo interactivo */}
-          <motion.div
-            className="absolute inset-0 bg-white/10 rounded-lg blur-2xl opacity-0 pointer-events-none"
-            style={{
-              x: mousePos.x,
-              y: mousePos.y,
-              opacity: 0.5,
-            }}
-          />
+          {/* Tarjeta de Glassmorfismo Chiseled */}
+          <div className="relative bg-black/[0.02] dark:bg-white/[0.01] backdrop-blur-[12px] p-6 rounded-xl border border-black/10 dark:border-white/5 transition-all duration-500 overflow-hidden">
+             
+            {/* Brillo interactivo (Linterna / Flashlight) */}
+            {isClient && (
+               <motion.div
+                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0"
+                 style={{
+                   background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, hsl(var(--brand) / 0.15), transparent 40%)`,
+                 }}
+               />
+            )}
 
-          {/* Tarjeta de Glassmorfismo */}
-          <div className="relative bg-gray-800/60 backdrop-blur-md p-5 rounded-xl border border-blue-500/20 shadow-lg transition-all duration-300 hover:shadow-blue-500/40">
-            <span className="text-blue-400 font-bold block text-sm">{event.year}</span>
-            <h3 className="text-lg font-semibold text-white">{event.title}</h3>
-            <p className="text-gray-300 text-sm mt-1">{event.description}</p>
+            <div className="font-mono text-brand text-xs uppercase tracking-[0.2em] mb-2 font-semibold flex items-center relative z-10">
+              <span className="opacity-50 mr-2">[ARCHIVE]</span>{event.year}
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-brand transition-colors relative z-10">{event.title}</h3>
+            <p className="text-foreground/70 text-sm leading-relaxed relative z-10">{event.description}</p>
+            
+            {/* Chiseled Light border on hover */}
+            <div className="absolute inset-0 border border-black/0 dark:border-white/0 group-hover:border-black/10 dark:group-hover:border-white/10 rounded-xl transition-colors pointer-events-none opacity-0 group-hover:opacity-100 z-20" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
           </div>
         </div>
-
-        {/* Espacio vacío para alternar */}
-        <div className={`${isLeft ? "md:col-start-2" : "md:col-start-1"} col-span-1`} />
       </motion.div>
     </div>
   );

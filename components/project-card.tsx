@@ -35,52 +35,55 @@ export function ProjectCard({
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="group bg-card rounded-lg overflow-hidden border border-border hover:border-brand/30 transition-colors duration-300 h-full flex flex-col"
+        className="group relative bg-black/[0.02] dark:bg-white/[0.01] backdrop-blur-[12px] p-2 rounded-2xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 transition-all duration-500 h-full flex flex-col shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden"
       >
-        <div className="relative h-48 w-full overflow-hidden">
+        {/* Chiseled Light border on hover */}
+        <div className="absolute inset-0 border border-black/0 dark:border-white/0 group-hover:border-black/10 dark:group-hover:border-white/10 rounded-2xl transition-colors pointer-events-none opacity-0 group-hover:opacity-100 z-20" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
+
+        <div className="relative h-48 w-full overflow-hidden rounded-xl">
           <Image
             src={imageSrc || "/placeholder.svg"}
             alt={`Captura de pantalla del proyecto: ${title}`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+          <div className="absolute inset-0 bg-black/5 dark:bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-        <div className="p-6 flex-grow flex flex-col">
-          <h3 className="text-xl font-bold mb-2">{title || "Untitled Project"}</h3>
-          <p className="text-muted-foreground mb-4 flex-grow">{description || "No description available"}</p>
-          <div className="flex flex-wrap gap-2 mb-4">
+        <div className="p-4 md:p-6 flex-grow flex flex-col relative z-10">
+          <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-brand transition-colors">{title || "Untitled Project"}</h3>
+          <p className="text-foreground/70 text-sm md:text-base mb-6 flex-grow leading-relaxed">{description || "No description available"}</p>
+          <div className="flex flex-wrap gap-2 mb-6">
             {tags &&
               tags.map((tag, index) => (
-                <span key={index} className="text-xs px-2 py-1 bg-muted rounded-full text-muted-foreground">
+                <span key={index} className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-md text-foreground/80 font-mono tracking-wider">
                   {tag}
                 </span>
               ))}
           </div>
-          <div className="flex gap-2 mt-auto">
+          <div className="flex gap-3 mt-auto relative z-10">
             {link && (
-              <Button asChild size="sm" variant="outline" className="flex-1">
+              <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
                 <Link
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center"
+                  className="flex items-center justify-center font-medium"
                 >
-                  Live Demo
-                  <ExternalLink className="ml-2 h-4 w-4" />
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Visitar
                 </Link>
               </Button>
             )}
             {githubLink && (
-              <Button asChild size="sm" variant="outline" className="flex-1">
+              <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
                 <Link
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center"
+                  className="flex items-center justify-center font-medium"
                 >
-                  Code
-                  <Github className="ml-2 h-4 w-4" />
+                  <Github className="mr-2 h-4 w-4" />
+                  Código
                 </Link>
               </Button>
             )}
