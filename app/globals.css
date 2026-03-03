@@ -64,6 +64,16 @@
 }
 
 /* Custom styles */
+::selection {
+  background-color: hsl(var(--brand));
+  color: hsl(var(--brand-foreground));
+}
+
+::-moz-selection {
+  background-color: hsl(var(--brand));
+  color: hsl(var(--brand-foreground));
+}
+
 html {
   scroll-behavior: smooth;
 }

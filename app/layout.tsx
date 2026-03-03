@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { Preloader } from "@/components/preloader"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -198,6 +199,7 @@ export default function RootLayout({
         </div>
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Preloader />
           <Navbar />
           {children}
           <Footer />
