@@ -95,22 +95,22 @@ export function Footer() {
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Servicios</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Mapeo Frontend
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Sistemas Reactivos
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Arquitectura Edge
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Glassmorphism 2.0
                 </Link>
               </li>

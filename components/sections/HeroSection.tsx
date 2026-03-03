@@ -121,12 +121,17 @@ export function HeroSection() {
       {/* Noise Texture Overlay */}
       <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
 
-      {/* Mesh gradient background */}
-      <div className="absolute inset-0 hero-mesh-gradient opacity-15 dark:opacity-40" />
+      {/* Animated Organic Orbs Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
+        <div className="absolute top-[20%] left-[20%] w-[40vw] h-[40vw] bg-brand/30 dark:bg-brand/50 rounded-full blur-[100px] animate-orb-1 opacity-70" />
+        <div className="absolute top-[10%] right-[10%] w-[35vw] h-[35vw] bg-purple-500/30 dark:bg-purple-600/50 rounded-full blur-[120px] animate-orb-2 opacity-60" />
+        <div className="absolute bottom-[20%] left-[30%] w-[45vw] h-[45vw] bg-blue-500/20 dark:bg-blue-600/40 rounded-full blur-[130px] animate-orb-3 opacity-60" />
+        <div className="absolute top-[40%] right-[30%] w-[30vw] h-[30vw] bg-indigo-500/20 dark:bg-indigo-500/40 rounded-full blur-[90px] animate-orb-4 opacity-50" />
+      </div>
 
       {/* Grid overlay - Reduced opacity for subtle effect */}
       <div
-        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.02] [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
                            linear-gradient(to bottom, currentColor 1px, transparent 1px)`,

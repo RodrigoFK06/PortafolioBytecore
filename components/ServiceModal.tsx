@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type ServiceModalProps = {
   title: string;
@@ -12,6 +13,11 @@ type ServiceModalProps = {
 
 export default function ServiceModal({ title, description, icon, isOpen, onClose }: ServiceModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Evita el scroll del fondo cuando el modal está abierto
   useEffect(() => {
@@ -50,12 +56,13 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
     }
   }, [onClose]);
 
-  if (!isOpen) return null;
+  if (!mounted) return null;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
+      {isOpen && (
       <motion.div
-        className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-lg z-50"
+        className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[12px] z-[9999]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -67,16 +74,16 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
       >
         <motion.div
           ref={modalRef}
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 50, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="bg-gray-900/80 backdrop-blur-2xl p-8 rounded-2xl shadow-2xl border border-gray-700/40 relative max-w-lg w-full mx-4 text-center"
-          onClick={(e) => e.stopPropagation()} // Evita que el clic cierre el modal cuando se hace dentro
+          exit={{ opacity: 0, y: 30, scale: 0.95 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-slate-50/90 dark:bg-[#050505]/90 backdrop-blur-2xl p-8 md:p-12 rounded-[2rem] shadow-[0_32px_64px_rgba(0,0,0,0.1)] dark:shadow-[0_32px_64px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10 relative max-w-xl w-full mx-4 text-center overflow-hidden"
+          onClick={(e) => e.stopPropagation()} 
         >
           {/* Botón de cierre */}
           <button
-            className="absolute top-4 right-4 text-white hover:text-gray-400 transition"
+            className="absolute top-6 right-6 text-foreground/50 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded-full transition-all duration-300 z-50"
             onClick={onClose}
           >
             <X size={28} />
@@ -84,7 +91,7 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
 
           {/* Icono del servicio */}
           <motion.div
-            className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-white/10 shadow-md"
+            className="w-20 h-20 mx-auto mb-8 flex items-center justify-center rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-sm"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
@@ -93,24 +100,27 @@ export default function ServiceModal({ title, description, icon, isOpen, onClose
           </motion.div>
 
           {/* Título y descripción */}
-          <h2 className="text-3xl font-bold text-white">{title}</h2>
-          <p className="text-gray-300 mt-3 text-lg leading-relaxed">{description}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight z-10 relative">{title}</h2>
+          <p className="text-foreground/70 mt-4 text-base md:text-lg leading-relaxed z-10 relative">{description}</p>
 
-          {/* Efecto visual en el fondo */}
-          <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/30 rounded-full blur-3xl opacity-50" />
-          <div className="absolute bottom-10 -left-10 w-24 h-24 bg-indigo-500/30 rounded-full blur-3xl opacity-50" />
+          {/* Efectos visuales en el fondo abstractos */}
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand/10 rounded-full blur-[80px] opacity-70 pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] opacity-70 pointer-events-none" />
 
-          {/* Cierre con botón */}
+          {/* Cierre con botón CTA estético */}
           <motion.button
             onClick={onClose}
-            className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-full font-semibold shadow-lg hover:bg-blue-700 transition"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="mt-10 px-8 py-4 bg-brand text-brand-foreground rounded-xl font-semibold opacity-90 hover:opacity-100 shadow-[0_0_20px_rgba(33,150,243,0.3)] transition-all z-10 relative"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Cerrar
+            Entendido
           </motion.button>
         </motion.div>
       </motion.div>
+      )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }

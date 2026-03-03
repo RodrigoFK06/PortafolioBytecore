@@ -149,7 +149,7 @@ export default function RootLayout({
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               sameAs: [
                 "https://github.com/RodrigoFK06",
-                "https://www.linkedin.com/in/rodrigo-torres-arkos/"
+                "https://www.linkedin.com/in/rodrigo-torres-árkos/"
               ]
             }),
           }}

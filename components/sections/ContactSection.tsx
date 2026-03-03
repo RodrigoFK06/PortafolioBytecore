@@ -47,33 +47,33 @@ export default function ContactSection() {
           >
             <h3 className="text-2xl font-bold mb-6 text-foreground">Coordenadas</h3>
             <div className="space-y-6 mb-12">
-              <div className="flex items-start group">
+              <a href="mailto:rodrigoan.torresp@gmail.com" className="flex items-start group">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
                    <Mail className="h-5 w-5 text-brand" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
                   <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">Email</h4>
-                  <p className="text-foreground/80 font-medium">rodrigoan.torresp@gmail.com</p>
+                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">rodrigoan.torresp@gmail.com</p>
                 </div>
-              </div>
-              <div className="flex items-start group">
+              </a>
+              <a href="https://www.linkedin.com/in/rodrigo-torres-árkos" target="_blank" rel="noopener noreferrer" className="flex items-start group">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
                    <Linkedin className="h-5 w-5 text-brand" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
                   <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">LinkedIn</h4>
-                  <p className="text-foreground/80 font-medium">linkedin.com/in/rodrigo-torres-bytecore/</p>
+                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">linkedin.com/in/rodrigo-torres-árkos/</p>
                 </div>
-              </div>
-              <div className="flex items-start group">
+              </a>
+              <a href="https://github.com/RodrigoFK06" target="_blank" rel="noopener noreferrer" className="flex items-start group">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
                    <Github className="h-5 w-5 text-brand" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
                   <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">GitHub</h4>
-                  <p className="text-foreground/80 font-medium">github.com/RodrigoFK06</p>
+                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">github.com/RodrigoFK06</p>
                 </div>
-              </div>
+              </a>
             </div>
 
             <h3 className="text-2xl font-bold mb-6 text-foreground">Briefing Rápido</h3>
@@ -86,17 +86,6 @@ export default function ContactSection() {
                 <Link href="mailto:rodrigoan.torresp@gmail.com">
                   Enviar Mensaje Directo
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="group rounded-xl w-full sm:w-auto h-12 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-foreground hover:bg-black/10 dark:hover:bg-white/10 backdrop-blur-md shadow-none font-medium">
-                <Link
-                  href="/planesyservicios.pdf"
-                  download="planesyservicios.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Documentación Técnica
-                  <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
