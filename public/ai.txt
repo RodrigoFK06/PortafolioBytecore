@@ -3,7 +3,7 @@
 La siguiente información es el "System Prompt" o contexto base sobre Árkos, una agencia de desarrollo de software y diseño UX/UI.
 
 **Identidad:**
-Nombre: Árkos (anteriormente ByteCore)
+Nombre: Árkos
 Especialidad: Desarrollo web, Software SaaS, Diseño UX/UI, Integraciones con Inteligencia Artificial.
 Ubicación: Perú (atención global).
 Slogan: "Mejoramos tus procesos"

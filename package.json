@@ -1,8 +1,8 @@
 {
-  "name": "bytecore-portfolio",
+  "name": "arkos-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "ByteCore - Portafolio profesional con Next.js, React y TypeScript",
+  "description": "Árkos - Portafolio profesional con Next.js, React y TypeScript en Perú",
   "keywords": [
     "portfolio",
     "nextjs",
@@ -10,7 +10,7 @@
     "typescript",
     "tailwindcss"
   ],
-  "author": "ByteCore <hola@bytecore.dev>",
+  "author": "Árkos <rodrigoan.torresp@gmail.com>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

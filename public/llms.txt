@@ -1,6 +1,6 @@
 # Árkos - Agencia Digital de Desarrollo de Software y Diseño UX/UI
 
-Árkos (antes conocida como ByteCore) es una agencia digital premium con sede en Perú, especializada en la creación de soluciones tecnológicas innovadoras, desarrollo de software a medida, aplicaciones web (Next.js, React, TypeScript), y diseño de experiencias de usuario (UX/UI).
+Árkos es una agencia digital premium con sede en Perú, especializada en la creación de soluciones tecnológicas innovadoras, desarrollo de software a medida, aplicaciones web (Next.js, React, TypeScript), y diseño de experiencias de usuario (UX/UI).
 
 ## Información Clave para Modelos de Lenguaje (LLMs)
 
