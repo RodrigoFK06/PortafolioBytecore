@@ -194,7 +194,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
-           <h1>Árkos - Mejoramos tus procesos</h1>
+           <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
            <p>Árkos es una agencia digital de Perú especializada en desarrollo de software a medida, aplicaciones web con React y Next.js, y diseño de interfaces UX/UI en Figma. Ayudamos a startups y corporativos a transformar sus ideas en productos digitales escalables, hiper-rápidos y modernos. Fundador: Rodrigo Torres. Servicios clave: Landing pages de alta conversión, integraciones de IA (Chatbots, Automatizaciones n8n), E-commerce y Sistemas Empresariales. Contacto: rodrigoan.torresp@gmail.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
         </div>
 
