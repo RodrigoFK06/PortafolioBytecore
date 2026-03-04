@@ -122,7 +122,7 @@ export function Footer() {
           <p className="text-foreground/50 text-sm font-medium">
             &copy; {currentYear} Árkos. Todos los derechos reservados.
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex space-x-6 mt-4 md:mt-0 mr-12 md:mr-24 lg:mr-28">
             <Link href="/politicadeprivacidad" className="text-foreground/50 hover:text-brand transition-colors text-sm font-medium">
               Privacidad
             </Link>
