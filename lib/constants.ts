@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   name: "Árkos",
   title: "Árkos - Mejoramos tus procesos",
   description: "Somos Árkos, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.",
-  url: "https://arkos.dev",
+  url: "https://xn--rkos-4na.com",
   creator: "@Árkos",
   keywords: ["desarrollo web", "diseño UX/UI", "soluciones tecnológicas", "Next.js", "React", "TypeScript"],
 
@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
     email: "rodrigoan.torresp@gmail.com",
     phone: "+51 961 869 348",
     whatsapp: "51961869348",
-    address: "Lima, Perú",
+    address: "Trujillo, Perú",
   },
 
   // Redes sociales

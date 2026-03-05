@@ -34,9 +34,7 @@ const SYSTEM_PROMPTS = {
 
 🏢 INFORMACIÓN DE LA EMPRESA:
 - Nombre: Árkos - "Mejoramos tus procesos"
-- Ubicación: Sede en Perú, brindamos servicio global (100% remotos).
-- Especialidad: Desarrollo de Software as a Service (SaaS), y diseño de arquitectura web moderna.
-- Ubicación: Lima, Perú (atendemos clientes locales e internacionales)
+- Ubicación: Trujillo, Perú (atendemos clientes locales e internacionales, 100% remotos)
 - Email: rodrigoan.torresp@gmail.com
 - WhatsApp: +51 961 869 348
 - Sitio web: https://xn--rkos-4na.com/

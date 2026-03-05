@@ -43,7 +43,7 @@ export function Navbar() {
     { href: "#services", label: "Servicios" },
     { href: "#projects", label: "Proyectos" },
     { href: "#testimonials", label: "Testimonios" },
-    { href: "#contact", label: "Contacto" },
+    { href: "/blog", label: "Blog" },
   ];
 
   const getLinkClass = (section: string) => {
@@ -68,7 +68,7 @@ export function Navbar() {
         <div className={`mx-auto ${isScrolled ? "px-6 sm:px-8" : "container px-4 sm:px-6 lg:px-8"}`}>
           <div className="flex items-center justify-between relative z-10">
           {/* Logo — clean, no glow */}
-          <Link href="/" className="relative opacity-90 hover:opacity-100 transition-opacity duration-200">
+          <Link href="/" className="relative opacity-90 hover:opacity-100 transition-opacity duration-200 mr-2 shrink-0">
             <Image
               src={theme === "light" ? "/logo_ico/final - LOGO 2-01.png" : "/logo_ico/final - LOGO 2-02.png"}
               alt="Árkos Logo"
@@ -80,7 +80,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation — no staggered animations */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8 translate-y-[0.5px]">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className={getLinkClass(link.href)}>
                 {link.label}
