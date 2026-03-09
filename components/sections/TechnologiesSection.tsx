@@ -23,13 +23,13 @@ import {
   SiMongodb,
   SiFirebase,
   SiPrisma,
-  SiAmazonwebservices,
+
   SiDocker,
   SiVercel,
   SiKubernetes,
   SiGit,
 } from "react-icons/si"
-import { TbApi, TbRefresh, TbDatabase } from "react-icons/tb"
+import { TbApi, TbRefresh, TbDatabase, TbBrandAws } from "react-icons/tb"
 import type { IconType } from "react-icons"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -57,7 +57,7 @@ const rows: TechItem[][] = [
     { name: "Spring Boot", Icon: SiSpringboot },
     { name: "GraphQL", Icon: SiGraphql },
     { name: "REST APIs", Icon: TbApi },
-    { name: "AWS", Icon: SiAmazonwebservices },
+    { name: "AWS", Icon: TbBrandAws },
     { name: "Docker", Icon: SiDocker },
   ],
   [
