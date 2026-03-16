@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Árkós · Plataforma de Campaña Tito Vilchez</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Árkos
+        </span>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Campaña Política</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 16 Mar 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Plataforma Oficial para la Campaña de Tito Vilchez</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Sitio web de campaña política de alto impacto visual con animaciones, gestor de propuestas y captación de voluntarios.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Propuesta comercial</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Entrega ágil</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Cliente / Proyecto</h3>
+              <p class="text-sm mt-1 font-medium">Equipo de Campaña de Tito Vilchez · Plataforma Web Política</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-POL-1603</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 2 Opciones                                 -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Opciones de Inversión</span></h2>
+          <div class="grid gap-5 md:grid-cols-2">
+
+            <!-- Opción 1 -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-6 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 1</p>
+              <h3 class="mt-2 text-base font-bold">Desarrollo Estándar</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 600.00</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Desarrollo completo de todas las secciones del sitio de campaña.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Hosting y dominio .com incluidos por 1 año.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Incluye emisión de Recibo por Honorarios.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: 7 días calendario</p>
+            </div>
+
+            <!-- Opción 2 -->
+            <div class="rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-6 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Prioridad Alta</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Opción 2</p>
+              <h3 class="mt-2 text-base font-bold">Desarrollo Exprés</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 900.00</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Todo lo de la Opción 1.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Dedicación exclusiva al proyecto con máxima prioridad.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Incluye emisión de Recibo por Honorarios.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Tiempo de entrega: 3 días calendario</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <section id="quote" class="p-6 sm:p-8 space-y-10">
+
+        <!-- Alcance del Desarrollo -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-lg font-semibold mb-4"><span class="shiny-text">Alcance del Desarrollo</span></h2>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6">Detalle de todas las secciones y funcionalidades que conforman la plataforma de campaña, inspirada directamente en la estructura de sitios políticos modernos de alto impacto.</p>
+
+          <div class="grid gap-4">
+            <!-- Item 1 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Cabecera de Impacto (Hero)</h4>
+                <span class="inline-flex items-center rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media-Alta</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Fotografía del candidato a pantalla completa, eslogan de campaña y número de lista con animaciones de entrada (fade-in, slide-up) para captar la atención desde el primer segundo.</p>
+            </div>
+            <!-- Item 2 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Sección Biográfica ("¿Quién soy?")</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Baja-Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Perfil del candidato con fotografía enmarcada y resumen de trayectoria académica y profesional. Diseño en dos columnas con tipografía de autoridad.</p>
+            </div>
+            <!-- Item 3 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Portafolio / Logros Destacados</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Grilla visual con imágenes y titulares de logros o hitos importantes de la carrera. Cards con efecto hover y animaciones de entrada al hacer scroll.</p>
+            </div>
+            <!-- Item 4 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Gestor de Propuestas (Acordeón)</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Listado interactivo tipo acordeón para presentar el plan de trabajo por eje temático (educación, economía, infraestructura, etc.). Apertura animada sin saturar la pantalla de texto.</p>
+            </div>
+            <!-- Item 5 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Control de Daños ("Verdad o Mito")</h4>
+                <span class="inline-flex items-center rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media-Alta</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Bloques dinámicos con etiquetas visuales de Verdadero/Falso para desmentir narrativas falsas de forma directa y contundente. Efecto visual diferenciado por tipo de respuesta.</p>
+            </div>
+            <!-- Item 6 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Centro de Recursos ("Conocimiento")</h4>
+                <span class="inline-flex items-center rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Baja</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Listado de artículos, comunicados o documentos descargables (PDFs). Cada ítem con titulo, fecha y botón de descarga o enlace externo.</p>
+            </div>
+            <!-- Item 7 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Transparencia y Galería de Prensa</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Sección dual: muro fotográfico de la campaña (galería con lightbox) y recortes de prensa integrados. Muestra limpieza y apertura en la campaña de forma visual.</p>
+            </div>
+            <!-- Item 8 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Captación de Voluntarios y Pie de Página</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Formulario de contacto estratégico para recolectar datos de voluntarios (nombre, correo, teléfono, zona). Botones de redes sociales flotantes y en pie de pagina para máxima visibilidad.</p>
+            </div>
+            <!-- Item 9 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Microinteracciones y CTAs Animados</h4>
+                <span class="inline-flex items-center rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media-Alta</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Animaciones especiales y fluidas en todos los botones de Call to Action (CTA) principales (unirse, compartir, descargar). Efectos de ripple, shimmer y scale para incentivar el clic de forma natural.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- ENTREGABLES Y BONOS                                         -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold mb-5"><span class="shiny-text">Entregables y Bonos Incluidos</span></h3>
+          <div class="grid gap-5 md:grid-cols-2">
+
+            <!-- Entregables -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Entregables</h3>
+              <div class="grid gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Sitio web completo y publicado</p>
+                    <p class="text-xs text-neutral-500">Todas las secciones acordadas, en vivo y funcionales.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Diseño 100% responsivo</p>
+                    <p class="text-xs text-neutral-500">Adaptado a móvil, tablet y escritorio.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Formulario de captación operativo</p>
+                    <p class="text-xs text-neutral-500">Envío de datos de voluntarios al correo del equipo.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Recibo por Honorarios</p>
+                    <p class="text-xs text-neutral-500">Documento tributario emitido bajo cualquier opción.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bonos -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Bonos Incluidos — 1er año gratis</h3>
+              <div class="grid gap-3">
+                <div class="rounded-xl border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-4 py-3 flex items-start gap-3">
+                  <span class="text-green-600 dark:text-green-400 font-bold text-base leading-none mt-0.5">&#10003;</span>
+                  <div class="text-xs">
+                    <p class="font-bold text-green-800 dark:text-green-300">Hosting incluido — 1 año</p>
+                    <p class="text-green-700 dark:text-green-400 mt-0.5">Alojamiento web rápido y seguro sin costo adicional durante el primer año.</p>
+                  </div>
+                </div>
+                <div class="rounded-xl border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-4 py-3 flex items-start gap-3">
+                  <span class="text-green-600 dark:text-green-400 font-bold text-base leading-none mt-0.5">&#10003;</span>
+                  <div class="text-xs">
+                    <p class="font-bold text-green-800 dark:text-green-300">Dominio .com incluido — 1 año</p>
+                    <p class="text-green-700 dark:text-green-400 mt-0.5">Registro de <strong>titovilchez.com</strong> gratuito el primer año.</p>
+                  </div>
+                </div>
+                <div class="rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 px-4 py-3 text-xs text-neutral-700 dark:text-neutral-300">
+                  <p class="font-semibold text-[#1D4E6A] dark:text-[#D6EFF2] mb-1">Nota sobre dominio .pe</p>
+                  <p>Si se prefiere un dominio local <strong>.pe</strong> (ej. titovilchez.pe), se adicionarán <strong>S/ 50.00</strong> al costo total de la opción elegida.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- MODALIDAD DE PAGO                                           -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold mb-5"><span class="shiny-text">Modalidad de Pago</span></h3>
+          <div class="grid gap-5 md:grid-cols-2">
+
+            <!-- Pago fraccionado -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="h-10 w-10 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2] text-lg font-bold">1</div>
+                <h4 class="font-bold text-sm">Pago Fraccionado 50 / 50</h4>
+              </div>
+              <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Para mayor comodidad del cliente: <strong class="text-neutral-900 dark:text-white">50% al inicio</strong> del proyecto y <strong class="text-neutral-900 dark:text-white">50% a la entrega</strong> del sitio publicado y funcional.</p>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-4 text-xs text-neutral-700 dark:text-neutral-300">
+                <p class="font-semibold mb-2 text-neutral-900 dark:text-white">Ejemplo con Opción Estándar (S/ 600)</p>
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[#328298]"></span><span><strong>1.er pago:</strong> S/ 300 al confirmar el proyecto.</span></div>
+                  <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[#328298]"></span><span><strong>2.o pago:</strong> S/ 300 al entregar el sitio en vivo.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pago completo / cash -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="h-10 w-10 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2] text-lg font-bold">2</div>
+                <h4 class="font-bold text-sm">Pago Completo Anticipado</h4>
+              </div>
+              <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">El cliente realiza el pago total en un solo desembolso al inicio. Esta modalidad garantiza la <strong class="text-neutral-900 dark:text-white">máxima prioridad</strong> en el inicio del proyecto.</p>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-4 text-sm text-neutral-700 dark:text-neutral-300">
+                <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-2">Resumen por opción</p>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-medium">Opción Estándar</span>
+                    <span class="font-bold text-[#328298]">S/ 600.00</span>
+                  </div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-sm font-medium">Opción Exprés</span>
+                    <span class="font-bold text-[#328298]">S/ 900.00</span>
+                  </div>
+                  <div class="flex items-center justify-between gap-2 pt-1 border-t border-neutral-200 dark:border-neutral-800">
+                    <span class="text-xs text-neutral-500">+ dominio .pe (opcional)</span>
+                    <span class="text-xs font-semibold text-neutral-600 dark:text-neutral-400">+ S/ 50.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+            <h3 class="font-semibold mb-2">Referencia visual</h3>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+              <li>Estructura y fluidez inspirada en <strong class="text-neutral-800 dark:text-neutral-200">harveycolchado.pe</strong>.</li>
+              <li>Diseño limpio, directo y de alta autoridad visual.</li>
+              <li>Navegación intuitiva y carga rápida.</li>
+              <li>Animaciones de entrada al hacer scroll en todas las secciones.</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+            <h3 class="font-semibold mb-2">Valor agregado</h3>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+              <li>Hosting y dominio .com gratuitos el 1er año.</li>
+              <li>Diseño exclusivo — no se usan plantillas.</li>
+              <li>Soporte post-entrega incluido.</li>
+              <li>Recibo por Honorarios en cualquier opción.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h3 class="font-semibold mb-4">Cronograma estimado</h3>
+          <div class="grid gap-4 md:grid-cols-4 text-sm">
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+              <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 1</p>
+              <p class="mt-2 font-semibold">Briefing</p>
+              <p class="text-xs text-neutral-500 mt-1">Contenido, fotos y textos</p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+              <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 2</p>
+              <p class="mt-2 font-semibold">Diseño y maqueta</p>
+              <p class="text-xs text-neutral-500 mt-1">Estructura visual completa</p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+              <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 3</p>
+              <p class="mt-2 font-semibold">Desarrollo</p>
+              <p class="text-xs text-neutral-500 mt-1">Animaciones e interacciones</p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+              <p class="text-xs uppercase tracking-wide text-neutral-500">Fase 4</p>
+              <p class="mt-2 font-semibold">Publicación</p>
+              <p class="text-xs text-neutral-500 mt-1">Dominio + hosting en vivo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Garantía -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h3 class="font-semibold mb-3">Garantía y soporte</h3>
+          <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+            <li>Garantía de 15 días post-entrega para correcciones de contenido.</li>
+            <li>Acompañamiento en el despliegue y configuración del dominio.</li>
+            <li>Soporte para ajustes menores durante el periodo de campaña.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- ESPECIFICACIÓN TÉCNICA                                      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Especificación Técnica del Proyecto</span></h2>
+          <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Documento de arquitectura y stack tecnológico — Campaña Tito Vilchez / Árkós</p>
+
+          <!-- Stack Table -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">⚙</span>
+              Stack Tecnológico de Producción
+            </h3>
+            <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-2.5 px-4 text-left">Capa</th>
+                    <th class="py-2.5 px-4 text-left">Tecnología</th>
+                    <th class="py-2.5 px-4 text-left">Versión</th>
+                    <th class="py-2.5 px-4 text-left">Justificación</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Framework</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Next.js</code> <span class="text-xs text-neutral-500">(Static Site Generation)</span></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Latest</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">SSG genera páginas estáticas ultra-rápidas. Carga casi instantánea — clave en campaña donde cada segundo de espera reduce visitas.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">UI / Estilos</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">TailwindCSS v4</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Latest</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Diseño coherente y responsivo de alto rendimiento. CSS compilado a medida — sin estilos innecesarios en producción.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Animaciones</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Framer Motion</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">11.x</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Libería estándar de la industria para microinteracciones fluidas. Animaciones de entrada (scroll-triggered), efectos de hover y transiciones de página sin escribir CSS manual.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Formulario</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">React Hook Form</code> + <code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">EmailJS</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Latest</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Envío de datos de voluntarios directamente al correo del equipo de campaña sin necesidad de backend propio. Validación client-side robusta.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Hosting / CDN</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Vercel</code> <span class="text-xs text-neutral-500">(Edge Network)</span></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">—</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">CDN global con borde en Perú/Latinoamérica. SSL automático, HTTP/3, CI/CD integrado y tiempo al aire desde el panel de control en minutos.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Dominio</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">titovilchez.com</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">—</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Registro .com incluido gratis el 1er año. Opción local .pe disponible con S/ 50 adicionales. DNS configurado y apuntado a Vercel.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Arquitectura de Contenido -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">🏗</span>
+              Arquitectura de Contenido
+            </h3>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+              <div class="grid md:grid-cols-3 gap-4 text-xs">
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Impacto Visual</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Hero a pantalla completa con foto + eslogan + número de lista</li>
+                    <li>• Animaciones de entrada en cada sección (fade, slide, scale)</li>
+                    <li>• Tipografía de autoridad y paleta de colores de la campaña</li>
+                    <li>• CTAs animados con efectos shimmer y ripple</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Interactividad</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Acordeón de propuestas con apertura suave animada</li>
+                    <li>• Bloques Verdad / Mito con color-coding dinámico</li>
+                    <li>• Galería con lightbox para ver fotos a pantalla completa</li>
+                    <li>• Formulario de voluntarios con validación en tiempo real</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">Performance y SEO</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Static Generation: carga casi instantánea en cualquier dispositivo</li>
+                    <li>• Imágenes optimizadas en formato WebP/AVIF automáticamente</li>
+                    <li>• Meta tags y Open Graph para redes sociales</li>
+                    <li>• Lighthouse score objetivo ≥ 95 en Performance y SEO</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detalle de Secciones -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">📦</span>
+              Detalle de Ingeniería por Sección
+            </h3>
+            <div class="space-y-4 text-sm leading-relaxed">
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">1. Hero + Sección Biográfica</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Layout full-viewport con imagen optimizada del candidato como fondo o primer plano</li>
+                      <li>• Framer Motion <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">useInView</code> para triggers de animación al cargar</li>
+                      <li>• Sección bio con grid de 2 columnas: foto enmarcada + texto de trayectoria</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">UX / Detalle Visual</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Número de lista con tipografía extra-bold de alto contraste</li>
+                      <li>• Eslogan con efecto de escritura progresiva (typewriter) opcional</li>
+                      <li>• Botón de scroll-down animado para guiar al visitante</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">2. Portafolio + Propuestas + Verdad o Mito</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Grilla CSS con cards hover-lift para logros y hitos</li>
+                      <li>• Acordeón con componente <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">Radix UI Accordion</code> + animación de altura</li>
+                      <li>• Cards Verdad/Mito con badge de color (verde ✓ / rojo ✗) por estado</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">UX</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Animaciones scroll-triggered con <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">whileInView</code> de Framer Motion</li>
+                      <li>• Propuestas agrupadas por eje temático con icono representativo</li>
+                      <li>• Bloques Mito/Verdad con flip-card 3D al hacer click (opcional)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">3. Galería + Recursos + Captación</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Galería masonry (o grid uniforme) con lightbox nativo</li>
+                      <li>• Sección de recursos con lista de archivos y botón de descarga directa</li>
+                      <li>• Formulario de captación con React Hook Form + EmailJS sin backend</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Integración Redes Sociales</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Botones flotantes de WhatsApp, Facebook, Instagram y X (Twitter)</li>
+                      <li>• Footer con links de redes, correo y teléfono de campaña</li>
+                      <li>• Botón de "Compartir" con Web Share API nativa en móvil</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Infraestructura -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">☁</span>
+              Infraestructura y Prácticas de Desarrollo
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">Despliegue y Dominio</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• Vercel con CDN global: SSL automático y HTTP/3 incluidos</li>
+                  <li>• Registro de dominio .com configurado en el mismo flujo</li>
+                  <li>• Deploy en minutos; actualizaciones sin tiempo de inactividad</li>
+                  <li>• Preview environments para revisar cambios antes de publicar</li>
+                </ul>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">Performance y Accessibilidad</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• Imágenes automáticamente servidas en WebP/AVIF — hasta 40% más ligeras</li>
+                  <li>• Lazy loading con Intersection Observer en galería y cards</li>
+                  <li>• Semántica HTML5 accesible (roles ARIA en acordeón y modals)</li>
+                  <li>• Open Graph y Twitter Cards para previsualización al compartir en redes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nota de valor -->
+          <div class="rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
+            <p class="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              <strong class="text-[#1D4E6A] dark:text-[#D6EFF2]">Nota sobre el stack elegido:</strong> La combinación Next.js + Vercel es la misma que utilizan los sitios de campaña más reconocidos a nivel internacional por su velocidad y confiabilidad. Al generar páginas estáticas, el sitio no depende de ningún servidor propio para funcionar: aunque haya picos de visitas el día de la elección, la plataforma se mantiene en pie sin caídas. El costo de infraestructura en producción se estima en <strong>$0/mes</strong> dentro de los tiers gratuitos de Vercel para el tráfico esperado de una campaña local.
+            </p>
+          </div>
+
+          <!-- Firmas -->
+          <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+             <div class="grid md:grid-cols-2 gap-10 text-sm">
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">EQUIPO DE CAMPAÑA<br><span class="font-normal text-neutral-500">Tito Vilchez</span></p>
+              </div>
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">ÁRKÓS · Rodrigo Torres</p>
+                <p class="text-center text-xs text-neutral-500">RUC: 10758936746</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>
