@@ -45,12 +45,12 @@ export const projects: Project[] = [
   },
   {
     id: 13,
-    title: "CalzaFlow",
+    title: "Kinetic Black",
     description:
-      "Sistema ERP especializado para la fabricación de calzado que permite optimizar la producción, gestionar pedidos y realizar un seguimiento detallado de talleres externos y stock de materiales.",
+      "Landing page premium para una marca de suplementación de élite. Creatina monohidrato de grado farmacéutico con diseño oscuro de alto impacto, animaciones de onboarding, contadores animados y secciones de características, testimonios y CTA.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-    imageSrc: "/calzaflow.png",
-    link: "https://calzaflow.vercel.app/",
+    imageSrc: "/kinetickblack.jpeg",
+    link: "https://kinetic-black.vercel.app/",
     category: "web",
   },
   {
