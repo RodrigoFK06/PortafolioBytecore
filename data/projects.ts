@@ -180,7 +180,17 @@ export const projects: Project[] = [
     link: "https://www.solutecdha.com",
     //githubLink: "https://github.com/bytecore/vigotulich",
     category: "web",
-  }
+  },
+  {
+    id: 17,
+    title: "Copperline Garage",
+    description:
+      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Incluye diagnóstico computarizado OBD2 (200+ canales), mecánica integral, performance & ECU remapping con dinamómetro propio, y un proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/copperline-garage.png",
+    link: "https://automotriz-lyart.vercel.app/",
+    category: "web",
+  },
 ];
 
 // Funciones de utilidad para filtrar proyectos
