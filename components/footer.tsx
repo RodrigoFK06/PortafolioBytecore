@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react"
 import { SITE_CONFIG } from "@/lib/constants"
 import { useThemeState } from "@/hooks/use-theme-state";
+import { BrochureDownloadButton } from "@/components/brochure/BrochureDownloadButton";
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -16,6 +17,17 @@ export function Footer() {
       <div className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
+        {/* Brochure Download CTA */}
+        <div className="mb-16 flex flex-col md:flex-row items-center justify-between bg-black/5 dark:bg-white/5 rounded-3xl p-8 border border-black/5 dark:border-white/5 shadow-sm">
+          <div className="mb-6 md:mb-0 text-center md:text-left">
+            <h3 className="text-2xl font-bold mb-2 text-foreground">Descubre todo lo que podemos hacer por ti</h3>
+            <p className="text-foreground/70 max-w-xl">Descarga nuestro brochure corporativo y conoce en detalle nuestros servicios de ERP, CRM, automatización, IA y desarrollo de software a medida.</p>
+          </div>
+          <div className="flex-shrink-0">
+            <BrochureDownloadButton />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
           <Link href="/">
