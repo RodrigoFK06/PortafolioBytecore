@@ -331,12 +331,11 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
         <View style={[s.pill, { marginBottom: 25 }]}><Text style={s.pillTxt}>NUESTRAS GARANTÍAS</Text></View>
         <View style={[s.row, { marginBottom: 50, width: '100%' }]}>
           {[
-            { n: '100%', l: 'Código\nPropietario' },
             { n: 'Ilimitadas', l: 'Revisiones\nde Diseño' },
-            { n: '90 días', l: 'Garantía\nPost-Entrega' },
-            { n: '48 hrs', l: 'Tiempo de\nRespuesta' },
+            { n: '60 días', l: 'Garantía\nPost-Entrega' },
+            { n: '24 hrs', l: 'Tiempo de\nRespuesta' },
           ].map((x, i) => (
-            <View key={i} style={{ flex: 1, alignItems: 'center', paddingHorizontal: 8, borderRight: i < 3 ? `1px solid ${C.border}` : 'none' }}>
+            <View key={i} style={{ flex: 1, alignItems: 'center', paddingHorizontal: 8, borderRight: i < 2 ? `1px solid ${C.border}` : 'none' }}>
               <Text style={{ fontSize: 24, fontWeight: 'bold', color: C.accent }}>{x.n}</Text>
               <Text style={{ fontSize: 10, color: C.gray, textAlign: 'center', marginTop: 5 }}>{x.l}</Text>
             </View>
