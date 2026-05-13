@@ -29,7 +29,7 @@ export default function ProjectsSection() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
-        <ProjectsClient projects={projects.slice(0, 6)} />
+        <ProjectsClient projects={projects.slice(0, 9)} />
       </div>
     </section>
   )

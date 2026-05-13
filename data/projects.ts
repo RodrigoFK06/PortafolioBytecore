@@ -1,4 +1,4 @@
-﻿export interface Project {
+export interface Project {
   id: number
   title: string
   description: string
@@ -12,6 +12,36 @@
 
 export const projects: Project[] = [
   {
+    id: 18,
+    title: "Dr. Ing. Freedy Sotelo Valer",
+    description:
+      "Landing page de campaña política para el Dr. Ing. Freedy Sotelo Valer, candidato al Senado por Lima N°3 con el Partido PRIN. Diseño editorial de alto contraste con galería, propuestas, preguntas frecuentes, compromiso ciudadano y descarga de materiales de campaña.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/freedy-sotelo.png",
+    link: "https://freedy-sotelo.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 19,
+    title: "RestHUB",
+    description:
+      "ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, sin módulos extra ni costuras, con una landing premium pensada para Latinoamérica.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript", "ERP"],
+    imageSrc: "/resthub.png",
+    link: "https://rest-hub-landing.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 20,
+    title: "VetCare",
+    description:
+      "Clínica veterinaria integral con atención especializada, emergencias 24/7, servicios, adopción, tienda y blog. Sitio diseñado para captar agendamiento de citas con un tono cálido y profesional centrado en el bienestar de las mascotas.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/vetcare.png",
+    link: "https://veterinaria-web-tan.vercel.app/",
+    category: "web",
+  },
+  {
     id: 1,
     title: "OrquestadorADM",
     description:
@@ -20,17 +50,6 @@ export const projects: Project[] = [
     imageSrc: "/LoginOrquestador.jpeg",
     link: "https://orquestador-adm.vercel.app",
     //githubLink: "https://github.com/bytecore/ecodriveplus",
-    category: "web",
-  },
-  {
-    id: 6,
-    title: "ATELIER Clinic",
-    description:
-      "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
-    imageSrc: "/atelier.png",
-    link: "https://atelier-seven-beta.vercel.app/",
-    githubLink: "https://atelier-seven-beta.vercel.app/",
     category: "web",
   },
   {
@@ -72,6 +91,27 @@ export const projects: Project[] = [
     imageSrc: "/encrypted.webp",
     link: "https://kevin-escape-room.vercel.app/",
     //githubLink: "https://github.com/bytecore/kevin-escape-room",
+    category: "web",
+  },
+  {
+    id: 17,
+    title: "Copperline Garage",
+    description:
+      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Incluye diagnóstico computarizado OBD2 (200+ canales), mecánica integral, performance & ECU remapping con dinamómetro propio, y un proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/copperline-garage.png",
+    link: "https://automotriz-lyart.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 6,
+    title: "ATELIER Clinic",
+    description:
+      "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    imageSrc: "/atelier.png",
+    link: "https://atelier-seven-beta.vercel.app/",
+    githubLink: "https://atelier-seven-beta.vercel.app/",
     category: "web",
   },
   {
@@ -179,16 +219,6 @@ export const projects: Project[] = [
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
     //githubLink: "https://github.com/bytecore/vigotulich",
-    category: "web",
-  },
-  {
-    id: 17,
-    title: "Copperline Garage",
-    description:
-      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Incluye diagnóstico computarizado OBD2 (200+ canales), mecánica integral, performance & ECU remapping con dinamómetro propio, y un proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
-    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-    imageSrc: "/copperline-garage.png",
-    link: "https://automotriz-lyart.vercel.app/",
     category: "web",
   },
 ];
