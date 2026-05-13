@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ingeniería Mecánica · FIM UNI</title>
+<meta name="description" content="Escuela Profesional de Ingeniería Mecánica · Facultad de Ingeniería Mecánica · Universidad Nacional de Ingeniería. Acreditada ABET. 149 años formando ingenieros para el Perú." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --uni-navy: #0A2B5C;
+    --uni-navy-deep: #061A38;
+    --uni-blue: #1E4D8E;
+    --uni-blue-soft: #E4ECF7;
+    --uni-guinda: #7A1518;
+    --uni-guinda-deep: #5A0F12;
+    --uni-lime: #A5E635;
+    --uni-lime-deep: #7BB821;
+    --paper: #FAFAF7;
+    --paper-warm: #F2EFE6;
+    --ink: #0F1419;
+    --mute: #6B7280;
+    --line: #E4E2DA;
+    --gold: #C9A24B;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  html, body { overflow-x: hidden; }
+
+  .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  .h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(3rem, 7vw, 6rem); line-height: 0.96; letter-spacing: -0.025em; }
+  .h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; letter-spacing: -0.018em; }
+  .h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.01em; }
+  .lead { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; font-size: 20px; line-height: 1.5; }
+  .eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.04em; color: var(--uni-guinda); }
+  .eyebrow-lime { color: var(--uni-lime); }
+  .eyebrow-white { color: rgba(255,255,255,0.85); }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; border-radius: 4px; border: 1.5px solid transparent; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease; text-decoration: none; white-space: nowrap; }
+  .btn-guinda { background: var(--uni-guinda); color: var(--paper); border-color: var(--uni-guinda); }
+  .btn-guinda:hover { background: var(--uni-guinda-deep); border-color: var(--uni-guinda-deep); transform: translateY(-1px); }
+  .btn-lime { background: var(--uni-lime); color: var(--uni-navy); border-color: var(--uni-lime); }
+  .btn-lime:hover { background: var(--uni-lime-deep); border-color: var(--uni-lime-deep); color: var(--paper); transform: translateY(-1px); }
+  .btn-outline-white { background: transparent; color: var(--paper); border-color: rgba(255,255,255,0.4); }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: var(--paper); }
+  .btn-outline-navy { background: transparent; color: var(--uni-navy); border-color: rgba(10,43,92,0.25); }
+  .btn-outline-navy:hover { border-color: var(--uni-navy); background: var(--uni-blue-soft); }
+
+  .tag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.05); }
+  .tag-lime { color: var(--uni-lime); border-color: rgba(165,230,53,0.4); background: rgba(165,230,53,0.08); }
+  .tag-guinda { color: var(--paper); background: var(--uni-guinda); border-color: var(--uni-guinda); }
+  .tag-light { color: var(--uni-navy); background: var(--paper-warm); border-color: var(--line); }
+
+  .link { color: inherit; text-decoration: none; position: relative; }
+  .link::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 1.5px; background: var(--uni-guinda); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+  .link:hover::after { transform: scaleX(1); }
+  .link-lime::after { background: var(--uni-lime); }
+
+  .section { padding: 96px 32px; }
+  @media (min-width: 1024px) { .section { padding: 120px 64px; } }
+  @media (max-width: 640px) { .section { padding: 72px 20px; } }
+
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  .stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.75rem); line-height: 1; letter-spacing: -0.025em; color: var(--uni-guinda); font-variant-numeric: tabular-nums; }
+
+  .tech-grid { background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 80px 80px; }
+  .noise { position: absolute; inset: 0; pointer-events: none; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .photo-stripe { background: linear-gradient(135deg, rgba(10,43,92,0.06), rgba(10,43,92,0.12)), repeating-linear-gradient(45deg, rgba(10,43,92,0.06) 0 1px, transparent 1px 14px); }
+
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -20px rgba(10,43,92,0.18), 0 6px 12px -6px rgba(10,43,92,0.08); border-color: rgba(10,43,92,0.18); }
+
+  .cap-card { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 28px; position: relative; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .cap-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--uni-guinda); }
+  .cap-card:hover { transform: translateY(-2px); border-color: rgba(10,43,92,0.2); }
+
+  .step-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 4rem; line-height: 1; letter-spacing: -0.04em; color: var(--uni-lime); font-variant-numeric: tabular-nums; }
+
+  ::selection { background: var(--uni-lime); color: var(--uni-navy); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--uni-navy); }
+
+  .img-fallback { background: var(--paper-warm); }
+
+  .glass-white { background: rgba(250,250,247,0.92); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); border-bottom: 1px solid var(--line); }
+
+  .lab-card { transition: transform 0.3s ease; }
+  .lab-card img { transition: transform 0.6s ease, filter 0.4s ease; }
+  .lab-card:hover img { transform: scale(1.05); }
+
+  .shield-ring { border-radius: 50%; background: radial-gradient(circle, rgba(122,21,24,0.5) 0%, rgba(122,21,24,0) 70%); }
+  .tabular { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════════════════ -->
+<div class="sticky top-0 z-50" id="siteHeader">
+  <div style="background: var(--uni-navy); color: rgba(255,255,255,0.85);" class="text-[12px]">
+    <div class="container flex items-center justify-between py-2 px-6 lg:px-8">
+      <a href="#" class="link inline-flex items-center gap-2" style="color: rgba(255,255,255,0.85);">
+        <span>←</span> Facultad de Ingeniería Mecánica
+      </a>
+      <div class="hidden md:flex items-center gap-5 font-mono" style="color: rgba(255,255,255,0.75);">
+        <span>(+51) 1 481-1070 · anexo 5180</span>
+        <span class="opacity-50">·</span>
+        <span>mecanica@fim.uni.edu.pe</span>
+      </div>
+      <div class="md:hidden font-mono">fim@uni.edu.pe</div>
+    </div>
+  </div>
+
+  <div id="headerMain" style="background: var(--paper); border-bottom: 1px solid var(--line);">
+    <div class="container flex items-center justify-between py-4 px-6 lg:px-8 gap-6">
+      <a href="#" class="flex items-center gap-3">
+        <span data-shield="guinda" data-size="44"></span>
+        <div class="leading-tight">
+          <div style="color: var(--mute); font-size: 11px; font-weight: 500;">Escuela Profesional de</div>
+          <div style="color: var(--uni-navy); font-size: 18px; font-weight: 700; letter-spacing: -0.01em;">Ingeniería Mecánica</div>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center gap-7 text-[14px]" style="color: var(--ink); font-weight: 500;">
+        <a href="#presentacion" class="link">Presentación</a>
+        <a href="#plan" class="link">Plan de Estudios</a>
+        <a href="#docentes" class="link">Docentes</a>
+        <a href="#proyectos" class="link">Investigación</a>
+        <a href="#admision" class="link">Admisión</a>
+        <a href="#contacto" class="link">Contacto</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#admision" class="btn btn-guinda">Postula 2026 <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden" style="background: var(--uni-navy); color: var(--paper);">
+  <div class="absolute inset-0 tech-grid opacity-60"></div>
+  <div class="noise"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(900px 600px at 15% 110%, rgba(122,21,24,0.22), transparent 60%), radial-gradient(700px 500px at 90% -10%, rgba(165,230,53,0.10), transparent 60%);"></div>
+
+  <div class="container relative px-6 lg:px-8 pt-16 lg:pt-24 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <div class="eyebrow eyebrow-lime">Escuela Profesional · M-03</div>
+        <h1 class="h1 mt-5" style="color: var(--paper);">
+          Ingeniería <br class="hidden md:block" />Mecánica
+        </h1>
+        <p class="mt-5" style="color: rgba(255,255,255,0.75); font-weight: 500; font-size: 17px;">
+          Facultad de Ingeniería Mecánica · Universidad Nacional de Ingeniería · Lima, Perú
+        </p>
+        <p class="lead mt-7" style="color: rgba(255,255,255,0.9); max-width: 620px;">
+          Formamos ingenieros mecánicos que diseñan, fabrican y mantienen las máquinas que mueven el Perú. Una tradición de <strong style="color: var(--paper); font-weight: 700;">149 años</strong> en ingeniería pesada, acreditada internacionalmente por <strong style="color: var(--uni-lime); font-weight: 700;">ABET</strong>.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href="#admision" class="btn btn-lime">Postula 2026 <span>→</span></a>
+          <a href="#presentacion" class="btn btn-outline-white">Conoce la escuela <span>↓</span></a>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <span class="tag tag-lime">
+            <span style="width: 6px; height: 6px; background: var(--uni-lime); border-radius: 999px; display: inline-block;"></span>
+            Examen de admisión · 16 de marzo 2026
+          </span>
+          <span class="tag">Acreditada ABET · 2014–2026</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <figure class="relative">
+          <div class="relative overflow-hidden rounded-md" style="aspect-ratio: 4/5; background: rgba(255,255,255,0.04);">
+            <img
+              src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/laboratorio-N04-768x527-1.jpg"
+              alt="Laboratorio N°4 — Rímac, Lima"
+              class="absolute inset-0 w-full h-full object-cover"
+              style="filter: saturate(1.05) contrast(1.05);"
+              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1400&q=80';" />
+            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,43,92,0.10) 0%, rgba(10,43,92,0.35) 100%);"></div>
+            <div class="absolute top-5 right-5 flex items-center justify-center" style="width: 132px; height: 132px;">
+              <div class="absolute inset-0 shield-ring"></div>
+              <span data-shield="guinda" data-size="108" class="relative"></span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
+              <div>
+                <div class="font-mono text-[10px]" style="color: rgba(255,255,255,0.7);">FIG · 01 / 24</div>
+                <div class="font-mono text-[11px] mt-1" style="color: var(--paper);">LAB N°4 · RÍMAC, LIMA</div>
+              </div>
+              <div class="font-mono text-[10px] text-right" style="color: rgba(255,255,255,0.7);">
+                EST. 1972<br>12°02′S · 77°02′W
+              </div>
+            </div>
+          </div>
+          <figcaption class="mt-3 text-[13px]" style="color: rgba(255,255,255,0.6);">
+            Laboratorio N°4 · sede principal de la escuela desde 1972.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative border-t" style="border-color: rgba(255,255,255,0.08); background: rgba(6,26,56,0.6);">
+    <div class="container px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-4 text-[12.5px]" style="color: rgba(255,255,255,0.65);">
+      <span><strong style="color: var(--uni-lime);">UNI</strong> · Universidad Nacional de Ingeniería · fundada en 1876</span>
+      <span class="hidden md:inline">Av. Túpac Amaru 210 · Rímac · Lima 15333</span>
+      <span class="font-mono">Rev. 2026.01</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     01 — PRESENTACIÓN
+═══════════════════════════════════════════════════════════════════ -->
+<section id="presentacion" class="section" style="background: var(--paper);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-5">
+        <div class="eyebrow">Presentación</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">
+          Una escuela con 149 años de tradición y la mirada puesta en el Perú que viene.
+        </h2>
+        <div class="mt-6 flex items-center gap-3">
+          <span class="tag tag-light">M-03 · Escuela Profesional</span>
+          <span class="tag tag-light">Fundada 1876</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <p class="lead" style="color: var(--ink);">
+          La Escuela Profesional de Ingeniería Mecánica es la especialidad de mayor cobertura técnica de la facultad. Aquí no formamos teóricos: <strong style="color: var(--uni-navy);">diseñamos, fabricamos, montamos, mantenemos y reparamos</strong> las máquinas que mueven el país.
+        </p>
+        <p class="mt-5" style="color: var(--mute); font-size: 17px; line-height: 1.65;">
+          Desde turbinas hidroeléctricas hasta plantas de manufactura, nuestros egresados comandan la ingeniería pesada del Perú. El programa integra fundamentos sólidos en termodinámica, mecánica de fluidos, diseño de máquinas, control y materiales con una vocación marcadamente aplicada: laboratorios propios, prácticas industriales y proyectos finales con empresas reales.
+        </p>
+        <p class="mt-5" style="color: var(--mute); font-size: 17px; line-height: 1.65;">
+          Nuestra acreditación internacional <strong style="color: var(--uni-navy);">ABET</strong> garantiza que el ingeniero mecánico UNI cumple el estándar de las mejores escuelas técnicas del mundo y puede ejercer sin fronteras profesionales.
+        </p>
+
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6 pt-8" style="border-top: 1px solid var(--line);">
+          <div><div class="stat-num" data-count="1876">1876</div><div class="mt-2 text-[13px]" style="color: var(--mute);">Año de fundación UNI</div></div>
+          <div><div class="stat-num" data-count="1500" data-suffix="+">1,500<span style="color: var(--uni-guinda);">+</span></div><div class="mt-2 text-[13px]" style="color: var(--mute);">Estudiantes activos</div></div>
+          <div><div class="stat-num" data-count="10">10</div><div class="mt-2 text-[13px]" style="color: var(--mute);">Ciclos académicos</div></div>
+          <div><div class="stat-num">ABET</div><div class="mt-2 text-[13px]" style="color: var(--mute);">Acreditada desde 2018</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     02 — HERITAGE DEL ESCUDO
+═══════════════════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden" style="background: var(--uni-guinda); color: var(--paper);">
+  <div class="absolute top-6 left-6 w-12 h-12 border-t-2 border-l-2 opacity-30" style="border-color: var(--gold);"></div>
+  <div class="absolute top-6 right-6 w-12 h-12 border-t-2 border-r-2 opacity-30" style="border-color: var(--gold);"></div>
+  <div class="absolute bottom-6 left-6 w-12 h-12 border-b-2 border-l-2 opacity-30" style="border-color: var(--gold);"></div>
+  <div class="absolute bottom-6 right-6 w-12 h-12 border-b-2 border-r-2 opacity-30" style="border-color: var(--gold);"></div>
+
+  <div class="container section grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-5 flex items-center justify-center">
+      <div class="relative">
+        <div class="absolute inset-0" style="background: radial-gradient(circle, rgba(201,162,75,0.25) 0%, rgba(201,162,75,0) 65%); transform: scale(1.6);"></div>
+        <span data-shield="paper" data-size="300" class="relative"></span>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="eyebrow" style="color: var(--gold);">Heritage · Desde 1876</div>
+      <h2 class="h2 mt-4" style="color: var(--paper);">Scientia et Labor.</h2>
+      <p class="lead mt-5" style="color: rgba(255,255,255,0.92);">
+        "Ciencia y Trabajo" — el lema del escudo de la UNI no es decoración. Es el contrato que cada ingeniero mecánico firma al ingresar: rigor científico aplicado al trabajo material que el país necesita.
+      </p>
+
+      <div class="mt-10 grid sm:grid-cols-3 gap-6">
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px;">
+          <div class="font-mono text-[11px]" style="color: var(--gold);">· 01</div>
+          <div class="mt-2" style="color: var(--paper); font-weight: 600; font-size: 17px;">Minerva</div>
+          <div class="mt-2" style="color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.5;">Sabiduría aplicada. La ciencia como motor del oficio.</div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px;">
+          <div class="font-mono text-[11px]" style="color: var(--gold);">· 02</div>
+          <div class="mt-2" style="color: var(--paper); font-weight: 600; font-size: 17px;">Engranaje</div>
+          <div class="mt-2" style="color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.5;">Mecánica, manufactura, máquinas que mueven al país.</div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 14px;">
+          <div class="font-mono text-[11px]" style="color: var(--gold);">· 03</div>
+          <div class="mt-2" style="color: var(--paper); font-weight: 600; font-size: 17px;">Picos cruzados</div>
+          <div class="mt-2" style="color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.5;">Minería y extracción — pilares de la economía nacional.</div>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <span class="tag" style="border-color: rgba(255,255,255,0.3);">Lima · 1876 · Perú</span>
+        <span class="tag" style="border-color: rgba(255,255,255,0.3);">Escudo institucional</span>
+        <span class="tag" style="border-color: rgba(255,255,255,0.3);">149 años</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     03 — PERFIL DEL EGRESADO
+═══════════════════════════════════════════════════════════════════ -->
+<section id="perfil" class="section" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="eyebrow">Perfil del egresado</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">Lo que un Mecánico UNI domina al egresar.</h2>
+      </div>
+      <div class="lg:col-span-5" style="color: var(--mute); font-size: 16px; line-height: 1.6;">
+        Cuatro áreas de competencia que articulan la formación integral del programa, alineadas con los criterios ABET y validadas por la industria nacional.
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 gap-5">
+      <article class="cap-card">
+        <div class="flex items-baseline justify-between">
+          <span class="font-mono text-[12px]" style="color: var(--uni-guinda);">· 01</span>
+          <span class="font-mono text-[11px]" style="color: var(--mute);">Competencia</span>
+        </div>
+        <h3 class="h3 mt-5" style="color: var(--uni-navy);">Diseño y Fabricación</h3>
+        <p class="mt-3" style="color: var(--mute); font-size: 15.5px; line-height: 1.6;">Concebir y construir maquinaria industrial con criterio técnico y económico. Dominio de CAD/CAM, manufactura CNC y prototipado.</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag tag-light">CAD/CAM</span><span class="tag tag-light">CNC</span><span class="tag tag-light">Prototipado</span>
+        </div>
+      </article>
+      <article class="cap-card">
+        <div class="flex items-baseline justify-between">
+          <span class="font-mono text-[12px]" style="color: var(--uni-guinda);">· 02</span>
+          <span class="font-mono text-[11px]" style="color: var(--mute);">Competencia</span>
+        </div>
+        <h3 class="h3 mt-5" style="color: var(--uni-navy);">Energía y Termofluidos</h3>
+        <p class="mt-3" style="color: var(--mute); font-size: 15.5px; line-height: 1.6;">Diseño y operación de plantas de generación, sistemas térmicos y máquinas de fluidos críticas para el sector minero-energético.</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag tag-light">Turbinas</span><span class="tag tag-light">HVAC</span><span class="tag tag-light">Combustión</span>
+        </div>
+      </article>
+      <article class="cap-card">
+        <div class="flex items-baseline justify-between">
+          <span class="font-mono text-[12px]" style="color: var(--uni-guinda);">· 03</span>
+          <span class="font-mono text-[11px]" style="color: var(--mute);">Competencia</span>
+        </div>
+        <h3 class="h3 mt-5" style="color: var(--uni-navy);">Mantenimiento Industrial</h3>
+        <p class="mt-3" style="color: var(--mute); font-size: 15.5px; line-height: 1.6;">Confiabilidad de planta, diagnóstico predictivo y gestión de activos en operaciones de gran escala.</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag tag-light">Vibraciones</span><span class="tag tag-light">RCM</span><span class="tag tag-light">Predictivo</span>
+        </div>
+      </article>
+      <article class="cap-card">
+        <div class="flex items-baseline justify-between">
+          <span class="font-mono text-[12px]" style="color: var(--uni-guinda);">· 04</span>
+          <span class="font-mono text-[11px]" style="color: var(--mute);">Competencia</span>
+        </div>
+        <h3 class="h3 mt-5" style="color: var(--uni-navy);">Gestión de Proyectos</h3>
+        <p class="mt-3" style="color: var(--mute); font-size: 15.5px; line-height: 1.6;">Comando técnico de proyectos complejos con visión integral: alcance, costo, riesgo y liderazgo de equipos multidisciplinarios.</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="tag tag-light">Lean</span><span class="tag tag-light">Project</span><span class="tag tag-light">SCM</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     04 — ABET
+═══════════════════════════════════════════════════════════════════ -->
+<section class="relative" style="background: var(--uni-navy); color: var(--paper);">
+  <div class="absolute inset-0 tech-grid opacity-50"></div>
+  <div class="container relative section grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="eyebrow eyebrow-lime">Acreditación internacional</div>
+      <h2 class="h2 mt-4" style="color: var(--paper);">
+        ABET. <span style="color: var(--uni-lime);">Estándar mundial</span>, aval peruano.
+      </h2>
+      <p class="lead mt-6" style="color: rgba(255,255,255,0.92);">
+        El programa está reconocido por la <strong style="color: var(--paper);">Engineering Accreditation Commission de ABET (EE.UU.)</strong>, organismo que audita las mejores escuelas de ingeniería del planeta.
+      </p>
+      <p class="mt-5" style="color: rgba(255,255,255,0.78); font-size: 16.5px; line-height: 1.65;">
+        Significa rigor curricular auditado por pares internacionales, evaluación de resultados de aprendizaje medibles, y movilidad profesional sin fronteras: nuestros egresados son reconocidos automáticamente en la mayoría de bolsas de trabajo y posgrados de Estados Unidos, Europa y Asia.
+      </p>
+
+      <div class="mt-10 grid grid-cols-3 gap-6" style="border-top: 1px solid rgba(255,255,255,0.12); padding-top: 28px;">
+        <div>
+          <div class="stat-num" style="color: var(--uni-lime);">2018</div>
+          <div class="mt-2 text-[12px]" style="color: rgba(255,255,255,0.6);">Primera acreditación</div>
+        </div>
+        <div>
+          <div class="stat-num" style="color: var(--uni-lime);">2026</div>
+          <div class="mt-2 text-[12px]" style="color: rgba(255,255,255,0.6);">Re-acreditación vigente</div>
+        </div>
+        <div>
+          <div class="stat-num" style="color: var(--uni-lime);">EAC</div>
+          <div class="mt-2 text-[12px]" style="color: rgba(255,255,255,0.6);">Comisión acreditadora</div>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <a href="#" class="btn btn-outline-white">Ver certificación ABET <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5">
+      <div class="relative rounded-md overflow-hidden p-10" style="background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12);">
+        <div class="absolute top-4 right-4 font-mono text-[11px]" style="color: rgba(255,255,255,0.5);">EAC · 2026</div>
+        <div class="flex items-center justify-center" style="aspect-ratio: 1;">
+          <div class="text-center">
+            <div class="font-display" style="font-size: clamp(6rem, 12vw, 9rem); font-weight: 800; color: var(--paper); letter-spacing: -0.04em; line-height: 0.9;">
+              ABET<span style="color: var(--uni-lime);">.</span>
+            </div>
+            <div class="mt-4 font-mono text-[12px]" style="color: rgba(255,255,255,0.7); letter-spacing: 0.08em;">
+              ENGINEERING ACCREDITATION<br/>COMMISSION
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 flex items-center justify-between text-[12px]" style="color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px;">
+          <span>Programa M-03</span>
+          <span class="font-mono">CERT-FIM-2018-001</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     05 — PLAN DE ESTUDIOS
+═══════════════════════════════════════════════════════════════════ -->
+<section id="plan" class="section" style="background: var(--paper);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="eyebrow">Plan de Estudios</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">Diez ciclos. Cinco años. Un ingeniero integral.</h2>
+      </div>
+      <div class="lg:col-span-5 grid grid-cols-3 gap-6">
+        <div><div class="stat-num">10</div><div class="text-[12px] mt-1" style="color: var(--mute);">ciclos</div></div>
+        <div><div class="stat-num">220</div><div class="text-[12px] mt-1" style="color: var(--mute);">créditos</div></div>
+        <div><div class="stat-num">5</div><div class="text-[12px] mt-1" style="color: var(--mute);">años</div></div>
+      </div>
+    </div>
+
+    <div class="mt-14 overflow-x-auto">
+      <div class="grid grid-cols-12 gap-4 pb-3 font-mono text-[11px]" style="color: var(--mute); letter-spacing: 0.06em; border-bottom: 2px solid var(--uni-navy);">
+        <div class="col-span-2 md:col-span-1">CICLO</div>
+        <div class="col-span-10 md:col-span-3">DESIGNACIÓN</div>
+        <div class="hidden md:block md:col-span-7">CURSOS PRINCIPALES</div>
+        <div class="hidden md:block md:col-span-1 text-right">CR.</div>
+      </div>
+
+      <!-- ciclos -->
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">01</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Bases Matemáticas</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Cálculo I · Álgebra Lineal · Química · Dibujo Mecánico I · Lenguaje · Filosofía</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">02</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Cimientos Físicos</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Cálculo II · Física I · Geometría Descriptiva · Programación · Estadística</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">03</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Mecánica Aplicada</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Cálculo III · Física II · Estática · Termodinámica I · Materiales I</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">23</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">04</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Dinámica y Fluidos</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Ecuaciones Diferenciales · Dinámica · Resistencia de Materiales · Mecánica de Fluidos I</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">05</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Diseño Inicial</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Termodinámica II · Métodos Numéricos · Elementos de Máquinas I · Electrotecnia · Fluidos II</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">06</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Máquinas y Potencia</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Elementos de Máquinas II · Transferencia de Calor · Máquinas Eléctricas · Electrónica Industrial</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">07</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Procesos y Control</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Procesos de Manufactura · Control Automático · Máquinas Térmicas I · Vibraciones Mecánicas</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">08</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Sistemas Integrados</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Plantas Térmicas · Máquinas Hidráulicas · Refrigeración · Diseño de Plantas I · Electivo I</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">21</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">09</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Ingeniería Avanzada</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Mantenimiento Industrial · Proyectos · Diseño de Plantas II · Electivo II · Electivo III</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+      <div class="grid grid-cols-12 gap-4 py-5 items-center" style="border-bottom: 1px solid var(--line);">
+        <div class="col-span-2 md:col-span-1"><div class="font-display tabular" style="font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--uni-guinda); font-weight: 800; line-height: 1; letter-spacing: -0.02em;">10</div></div>
+        <div class="col-span-10 md:col-span-3" style="color: var(--uni-navy); font-weight: 600; font-size: 16px;">Proyecto Terminal</div>
+        <div class="col-span-12 md:col-span-7" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Tesis · Gestión Empresarial · Seguridad Industrial · Electivo IV · Electivo V</div>
+        <div class="col-span-12 md:col-span-1 md:text-right tabular" style="color: var(--ink); font-weight: 700; font-size: 18px;">22</div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-4 py-4 mt-1" style="border-top: 2px solid var(--uni-navy);">
+        <div class="col-span-6 md:col-span-4 font-mono text-[12px]" style="color: var(--uni-navy);">TOTAL ACUMULADO</div>
+        <div class="hidden md:block md:col-span-7 text-[12px]" style="color: var(--mute);">10 ciclos · 5 años · plan vigente desde 2018</div>
+        <div class="col-span-6 md:col-span-1 md:text-right" style="color: var(--uni-guinda); font-weight: 700; font-size: 22px;">220</div>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href="#" class="btn btn-guinda">Descargar malla curricular · PDF 1.4MB <span>↓</span></a>
+      <a href="#" class="link" style="color: var(--uni-navy); font-weight: 500; font-size: 14px;">Ver sílabos por curso →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     06 — LABORATORIOS
+═══════════════════════════════════════════════════════════════════ -->
+<section id="labs" class="section" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="eyebrow">Infraestructura</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">Donde se forman los ingenieros.</h2>
+      </div>
+      <div class="lg:col-span-5" style="color: var(--mute); font-size: 16px; line-height: 1.6;">
+        Seis laboratorios y dos talleres industriales en el campus de Rímac, equipados para integrar teoría y práctica desde el primer ciclo.
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/laboratorio-N04-768x527-1.jpg" alt="Mecánica de Fluidos" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">LAB · 04</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#01</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Mecánica de Fluidos</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">CFD</span><span class="tag tag-light">Turbomáquinas</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/lab05.jpg" alt="Termodinámica" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">LAB · 05</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#02</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Termodinámica</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">Ciclos</span><span class="tag tag-light">Transferencia de calor</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/laboratorio-de-automatizacion-1.jpg" alt="Control y Automatización" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">LAB · 06</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#03</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Control y Automatización</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">PLC</span><span class="tag tag-light">SCADA</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/servicio-electrica.jpg" alt="Electricidad y Electrónica de Potencia" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1473073899705-15c5d581c4e3?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">LAB · 07</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#04</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Electricidad y Electrónica de Potencia</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">AC/DC</span><span class="tag tag-light">Conversión</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/INFOUNI-001-1-768x515-1.jpg" alt="Taller de Manufactura" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">TAL · 02</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#05</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Taller de Manufactura</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">CNC</span><span class="tag tag-light">Soldadura</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card lab-card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://fim.uni.edu.pe/wp-content/uploads/2025/05/bibi.jpg" alt="Biblioteca FIM" class="w-full h-full object-cover" data-fb="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1400&q=80" onerror="if(this.dataset.fbApplied){this.style.display='none';this.parentElement.classList.add('photo-stripe');}else{this.dataset.fbApplied='1';this.src=this.dataset.fb;}" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px]" style="color: var(--uni-guinda); letter-spacing: 0.06em;">BIB · 01</span>
+            <span class="font-mono text-[10px]" style="color: var(--mute);">#06</span>
+          </div>
+          <h3 class="mt-3" style="color: var(--uni-navy); font-weight: 600; font-size: 18px; letter-spacing: -0.01em;">Biblioteca FIM</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">Recursos</span><span class="tag tag-light">Investigación</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-12">
+      <a href="#" class="link" style="color: var(--uni-navy); font-weight: 500; font-size: 15px;">Ver toda la infraestructura →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     07 — PLANA DOCENTE
+═══════════════════════════════════════════════════════════════════ -->
+<section id="docentes" class="section" style="background: var(--paper);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="eyebrow">Plana docente</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">Quienes te forman.</h2>
+      </div>
+      <div class="lg:col-span-5" style="color: var(--mute); font-size: 16px; line-height: 1.6;">
+        42 docentes de planta — 60% con grado de doctor — combinan investigación de frontera con experiencia industrial real.
+      </div>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/5;">
+          <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80" alt="Ricardo Alarcón" class="w-full h-full object-cover" style="filter: saturate(0.92);" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: var(--uni-navy); color: var(--paper);">#01</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;">Ricardo Alarcón</h3>
+          <div class="font-mono text-[11px] mt-1.5" style="color: var(--uni-guinda);">PhD · Mechanical Eng.</div>
+          <div class="mt-3" style="color: var(--ink); font-size: 14px;">Turbomáquinas y energía</div>
+          <div class="mt-4 pt-3 text-[12px]" style="color: var(--mute); border-top: 1px solid var(--line);">24 publicaciones IEEE / ASME</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/5;">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80" alt="Carmen Vega" class="w-full h-full object-cover" style="filter: saturate(0.92);" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: var(--uni-navy); color: var(--paper);">#02</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;">Carmen Vega</h3>
+          <div class="font-mono text-[11px] mt-1.5" style="color: var(--uni-guinda);">PhD · Materials Sc.</div>
+          <div class="mt-3" style="color: var(--ink); font-size: 14px;">Materiales avanzados</div>
+          <div class="mt-4 pt-3 text-[12px]" style="color: var(--mute); border-top: 1px solid var(--line);">17 publicaciones Scopus</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/5;">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" alt="Jorge Huamán" class="w-full h-full object-cover" style="filter: saturate(0.92);" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: var(--uni-navy); color: var(--paper);">#03</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;">Jorge Huamán</h3>
+          <div class="font-mono text-[11px] mt-1.5" style="color: var(--uni-guinda);">MSc · Control Eng.</div>
+          <div class="mt-3" style="color: var(--ink); font-size: 14px;">Control y automatización</div>
+          <div class="mt-4 pt-3 text-[12px]" style="color: var(--mute); border-top: 1px solid var(--line);">12 publicaciones IFAC</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/5;">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80" alt="Sofía Ramírez" class="w-full h-full object-cover" style="filter: saturate(0.92);" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: var(--uni-navy); color: var(--paper);">#04</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 18px; letter-spacing: -0.01em;">Sofía Ramírez</h3>
+          <div class="font-mono text-[11px] mt-1.5" style="color: var(--uni-guinda);">PhD · Thermal Eng.</div>
+          <div class="mt-3" style="color: var(--ink); font-size: 14px;">Transferencia de calor</div>
+          <div class="mt-4 pt-3 text-[12px]" style="color: var(--mute); border-top: 1px solid var(--line);">19 publicaciones ASME</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-10">
+      <a href="#" class="btn btn-outline-navy">Ver plana docente completa <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     08 — PROYECTOS DE ESTUDIANTES
+═══════════════════════════════════════════════════════════════════ -->
+<section id="proyectos" class="section" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-7">
+        <div class="eyebrow">Investigación · Proyectos de estudiantes</div>
+        <h2 class="h2 mt-4" style="color: var(--uni-navy);">Lo que nuestros alumnos construyen.</h2>
+      </div>
+      <div class="lg:col-span-5" style="color: var(--mute); font-size: 16px; line-height: 1.6;">
+        Muestra del ciclo 2025 — proyectos finales y tesis con impacto en la industria peruana. 220+ proyectos completados anualmente.
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1473445730015-841f29a9490b?auto=format&fit=crop&w=1400&q=80" alt="Turbina Pelton 50 kW" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/04</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Turbina Pelton 50 kW</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Microcentral hidroeléctrica para comunidad altoandina en Áncash.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">Hidro</span><span class="tag tag-light">CFD</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1400&q=80" alt="Prótesis transtibial" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/07</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Prótesis transtibial</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Diseño biomecánico paramétrico impreso en 3D, validado clínicamente.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">Biomédica</span><span class="tag tag-light">FDM</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80" alt="Horno industrial CFD" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/11</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Horno industrial · CFD</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Optimización térmica por simulación numérica para planta cementera.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">CFD</span><span class="tag tag-light">Térmico</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1400&q=80" alt="Dron de carga" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/13</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Dron de carga</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Plataforma autónoma de inspección minera con capacidad 5 kg.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">UAV</span><span class="tag tag-light">Minería</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80" alt="Motor Stirling" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/18</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Motor Stirling</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Generación distribuida de bajo costo para electrificación rural.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">Energía</span><span class="tag tag-light">Prototipo</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="relative overflow-hidden img-fallback" style="aspect-ratio: 4/3;">
+          <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1400&q=80" alt="Robot industrial" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.classList.add('photo-stripe');" />
+          <div class="absolute top-3 left-3 font-mono text-[10px] px-2 py-1 rounded-sm" style="background: rgba(10,43,92,0.85); color: var(--paper);">P-2025/22</div>
+        </div>
+        <div class="p-5">
+          <h3 style="color: var(--uni-navy); font-weight: 700; font-size: 19px; letter-spacing: -0.01em;">Robot industrial</h3>
+          <p class="mt-3" style="color: var(--mute); font-size: 14.5px; line-height: 1.55;">Manipulador SCADA de 6 ejes para línea de manufactura.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag tag-light">SCADA</span><span class="tag tag-light">Robótica</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     09 — ADMISIÓN
+═══════════════════════════════════════════════════════════════════ -->
+<section id="admision" class="relative overflow-hidden" style="background: var(--uni-navy); color: var(--paper);">
+  <div class="absolute inset-0" style="background: radial-gradient(800px 500px at 90% 0%, rgba(165,230,53,0.10), transparent 60%), radial-gradient(900px 600px at 0% 100%, rgba(122,21,24,0.18), transparent 60%);"></div>
+  <div class="absolute inset-0 tech-grid opacity-50"></div>
+  <div class="container relative section">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8">
+        <div class="eyebrow eyebrow-lime">Admisión 2026</div>
+        <h2 class="h2 mt-4" style="color: var(--paper);">¿Listo para pertenecer a la UNI?</h2>
+        <p class="lead mt-5" style="color: rgba(255,255,255,0.85); max-width: 720px;">
+          El proceso de admisión a la Escuela Profesional de Ingeniería Mecánica abre con el examen del <strong style="color: var(--uni-lime);">16 de marzo de 2026</strong>. Tres pasos. Una vacante. La carrera mecánica más sólida del Perú.
+        </p>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="rounded-md p-5 inline-block" style="background: rgba(165,230,53,0.08); border: 1px solid rgba(165,230,53,0.35);">
+          <div class="font-mono text-[11px]" style="color: var(--uni-lime);">EXAMEN DE ADMISIÓN</div>
+          <div class="mt-2" style="color: var(--paper); font-size: 22px; font-weight: 700; letter-spacing: -0.015em;">16 marzo 2026</div>
+          <div class="mt-1 text-[13px]" style="color: rgba(255,255,255,0.7);">Vacantes M-03 · 60</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-5">
+      <div class="rounded-md p-7" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);">
+        <div class="step-num">01</div>
+        <h3 class="h3 mt-4" style="color: var(--paper); font-weight: 700;">Inscripción</h3>
+        <p class="mt-3" style="color: rgba(255,255,255,0.78); font-size: 15px; line-height: 1.6;">Registro en línea con DNI y comprobante de pago. Plazo hasta el 28 de febrero de 2026.</p>
+      </div>
+      <div class="rounded-md p-7" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);">
+        <div class="step-num">02</div>
+        <h3 class="h3 mt-4" style="color: var(--paper); font-weight: 700;">Examen</h3>
+        <p class="mt-3" style="color: rgba(255,255,255,0.78); font-size: 15px; line-height: 1.6;">Prueba presencial. Matemática, Física, Química, Razonamiento. 16 de marzo · 8:00 AM.</p>
+      </div>
+      <div class="rounded-md p-7" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);">
+        <div class="step-num">03</div>
+        <h3 class="h3 mt-4" style="color: var(--paper); font-weight: 700;">Ingreso</h3>
+        <p class="mt-3" style="color: rgba(255,255,255,0.78); font-size: 15px; line-height: 1.6;">Publicación de resultados por mérito. Vacantes M-03: 60. Matrícula directa al ciclo 01.</p>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-wrap items-center gap-4">
+      <a href="#" class="btn btn-lime" style="font-size: 17px; padding: 18px 28px;">Iniciar postulación <span>→</span></a>
+      <a href="#" class="btn btn-outline-white">Cronograma completo <span>↗</span></a>
+      <div class="text-[12.5px]" style="color: rgba(255,255,255,0.6);">
+        admision@uni.edu.pe · CEPRE-UNI · anexo 5051
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════════ -->
+<footer id="contacto" style="background: var(--uni-navy-deep); color: var(--paper);" class="pt-20">
+  <div class="container px-6 lg:px-8">
+    <div class="grid md:grid-cols-12 gap-10 pb-14" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <div class="md:col-span-4">
+        <div class="flex items-center gap-3">
+          <span data-shield="navy" data-size="48"></span>
+          <div>
+            <div class="text-[11px]" style="color: rgba(255,255,255,0.6); font-weight: 500;">Escuela Profesional de</div>
+            <div style="font-size: 20px; font-weight: 700; color: var(--paper); letter-spacing: -0.01em;">Ingeniería Mecánica</div>
+          </div>
+        </div>
+        <p class="mt-6 text-[14px]" style="color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 340px;">
+          Facultad de Ingeniería Mecánica · Universidad Nacional de Ingeniería. Formando ingenieros mecánicos para el Perú desde 1876.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="tag tag-lime">Acreditada ABET</span>
+          <span class="tag" style="border-color: rgba(255,255,255,0.2);">SCIENTIA ET LABOR</span>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <h4 class="text-[12px]" style="color: var(--uni-lime); font-weight: 600; letter-spacing: 0.04em;">Otras escuelas FIM</h4>
+        <ul class="mt-4 space-y-2.5 text-[14.5px]" style="color: rgba(255,255,255,0.85);">
+          <li><a class="link link-lime" href="#">Mecánica Eléctrica</a></li>
+          <li><a class="link link-lime" href="#">Mecatrónica</a></li>
+          <li><a class="link link-lime" href="#">Naval</a></li>
+          <li><a class="link link-lime" href="#">Aeronáutica</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <h4 class="text-[12px]" style="color: var(--uni-lime); font-weight: 600; letter-spacing: 0.04em;">Contacto</h4>
+        <ul class="mt-4 space-y-3 text-[14px]" style="color: rgba(255,255,255,0.85); line-height: 1.55;">
+          <li>
+            <div class="text-[11px]" style="color: rgba(255,255,255,0.5);">Directora</div>
+            <div>Ing. Lourdes Peralta</div>
+          </li>
+          <li>
+            <div class="text-[11px]" style="color: rgba(255,255,255,0.5);">Teléfono</div>
+            <div class="font-mono">(+51) 1 481-1070 · anexo 5180</div>
+          </li>
+          <li>
+            <div class="text-[11px]" style="color: rgba(255,255,255,0.5);">Email</div>
+            <div class="font-mono">mecanica@fim.uni.edu.pe</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <h4 class="text-[12px]" style="color: var(--uni-lime); font-weight: 600; letter-spacing: 0.04em;">Ubicación</h4>
+        <p class="mt-4 text-[14px]" style="color: rgba(255,255,255,0.85); line-height: 1.55;">
+          Av. Túpac Amaru 210<br/>Rímac · Lima 15333<br/>
+          <span class="font-mono text-[12px]" style="color: rgba(255,255,255,0.55);">12°02′S · 77°02′W</span>
+        </p>
+        <h4 class="mt-6 text-[12px]" style="color: var(--uni-lime); font-weight: 600; letter-spacing: 0.04em;">Redes</h4>
+        <ul class="mt-3 flex gap-4 text-[13px]" style="color: rgba(255,255,255,0.85);">
+          <li><a class="link link-lime" href="#">Facebook</a></li>
+          <li><a class="link link-lime" href="#">Instagram</a></li>
+          <li><a class="link link-lime" href="#">YouTube</a></li>
+          <li><a class="link link-lime" href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="color: rgba(255,255,255,0.55);">
+      <div>© 1876 — 2026 · Universidad Nacional de Ingeniería · Todos los derechos reservados.</div>
+      <div class="flex gap-5">
+        <a class="link link-lime" href="#">Transparencia</a>
+        <a class="link link-lime" href="#">Libro de reclamaciones</a>
+        <a class="link link-lime" href="#">Política de privacidad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ──── Escudo SVG · genera por data-shield="guinda|paper|navy" y data-size ────
+  function makeShield(size, tone, monogram) {
+    monogram = monogram || 'FIM';
+    var palette = tone === 'paper'
+      ? { fill: '#FAFAF7', stroke: '#FAFAF7', body: '#7A1518', accent: '#C9A24B' }
+      : tone === 'navy'
+        ? { fill: '#0A2B5C', stroke: '#0A2B5C', body: '#FAFAF7', accent: '#A5E635' }
+        : { fill: '#7A1518', stroke: '#7A1518', body: '#FAFAF7', accent: '#C9A24B' };
+    var id = 'sh-' + monogram + '-' + tone + '-' + Math.random().toString(36).slice(2, 7);
+    var teeth = '';
+    for (var i = 0; i < 12; i++) {
+      teeth += '<rect x="-6" y="-58" width="12" height="14" fill="' + palette.body + '" opacity="0.9" transform="rotate(' + (i * 30) + ')"/>';
+    }
+    return ''
+      + '<svg width="' + size + '" height="' + (size * 1.25) + '" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" style="display:block" aria-hidden="true">'
+      +   '<defs>'
+      +     '<path id="' + id + '-at" d="M 28 130 a 92 132 0 0 1 184 0" fill="none"/>'
+      +     '<path id="' + id + '-ab" d="M 36 196 a 84 96 0 0 0 168 0" fill="none"/>'
+      +   '</defs>'
+      +   '<ellipse cx="120" cy="150" rx="100" ry="138" fill="' + palette.fill + '" stroke="' + palette.stroke + '" stroke-width="2"/>'
+      +   '<ellipse cx="120" cy="150" rx="92" ry="128" fill="none" stroke="' + palette.body + '" stroke-width="1.4" opacity="0.55"/>'
+      +   '<ellipse cx="120" cy="150" rx="78" ry="110" fill="none" stroke="' + palette.body + '" stroke-width="1" opacity="0.35"/>'
+      +   '<text font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="600" letter-spacing="3" fill="' + palette.body + '">'
+      +     '<textPath href="#' + id + '-at" startOffset="50%" text-anchor="middle">SCIENTIA · ET · LABOR</textPath>'
+      +   '</text>'
+      +   '<text font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="600" letter-spacing="2.5" fill="' + palette.body + '">'
+      +     '<textPath href="#' + id + '-ab" startOffset="50%" text-anchor="middle">LIMA · 1876 · PERÚ</textPath>'
+      +   '</text>'
+      +   '<g transform="translate(120 152)">'
+      +     '<g>' + teeth
+      +       '<circle r="46" fill="' + palette.body + '" opacity="0.95"/>'
+      +       '<circle r="38" fill="' + palette.fill + '"/>'
+      +       '<circle r="6" fill="' + palette.body + '"/>'
+      +     '</g>'
+      +     '<g stroke="' + palette.accent + '" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9">'
+      +       '<line x1="-34" y1="-30" x2="34" y2="30"/>'
+      +       '<line x1="34" y1="-30" x2="-34" y2="30"/>'
+      +       '<path d="M -38 -32 l -8 -2 l 2 -8 l 8 4 z" fill="' + palette.accent + '"/>'
+      +       '<path d="M 38 -32 l 8 -2 l -2 -8 l -8 4 z" fill="' + palette.accent + '"/>'
+      +       '<path d="M -38 32 l -8 2 l 2 8 l 8 -4 z" fill="' + palette.accent + '"/>'
+      +       '<path d="M 38 32 l 8 2 l -2 8 l -8 -4 z" fill="' + palette.accent + '"/>'
+      +     '</g>'
+      +     '<g>'
+      +       '<line x1="0" y1="18" x2="-12" y2="34" stroke="' + palette.body + '" stroke-width="1.5"/>'
+      +       '<line x1="0" y1="18" x2="12" y2="34" stroke="' + palette.body + '" stroke-width="1.5"/>'
+      +       '<line x1="0" y1="18" x2="0" y2="34" stroke="' + palette.body + '" stroke-width="1.5"/>'
+      +       '<circle cy="14" r="6" fill="' + palette.body + '"/>'
+      +       '<rect x="-10" y="-4" width="20" height="14" rx="2" fill="' + palette.body + '"/>'
+      +       '<rect x="-4" y="-12" width="8" height="10" fill="' + palette.body + '"/>'
+      +     '</g>'
+      +     '<text x="0" y="58" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="14" letter-spacing="3" fill="' + palette.body + '" opacity="0.85">' + monogram + '</text>'
+      +   '</g>'
+      +   '<circle cx="20" cy="150" r="3" fill="' + palette.accent + '"/>'
+      +   '<circle cx="220" cy="150" r="3" fill="' + palette.accent + '"/>'
+      + '</svg>';
+  }
+
+  document.querySelectorAll('[data-shield]').forEach(function (el) {
+    var tone = el.getAttribute('data-shield');
+    var size = parseInt(el.getAttribute('data-size'), 10) || 60;
+    el.innerHTML = makeShield(size, tone);
+  });
+
+  // ──── Header backdrop change on scroll ────
+  (function () {
+    var headerMain = document.getElementById('headerMain');
+    function onScroll() {
+      if (window.scrollY > 40) {
+        headerMain.classList.add('glass-white');
+        headerMain.style.background = '';
+        headerMain.style.borderBottom = '';
+      } else {
+        headerMain.classList.remove('glass-white');
+        headerMain.style.background = 'var(--paper)';
+        headerMain.style.borderBottom = '1px solid var(--line)';
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // ──── Count-up para los stat-num que tengan data-count ────
+  (function () {
+    var els = document.querySelectorAll('.stat-num[data-count]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        if (el.dataset.counted === '1') return;
+        el.dataset.counted = '1';
+        var end = parseInt(el.dataset.count, 10);
+        var suffix = el.dataset.suffix || '';
+        var duration = 1500;
+        var start = performance.now();
+        function tick(t) {
+          var p = Math.min(1, (t - start) / duration);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var val = Math.round(end * eased);
+          el.innerHTML = val.toLocaleString('es-PE') + (suffix ? '<span style="color: var(--uni-guinda);">' + suffix + '</span>' : '');
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
