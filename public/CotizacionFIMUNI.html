@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Árkos · 5 Webs FIM UNI — Universidad Nacional de Ingeniería</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-flex items-center gap-2 rounded-full bg-neutral-800 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-sm font-semibold shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1 5h2v10h-2V7Zm-3 3h2v7H8v-7Zm8 0h2v7h-2v-7Z"/></svg>
+          Árkos
+        </span>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Paquete 5 Webs Institucionales</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 12 May 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">5 Webs Institucionales para las Escuelas Profesionales de la FIM UNI</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Desarrollo de un sistema de cinco sitios web hermanos —uno por cada escuela profesional de la facultad—, con identidad gráfica coherente y experiencia digital al nivel de la tradición de 149 años de la UNI. Construidos en Next.js, conectados a los subdominios oficiales de la facultad.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Propuesta comercial</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Cliente institucional</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Cliente / Proyecto</h3>
+              <p class="text-sm mt-1 font-medium">FIM UNI · 5 Sitios Web para Escuelas Profesionales — Coordinado por David Nicanor</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-FIM-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 3 Opciones Comparativas                    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Opciones de Inversión</span></h2>
+          <div class="grid gap-5 md:grid-cols-3">
+
+            <!-- Opción 1 — Web Individual -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-6 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 1</p>
+              <h3 class="mt-2 text-base font-bold">Web Individual</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 600</p>
+              <p class="text-xs text-neutral-500 mt-1">Una sola web · con dominio incluido</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Una escuela profesional (a elección).</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Hasta 7 páginas internas.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Diseño responsive en Next.js.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Deploy gestionado por Árkos + dominio incluido.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> 2 rondas de revisión.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Acceso al panel de administración del hosting.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: 1 semana calendario</p>
+            </div>
+
+            <!-- Opción 2 — Paquete 5 Escuelas FIM (RECOMENDADO) -->
+            <div class="rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-6 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Opción 2</p>
+              <h3 class="mt-2 text-base font-bold">Paquete 5 Escuelas FIM</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 2,750</p>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">5 webs · S/ 550 cada una · subdominios FIM</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Las 5 Escuelas Profesionales de la FIM.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Línea gráfica consistente con personalidad por escuela.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Hasta 7 páginas internas por web.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Sección heritage del escudo UNI 1876 destacando ABET.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Conexión a los subdominios oficiales de la facultad.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Descuento de S/ 50 por web por usar subdominios UNI.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> 2 rondas de revisión por cada web.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Acceso completo al panel de gestión (sin código fuente).</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Tiempo de entrega: 5 semanas calendario</p>
+            </div>
+
+            <!-- Opción 3 — Paquete + Licencia + Mantenimiento -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-6 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 3</p>
+              <h3 class="mt-2 text-base font-bold">Paquete + Licencia de Código + Mantenimiento</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 4,490</p>
+              <p class="text-xs text-neutral-500 mt-1">Autonomía total + soporte semestral</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Todo lo de la Opción 2.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Licencia de uso del código fuente</strong> de las 5 webs (S/ 1,000).</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Repositorios entregados al equipo TI de la FIM.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Mantenimiento técnico durante 6 meses.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Hasta 4 actualizaciones de contenido al mes por web.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Soporte prioritario por WhatsApp para el coordinador.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: 5 semanas + 6 meses de acompañamiento</p>
+            </div>
+
+          </div>
+
+          <!-- Nota IMPORTANTE: Next.js vs WordPress -->
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">!</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">Importante: este paquete entrega webs codeadas a medida, no un CMS tipo WordPress</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">El sitio actual de la FIM corre en WordPress + Elementor, un CMS donde cualquier usuario con acceso puede arrastrar contenido. <strong class="text-neutral-900 dark:text-white">Estas 5 webs nuevas se construyen en Next.js codeado a medida</strong> — esto significa mejor performance, mejor SEO, mejor seguridad, y mucho mejor presencia, pero también un modelo de mantenimiento distinto que la facultad debe acordar con claridad antes de empezar:</p>
+              <ul class="space-y-2 text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                <li class="flex items-start gap-2"><span class="text-[#328298] font-bold mt-0.5">—</span><span><strong class="text-[#1D4E6A] dark:text-[#D6EFF2]">Por defecto (Opciones 1 y 2):</strong> Árkos retiene el código fuente. La facultad recibe acceso completo al panel de gestión del hosting (Vercel), puede ver analytics, gestionar el dominio, y solicita cambios de contenido a Árkos como soporte (ver tarifas más abajo).</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#328298] font-bold mt-0.5">—</span><span><strong class="text-[#1D4E6A] dark:text-[#D6EFF2]">Si la facultad quiere autonomía total (Opción 3, o licencia aparte):</strong> se entrega licencia de uso del código fuente por S/ 1,000 adicionales. Con eso pueden asignar a un desarrollador interno (o externo) para editar y mantener las webs sin pasar por Árkos.</span></li>
+              </ul>
+              <p class="mt-3 text-neutral-700 dark:text-neutral-300 leading-relaxed italic">Esta no es una limitación — es una decisión de calidad. Un WordPress luce como WordPress; estas 5 webs van a lucir como las webs de las mejores facultades de ingeniería del mundo.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-neutral-200 dark:border-neutral-800"></div>
+
+      <section id="quote" class="p-6 sm:p-8 space-y-10">
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- ¿POR QUÉ INVERTIR EN ESTO?                                 -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">¿Por qué invertir en esto?</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Hablando claro: lo que la facultad deja de tener con el sitio actual y lo que empieza a tener con cinco webs hermanas hechas a medida.</p>
+
+            <div class="grid gap-4 md:grid-cols-2">
+
+              <div class="rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50/40 dark:bg-red-950/20 p-5">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="h-10 w-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400 text-lg">⚠</div>
+                  <h3 class="font-bold text-sm">Lo que dejan de tener</h3>
+                </div>
+                <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Webs visualmente desactualizadas que no reflejan los 149 años de tradición de la UNI.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Cinco escuelas con identidades gráficas dispares e inconsistentes.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Acreditación ABET escondida en lugar de ser un activo de prestigio.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> WordPress + Elementor que cualquier usuario sin criterio puede romper con un click.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Postulantes que comparan con otras universidades y se quedan con la percepción débil.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Proveedores, empresas y aliados internacionales que no encuentran la facultad líder que la UNI realmente es.</li>
+                  <li class="flex items-start gap-2"><span class="text-red-500 mt-0.5">×</span> Profesores y alumnos con dificultad para enseñar con orgullo sus escuelas en redes sociales.</li>
+                </ul>
+              </div>
+
+              <div class="rounded-xl border border-green-200 dark:border-green-900/40 bg-green-50/40 dark:bg-green-950/20 p-5">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="h-10 w-10 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 text-lg">✓</div>
+                  <h3 class="font-bold text-sm">Lo que empiezan a tener</h3>
+                </div>
+                <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Cinco webs hermanas con identidad coherente y personalidad propia por escuela.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Diseño contemporáneo alineado a la línea gráfica oficial de FIM UNI.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Acreditación ABET destacada en cada web — el activo internacional visible desde el primer scroll.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Next.js codeado a medida: rápido, seguro, indestructible por usuarios finales.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Postulantes que llegan a la web ya convencidos del prestigio.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Empresas y proveedores que perciben la seriedad institucional.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Profesores y alumnos orgullosos de compartir su escuela en redes.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-600 mt-0.5">+</span> Padres de familia confiados al ver la facultad bien presentada.</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div class="mt-5 rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/15 dark:bg-[#1D4E6A]/15 p-5">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] uppercase tracking-wide text-[10px] mb-3">¿Qué valor real entrega esto a la FIM UNI?</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                Una facultad acreditada por ABET con 149 años de historia merece una presencia digital al nivel de su prestigio. Estas cinco webs no son un gasto operativo — son una herramienta de admisión, de relacionamiento con la industria, y de retención de orgullo institucional. Una sola tanda de postulantes que llega convencida por la web devuelve la inversión completa.
+              </p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- ALCANCE DEL DESARROLLO                                     -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-lg font-semibold mb-4"><span class="shiny-text">Alcance del Desarrollo</span></h2>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6">Detalle de las funcionalidades incluidas en cada una de las 5 webs del paquete. Todas las webs comparten la misma arquitectura técnica y línea gráfica; el contenido y la personalidad visual se diferencian por escuela.</p>
+
+          <div class="grid gap-4">
+            <!-- Item 1 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Sistema de diseño FIM UNI</h4>
+                <span class="inline-flex items-center rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Alta</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Línea gráfica oficial verificada del FIM UNI: paleta institucional (azul navy UNI, guinda 1876, verde lima moderno), tipografía Plus Jakarta Sans, escudo UNI integrado correctamente. Cada escuela usa el sistema como base con personalidad visual propia.</p>
+            </div>
+            <!-- Item 2 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Desarrollo Next.js + Tailwind</h4>
+                <span class="inline-flex items-center rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media-Alta</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Stack moderno con renderizado optimizado, performance impecable, SEO on-page nativo. Mucho más rápido y mantenible que el WordPress + Elementor actual. Lighthouse score objetivo: 90+ en todas las métricas.</p>
+            </div>
+            <!-- Item 3 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Hasta 7 páginas internas por web</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Por defecto: Home, Presentación, Plan de Estudios, Plana Docente, Investigación/Proyectos, Admisión, Contacto. La estructura se ajusta a las necesidades de cada escuela dentro de ese máximo.</p>
+            </div>
+            <!-- Item 4 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Heritage del escudo UNI 1876</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Sección de identidad institucional destacando el escudo histórico, el lema "Scientia et Labor", y los 149 años de tradición. Conecta la escuela con la marca matriz de la UNI.</p>
+            </div>
+            <!-- Item 5 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Acreditación ABET destacada</h4>
+                <span class="inline-flex items-center rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Baja-Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Cada web destaca la acreditación ABET 2014–2026 como activo visible: sección dedicada explicando qué significa internacionalmente y por qué posiciona a los egresados FIM al nivel de las mejores escuelas técnicas del mundo.</p>
+            </div>
+            <!-- Item 6 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Formulario de contacto + redes</h4>
+                <span class="inline-flex items-center rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Baja</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">Formulario de consultas que llega al correo institucional + integración visible a Facebook, Instagram y YouTube oficiales de la facultad.</p>
+            </div>
+            <!-- Item 7 -->
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Deploy Vercel + acceso al panel</h4>
+                <span class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap">Media</span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400">CI/CD automático en Vercel. La facultad recibe acceso de colaborador al panel de gestión (no al código fuente salvo Opción 3 o licencia aparte). Capacitación al coordinador para uso del panel.</p>
+            </div>
+          </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- LO QUE NO INCLUYE                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye este paquete</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Exclusiones explícitas del paquete (cotizable por separado)</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Compra de dominios externos (usamos subdominios uni.edu.pe).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> <strong>Código fuente</strong> (se entrega solo bajo licencia adicional de S/ 1,000 o en la Opción 3).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> CMS personalizado o panel de administración de contenido editable por usuarios finales.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Sistema de blog o noticias dinámicas con base de datos.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Animaciones 3D, efectos WebGL, parallax avanzado, transiciones cinemáticas.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Más de 7 páginas internas por web.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Pasarela de pago, ecommerce, o módulo de matrícula online.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Login de usuarios o integración con intranet/aula virtual de la UNI.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> SEO avanzado, link building, campañas de posicionamiento orgánico mensual.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Más de 2 rondas de revisión por web (las adicionales se cobran al costo de soporte puntual).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Producción de contenido: textos, fotografías profesionales, videos, ilustraciones (proporcionados por la facultad).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Traducción del sitio a otros idiomas.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Mantenimiento mensual posterior a la entrega (contratable como plan separado de S/ 150/mes, o incluido en Opción 3).</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- MODELO DE PROPIEDAD Y SOPORTE                              -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Modelo de Propiedad y Soporte</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6">Tres formas de operar las webs después de la entrega. La facultad elige el modelo que mejor se ajuste a su capacidad técnica interna y volumen de actualizaciones esperado.</p>
+
+            <div class="grid gap-5 md:grid-cols-3">
+
+              <!-- Card 1 — Acceso Estándar -->
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Acceso Estándar</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Incluido</span>
+                </div>
+                <p class="text-xs text-neutral-500 mb-3">Incluido en Opciones 1 y 2</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">La facultad recibe acceso completo al panel de Vercel donde están desplegadas las 5 webs.</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2 flex-1">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Acceso al panel de hosting (Vercel).</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Visualización de analytics y uptime.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Gestión del subdominio.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Capacidad de pausar/reactivar los sitios.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Sin acceso al código fuente.</li>
+                </ul>
+                <p class="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800 text-xs text-neutral-600 dark:text-neutral-400"><strong class="text-neutral-900 dark:text-white">Las actualizaciones de contenido se solicitan a Árkos como soporte</strong> (ver tarifas).</p>
+              </div>
+
+              <!-- Card 2 — Licencia de Código -->
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Licencia de Código</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#328298] text-white px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Autonomía</span>
+                </div>
+                <p class="text-xs text-neutral-500 mb-3">S/ 1,000 adicional o incluida en Opción 3</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">La facultad recibe los 5 repositorios de código fuente bajo licencia de uso indefinido para uso interno de la UNI.</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2 flex-1">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Acceso completo al código fuente de las 5 webs.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Documentación técnica detallada.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Pueden asignar a un desarrollador interno o externo para mantener.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Pueden modificar, expandir, o agregar funcionalidades por su cuenta.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El código no puede revenderse a terceros (licencia para FIM UNI).</li>
+                </ul>
+                <p class="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800 text-xs text-neutral-600 dark:text-neutral-400">Pago único de S/ 1,000 — pueden adquirirla al inicio o en cualquier momento posterior.</p>
+              </div>
+
+              <!-- Card 3 — Plan de Soporte Mensual -->
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Plan de Soporte Mensual</h3>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Recurrente</span>
+                </div>
+                <p class="text-xs text-neutral-500 mb-3">Opcional · S/ 150/mes</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Bolsa mensual de soporte para actualizaciones de contenido y ajustes menores en las 5 webs.</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2 flex-1">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> S/ 150/mes — bolsa de hasta 4 horas de soporte.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cubre cambios de texto, fotos, datos de docentes, eventos, noticias.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Respuesta dentro de 48 hrs hábiles.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Soporte por WhatsApp con el coordinador.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Horas no usadas no acumulan.</li>
+                </ul>
+                <p class="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800 text-xs text-neutral-600 dark:text-neutral-400">Ideal si la facultad espera actualizaciones esporádicas (1–3 cambios al mes en alguna web).</p>
+              </div>
+
+            </div>
+
+            <!-- Tabla de tarifas de soporte puntual -->
+            <div class="mt-6">
+              <h3 class="font-bold text-sm text-neutral-900 dark:text-white mb-2">Tarifas de Soporte Puntual</h3>
+              <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-4">Para actualizaciones que no caen dentro del plan mensual o cuando la facultad no tiene plan de soporte activo:</p>
+              <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                      <th class="py-2.5 px-4 text-left">Tipo de cambio</th>
+                      <th class="py-2.5 px-4 text-center">Tiempo aprox</th>
+                      <th class="py-2.5 px-4 text-right">Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                    <tr class="bg-white dark:bg-neutral-900">
+                      <td class="py-2.5 px-4 font-medium">Cambio de texto, dato, número en una web</td>
+                      <td class="py-2.5 px-4 text-center text-xs text-neutral-500">15 min</td>
+                      <td class="py-2.5 px-4 text-right font-semibold text-[#328298]">S/ 25</td>
+                    </tr>
+                    <tr class="bg-white dark:bg-neutral-900">
+                      <td class="py-2.5 px-4 font-medium">Cambio de foto o imagen</td>
+                      <td class="py-2.5 px-4 text-center text-xs text-neutral-500">30 min</td>
+                      <td class="py-2.5 px-4 text-right font-semibold text-[#328298]">S/ 35</td>
+                    </tr>
+                    <tr class="bg-white dark:bg-neutral-900">
+                      <td class="py-2.5 px-4 font-medium">Agregar/editar un docente o evento</td>
+                      <td class="py-2.5 px-4 text-center text-xs text-neutral-500">1 hora</td>
+                      <td class="py-2.5 px-4 text-right font-semibold text-[#328298]">S/ 50</td>
+                    </tr>
+                    <tr class="bg-white dark:bg-neutral-900">
+                      <td class="py-2.5 px-4 font-medium">Cambios estructurales en una sección</td>
+                      <td class="py-2.5 px-4 text-center text-xs text-neutral-500">2–4 horas</td>
+                      <td class="py-2.5 px-4 text-right font-semibold text-[#328298]">S/ 35/hora</td>
+                    </tr>
+                    <tr class="bg-white dark:bg-neutral-900">
+                      <td class="py-2.5 px-4 font-medium">Nueva sección o página interna</td>
+                      <td class="py-2.5 px-4 text-center text-xs text-neutral-500">Cotizable</td>
+                      <td class="py-2.5 px-4 text-right font-semibold text-[#328298]">Desde S/ 250</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-3 text-xs text-neutral-500 italic">Las tarifas aplican si la facultad no tiene plan de soporte mensual activo. Con plan mensual, todo se descuenta de la bolsa de 4 hrs.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- MODALIDADES DE PAGO                                         -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div>
+            <h3 class="text-lg font-semibold mb-5"><span class="shiny-text">Modalidades de Pago</span></h3>
+            <div class="grid gap-5 md:grid-cols-2">
+
+              <!-- Pago del Paquete Completo -->
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="h-10 w-10 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2] text-lg font-bold">1</div>
+                  <h4 class="font-bold text-sm">Pago del Paquete Completo (Opción 2)</h4>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">El cliente adquiere las 5 webs institucionales bajo <strong class="text-neutral-900 dark:text-white">licencia de uso perpetuo</strong> para la FIM UNI. Sin mensualidades obligatorias. La propiedad intelectual del código se mantiene bajo Árkos salvo adquisición de la licencia de código (S/ 1,000) o adquisición de la Opción 3 que ya la incluye.</p>
+                <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-4">
+                  <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-2">Opciones de fraccionamiento</p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-center gap-2">
+                      <span class="h-2 w-2 rounded-full bg-[#328298]"></span>
+                      <span><strong>50 / 50:</strong> 50% al inicio (S/ 1,375) + 50% a la entrega de las 5 webs (S/ 1,375)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="h-2 w-2 rounded-full bg-[#328298]"></span>
+                      <span><strong>Por hitos:</strong> 5 cuotas de S/ 550, una al entregar cada web</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Descuento pago cash -->
+                <div class="mt-3 rounded-lg border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-4 py-3 flex items-start gap-3">
+                  <span class="text-green-600 dark:text-green-400 font-bold text-base leading-none mt-0.5">&#10003;</span>
+                  <div class="text-xs">
+                    <p class="font-bold text-green-800 dark:text-green-300 mb-1">Descuento por Pago Cash &mdash; S/ 250 menos</p>
+                    <p class="text-green-700 dark:text-green-400">Si el pago completo del paquete se realiza por adelantado en un solo desembolso, se aplica un descuento directo de <strong>S/ 250</strong> sobre el precio.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <span class="rounded-full bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-3 py-1 font-semibold">Web individual al contado: S/ 550</span>
+                      <span class="rounded-full bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-3 py-1 font-semibold">Paquete 5 al contado: S/ 2,500</span>
+                      <span class="rounded-full bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 px-3 py-1 font-semibold">Paquete + Licencia + Mantenimiento al contado: S/ 4,240</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarifa Cliente Institucional -->
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="h-10 w-10 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2] text-lg font-bold">2</div>
+                  <h4 class="font-bold text-sm">Tarifa Cliente Institucional</h4>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Esta cotización aplica una <strong class="text-neutral-900 dark:text-white">tarifa institucional preferente</strong> reservada para entidades educativas públicas peruanas. Tarifa estándar de mercado para 5 webs institucionales con este nivel de diseño: S/ 4,500–7,000.</p>
+                <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+                  <table class="w-full text-sm">
+                    <thead>
+                      <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                        <th class="py-2 px-3 text-left">Plan</th>
+                        <th class="py-2 px-3 text-center">Webs</th>
+                        <th class="py-2 px-3 text-center">Código</th>
+                        <th class="py-2 px-3 text-center">Manten.</th>
+                        <th class="py-2 px-3 text-right">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                      <tr class="bg-white dark:bg-neutral-900">
+                        <td class="py-2.5 px-3 font-medium">Web individual</td>
+                        <td class="py-2.5 px-3 text-center">1</td>
+                        <td class="py-2.5 px-3 text-center text-neutral-500">No</td>
+                        <td class="py-2.5 px-3 text-center text-neutral-500">No</td>
+                        <td class="py-2.5 px-3 text-right font-semibold text-[#328298]">S/ 600</td>
+                      </tr>
+                      <tr class="bg-white dark:bg-neutral-900">
+                        <td class="py-2.5 px-3 font-medium">Paquete FIM</td>
+                        <td class="py-2.5 px-3 text-center">5</td>
+                        <td class="py-2.5 px-3 text-center text-neutral-500">No</td>
+                        <td class="py-2.5 px-3 text-center text-neutral-500">No</td>
+                        <td class="py-2.5 px-3 text-right font-semibold text-[#328298]">S/ 2,750</td>
+                      </tr>
+                      <tr class="bg-white dark:bg-neutral-900">
+                        <td class="py-2.5 px-3 font-medium">Paquete + Licencia</td>
+                        <td class="py-2.5 px-3 text-center">5</td>
+                        <td class="py-2.5 px-3 text-center text-[#328298] font-semibold">Sí</td>
+                        <td class="py-2.5 px-3 text-center text-neutral-500">No</td>
+                        <td class="py-2.5 px-3 text-right font-semibold text-[#328298]">S/ 3,750</td>
+                      </tr>
+                      <tr class="bg-white dark:bg-neutral-900">
+                        <td class="py-2.5 px-3 font-medium">Paquete + Licencia + 6m soporte</td>
+                        <td class="py-2.5 px-3 text-center">5</td>
+                        <td class="py-2.5 px-3 text-center text-[#328298] font-semibold">Sí</td>
+                        <td class="py-2.5 px-3 text-center text-[#328298] font-semibold">6 meses</td>
+                        <td class="py-2.5 px-3 text-right font-semibold text-[#328298]">S/ 4,490</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Garantía y soporte post-entrega -->
+              <div class="mt-5 rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/15 dark:bg-[#1D4E6A]/15 p-4 text-xs text-neutral-700 dark:text-neutral-300 col-span-full">
+                <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] uppercase tracking-wide text-[10px] mb-3">Garantía y Soporte Post-Entrega</p>
+                <div class="grid gap-3 sm:grid-cols-3">
+                  <div class="flex items-start gap-2">
+                    <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-[#328298] text-white text-[10px] font-bold flex items-center justify-center">1</span>
+                    <p><strong>Días 1&ndash;30 por web:</strong> Garantía total. Cualquier bug detectado se corrige sin costo.</p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-[#328298] text-white text-[10px] font-bold flex items-center justify-center">2</span>
+                    <p><strong>Capacitación:</strong> Sesión virtual de 1h con el coordinador para uso del panel y solicitud de soporte.</p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-[#266F87] text-white text-[10px] font-bold flex items-center justify-center">3</span>
+                    <p><strong>Post-garantía:</strong> Soporte puntual según tarifa publicada o plan mensual de S/ 150/mes.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-5 md:grid-cols-2">
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-2">Requerimientos clave</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Contenido aprobado por la facultad: textos institucionales, biografías docentes, fotos de laboratorios y proyectos.</li>
+                <li>Acceso al panel DNS de uni.edu.pe (o coordinación con TI UNI) para apuntar los subdominios.</li>
+                <li>Un punto de contacto único por parte de la FIM (el coordinador) para agilizar revisiones.</li>
+                <li>Logos oficiales en vectorial (SVG o AI) — escudo UNI y logos de cada escuela.</li>
+                <li>Respuestas a consultas dentro de 48 horas hábiles para mantener el ritmo de 1 semana por web.</li>
+                <li>Decisión clara sobre el modelo de propiedad antes de la entrega final (acceso estándar / licencia de código / Opción 3).</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-2">Valor agregado</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Identidad gráfica coherente que eleva la percepción de las 5 escuelas como un conjunto.</li>
+                <li>Acreditación ABET visible y bien comunicada en cada sitio.</li>
+                <li>Performance técnica superior al actual WordPress/Elementor.</li>
+                <li>Carga rápida, SEO básico on-page, accesibilidad AA.</li>
+                <li>Capacitación al coordinador para uso del panel de Vercel.</li>
+                <li>Base sólida para crecer en el futuro (blog, intranet, etc. cotizables aparte).</li>
+                <li>Tarifas de soporte transparentes y publicadas — sin sorpresas después.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-5 md:grid-cols-2">
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Entregables</h3>
+              <div class="grid gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">5 sitios web Next.js desplegados</p>
+                    <p class="text-xs text-neutral-500">Deploy en producción en Vercel apuntando a subdominios FIM.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Acceso al panel de Vercel</p>
+                    <p class="text-xs text-neutral-500">Como colaborador, con permisos de visualización y gestión de dominios.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Sistema de diseño base</p>
+                    <p class="text-xs text-neutral-500">Documentación de paleta, tipografía y componentes.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Manual de uso del panel</p>
+                    <p class="text-xs text-neutral-500">Instrucciones para gestionar el hosting y solicitar soporte.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Capacitación al coordinador</p>
+                    <p class="text-xs text-neutral-500">1 sesión virtual de 1 hora.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="h-9 w-9 rounded-xl bg-[#D6EFF2]/60 dark:bg-[#1D4E6A]/30 flex items-center justify-center text-[#1D4E6A] dark:text-[#D6EFF2]">✓</div>
+                  <div>
+                    <p class="text-sm font-semibold">Repositorios de código fuente</p>
+                    <p class="text-xs text-neutral-500">Solo si se adquiere licencia (S/ 1,000) o Opción 3.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+              <h3 class="font-semibold mb-3">Garantía y soporte</h3>
+              <ul class="text-sm text-neutral-600 dark:text-neutral-400 list-disc pl-5 space-y-1">
+                <li>Garantía de 30 días post-entrega por web (correcciones de bugs sin costo).</li>
+                <li>Acompañamiento en el deploy y configuración de subdominios.</li>
+                <li>Capacitación al coordinador de la FIM.</li>
+                <li>Plan de soporte mensual disponible: S/ 150/mes (ver Modelo de Propiedad y Soporte).</li>
+                <li>Tarifa de soporte puntual sin plan activo: ver tabla detallada.</li>
+                <li>Opción de licencia de código adquirible en cualquier momento posterior.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h3 class="font-semibold mb-4">Cronograma estimado · Paquete 5 Escuelas (5 semanas)</h3>
+            <div class="grid gap-4 md:grid-cols-5 text-sm">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Semana 1</p>
+                <p class="mt-2 font-semibold">Ingeniería Mecánica</p>
+                <p class="text-xs text-neutral-500 mt-1">Diseño base + desarrollo + 2 revisiones + deploy</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Semana 2</p>
+                <p class="mt-2 font-semibold">Ingeniería Mecánica Eléctrica</p>
+                <p class="text-xs text-neutral-500 mt-1">Adaptación del sistema + contenido propio + revisiones + deploy</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Semana 3</p>
+                <p class="mt-2 font-semibold">Ingeniería Mecatrónica</p>
+                <p class="text-xs text-neutral-500 mt-1">Adaptación del sistema + contenido propio + revisiones + deploy</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Semana 4</p>
+                <p class="mt-2 font-semibold">Ingeniería Naval</p>
+                <p class="text-xs text-neutral-500 mt-1">Adaptación del sistema + contenido propio + revisiones + deploy</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-neutral-500">Semana 5</p>
+                <p class="mt-2 font-semibold">Ingeniería Aeroespacial + cierre global</p>
+                <p class="text-xs text-neutral-500 mt-1">Última escuela + QA general + capacitación al coordinador + entrega</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs text-neutral-500 italic">Plazo total estimado: 5 semanas calendario. Sujeto a la asertividad de las respuestas y el cumplimiento de los hitos de revisión por parte de la facultad (máximo 48 hrs de feedback por ronda).</p>
+          </div>
+
+      </section>
+
+      <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- ESPECIFICACIÓN TÉCNICA                                     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Especificación Técnica del Paquete</span></h2>
+          <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Documento de arquitectura y stack — 5 Webs FIM UNI</p>
+
+          <!-- Stack Table -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">⚙</span>
+              Stack del Sistema
+            </h3>
+            <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-2.5 px-4 text-left">Capa</th>
+                    <th class="py-2.5 px-4 text-left">Tecnología</th>
+                    <th class="py-2.5 px-4 text-left">Versión</th>
+                    <th class="py-2.5 px-4 text-left">Justificación</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Frontend</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Next.js 14 + React 18 + TypeScript</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">14.x</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Framework moderno con SSR, SEO nativo, performance excelente. Muy superior al WordPress/Elementor del sitio actual.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Estilos</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Tailwind CSS</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">3.x</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Sistema de diseño consistente entre las 5 webs, mantenibilidad alta.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Tipografía</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Plus Jakarta Sans</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">Google Fonts</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Sans-serif humanist moderno, institucional cálido.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Iconos</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">lucide-react</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">0.4.x</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Set consistente y customizable.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Hosting</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Vercel</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">edge CDN</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">CI/CD automático, edge functions.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">DNS</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">Subdominios uni.edu.pe</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">gestionado por TI UNI</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Apuntamiento coordinado al final del proyecto.</td>
+                  </tr>
+                  <tr class="bg-white dark:bg-neutral-900">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">Repositorio</td>
+                    <td class="py-3 px-4"><code class="bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded text-xs font-mono">GitHub privado · Árkos</code></td>
+                    <td class="py-3 px-4 font-mono text-xs text-[#328298]">—</td>
+                    <td class="py-3 px-4 text-xs text-neutral-500">Bajo control de Árkos. Se transfiere a TI UNI solo bajo licencia de código.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Flujo del proceso -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">🏗</span>
+              Flujo del Proceso
+            </h3>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+              <div class="grid md:grid-cols-3 gap-4 text-xs">
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">1 · Discovery (días 1–2)</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Recepción de contenido oficial.</li>
+                    <li>• Validación de paleta, escudo y logotipos.</li>
+                    <li>• Mapa de páginas internas.</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">2 · Diseño y desarrollo (días 3–5)</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• Sistema base en Next.js.</li>
+                    <li>• Adaptación por personalidad de escuela.</li>
+                    <li>• Heritage + ABET destacados.</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+                  <p class="font-bold text-[#328298] uppercase tracking-wide mb-2">3 · Revisión y entrega (días 6–7)</p>
+                  <ul class="space-y-1.5 text-neutral-600 dark:text-neutral-400">
+                    <li>• 2 rondas de revisión.</li>
+                    <li>• Deploy en Vercel.</li>
+                    <li>• Acceso al panel para el coordinador.</li>
+                    <li>• Coordinación con TI UNI para subdominio.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detalle de Ingeniería por Componente -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">📦</span>
+              Detalle de Ingeniería por Componente
+            </h3>
+            <div class="space-y-4 text-sm leading-relaxed">
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">1. Sistema de Diseño Compartido</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Tokens base</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Paleta institucional UNI: azul navy, guinda 1876, verde lima moderno.</li>
+                      <li>• Escala tipográfica unificada (Plus Jakarta Sans).</li>
+                      <li>• Tokens de espaciado, radios, sombras y motion comunes.</li>
+                      <li>• Variables CSS centrales reutilizadas por las 5 webs.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Componentes base</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Header, footer, navbar y CTA reutilizables.</li>
+                      <li>• Cards de docente, programa y proyecto.</li>
+                      <li>• Bloques editoriales (hero, sección heritage, sección ABET).</li>
+                      <li>• Skins por escuela: color de acento + foto principal personalizable.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">2. Layout por Escuela</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Estructura</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Header propio con identificador de escuela.</li>
+                      <li>• Hero específico (foto + claim por escuela).</li>
+                      <li>• Secciones diferenciadas: investigación, laboratorios, egresados.</li>
+                      <li>• Footer cross-link al resto de las escuelas FIM.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Personalidad</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Color de acento propio dentro de la paleta institucional.</li>
+                      <li>• Imágenes principales propias por escuela.</li>
+                      <li>• Microcopy editorial alineado al carácter de la disciplina.</li>
+                      <li>• Mismo lenguaje visual, identidad reconocible.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">3. Sección Heritage del Escudo UNI 1876</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Componente reutilizable</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Escudo histórico SVG optimizado para retina.</li>
+                      <li>• Lema "Scientia et Labor" como tipografía propia.</li>
+                      <li>• Línea de tiempo visual: 1876 → presente.</li>
+                      <li>• Bloque editorial con dato de los 149 años.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Conexión con la marca matriz</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Posicionamiento de la escuela dentro de la tradición UNI.</li>
+                      <li>• Texto institucional configurable por escuela.</li>
+                      <li>• CTA opcional hacia el sitio principal de la UNI.</li>
+                      <li>• Versión claro/oscuro coherente con dark mode.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">4. Sección ABET</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Datos por escuela</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Sello ABET destacado, vigencia 2014–2026.</li>
+                      <li>• Explicación de qué significa la acreditación internacionalmente.</li>
+                      <li>• Datos específicos por escuela (programas acreditados).</li>
+                      <li>• Bloque "egresados al nivel de las mejores escuelas técnicas del mundo".</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Diseño y jerarquía</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Visible desde el primer scroll del home de cada web.</li>
+                      <li>• Componente reutilizable, parametrizado por escuela.</li>
+                      <li>• Soporta enlace externo al verificador ABET oficial.</li>
+                      <li>• Consistente entre las 5 webs.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">5. Formulario de Contacto</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Implementación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Server actions de Next.js (no requiere backend separado).</li>
+                      <li>• Validación de campos en cliente y servidor.</li>
+                      <li>• Anti-spam con honeypot + rate limit básico.</li>
+                      <li>• Confirmación visual al usuario al enviar.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Entrega del mensaje</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Envío directo al correo institucional configurado por escuela.</li>
+                      <li>• Variables de entorno por escuela en Vercel.</li>
+                      <li>• Categorización opcional del tipo de consulta.</li>
+                      <li>• Log mínimo sin almacenar PII innecesaria.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">6. Footer Institucional</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Contenido</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Datos institucionales UNI + FIM.</li>
+                      <li>• Dirección física, teléfono, correo.</li>
+                      <li>• Redes oficiales (Facebook, Instagram, YouTube).</li>
+                      <li>• Aviso de propiedad institucional.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Cross-link</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Bloque "Otras Escuelas Profesionales" con las 4 hermanas.</li>
+                      <li>• Permite navegación cruzada dentro del paquete.</li>
+                      <li>• Refuerza la idea de "facultad como sistema".</li>
+                      <li>• Render consistente en todas las webs.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">7. SEO On-Page</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Metadata</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">generateMetadata</code> de Next.js por página.</li>
+                      <li>• Open Graph + Twitter Card por escuela.</li>
+                      <li>• <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">sitemap.xml</code> y <code class="bg-neutral-100 dark:bg-neutral-800 px-1 rounded">robots.txt</code> generados.</li>
+                      <li>• Schema.org "EducationalOrganization".</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Accesibilidad y semántica</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Alt text en todas las imágenes.</li>
+                      <li>• Estructura semántica de headings (h1 único, h2/h3 jerárquicos).</li>
+                      <li>• Idioma declarado, fechas en formato ISO.</li>
+                      <li>• Contraste AA y navegación por teclado.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-neutral-900 dark:text-white mb-2">8. Panel de Gestión</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Acceso colaborador en Vercel</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Invitación al equipo FIM al proyecto Vercel de Árkos.</li>
+                      <li>• Permisos de lectura + gestión de dominios + analytics.</li>
+                      <li>• No acceso al código fuente salvo Opción 3 o licencia.</li>
+                      <li>• Logs de actividad para trazabilidad.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">Capacitación</p>
+                    <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+                      <li>• Sesión virtual de 1 hora con el coordinador.</li>
+                      <li>• Manual de uso del panel y solicitud de soporte.</li>
+                      <li>• Lineamientos de buenas prácticas (DNS, redirects).</li>
+                      <li>• Canal de soporte directo definido al inicio.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Infraestructura y Calidad -->
+          <div class="mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-[#328298] mb-4 flex items-center gap-2">
+              <span class="h-5 w-5 rounded bg-[#328298]/10 flex items-center justify-center text-[10px]">☁</span>
+              Despliegue y Calidad
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">CI/CD &amp; Despliegue</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• Auto-deploy desde GitHub privado de Árkos a Vercel.</li>
+                  <li>• Preview deploys por branch para validar cambios antes de merge.</li>
+                  <li>• Rollback inmediato en caso de regresión detectada.</li>
+                  <li>• Variables de entorno seguras (correos institucionales, secretos).</li>
+                  <li>• Acceso de colaborador para FIM al proyecto Vercel.</li>
+                </ul>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <p class="text-xs font-bold uppercase tracking-wide text-neutral-500 mb-3">Calidad &amp; Seguridad</p>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li>• TypeScript strict en todo el código.</li>
+                  <li>• Lighthouse 90+ objetivo en performance, SEO y accesibilidad.</li>
+                  <li>• Accesibilidad AA verificada (contraste, teclado, lectores de pantalla).</li>
+                  <li>• Responsive testing en dispositivos reales.</li>
+                  <li>• Cross-browser: Chrome, Safari, Firefox, Edge.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nota de valor -->
+          <div class="rounded-xl border border-[#328298]/30 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
+            <p class="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              <strong class="text-[#1D4E6A] dark:text-[#D6EFF2]">Por qué este paquete realmente eleva a la FIM UNI:</strong> cinco webs hermanas, diseñadas como sistema y construidas con tecnología moderna, proyectan a la facultad como lo que realmente es —una institución líder, acreditada internacionalmente, con 149 años de tradición. Y a diferencia de un WordPress, estas webs son <strong>indestructibles para el usuario final</strong>: nadie puede romper el diseño con un click. El soporte de Árkos garantiza que las actualizaciones se hagan con criterio.
+            </p>
+          </div>
+
+          <!-- Firmas -->
+          <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+             <div class="grid md:grid-cols-2 gap-10 text-sm">
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">FIM UNI · David Nicanor</p>
+              </div>
+              <div class="flex flex-col gap-8">
+                <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
+                <p class="text-center font-semibold">ÁRKÓS · Rodrigo Torres</p>
+                <p class="text-center text-xs text-neutral-500">DNI: 75893674</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+  </script>
+</body>
+</html>
