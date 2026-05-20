@@ -156,8 +156,9 @@
         <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Cliente / Proyecto</h3>
-              <p class="text-sm mt-1 font-medium">FIM UNI · 5 Sitios Web para Escuelas Profesionales — Coordinado por David Nicanor</p>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">Dr. Ing. Tito Vílchez · Decano de la FIM-UNI</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">Facultad de Ingeniería Mecánica · Universidad Nacional de Ingeniería · 5 Sitios Web para Escuelas Profesionales</p>
             </div>
             <div class="flex flex-wrap gap-2 text-xs">
               <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-FIM-2026-001</span>
@@ -1093,7 +1094,8 @@
              <div class="grid md:grid-cols-2 gap-10 text-sm">
               <div class="flex flex-col gap-8">
                 <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
-                <p class="text-center font-semibold">FIM UNI · David Nicanor</p>
+                <p class="text-center font-semibold">Dr. Ing. Tito Vílchez</p>
+                <p class="text-center text-xs text-neutral-500">Decano de la FIM-UNI</p>
               </div>
               <div class="flex flex-col gap-8">
                 <div class="border-b border-dashed border-neutral-400 dark:border-neutral-600 h-8"></div>
@@ -1587,9 +1589,9 @@
                 p([t('Facultad de Ingeniería Mecánica', { size: 20, color: C.soft })])
               ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
               cell([
-                p([t('Coordinador', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
-                p([t('David Nicanor', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
-                p([t('Punto único de contacto', { size: 20, color: C.soft })])
+                p([t('Dirigido a', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Dr. Ing. Tito Vílchez', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Decano de la FIM-UNI', { size: 20, color: C.soft })])
               ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
             ]}),
             new TableRow({ children: [
@@ -1838,8 +1840,8 @@
           rows: [new TableRow({ children: [
             cell([
               new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 }, border: { bottom: { color: C.ink, size: 6, style: BorderStyle.SINGLE, space: 4 } } }),
-              p([t('FIM UNI · David Nicanor', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
-              p([t('Coordinador del proyecto', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+              p([t('Dr. Ing. Tito Vílchez', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Decano de la FIM-UNI', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
             ]),
             cell([
               new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
