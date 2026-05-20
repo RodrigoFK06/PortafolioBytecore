@@ -173,15 +173,21 @@ export function HeroSection() {
                <HeroWord>tus</HeroWord>{" "}
                <HeroWord className="text-brand relative">
                  pr
-                 <span className="inline-block align-baseline mx-[0.05em] w-[0.75em] h-[0.75em] relative logo-spin origin-center translate-y-[0.1em]">
+                 <span className="sr-only">o</span>
+                 <span
+                   aria-hidden="true"
+                   className="inline-block align-baseline mx-[0.05em] w-[0.75em] h-[0.75em] relative logo-spin origin-center translate-y-[0.1em]"
+                 >
                    <img
                      src="/logo_ico/final - LOGO 2-071.svg"
-                     alt="o"
+                     alt=""
+                     aria-hidden="true"
                      className="absolute inset-0 w-full h-full object-contain dark:hidden"
                    />
                    <img
                      src="/logo_ico/final - LOGO 2-081.svg"
-                     alt="o"
+                     alt=""
+                     aria-hidden="true"
                      className="absolute inset-0 w-full h-full object-contain hidden dark:block"
                    />
                  </span>
@@ -212,7 +218,7 @@ export function HeroSection() {
             {/* Description - Glassmorphism Card on the right */}
             <div 
               ref={descRef}
-              className="w-full lg:w-[45%] xl:w-[40%] text-base md:text-lg text-foreground/80 leading-relaxed font-normal p-6 md:p-8 rounded-2xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative order-1 lg:order-2 transition-colors"
+              className="w-full lg:w-[45%] xl:w-[40%] text-base md:text-lg text-foreground/80 leading-relaxed font-normal p-6 md:p-8 rounded-2xl border border-black/10 dark:border-white/5 bg-black/[0.04] dark:bg-white/[0.02] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative order-1 lg:order-2 transition-colors"
               style={{ opacity: 0 }}
             >
               <div className="absolute inset-0 rounded-2xl border border-black/10 dark:border-white/10 pointer-events-none transition-colors" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
@@ -231,7 +237,7 @@ export function HeroSection() {
         className="hidden md:block absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10"
         style={{ opacity: 0 }}
       >
-        <div className="w-12 h-12 flex items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-md hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors cursor-pointer text-foreground/70 dark:text-white/70">
+        <div className="w-12 h-12 flex items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.02] backdrop-blur-md hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors cursor-pointer text-foreground/70 dark:text-white/70">
            <div className="scroll-dot w-6 h-6 flex flex-col items-center justify-center">
               <ArrowRight className="w-4 h-4 rotate-90" />
            </div>

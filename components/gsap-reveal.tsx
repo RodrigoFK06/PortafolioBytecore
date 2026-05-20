@@ -156,16 +156,16 @@ export function StaggerReveal({
 
       gsap.fromTo(
         items,
-        { y: 50, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power3.out",
           stagger,
           scrollTrigger: {
             trigger: ref.current,
-            start: "top 82%",
+            start: "top 95%",
             once: true,
           },
         }

@@ -43,7 +43,7 @@ export function AboutSection() {
             
             <RevealBlock direction="right">
               {/* Glassmorphism Card */}
-              <div className="p-8 rounded-2xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative transition-colors">
+              <div className="p-8 rounded-2xl border border-black/10 dark:border-white/5 bg-black/[0.04] dark:bg-white/[0.02] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative transition-colors">
                 <div className="absolute inset-0 rounded-2xl border border-black/10 dark:border-white/10 pointer-events-none transition-colors" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
                 <h3 className="text-2xl font-bold mb-6 text-foreground relative z-10">Nuestra Historia</h3>
                 <p className="text-foreground/80 mb-6 leading-relaxed relative z-10">
@@ -68,7 +68,7 @@ export function AboutSection() {
                   { label: "Clientes Satisfechos", value: 30, to: 30, prefix: "+" },
                   { label: "Premios Ganados", value: 9, to: 9, prefix: "" }
                 ].map((stat, i) => (
-                  <div key={i} className="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10 group hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors cursor-crosshair px-2">
+                  <div key={i} className="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10 group hover:bg-black/[0.04] dark:hover:bg-white/[0.02] transition-colors cursor-crosshair px-2">
                      <span className="font-mono text-xs uppercase tracking-widest text-foreground/60 group-hover:text-brand transition-colors">
                         [INDEX_0{i+1}] {stat.label}
                      </span>
@@ -85,7 +85,7 @@ export function AboutSection() {
                {[
                  { href: "https://github.com/RodrigoFK06", icon: Github, label: "GitHub" },
                  { href: "https://www.linkedin.com/in/rodrigo-torres-árkos", icon: Linkedin, label: "LinkedIn" },
-                 { href: "mailto:rodrigoan.torresp@gmail.com", icon: Mail, label: "Email" }
+                 { href: "mailto:hola@árkos.com", icon: Mail, label: "Email" }
                ].map((social, i) => (
                  <Button key={i} variant="outline" size="icon" asChild className="group rounded-xl bg-black/5 dark:bg-white/5 backdrop-blur-[12px] border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-1">
                    <Link href={social.href} target={social.href.startsWith('http') ? "_blank" : "_self"} rel={social.href.startsWith('http') ? "noopener noreferrer" : ""} aria-label={social.label}>

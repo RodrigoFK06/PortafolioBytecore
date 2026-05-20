@@ -17,7 +17,7 @@ export default function PDFDownloadWrapper() {
     >
       {({ loading }) => (
         <>
-          <div className="absolute inset-0 bg-gradient-to-r from-bytecore-600 to-bytecore-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-r from-arkos-600 to-arkos-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="relative z-10 flex items-center gap-2">
             {loading ? 'Generando PDF...' : 'Descargar Brochure Corporativo'}
             <Download className={`w-5 h-5 ${loading ? 'animate-bounce' : 'group-hover:animate-bounce'}`} />

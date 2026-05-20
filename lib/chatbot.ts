@@ -35,7 +35,7 @@ const SYSTEM_PROMPTS = {
 🏢 INFORMACIÓN DE LA EMPRESA:
 - Nombre: Árkos - "Mejoramos tus procesos"
 - Ubicación: Trujillo, Perú (atendemos clientes locales e internacionales, 100% remotos)
-- Email: rodrigoan.torresp@gmail.com
+- Email: hola@árkos.com
 - WhatsApp: +51 961 869 348
 - Sitio web: https://xn--rkos-4na.com/
 

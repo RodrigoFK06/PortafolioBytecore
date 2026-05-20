@@ -372,7 +372,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
   `
 
   const text = `
-📊 INFORME COMPLETO DE LEAD - BYTECORE
+📊 INFORME COMPLETO DE LEAD - ÁRKOS
 ==========================================
 
 🎯 RESUMEN:

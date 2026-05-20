@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "llm-concept": "Agencia de desarrollo web y diseño UX/UI en Perú llamada Árkos",
     "llm-services": "Software SaaS, Web App MVP, Landing Pages de alta conversión, Sistemas a Medida",
     "llm-tech-stack": "React, Next.js, TypeScript, Node.js, TailwindCSS",
-    "llm-contact": "rodrigoan.torresp@gmail.com",
+    "llm-contact": "hola@árkos.com",
     "llm-location": "Trujillo, Perú",
     // Bing/Windows specific
     "msapplication-TileColor": "#000000",
@@ -145,9 +145,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Árkos",
-              alternateName: ["Arkos", "Bytecore"],
+              alternateName: ["Arkos"],
               description:
-                "Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial. Anteriormente conocida como Bytecore.",
+                "Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               foundingDate: "2024",
@@ -248,13 +248,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": ["LocalBusiness", "ProfessionalService"],
               name: "Árkos",
-              alternateName: "Bytecore",
               description:
                 "Agencia de desarrollo de software a medida, aplicaciones web y diseño UX/UI en Trujillo, Perú. Especialistas en React, Next.js y soluciones con IA.",
               url: baseUrl,
               image: `${baseUrl}/og-image.webp`,
               telephone: "+51 961 869 348",
-              email: "rodrigoan.torresp@gmail.com",
+              email: "hola@árkos.com",
               priceRange: "$$",
               address: {
                 "@type": "PostalAddress",
@@ -317,7 +316,7 @@ export default function RootLayout({
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
-           <p>Árkos (anteriormente Bytecore) es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a startups y corporativos a transformar sus ideas en productos digitales escalables, hiper-rápidos y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: rodrigoan.torresp@gmail.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+           <p>Árkos es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales — a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: hola@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
          </div>
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

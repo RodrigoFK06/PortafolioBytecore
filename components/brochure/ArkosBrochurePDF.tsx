@@ -31,7 +31,7 @@ const IMG = {
 };
 
 const PHONE = "+51 961 869 348";
-const EMAIL = "rodrigoan.torresp@gmail.com";
+const EMAIL = "hola@árkos.com";
 const WEB = "árkos.com";
 
 // Reusable watermark icon positioned bottom-right

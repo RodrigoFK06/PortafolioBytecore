@@ -62,7 +62,7 @@ export function Navbar() {
         className={`pointer-events-auto transition-all duration-500 w-full relative overflow-hidden ${
           isScrolled
             ? "max-w-5xl bg-slate-50/70 dark:bg-[#050505]/70 backdrop-blur-[24px] border border-black/10 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-full py-3"
-            : "max-w-full bg-transparent py-6"
+            : "max-w-full bg-gradient-to-b from-slate-50/80 via-slate-50/40 to-transparent dark:from-[#050505]/80 dark:via-[#050505]/40 dark:to-transparent backdrop-blur-[8px] py-6"
         }`}
       >
         <div className={`mx-auto ${isScrolled ? "px-6 sm:px-8" : "container px-4 sm:px-6 lg:px-8"}`}>

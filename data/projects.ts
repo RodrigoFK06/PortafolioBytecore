@@ -15,7 +15,7 @@ export const projects: Project[] = [
     id: 18,
     title: "Dr. Ing. Freedy Sotelo Valer",
     description:
-      "Landing page de campaña política para el Dr. Ing. Freedy Sotelo Valer, candidato al Senado por Lima N°3 con el Partido PRIN. Diseño editorial de alto contraste con galería, propuestas, preguntas frecuentes, compromiso ciudadano y descarga de materiales de campaña.",
+      "Sitio personal editorial de alto contraste para el Dr. Ing. Freedy Sotelo Valer. Incluye galería, sección de propuestas y proyectos, preguntas frecuentes y módulo de descarga de materiales, con foco en tipografía y jerarquía visual sobre fondos oscuros.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/freedy-sotelo.png",
     link: "https://freedy-sotelo.vercel.app/",
@@ -49,8 +49,17 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
     imageSrc: "/LoginOrquestador.jpeg",
     link: "https://orquestador-adm.vercel.app",
-    //githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
+  },
+  {
+    id: 8,
+    title: "Rapiditos | Aplicación móvil para delivery",
+    description:
+      "Aplicación móvil para la gestión de pedidos de delivery, permitiendo a los usuarios realizar pedidos de manera rápida y sencilla. Incluye funcionalidades como seguimiento de pedidos, gestión de menús y pagos en línea.",
+    tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
+    imageSrc: "/rapiditosvz.png",
+    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
+    category: "mobile",
   },
   {
     id: 16,
@@ -90,7 +99,6 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
     imageSrc: "/encrypted.webp",
     link: "https://kevin-escape-room.vercel.app/",
-    //githubLink: "https://github.com/bytecore/kevin-escape-room",
     category: "web",
   },
   {
@@ -132,7 +140,6 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
     imageSrc: "/ecodriveplus.webp",
     link: "https://ecodrive-two.vercel.app/",
-    //githubLink: "https://github.com/bytecore/ecodriveplus",
     category: "web",
   },
   {
@@ -146,17 +153,6 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 8,
-    title: "Rapiditos | Aplicación móvil para delivery",
-    description:
-      "Aplicación móvil para la gestión de pedidos de delivery, permitiendo a los usuarios realizar pedidos de manera rápida y sencilla. Incluye funcionalidades como seguimiento de pedidos, gestión de menús y pagos en línea.",
-    tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
-    imageSrc: "/rapiditosvz.png",
-    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
-    //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
-    category: "mobile",
-  },
-  {
     id: 5,
     title: "ReLu Coffee",
     description:
@@ -164,7 +160,6 @@ export const projects: Project[] = [
     tags: ["Astro", "Tailwind CSS"],
     imageSrc: "/relucoffee.webp",
     link: "https://www.relucoffee.com/",
-    //githubLink: "https://github.com/bytecore/relu-coffee",
     category: "web",
   },
   {
@@ -175,7 +170,6 @@ export const projects: Project[] = [
     tags: ["HTML", "CSS", "JavaScript", "PHP"],
     imageSrc: "/casaromahotel.webp",
     link: "https://casaromahostels.com/",
-    //githubLink: "https://github.com/bytecore/casaroma-hostels",
     category: "web",
   },
   {
@@ -186,7 +180,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React"],
     imageSrc: "/sonrisaperfectalanding.jpeg",
     link: "https://clinica-dental-landing-ten.vercel.app/",
-    //githubLink: "https://github.com/bytecore/mantenimiento-jk",
     category: "ui",
   },
   {
@@ -197,7 +190,6 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "Tailwind CSS"],
     imageSrc: "/agencialandingpage.jpeg",
     link: "https://landing-page-place-holder.vercel.app/",
-    //githubLink: "https://github.com/bytecore/sistema-hospitalario", // Enlace al repositorio en GitHub
     category: "web",
   },
   {
@@ -218,7 +210,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React"],
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
-    //githubLink: "https://github.com/bytecore/vigotulich",
     category: "web",
   },
 ];

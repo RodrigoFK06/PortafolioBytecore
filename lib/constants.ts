@@ -9,7 +9,10 @@ export const SITE_CONFIG = {
 
   // Contacto
   contact: {
-    email: "rodrigoan.torresp@gmail.com",
+    // Email público de Árkos. SMTP (autenticación) corre por Gmail vía
+    // CONTACT_EMAIL / SMTP_USER en .env.local; el From: debe configurarse
+    // como alias para que llegue como hola@árkos.com.
+    email: "hola@árkos.com",
     phone: "+51 961 869 348",
     whatsapp: "51961869348",
     address: "Trujillo, Perú",

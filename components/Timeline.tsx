@@ -85,7 +85,7 @@ function TimelineEvent({ event, index }: { event: TimelineEventType; index: numb
           onMouseMove={handleMouseMove}
         >
           {/* Tarjeta de Glassmorfismo Chiseled */}
-          <div className="relative bg-black/[0.02] dark:bg-white/[0.01] backdrop-blur-[12px] p-6 rounded-xl border border-black/10 dark:border-white/5 transition-all duration-500 overflow-hidden">
+          <div className="relative bg-black/[0.04] dark:bg-white/[0.01] backdrop-blur-[12px] p-6 rounded-xl border border-black/10 dark:border-white/5 transition-all duration-500 overflow-hidden">
              
             {/* Brillo interactivo (Linterna / Flashlight) */}
             {isClient && (

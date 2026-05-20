@@ -1,11 +1,10 @@
 // components/sections/ContactSection.tsx
-import { Mail, Linkedin, Github, ExternalLink, ArrowRight } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Mail, Linkedin, Github, MapPin, Phone } from "lucide-react"
 import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 
 import { RevealText } from "@/components/gsap-reveal"
+import { SITE_CONFIG } from "@/lib/constants"
 
 // CSR dinámico solo para el formulario
 const ContactClient = dynamic(() => import("./ContactClient").then(mod => mod.ContactClient), {
@@ -20,19 +19,19 @@ export default function ContactSection() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
         <div className="max-w-4xl relative text-left">
-          
+
           {/* Anotación Marginal */}
           <div className="absolute -top-10 left-0 md:-left-4 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-1">
-             // Terminal de Acceso_
+             // Hablemos_
           </div>
 
           <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Iniciar <br className="hidden md:block" /> <span className="text-brand">Protocolo</span>
+            Conversemos <br className="hidden md:block" /> <span className="text-brand">tu proyecto</span>
           </RevealText>
 
           <RevealText delay={0.2}>
-            <p className="text-foreground/70 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
-              ¿Listo para romper lo convencional? Establezcamos un canal directo. Discutamos cómo nuestra ingeniería puede escalar tu visión de forma implacable.
+            <p className="text-foreground/80 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
+              Cuéntanos qué necesitas, sin formalidades. Una clínica que quiere agendar mejor, una tienda que necesita vender online, un hotel que pide un PMS a medida. Te respondemos en menos de 24 horas hábiles.
             </p>
           </RevealText>
         </div>
@@ -45,49 +44,64 @@ export default function ContactSection() {
             transition={{ duration: 0.5 }}
             className="w-full lg:w-1/2"
           >
-            <h3 className="text-2xl font-bold mb-6 text-foreground">Coordenadas</h3>
+            <h3 className="text-2xl font-bold mb-6 text-foreground">Contacto directo</h3>
             <div className="space-y-6 mb-12">
-              <a href="mailto:rodrigoan.torresp@gmail.com" className="flex items-start group">
+              <a href={`mailto:${SITE_CONFIG.contact.email}`} className="flex items-start group" aria-label="Enviar email a Árkos">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
-                   <Mail className="h-5 w-5 text-brand" />
+                   <Mail className="h-5 w-5 text-brand" aria-hidden="true" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
-                  <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">Email</h4>
-                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">rodrigoan.torresp@gmail.com</p>
+                  <h4 className="font-mono text-xs tracking-widest text-foreground/60 uppercase mb-1">Email</h4>
+                  <p className="text-foreground/90 font-medium group-hover:text-brand transition-colors break-all">{SITE_CONFIG.contact.email}</p>
                 </div>
               </a>
-              <a href="https://www.linkedin.com/in/rodrigo-torres-árkos" target="_blank" rel="noopener noreferrer" className="flex items-start group">
+
+              <a href={`https://wa.me/${SITE_CONFIG.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-start group" aria-label="Escribir por WhatsApp a Árkos (abre en una nueva pestaña)">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
-                   <Linkedin className="h-5 w-5 text-brand" />
+                   <Phone className="h-5 w-5 text-brand" aria-hidden="true" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
-                  <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">LinkedIn</h4>
-                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">linkedin.com/in/rodrigo-torres-árkos/</p>
+                  <h4 className="font-mono text-xs tracking-widest text-foreground/60 uppercase mb-1">WhatsApp</h4>
+                  <p className="text-foreground/90 font-medium group-hover:text-brand transition-colors">{SITE_CONFIG.contact.phone}</p>
                 </div>
               </a>
-              <a href="https://github.com/RodrigoFK06" target="_blank" rel="noopener noreferrer" className="flex items-start group">
+
+              <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-start group" aria-label="Visitar el LinkedIn de Árkos (abre en una nueva pestaña)">
                 <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
-                   <Github className="h-5 w-5 text-brand" />
+                   <Linkedin className="h-5 w-5 text-brand" aria-hidden="true" />
                 </div>
                 <div className="pt-1 flex flex-col justify-center">
-                  <h4 className="font-mono text-xs tracking-widest text-foreground/50 uppercase mb-1">GitHub</h4>
-                  <p className="text-foreground/80 font-medium group-hover:text-brand transition-colors">github.com/RodrigoFK06</p>
+                  <h4 className="font-mono text-xs tracking-widest text-foreground/60 uppercase mb-1">LinkedIn</h4>
+                  <p className="text-foreground/90 font-medium group-hover:text-brand transition-colors">LinkedIn de Árkos</p>
                 </div>
               </a>
+
+              <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer" className="flex items-start group" aria-label="Visitar el GitHub de Árkos (abre en una nueva pestaña)">
+                <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4 group-hover:bg-brand/10 transition-colors duration-300">
+                   <Github className="h-5 w-5 text-brand" aria-hidden="true" />
+                </div>
+                <div className="pt-1 flex flex-col justify-center">
+                  <h4 className="font-mono text-xs tracking-widest text-foreground/60 uppercase mb-1">GitHub</h4>
+                  <p className="text-foreground/90 font-medium group-hover:text-brand transition-colors">GitHub de Árkos</p>
+                </div>
+              </a>
+
+              <div className="flex items-start">
+                <div className="w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mr-4">
+                   <MapPin className="h-5 w-5 text-brand" aria-hidden="true" />
+                </div>
+                <div className="pt-1 flex flex-col justify-center">
+                  <h4 className="font-mono text-xs tracking-widest text-foreground/60 uppercase mb-1">Ubicación</h4>
+                  <p className="text-foreground/90 font-medium">{SITE_CONFIG.contact.address}</p>
+                </div>
+              </div>
             </div>
 
-            <h3 className="text-2xl font-bold mb-6 text-foreground">Briefing Rápido</h3>
-            <p className="text-foreground/70 mb-8 leading-relaxed max-w-sm">
-              ¿No tienes tiempo para formularios? Envíanos un email directo o descarga nuestros planes para enviar a tu equipo técnico.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild className="group rounded-xl w-full sm:w-auto h-12 bg-foreground text-background hover:bg-foreground/90 font-medium">
-                <Link href="mailto:rodrigoan.torresp@gmail.com">
-                  Enviar Mensaje Directo
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+            <div className="p-6 rounded-2xl bg-brand/5 border border-brand/15">
+              <h3 className="text-lg font-bold mb-2 text-foreground">¿Prefieres una llamada?</h3>
+              <p className="text-foreground/75 text-sm leading-relaxed">
+                Si tu proyecto necesita conversación, agendamos una reunión sin compromiso de 30 minutos. Sin tecnicismos, contándonos qué necesitas y en cuánto tiempo.
+              </p>
             </div>
           </motion.div>
 

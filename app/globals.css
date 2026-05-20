@@ -23,8 +23,9 @@
   --input: 214.3 31.8% 91.4%;
   --ring: 199 89% 48%;
   --radius: 0.5rem;
-  /* Brand tokens (alias of primary for now) */
-  --brand: 199 89% 48%;
+  /* Brand tokens — versión oscurecida en light mode para garantizar WCAG AA
+     sobre fondos claros (4.5:1 mínimo). Fill sigue siendo visible y vibrante. */
+  --brand: 199 89% 35%;
   --brand-foreground: 210 40% 98%;
 }
 

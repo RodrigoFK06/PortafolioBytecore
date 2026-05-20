@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react"
+import { Mail, MapPin, Github, Linkedin } from "lucide-react"
 import { SITE_CONFIG } from "@/lib/constants"
 import { useThemeState } from "@/hooks/use-theme-state";
 import { BrochureDownloadButton } from "@/components/brochure/BrochureDownloadButton";
@@ -108,23 +108,40 @@ export function Footer() {
             <ul className="space-y-4">
               <li>
                 <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
-                  Mapeo Frontend
+                  Desarrollo Web
                 </Link>
               </li>
               <li>
                 <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
-                  Sistemas Reactivos
+                  Diseño UI/UX
                 </Link>
               </li>
               <li>
                 <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
-                  Arquitectura Edge
+                  E-Commerce
                 </Link>
               </li>
               <li>
                 <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
-                  Glassmorphism 2.0
+                  Software a Medida
                 </Link>
+              </li>
+            </ul>
+
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 mt-8 text-foreground">Contacto</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2 text-foreground/70">
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-brand" aria-hidden="true" />
+                <span>{SITE_CONFIG.contact.address}</span>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${SITE_CONFIG.contact.email}`}
+                  className="flex items-start gap-2 text-foreground/70 hover:text-brand transition-colors break-all"
+                >
+                  <Mail className="h-4 w-4 mt-0.5 shrink-0 text-brand" aria-hidden="true" />
+                  <span>{SITE_CONFIG.contact.email}</span>
+                </a>
               </li>
             </ul>
           </div>

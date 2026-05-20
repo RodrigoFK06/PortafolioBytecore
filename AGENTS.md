@@ -39,7 +39,7 @@
 
 ## This Workspace
 
-- In this workspace, pay special attention to the Arkos / PortafolioBytecore ecosystem.
+- In this workspace, pay special attention to the Árkos product ecosystem (repository path is `PortafolioBytecore` for historical reasons; the brand is Árkos).
 - Treat portfolio pages, services, blog content, project catalog, chatbot and contact flows, cotizaciones, SEO assets, and client-facing materials as business assets, not just files.
 - Connect technical work to commercial outcomes: leads, positioning, trust, follow-up, delivery, and reuse.
 

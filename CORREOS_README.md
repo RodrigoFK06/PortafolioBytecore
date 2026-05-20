@@ -30,7 +30,7 @@ SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=tu_email@gmail.com
 SMTP_PASS=tu_app_password_de_gmail
-CONTACT_EMAIL=hola@bytecore.dev
+CONTACT_EMAIL=hola@arkos.com
 ```
 
 #### Para Outlook/Hotmail:
@@ -40,7 +40,7 @@ SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=tu_email@outlook.com
 SMTP_PASS=tu_contraseña
-CONTACT_EMAIL=hola@bytecore.dev
+CONTACT_EMAIL=hola@arkos.com
 ```
 
 #### Para SendGrid:
@@ -50,7 +50,7 @@ SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=apikey
 SMTP_PASS=tu_sendgrid_api_key
-CONTACT_EMAIL=hola@bytecore.dev
+CONTACT_EMAIL=hola@arkos.com
 ```
 
 ### 🔐 Configuración de Gmail
