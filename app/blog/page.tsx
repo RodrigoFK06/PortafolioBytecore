@@ -81,7 +81,7 @@ export default function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="group block"
               >
-                <article className="h-full rounded-2xl border border-black/5 dark:border-white/5 bg-white dark:bg-white/[0.02] overflow-hidden transition-all duration-300 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 hover:-translate-y-1">
+                <article className="h-full rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-white/[0.04] overflow-hidden transition-all duration-300 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 hover:-translate-y-1">
                   {/* Imagen */}
                   <div className="relative aspect-[16/9] overflow-hidden bg-black/5 dark:bg-white/5">
                     <Image
@@ -120,7 +120,7 @@ export default function BlogIndexPage() {
                     </p>
 
                     {/* Footer del card */}
-                    <div className="flex items-center justify-between pt-4 border-t border-black/5 dark:border-white/5">
+                    <div className="flex items-center justify-between pt-4 border-t border-black/5 dark:border-white/10">
                       <span className="text-xs text-foreground/40 font-medium">
                         {formatDate(post.date)}
                       </span>

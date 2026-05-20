@@ -69,7 +69,7 @@ const technologies: TechItem[] = [
 
 function TechChip({ tech }: { tech: TechItem }) {
   return (
-    <div className="flex items-center gap-3 px-6 py-4 border border-black/10 dark:border-white/5 bg-black/[0.04] dark:bg-white/[0.02] backdrop-blur-[12px] rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300 shrink-0 group shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
+    <div className="flex items-center gap-3 px-6 py-4 border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-[12px] rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300 shrink-0 group shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
       <tech.Icon className="w-6 h-6 text-foreground/70 group-hover:text-brand transition-colors duration-300" aria-hidden="true" />
       <span className="text-sm font-medium text-foreground/80 whitespace-nowrap group-hover:text-foreground transition-colors duration-300 font-mono tracking-wide">
         {tech.name}

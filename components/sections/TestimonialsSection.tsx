@@ -56,7 +56,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           {testimonials.map((testimonial, index) => (
             <article
               key={index}
-              className="group relative bg-black/[0.04] dark:bg-white/[0.01] backdrop-blur-[12px] p-8 md:p-10 rounded-2xl border border-black/10 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 transition-all duration-500 h-full flex flex-col shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] overflow-hidden"
+              className="group relative bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] backdrop-blur-[12px] p-8 md:p-10 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 transition-all duration-500 h-full flex flex-col shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)] overflow-hidden"
               aria-label={`Testimonio de ${testimonial.name}, ${testimonial.position}`}
             >
               {/* Chiseled Light border on hover */}
@@ -94,7 +94,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                 </p>
 
                 {/* Client info */}
-                <div className="pt-6 border-t border-black/10 dark:border-white/10 flex items-center gap-4">
+                <div className="pt-6 border-t border-black/[0.08] dark:border-white/[0.06] flex items-center gap-4">
                    <div className={`w-14 h-14 rounded-full overflow-hidden border flex items-center justify-center shrink-0 relative p-2 ${LOGO_BG_CLASS[testimonial.logoBg ?? "neutral"]}`}>
                      <Image
                        src={testimonial.logo}

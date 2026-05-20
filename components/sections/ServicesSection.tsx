@@ -41,7 +41,7 @@ function ServiceCard({ icon: Icon, title, description, detailedDescription, offs
         className={`relative p-8 md:p-10 rounded-2xl transition-all duration-500 overflow-hidden h-full flex flex-col ${
           isModalOpen
             ? 'opacity-0 scale-95 pointer-events-none backdrop-blur-none bg-transparent border-transparent'
-            : 'opacity-100 scale-100 bg-black/[0.04] dark:bg-white/[0.01] backdrop-blur-[12px] border border-black/10 dark:border-white/5'
+            : 'opacity-100 scale-100 bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] backdrop-blur-[12px] border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)]'
         }`}
       >
         {/* Flashlight */}

@@ -12,13 +12,13 @@ export function Footer() {
   const { theme, mounted } = useThemeState();
 
   return (
-    <footer className="bg-slate-50 dark:bg-[#050505] py-16 border-t border-black/5 dark:border-white/5 relative overflow-hidden transition-colors duration-500">
+    <footer className="bg-slate-50 dark:bg-[#050505] py-16 border-t border-black/5 dark:border-white/10 relative overflow-hidden transition-colors duration-500">
       {/* Noise Texture Overlay */}
       <div className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
         {/* Brochure Download CTA */}
-        <div className="mb-16 flex flex-col md:flex-row items-center justify-between bg-black/5 dark:bg-white/5 rounded-3xl p-8 border border-black/5 dark:border-white/5 shadow-sm">
+        <div className="mb-16 flex flex-col md:flex-row items-center justify-between bg-black/5 dark:bg-white/5 rounded-3xl p-8 border border-black/5 dark:border-white/10 shadow-sm">
           <div className="mb-6 md:mb-0 text-center md:text-left">
             <h3 className="text-2xl font-bold mb-2 text-foreground">Descubre todo lo que podemos hacer por ti</h3>
             <p className="text-foreground/70 max-w-xl">Descarga nuestro brochure corporativo y conoce en detalle nuestros servicios de ERP, CRM, automatización, IA y desarrollo de software a medida.</p>
@@ -147,7 +147,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-black/5 dark:border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-black/5 dark:border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-foreground/50 text-sm font-medium">
             &copy; {currentYear} Árkos. Todos los derechos reservados.
           </p>

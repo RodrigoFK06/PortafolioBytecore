@@ -210,7 +210,7 @@ export function ContactForm() {
           control={form.control}
           name="consent"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start gap-3 space-y-0 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.02] p-4">
+            <FormItem className="flex flex-row items-start gap-3 space-y-0 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] p-4">
               <FormControl>
                 <Checkbox
                   checked={field.value}

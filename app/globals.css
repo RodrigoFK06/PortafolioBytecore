@@ -52,6 +52,36 @@
   /* Brand tokens (alias of primary for now) */
   --brand: 199 89% 48%;
   --brand-foreground: 222 47% 11%;
+
+  /* ── Tokens de diseño para dark mode ──────────────────────────
+     Escala de superficies por elevación y bordes por jerarquía.
+     Usar via var() en componentes nuevos; los existentes ya fueron
+     bumpeados a través de utility classes Tailwind equivalentes. */
+
+  /* Fondos por elevación */
+  --bg-base: #06080b;
+  --bg-surface-1: #0e1116;   /* cards, paneles */
+  --bg-surface-2: #141821;   /* card hover / elevado */
+  --bg-surface-3: #1a1f2a;   /* popovers, navbar flotante */
+
+  /* Bordes por jerarquía */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  --border-accent: rgba(56, 189, 248, 0.45);
+
+  /* Texto */
+  --text-primary: #e6e9ef;
+  --text-secondary: #a3acbd;
+  --text-muted: #6b7588;
+
+  /* Sombras suaves para elevación sin halo blanco */
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-card-hover:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 12px 32px rgba(0, 0, 0, 0.55);
 }
 
 @layer base {
