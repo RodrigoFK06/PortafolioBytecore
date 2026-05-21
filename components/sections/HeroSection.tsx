@@ -28,6 +28,7 @@ export function HeroSection() {
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const noteRef = useRef<HTMLDivElement>(null)
+  const proofRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -85,12 +86,20 @@ export function HeroSection() {
         )
       }
 
-      // 5. Scroll indicator
+      // 5. Social proof strip
+      tl.fromTo(
+        proofRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        2.0
+      )
+
+      // 6. Scroll indicator
       tl.fromTo(
         scrollRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.8 },
-        2.1
+        2.4
       )
 
       // Scroll indicator bounce (infinite)
@@ -196,7 +205,7 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 lg:gap-12 mt-4 lg:-mt-8 w-full relative z-20 mb-16 md:mb-24 lg:mb-32">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 lg:gap-12 mt-4 lg:-mt-8 w-full relative z-20 mb-10 md:mb-12 lg:mb-16">
             {/* CTAs - Shifted left */}
             <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 ml-0 md:ml-2 lg:ml-12 order-2 lg:order-1 self-start lg:self-end w-full sm:w-auto">
               <Button asChild size="lg" className="group rounded-xl relative overflow-hidden bg-brand text-brand-foreground hover:bg-brand/90 w-full sm:w-auto" style={{ opacity: 0 }}>
@@ -216,16 +225,46 @@ export function HeroSection() {
             </div>
 
             {/* Description - Glassmorphism Card on the right */}
-            <div 
+            <div
               ref={descRef}
               className="w-full lg:w-[45%] xl:w-[40%] text-base md:text-lg text-foreground/80 leading-relaxed font-normal p-6 md:p-8 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative order-1 lg:order-2 transition-colors"
               style={{ opacity: 0 }}
             >
               <div className="absolute inset-0 rounded-2xl border border-black/10 dark:border-white/10 pointer-events-none transition-colors" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
               <p className="relative z-10">
-                Somos <strong className="text-foreground">Árkos</strong>, una agencia digital especializada en traducir tus procesos empresariales 
+                Somos <strong className="text-foreground">Árkos</strong>, una agencia digital especializada en traducir tus procesos empresariales
                 en soluciones web rápidas, software a medida y un diseño UI/UX de alto rendimiento.
               </p>
+            </div>
+          </div>
+
+          {/* Social proof strip - prueba arriba del fold */}
+          <div
+            ref={proofRef}
+            className="w-full relative z-20 mb-16 md:mb-24 lg:mb-28 ml-0 md:ml-2 lg:ml-12"
+            style={{ opacity: 0 }}
+          >
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs md:text-sm text-foreground/75 max-w-4xl">
+              <span className="font-mono uppercase tracking-widest text-brand text-[10px] md:text-xs shrink-0">
+                Sistemas en producción
+              </span>
+              <span className="hidden md:block w-px h-4 bg-foreground/15" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground font-bold">78%</strong> de citas digitales <span className="text-foreground/55">— Clínica Juan Pablo II</span>
+              </span>
+              <span className="hidden md:block w-px h-4 bg-foreground/15" aria-hidden="true" />
+              <a
+                href="https://apps.apple.com/pe/app/rapiditos-vz/id6748567718"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-brand transition-colors"
+              >
+                <strong className="text-foreground font-bold">Rapiditos</strong> en App Store <span className="text-foreground/55">— delivery activo</span>
+              </a>
+              <span className="hidden md:block w-px h-4 bg-foreground/15" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground font-bold">+40</strong> proyectos desplegados
+              </span>
             </div>
           </div>
         </div>

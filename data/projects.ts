@@ -10,15 +10,42 @@ export interface Project {
   featured?: boolean
 }
 
+/**
+ * Orden curado: los primeros 9 proyectos son los que se muestran en la home.
+ * Priorizamos sistemas B2B / software empresarial (PMS, ERP, SaaS) sobre
+ * landings y proyectos de marca, porque son los que justifican que una empresa
+ * nos confíe un sistema crítico. Las landings y proyectos más livianos viven
+ * en /portfolio detrás de "Ver todos los proyectos".
+ */
 export const projects: Project[] = [
   {
-    id: 18,
-    title: "Dr. Ing. Freedy Sotelo Valer",
+    id: 1,
+    title: "OrquestadorADM",
     description:
-      "Sitio personal editorial de alto contraste para el Dr. Ing. Freedy Sotelo Valer. Incluye galería, sección de propuestas y proyectos, preguntas frecuentes y módulo de descarga de materiales, con foco en tipografía y jerarquía visual sobre fondos oscuros.",
-    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-    imageSrc: "/freedy-sotelo.png",
-    link: "https://freedy-sotelo.vercel.app/",
+      "Sistema integral de gestión hotelera (PMS + RMS) para hoteles de lujo y resorts. Revenue Management avanzado con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria. Reemplaza varios sistemas independientes por una sola operación coordinada.",
+    tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+    imageSrc: "/LoginOrquestador.jpeg",
+    link: "https://orquestador-adm.vercel.app",
+    category: "web",
+  },
+  {
+    id: 6,
+    title: "ATELIER Clinic",
+    description:
+      "Plataforma SaaS para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto. Resuelve el problema de coordinar agendas, historia clínica y comunicación con paciente desde un solo lugar.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    imageSrc: "/atelier.png",
+    link: "https://atelier-seven-beta.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 16,
+    title: "Megalodon Pro",
+    description:
+      "Sistema integral de gestión para restaurantes: ventas, inventario, cocina y RRHH desde un panel centralizado. Pensado para cadenas y restaurantes que necesitan dejar de operar con hojas Excel y tener visibilidad en tiempo real de cada local.",
+    tags: ["React", "Next.js", "Dashboard", "POS"],
+    imageSrc: "/v0-app.png",
+    link: "https://megalodon-blue.vercel.app/",
     category: "web",
   },
   {
@@ -32,6 +59,36 @@ export const projects: Project[] = [
     category: "web",
   },
   {
+    id: 11,
+    title: "VR PMS",
+    description:
+      "Property Management System para empresas que operan alquileres vacacionales. Control de reservas, huéspedes y rendimiento de propiedades desde un panel intuitivo. Diseñado para operadores que manejan múltiples unidades distribuidas y necesitan ver la ocupación en un solo dashboard.",
+    tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
+    imageSrc: "/vr-pms.png",
+    link: "https://overbookingsol.vercel.app/",
+    category: "web",
+  },
+  {
+    id: 8,
+    title: "Rapiditos | App móvil de delivery",
+    description:
+      "Aplicación móvil para la gestión de pedidos de delivery, publicada en App Store y Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.",
+    tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
+    imageSrc: "/rapiditosvz.png",
+    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
+    category: "mobile",
+  },
+  {
+    id: 12,
+    title: "Solutec System",
+    description:
+      "Sistema integral de gestión de clientes con registro, filtrado y exportación de datos detallados. Reemplaza el seguimiento manual en Excel por un CRM ligero pero estructurado, pensado para PYMEs que recién empiezan a sistematizar su cartera.",
+    tags: ["React", "Material UI", "Frontend", "ERP"],
+    imageSrc: "/solutec.png",
+    link: "https://front-dharcy.vercel.app/",
+    category: "web",
+  },
+  {
     id: 20,
     title: "VetCare",
     description:
@@ -42,33 +99,34 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 1,
-    title: "OrquestadorADM",
+    id: 10,
+    title: "EcoDrive+",
     description:
-      "Moderno sistema integral de gestión hotelera (PMS + RMS) diseñado para hoteles de lujo y resorts. Su fortaleza principal es el Revenue Management avanzado, incorporando análisis predictivo (forecasting y What-If), precios dinámicos automáticos y analítica diaria granular.",
-    tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
-    imageSrc: "/LoginOrquestador.jpeg",
-    link: "https://orquestador-adm.vercel.app",
+      "Plataforma que transforma cada viaje en una oportunidad, con recompensas, regalos y beneficios exclusivos para conductores. Pensada para mejorar la calidad de vida de las familias peruanas mediante un sistema de puntos canjeables.",
+    tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
+    imageSrc: "/ecodriveplus.webp",
+    link: "https://ecodrive-two.vercel.app/",
+    category: "web",
+  },
+  // ↓ Proyectos secundarios — visibles en /portfolio pero no en la home
+  {
+    id: 17,
+    title: "Copperline Garage",
+    description:
+      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Diagnóstico computarizado OBD2 (200+ canales), performance & ECU remapping con dinamómetro propio, y proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    imageSrc: "/copperline-garage.png",
+    link: "https://automotriz-lyart.vercel.app/",
     category: "web",
   },
   {
-    id: 8,
-    title: "Rapiditos | Aplicación móvil para delivery",
+    id: 3,
+    title: "Encrypted Escape Room",
     description:
-      "Aplicación móvil para la gestión de pedidos de delivery, permitiendo a los usuarios realizar pedidos de manera rápida y sencilla. Incluye funcionalidades como seguimiento de pedidos, gestión de menús y pagos en línea.",
-    tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
-    imageSrc: "/rapiditosvz.png",
-    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
-    category: "mobile",
-  },
-  {
-    id: 16,
-    title: "Megalodon Pro",
-    description:
-      "Sistema integral de gestión para restaurantes que permite el control de ventas, inventario, cocina y recursos humanos desde un panel centralizado.",
-    tags: ["React", "Next.js", "Dashboard", "POS"],
-    imageSrc: "/v0-app.png",
-    link: "https://megalodon-blue.vercel.app/",
+      "Experiencia de escape room en línea con enigmas y códigos a resolver en tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.",
+    tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
+    imageSrc: "/encrypted.webp",
+    link: "https://kevin-escape-room.vercel.app/",
     category: "web",
   },
   {
@@ -92,34 +150,13 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 3,
-    title: "Encrypted Escape Room",
+    id: 18,
+    title: "Dr. Ing. Freedy Sotelo Valer",
     description:
-      "Experiencia de escape room en línea que desafía a los jugadores a resolver enigmas y descifrar códigos en un tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.",
-    tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
-    imageSrc: "/encrypted.webp",
-    link: "https://kevin-escape-room.vercel.app/",
-    category: "web",
-  },
-  {
-    id: 17,
-    title: "Copperline Garage",
-    description:
-      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Incluye diagnóstico computarizado OBD2 (200+ canales), mecánica integral, performance & ECU remapping con dinamómetro propio, y un proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
+      "Sitio personal editorial de alto contraste. Incluye galería, sección de propuestas y proyectos, preguntas frecuentes y módulo de descarga de materiales, con foco en tipografía y jerarquía visual sobre fondos oscuros.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-    imageSrc: "/copperline-garage.png",
-    link: "https://automotriz-lyart.vercel.app/",
-    category: "web",
-  },
-  {
-    id: 6,
-    title: "ATELIER Clinic",
-    description:
-      "Plataforma SaaS premium para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto de Loro Piana.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
-    imageSrc: "/atelier.png",
-    link: "https://atelier-seven-beta.vercel.app/",
-    githubLink: "https://atelier-seven-beta.vercel.app/",
+    imageSrc: "/freedy-sotelo.png",
+    link: "https://freedy-sotelo.vercel.app/",
     category: "web",
   },
   {
@@ -130,26 +167,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React", "v0"],
     imageSrc: "/simposio.png",
     link: "https://v0-veterinary-symposium-registratio.vercel.app/",
-    category: "web",
-  },
-  {
-    id: 10,
-    title: "EcoDrive+",
-    description:
-      "Plataforma que transforma cada viaje en una oportunidad, ofreciendo recompensas, regalos y beneficios exclusivos para conductores, con el objetivo de mejorar la calidad de vida de las familias peruanas.",
-    tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
-    imageSrc: "/ecodriveplus.webp",
-    link: "https://ecodrive-two.vercel.app/",
-    category: "web",
-  },
-  {
-    id: 11,
-    title: "VR PMS",
-    description:
-      "Sistema integral de gestión para propiedades de alquiler vacacional, diseñado para facilitar el control de reservas, huéspedes y el rendimiento de las propiedades desde un panel intuitivo.",
-    tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
-    imageSrc: "/vr-pms.png",
-    link: "https://overbookingsol.vercel.app/",
     category: "web",
   },
   {
@@ -190,16 +207,6 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "Tailwind CSS"],
     imageSrc: "/agencialandingpage.jpeg",
     link: "https://landing-page-place-holder.vercel.app/",
-    category: "web",
-  },
-  {
-    id: 12,
-    title: "Solutec System",
-    description:
-      "Sistema integral para la gestión de clientes, permitiendo el registro, filtrado y exportación de datos detallados con una interfaz moderna y funcional basada en React.",
-    tags: ["React", "Material UI", "Frontend", "ERP"],
-    imageSrc: "/solutec.png",
-    link: "https://front-dharcy.vercel.app/",
     category: "web",
   },
   {

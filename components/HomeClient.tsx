@@ -10,6 +10,7 @@ import type { Testimonial } from "./sections/TestimonialsSection"
 // 🔹 Dynamic imports para mejorar rendimiento y evitar enviar JS innecesario al cliente
 const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"), { ssr: false })
 const TestimonialsSection = dynamic(() => import("./sections/TestimonialsSection"), { ssr: false })
+const ProcessSection = dynamic(() => import("./sections/ProcessSection"), { ssr: false })
 const ContactSection = dynamic(() => import("./sections/ContactSection"), { ssr: false })
 const FloatingDock = dynamic(() => import("./floating-dock"), { ssr: false })
 
@@ -63,6 +64,7 @@ export default function HomeClient() {
       <TechnologiesSection />
       <ProjectsSection />
       <TestimonialsSection testimonials={testimonialsData} />
+      <ProcessSection />
       <ContactSection />
     </main>
   )

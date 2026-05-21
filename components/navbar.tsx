@@ -19,7 +19,7 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
-      const sections = ["home", "about", "services", "projects", "testimonials", "contact"];
+      const sections = ["home", "about", "services", "projects", "testimonials", "process", "contact"];
       for (const section of [...sections].reverse()) {
         const element = document.getElementById(section);
         if (element) {
@@ -42,7 +42,7 @@ export function Navbar() {
     { href: "#about", label: "Nosotros" },
     { href: "#services", label: "Servicios" },
     { href: "#projects", label: "Proyectos" },
-    { href: "#testimonials", label: "Testimonios" },
+    { href: "#process", label: "Proceso" },
     { href: "/blog", label: "Blog" },
   ];
 

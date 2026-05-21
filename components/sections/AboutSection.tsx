@@ -66,7 +66,7 @@ export function AboutSection() {
                   { label: "Años de Experiencia", value: 4, to: 4, prefix: "" },
                   { label: "Proyectos Completados", value: 40, to: 40, prefix: "+" },
                   { label: "Clientes Satisfechos", value: 30, to: 30, prefix: "+" },
-                  { label: "Premios Ganados", value: 9, to: 9, prefix: "" }
+                  { label: "Industrias Atendidas", value: 8, to: 8, prefix: "+" }
                 ].map((stat, i) => (
                   <div key={i} className="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10 group hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-colors cursor-crosshair px-2">
                      <span className="font-mono text-xs uppercase tracking-widest text-foreground/60 group-hover:text-brand transition-colors">
