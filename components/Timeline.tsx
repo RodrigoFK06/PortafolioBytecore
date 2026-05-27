@@ -11,11 +11,13 @@ type TimelineEventType = {
 
 // Lista de eventos
 const timelineEvents: TimelineEventType[] = [
-  { year: "2020", title: "Inicio de Árkos", description: "Fundamos Árkos con una visión de innovación tecnológica y disrupción." },
-  { year: "2021", title: "Primer Gran Proyecto", description: "Desarrollamos nuestra primera plataforma móvil a medida para una empresa transnacional." },
-  { year: "2022", title: "Crecimiento de habilidades", description: "Dedicamos horas núcleo a la investigación y el desarrollo para lograr una calidad premium." },
-  { year: "2023", title: "Gestión con clientes", description: "Establecimos métodos de gestión ágil que hoy son la columna vertebral de nuestro éxito." },
-  { year: "2024", title: "Nuevos Servicios SaaS", description: "Incorporamos soluciones avanzadas con IA y lanzamos nuestro propio SaaS CRM-ERP." },
+  { year: "2020", title: "Inicio de Árkos", description: "Fundamos Árkos con una visión clara: construir software a medida con la calidad y el diseño de una agencia premium, pero con la cercanía de un equipo boutique." },
+  { year: "2021", title: "Primeros sistemas a medida", description: "Entregamos nuestros primeros proyectos web para hotelería y pequeñas empresas peruanas (Casaroma Hostels, entre otros), sentando las bases de nuestro stack y nuestro proceso." },
+  { year: "2022", title: "Madurez técnica y stack moderno", description: "Consolidamos un stack moderno con React, Next.js y Tailwind, y empezamos a entregar productos web con foco en performance, accesibilidad y diseño premium." },
+  { year: "2023", title: "Operación con procesos ágiles", description: "Estandarizamos un método de trabajo ágil con clientes —discovery, sprints cortos y entregables visibles— que hoy es la columna vertebral de cada proyecto." },
+  { year: "2024", title: "Salto a SaaS y B2B", description: "Damos el salto a sistemas B2B críticos: lanzamos un PMS para alquileres vacacionales (VR PMS), un CRM ligero (Solutec System) y nuestros primeros sistemas integrales para restaurantes." },
+  { year: "2025", title: "Sistemas críticos en producción", description: "Pusimos en producción plataformas exigentes: el ERP a medida de Solutec con Dharcy para operar su servicio técnico, el ERP RestHUB para restaurantes y Rapiditos, nuestra primera app móvil publicada en App Store y Google Play tras un desarrollo nativo con Flutter sobre backend Spring Boot." },
+  { year: "2026", title: "PMS hotelero y expansión regional", description: "Estrenamos OrquestadorADM, nuestro PMS + RMS con revenue management avanzado para hoteles de lujo, lanzamos la landing pública de servicios de Solutec con Dharcy y empezamos a operar fuera del Perú con proyectos en Venezuela y Argentina." },
 ];
 
 export default function Timeline() {

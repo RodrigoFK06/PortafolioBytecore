@@ -150,7 +150,7 @@ export default function RootLayout({
                 "Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
-              foundingDate: "2024",
+              foundingDate: "2020",
               founder: {
                 "@type": "Person",
                 name: "Rodrigo Torres",

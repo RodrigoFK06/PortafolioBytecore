@@ -63,7 +63,7 @@ export function AboutSection() {
             <div className="border-t border-black/10 dark:border-white/10 flex flex-col transition-colors">
               <StaggerReveal className="flex flex-col">
                 {[
-                  { label: "Años de Experiencia", value: 4, to: 4, prefix: "" },
+                  { label: "Años de Experiencia", value: 6, to: 6, prefix: "" },
                   { label: "Proyectos Completados", value: 40, to: 40, prefix: "+" },
                   { label: "Clientes Satisfechos", value: 30, to: 30, prefix: "+" },
                   { label: "Industrias Atendidas", value: 8, to: 8, prefix: "+" }

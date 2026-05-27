@@ -211,10 +211,10 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Solutec DHA",
+    title: "Solutec con Dharcy",
     description:
-      "Empresa especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería, destacando por su experiencia en el sector industrial y su enfoque en diseños modernos y funcionales.",
-    tags: ["Next.js", "Tailwind CSS", "React"],
+      "Landing page premium para Solutec con Dharcy, servicio técnico a domicilio especializado en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Tono cálido y conversacional con conversaciones reales de WhatsApp, galería de trabajos, formulario de diagnóstico sin compromiso y CTAs directos a contacto.",
+    tags: ["Next.js", "Tailwind CSS", "React", "TypeScript"],
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
     category: "web",
