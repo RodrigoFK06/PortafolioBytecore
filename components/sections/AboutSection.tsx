@@ -14,7 +14,7 @@ export function AboutSection() {
       <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
 
       <meta itemProp="name" content="Árkos" />
-      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Perú." />
+      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Trujillo, Perú." />
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
         {/* Layout asimétrico */}
@@ -64,8 +64,8 @@ export function AboutSection() {
               <StaggerReveal className="flex flex-col">
                 {[
                   { label: "Años de Experiencia", value: 6, to: 6, prefix: "" },
-                  { label: "Proyectos Completados", value: 40, to: 40, prefix: "+" },
-                  { label: "Clientes Satisfechos", value: 30, to: 30, prefix: "+" },
+                  { label: "Proyectos Completados", value: 50, to: 50, prefix: "+" },
+                  { label: "Clientes Satisfechos", value: 45, to: 45, prefix: "+" },
                   { label: "Industrias Atendidas", value: 8, to: 8, prefix: "+" }
                 ].map((stat, i) => (
                   <div key={i} className="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10 group hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-colors cursor-crosshair px-2">

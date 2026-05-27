@@ -155,10 +155,11 @@ export default function RootLayout({
                 "@type": "Person",
                 name: "Rodrigo Torres",
               },
-              areaServed: {
-                "@type": "Country",
-                name: "Peru",
-              },
+              areaServed: [
+                { "@type": "Country", name: "Peru" },
+                { "@type": "Country", name: "Venezuela" },
+                { "@type": "Country", name: "Argentina" },
+              ],
               knowsAbout: [
                 "Desarrollo de Software a Medida",
                 "React",
@@ -266,10 +267,11 @@ export default function RootLayout({
                 latitude: "-8.1116",
                 longitude: "-79.0288",
               },
-              areaServed: {
-                "@type": "Country",
-                name: "Peru",
-              },
+              areaServed: [
+                { "@type": "Country", name: "Peru" },
+                { "@type": "Country", name: "Venezuela" },
+                { "@type": "Country", name: "Argentina" },
+              ],
               founder: {
                 "@type": "Person",
                 name: "Rodrigo Torres",

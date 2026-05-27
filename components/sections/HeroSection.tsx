@@ -263,7 +263,7 @@ export function HeroSection() {
               </a>
               <span className="hidden md:block w-px h-4 bg-foreground/15" aria-hidden="true" />
               <span>
-                <strong className="text-foreground font-bold">+40</strong> proyectos desplegados
+                <strong className="text-foreground font-bold">+50</strong> proyectos desplegados
               </span>
             </div>
           </div>

@@ -211,9 +211,9 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Solutec con Dharcy",
+    title: "Solutec DHA",
     description:
-      "Landing page premium para Solutec con Dharcy, servicio técnico a domicilio especializado en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Tono cálido y conversacional con conversaciones reales de WhatsApp, galería de trabajos, formulario de diagnóstico sin compromiso y CTAs directos a contacto.",
+      "Landing page premium para Solutec DHA (servicio técnico a domicilio liderado por Dharcy Villafuerte), especializada en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Tono cálido y conversacional con conversaciones reales de WhatsApp, galería de trabajos, formulario de diagnóstico sin compromiso y CTAs directos a contacto.",
     tags: ["Next.js", "Tailwind CSS", "React", "TypeScript"],
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",

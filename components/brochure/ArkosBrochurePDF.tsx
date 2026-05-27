@@ -302,7 +302,7 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
         <Text style={[s.h1, { color: C.accent, marginBottom: 20, fontSize: 36 }]}>Éxito</Text>
         {[
           { client: 'Kinetic Black', type: 'Landing Page Premium', desc: 'Landing de alto impacto para marca de suplementación de élite. Diseño oscuro premium con animaciones y CTA de alta conversión.', tags: 'Next.js / React / TailwindCSS', stat: '5x conversión' },
-          { client: 'Solutec DHA', type: 'Web Corporativa + ERP', desc: 'Sitio corporativo y sistema integral de gestión de clientes con registro, filtrado y exportación de datos para empresa de ingeniería.', tags: 'React / Material UI / Next.js', stat: '3x más leads' },
+          { client: 'Solutec DHA', type: 'Landing + CRM/ERP', desc: 'Landing premium y sistema interno de gestión para servicio técnico a domicilio de reparación de electrodomésticos en Lima. La web captura leads desde WhatsApp y el CRM los gestiona end-to-end.', tags: 'React / Material UI / Next.js', stat: '+40% consultas' },
           { client: 'Clínica Juan Pablo II', type: 'Gestión Clínica', desc: 'Plataforma con módulos de historias clínicas, gestión de citas, facturación electrónica y reportes médicos automatizados.', tags: 'React / PostgreSQL / Node.js', stat: '60% menos tiempo' },
           { client: 'Megalodon Pro', type: 'ERP Restaurantes', desc: 'Sistema de gestión para restaurantes con control de ventas, inventario, cocina y RRHH desde un panel centralizado con POS integrado.', tags: 'React / Next.js / Dashboard / POS', stat: 'Control total' },
         ].map((c, i) => (

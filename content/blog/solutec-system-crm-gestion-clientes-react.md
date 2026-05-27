@@ -1,21 +1,21 @@
 ---
 title: "Solutec System: cómo construimos un CRM de gestión de clientes con React"
-description: "Caso de estudio sobre Solutec System, un sistema de gestión de clientes para una empresa de estructuras metálicas con filtros avanzados, exportación de datos y panel administrativo moderno."
+description: "Caso de estudio sobre Solutec System, el CRM/ERP que construimos para Solutec DHA — servicio técnico a domicilio de reparación de electrodomésticos en Lima — con filtros avanzados, exportación a Excel y panel administrativo moderno."
 image: "/solutec.png"
 date: "2026-01-20"
 author: "Árkos"
 tags: ["React", "Material UI", "CRM", "Frontend", "Caso de Estudio"]
 ---
 
-## El problema: una empresa industrial sin visibilidad sobre sus clientes
+## El problema: un servicio técnico con miles de clientes y todo en WhatsApp
 
-Solutec DHA es una empresa trujillana especializada en estructuras metálicas, carpintería metálica, drywall y servicios para minería. Su equipo de ventas manejaba toda la información de clientes en hojas de Excel distribuidas entre varias computadoras. Resultado: **datos duplicados, información desactualizada, y cero capacidad de análisis**.
+Solutec DHA es un servicio técnico a domicilio liderado por Dharcy Villafuerte, especializado en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas, campanas extractoras). Más de **2,500 clientes atendidos** en distritos como San Isidro, Miraflores, La Molina y Surco — y toda esa cartera vivía en **conversaciones de WhatsApp, una agenda física y hojas de Excel sueltas**.
 
-El gerente necesitaba responder preguntas simples que no podía: ¿Cuántos clientes nuevos tuvimos este mes? ¿Cuántos negocios están pendientes de cierre? ¿Quiénes son nuestros clientes más frecuentes?
+Dharcy necesitaba responder preguntas operativas que su flujo no le permitía: ¿qué clientes tengo agendados esta semana?, ¿cuántas reparaciones repetí en el mismo aparato?, ¿qué garantías siguen vigentes?, ¿quiénes son mis clientes recurrentes y a quiénes les debo seguimiento?
 
-## Solutec System: un CRM que hace exactamente lo que necesitan
+## Solutec System: un CRM que hace exactamente lo que necesita un servicio técnico
 
-En vez de implementar un CRM genérico como HubSpot o Salesforce (overkill para una PyME industrial), diseñamos **Solutec System** — un sistema enfocado exclusivamente en las operaciones reales de la empresa.
+En vez de implementar un CRM genérico como HubSpot o Salesforce (overkill para un servicio técnico unipersonal), diseñamos **Solutec System** — un sistema enfocado exclusivamente en la operación real del negocio.
 
 ### Stack tecnológico
 
@@ -30,8 +30,8 @@ En vez de implementar un CRM genérico como HubSpot o Salesforce (overkill para 
 Para este proyecto, elegimos Material UI en vez de Tailwind CSS por tres razones:
 
 1. **Componentes de tabla avanzados:** El DataGrid de MUI incluye filtrado, ordenamiento, selección múltiple y paginación out-of-the-box
-2. **Consistencia enterprise:** Los clientes de Solutec DHA son empresas mineras y constructoras acostumbradas a interfaces "de oficina" — Material UI transmite esa seriedad
-3. **Velocidad de desarrollo:** Los formularios complejos con validación son más rápidos de implementar con los componentes MUI que con componentes custom
+2. **Consistencia operativa:** Es una herramienta de trabajo interno que se usa todos los días — Material UI da una interfaz "de oficina" sobria y predecible que no estorba
+3. **Velocidad de desarrollo:** Los formularios con validación son más rápidos de implementar con los componentes MUI que con componentes custom
 
 ### Funcionalidades principales
 
@@ -40,48 +40,50 @@ Para este proyecto, elegimos Material UI en vez de Tailwind CSS por tres razones
 Tarjetas resumen que muestran en tiempo real:
 - Total de clientes registrados
 - Clientes nuevos del mes
-- Negocios en proceso
-- Tasa de conversión
+- Servicios en proceso
+- Tasa de reincidencia (clientes que vuelven)
 
 #### Listado de clientes con filtros avanzados
 
 La tabla principal permite:
-- **Buscar** por nombre, empresa o sector industrial
-- **Filtrar** por estado (activo, inactivo, prospecto)
-- **Ordenar** por fecha de registro, última interacción, monto total
+- **Buscar** por nombre, distrito o tipo de electrodoméstico
+- **Filtrar** por estado (agendado, en servicio, finalizado, garantía vigente)
+- **Ordenar** por fecha del último servicio, distrito o tipo de equipo
 - **Seleccionar múltiples** registros para acciones masivas
 
 #### Exportación de datos
 
-Un requisito no negociable del cliente: **"Necesito poder sacar mis datos a Excel en cualquier momento"**. Implementamos exportación directa a:
+Un requisito no negociable de Dharcy: **"Necesito poder sacar mis datos a Excel en cualquier momento"**. Implementamos exportación directa a:
 - **XLSX** (compatible con Excel)
 - **CSV** (compatible con cualquier herramienta)
 
-La exportación respeta los filtros activos — si el usuario está viendo solo clientes del sector minería, el Excel contiene solo esos registros.
+La exportación respeta los filtros activos — si Dharcy está viendo solo clientes con garantía vigente este mes, el Excel contiene solo esos registros.
 
 #### Registro y edición de clientes
 
-Formularios estructurados con campos específicos del sector:
-- Razón social
-- RUC (identificación fiscal peruana)
-- Sector industrial (minería, construcción, retail)
-- Persona de contacto
-- Historial de interacciones
+Formularios estructurados con campos específicos del rubro:
+- Nombre y datos de contacto
+- DNI (identificación peruana)
+- Distrito y dirección
+- Tipo de electrodoméstico y marca
+- Diagnóstico, repuestos usados y costo
+- Vigencia de garantía
+- Historial de servicios anteriores
 
-## Lo que aprendimos: las PyMEs no necesitan Salesforce
+## Lo que aprendimos: los servicios técnicos no necesitan Salesforce
 
-La lección más valiosa de este proyecto es que **las PyMEs industriales en Latinoamérica no necesitan un CRM con 200 funciones**. Necesitan:
+La lección más valiosa de este proyecto es que **un servicio técnico a domicilio en Latinoamérica no necesita un CRM con 200 funciones**. Necesita:
 
-1. **Ver todos sus clientes en un solo lugar** — No más Excel distribuido
-2. **Buscar y filtrar rápido** — "Muéstrame todos los clientes de minería"
-3. **Exportar a Excel** — Porque el contador lo pide en Excel, siempre
-4. **Que funcione rápido** — Sin curva de aprendizaje de 3 meses
+1. **Ver todos sus clientes en un solo lugar** — No más WhatsApp + Excel disperso
+2. **Buscar y filtrar rápido** — "Muéstrame los clientes de Miraflores con garantía vigente"
+3. **Exportar a Excel** — Porque la contabilidad siempre lo pide en Excel
+4. **Que funcione rápido en celular** — Las visitas pasan en casa del cliente, no en una oficina
 
 Solutec System hace exactamente eso y nada más. Y por eso funciona.
 
-## Contexto: el sitio web corporativo de Solutec DHA
+## Contexto: la landing pública de Solutec DHA
 
-Además del CRM, desarrollamos el sitio web corporativo de Solutec DHA (solutecdha.com) con Next.js y Tailwind CSS. Una web institucional que muestra sus servicios, proyectos y formulario de contacto. Ambos productos trabajan juntos: el sitio web captura leads, y el CRM los gestiona.
+Además del CRM, desarrollamos la landing pública de Solutec DHA (solutecdha.com) con Next.js y Tailwind CSS. Una landing premium con tono cálido y conversacional, conversaciones reales de WhatsApp con clientes satisfechos, galería de trabajos realizados y formulario de diagnóstico sin compromiso. Ambos productos trabajan juntos: la landing capta consultas desde Google y WhatsApp, y el CRM las gestiona end-to-end.
 
 ## Tecnologías utilizadas
 
@@ -95,4 +97,4 @@ Además del CRM, desarrollamos el sitio web corporativo de Solutec DHA (solutecd
 
 ---
 
-*¿Tu equipo de ventas sigue usando Excel para gestionar clientes? En **Árkos** construimos CRMs simples y efectivos para PyMEs que no necesitan Salesforce. [Contáctanos](https://xn--rkos-4na.com/#contact).*
+*¿Tu negocio sigue dependiendo de WhatsApp y Excel para gestionar clientes? En **Árkos** construimos CRMs simples y efectivos para servicios y PYMEs que no necesitan Salesforce. [Contáctanos](https://xn--rkos-4na.com/#contact).*
