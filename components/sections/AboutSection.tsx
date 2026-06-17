@@ -84,8 +84,8 @@ export function AboutSection() {
             <div className="flex gap-4 pt-4">
                {[
                  { href: "https://github.com/RodrigoFK06", icon: Github, label: "GitHub" },
-                 { href: "https://www.linkedin.com/in/rodrigo-torres-árkos", icon: Linkedin, label: "LinkedIn" },
-                 { href: "mailto:hola@árkos.com", icon: Mail, label: "Email" }
+                 { href: "https://www.linkedin.com/in/rodrigo-torres-arkos", icon: Linkedin, label: "LinkedIn" },
+                 { href: "mailto:gerencia@árkos.com", icon: Mail, label: "Email" }
                ].map((social, i) => (
                  <Button key={i} variant="outline" size="icon" asChild className="group rounded-xl bg-black/5 dark:bg-white/5 backdrop-blur-[12px] border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-1">
                    <Link href={social.href} target={social.href.startsWith('http') ? "_blank" : "_self"} rel={social.href.startsWith('http') ? "noopener noreferrer" : ""} aria-label={social.label}>

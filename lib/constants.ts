@@ -11,8 +11,8 @@ export const SITE_CONFIG = {
   contact: {
     // Email público de Árkos. SMTP (autenticación) corre por Gmail vía
     // CONTACT_EMAIL / SMTP_USER en .env.local; el From: debe configurarse
-    // como alias para que llegue como hola@árkos.com.
-    email: "hola@árkos.com",
+    // como alias para que llegue como gerencia@árkos.com.
+    email: "gerencia@árkos.com",
     phone: "+51 961 869 348",
     whatsapp: "51961869348",
     address: "Trujillo, Perú",
@@ -21,7 +21,7 @@ export const SITE_CONFIG = {
   // Redes sociales
   social: {
     twitter: "https://twitter.com/arkos",
-    github: "https://github.com/arkos",
+    github: "https://github.com/RodrigoFK06",
     linkedin: "https://linkedin.com/company/arkos",
     instagram: "https://instagram.com/arkos",
   },
@@ -38,7 +38,7 @@ export const SITE_CONFIG = {
   chatbot: {
     apiEndpoint: "/api/chatbot",
     enabled: true,
-    welcomeMessage: "¡Hola! Soy ByteBot, tu asistente de ventas de Árkos 👋",
+    welcomeMessage: "¡Hola! Soy ArkBot, tu asistente de ventas de Árkos 👋",
     model: "gemini-2.0-flash-exp",
     features: {
       leadQualification: true,

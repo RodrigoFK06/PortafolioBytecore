@@ -257,7 +257,7 @@ export default function FloatingDock() {
                     transition={{ duration: 2, repeat: Infinity }}
                   />
                   <span className="absolute right-full mr-4 bg-background/90 text-foreground px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-border">
-                    ByteBot IA
+                    ArkBot IA
                   </span>
                 </>
               )}
@@ -289,7 +289,7 @@ export default function FloatingDock() {
                     }`} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base text-foreground">ByteBot</h3>
+                  <h3 className="font-bold text-base text-foreground">ArkBot</h3>
                   <p className="text-xs text-foreground/60 font-mono tracking-wider uppercase">
                     {connectionStatus === 'connected' ? 'IA • Online' :
                       connectionStatus === 'connecting' ? 'Connecting...' : 'Offline'}
@@ -350,7 +350,7 @@ export default function FloatingDock() {
                   {msg.role === "assistant" && (
                      <div className="flex items-center gap-2 mb-1">
                        <Bot className="w-4 h-4 text-brand" />
-                       <span className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase">ByteBot</span>
+                       <span className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase">ArkBot</span>
                      </div>
                   )}
 

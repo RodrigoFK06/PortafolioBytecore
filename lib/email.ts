@@ -216,7 +216,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
         const time = new Date(msg.timestamp).toLocaleString('es-ES')
         return `<div class="message ${msg.role}">
           <div class="message-header">
-            <strong>${msg.role === 'assistant' ? '🤖 ByteBot' : '👤 Usuario'}</strong>
+            <strong>${msg.role === 'assistant' ? '🤖 ArkBot' : '👤 Usuario'}</strong>
             <span class="timestamp">${time}</span>
           </div>
           <p>${msg.message.replace(/\n/g, '<br>')}</p>
@@ -393,7 +393,7 @@ const generateChatbotReportTemplate = (lead: Lead): EmailTemplate => {
 💬 CONVERSACIÓN COMPLETA:
 ${conversation.map((msg, index) => {
     const time = new Date(msg.timestamp).toLocaleString('es-ES')
-    return `[${time}] ${msg.role === 'assistant' ? '🤖 ByteBot' : '👤 Usuario'}: ${msg.message}`
+    return `[${time}] ${msg.role === 'assistant' ? '🤖 ArkBot' : '👤 Usuario'}: ${msg.message}`
   }).join('\n\n')}
 
 📋 PRÓXIMOS PASOS RECOMENDADOS:

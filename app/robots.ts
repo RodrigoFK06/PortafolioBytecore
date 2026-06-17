@@ -49,6 +49,22 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "CCBot",
         allow: "/",
       },
+      {
+        userAgent: "Claude-User",
+        allow: "/",
+      },
+      {
+        userAgent: "Perplexity-User",
+        allow: "/",
+      },
+      {
+        userAgent: "Meta-ExternalAgent",
+        allow: "/",
+      },
+      {
+        userAgent: "Applebot-Extended",
+        allow: "/",
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }

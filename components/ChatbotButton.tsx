@@ -242,7 +242,7 @@ Estoy aquí para ayudarte con:
                     }`} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-base">ByteBot</h3>
+                  <h3 className="font-semibold text-base">ArkBot</h3>
                   <p className="text-xs opacity-90">
                     {connectionStatus === 'connected' ? 'Asistente IA • En línea' :
                       connectionStatus === 'connecting' ? 'Conectando...' : 'Sin conexión'}
@@ -312,7 +312,7 @@ Estoy aquí para ayudarte con:
                   {msg.role === "assistant" && (
                     <div className="flex items-center gap-2 mb-1">
                       <Bot className="w-4 h-4 text-blue-600" />
-                      <span className="text-xs text-muted-foreground font-medium">ByteBot</span>
+                      <span className="text-xs text-muted-foreground font-medium">ArkBot</span>
                     </div>
                   )}
 
@@ -341,7 +341,7 @@ Estoy aquí para ayudarte con:
                   <div className="bg-muted p-3 rounded-xl border border-border">
                     <div className="flex items-center gap-1">
                       <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                      <span className="text-sm text-muted-foreground">ByteBot está escribiendo...</span>
+                      <span className="text-sm text-muted-foreground">ArkBot está escribiendo...</span>
                     </div>
                   </div>
                 </motion.div>

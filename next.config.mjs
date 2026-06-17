@@ -47,10 +47,6 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
-          {
-            key: 'X-Llms-Txt',
-            value: '/llms.txt',
-          },
         ],
       },
     ]
