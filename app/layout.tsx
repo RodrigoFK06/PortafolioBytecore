@@ -198,6 +198,11 @@ export default function RootLayout({
               url: baseUrl,
               description:
                 "Sitio web oficial de Árkos, agencia de desarrollo de software y diseño UX/UI en Perú.",
+              creator: {
+                "@type": "Organization",
+                name: "Árkos",
+                url: "https://xn--rkos-4na.com",
+              },
               potentialAction: {
                 "@type": "SearchAction",
                 target: `${baseUrl}/search?q={search_term_string}`,

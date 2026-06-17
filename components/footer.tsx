@@ -154,7 +154,15 @@ export function Footer() {
 
         <div className="border-t border-black/5 dark:border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-foreground/50 text-sm font-medium">
-            &copy; {currentYear} Árkos. Todos los derechos reservados.
+            &copy; {currentYear} Árkos. Todos los derechos reservados.{" "}
+            <a
+              href="https://xn--rkos-4na.com"
+              target="_blank"
+              rel="noopener"
+              className="hover:text-brand transition-colors"
+            >
+              Desarrollado por Árkos
+            </a>
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0 mr-12 md:mr-24 lg:mr-28">
             <Link href="/politicadeprivacidad" className="text-foreground/50 hover:text-brand transition-colors text-sm font-medium">

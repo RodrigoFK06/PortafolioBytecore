@@ -9,6 +9,10 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
       {
+        userAgent: "Googlebot",
+        allow: "/",
+      },
+      {
         userAgent: "bingbot",
         allow: "/",
       },
