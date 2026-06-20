@@ -101,9 +101,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Meta info */}
         <div className="flex items-center gap-4 text-sm text-foreground/40 pb-8 border-b border-black/5 dark:border-white/10">
-          <span className="font-medium">{data.author || "Árkos"}</span>
+          <span className="font-medium">{data.author && data.author !== "Árkos" ? data.author : "Rodrigo Torres"}</span>
           <span>·</span>
-          <time>{formatDate(data.date)}</time>
+          <time dateTime={data.date}>{formatDate(data.date)}</time>
+          {data.updated && data.updated !== data.date && (
+            <>
+              <span>·</span>
+              <span className="italic">
+                Actualizado el <time dateTime={data.updated}>{formatDate(data.updated)}</time>
+              </span>
+            </>
+          )}
         </div>
       </header>
 
@@ -175,11 +183,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             description: data.description,
             image: data.image ? `${baseUrl}${data.image}` : `${baseUrl}/og-image.webp`,
             datePublished: data.date,
-            author: {
-              "@type": "Organization",
-              name: data.author || "Árkos",
-              url: baseUrl,
-            },
+            dateModified: data.updated || data.date,
+            author:
+              data.author && data.author !== "Árkos"
+                ? { "@type": "Person", name: data.author }
+                : { "@type": "Person", "@id": `${baseUrl}/#rodrigo-torres`, name: "Rodrigo Torres" },
             publisher: {
               "@type": "Organization",
               name: "Árkos",

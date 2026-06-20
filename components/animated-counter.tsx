@@ -10,33 +10,37 @@ interface AnimatedCounterProps {
 }
 
 export function AnimatedCounter({ from, to, duration = 2 }: AnimatedCounterProps) {
-  const [count, setCount] = useState(from)
+  // Inicia en `to`: así el SSR / crawlers AI / usuarios sin JS ven el número
+  // REAL (no "0"). La animación de conteo se ejecuta solo en cliente al entrar
+  // en viewport. Como el valor inicial coincide con el SSR, no hay hydration mismatch.
+  const [count, setCount] = useState(to)
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true })
-  const frameRate = 1000 / 60
-  const totalFrames = Math.round(duration * 60)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (isInView) {
-      let frame = 0
+    if (!isInView || hasAnimated.current) return
+    hasAnimated.current = true
 
-      const counter = setInterval(() => {
-        frame++
-        const progress = frame / totalFrames
-        const currentCount = Math.round(from + (to - from) * progress)
+    const totalFrames = Math.round(duration * 60)
+    const frameRate = 1000 / 60
+    let frame = 0
+    setCount(from)
 
-        if (frame === totalFrames) {
-          clearInterval(counter)
-          setCount(to)
-        } else {
-          setCount(currentCount)
-        }
-      }, frameRate)
+    const counter = setInterval(() => {
+      frame++
+      const progress = frame / totalFrames
 
-      return () => clearInterval(counter)
-    }
-  }, [from, to, totalFrames, frameRate, isInView])
+      if (frame >= totalFrames) {
+        clearInterval(counter)
+        setCount(to)
+      } else {
+        setCount(Math.round(from + (to - from) * progress))
+      }
+    }, frameRate)
+
+    return () => clearInterval(counter)
+  }, [from, to, duration, isInView])
 
   return <span ref={ref}>{count}</span>
 }
-

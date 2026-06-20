@@ -174,9 +174,10 @@ export function HeroSection() {
           {/* Headline — Left Aligned, overlapping */}
           <h1
             ref={headlineRef}
+            aria-label="Mejoramos tus procesos"
             className="text-[3rem] sm:text-6xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-black tracking-tighter leading-[0.9] mb-8 md:mb-12 relative z-10 w-full"
           >
-            <HeroWord>Mejoramos</HeroWord>
+            <HeroWord>Mejoramos</HeroWord>{" "}
             <br />
             <span className="ml-0 md:ml-[1.5em] inline-block">
                <HeroWord>tus</HeroWord>{" "}
@@ -191,12 +192,16 @@ export function HeroSection() {
                      src="/logo_ico/final - LOGO 2-071.svg"
                      alt=""
                      aria-hidden="true"
+                     width={16}
+                     height={16}
                      className="absolute inset-0 w-full h-full object-contain dark:hidden"
                    />
                    <img
                      src="/logo_ico/final - LOGO 2-081.svg"
                      alt=""
                      aria-hidden="true"
+                     width={16}
+                     height={16}
                      className="absolute inset-0 w-full h-full object-contain hidden dark:block"
                    />
                  </span>

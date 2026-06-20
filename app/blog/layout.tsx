@@ -18,8 +18,8 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "/blog" },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://xn--rkos-4na.com/" },
+              { "@type": "ListItem", position: 2, name: "Blog", item: "https://xn--rkos-4na.com/blog" },
             ],
           }),
         }}

@@ -31,22 +31,39 @@ const nextConfig = {
   },
   // Configuración de headers de seguridad
   async headers() {
+    // CSP en modo Report-Only: NO bloquea, solo reporta violaciones en consola.
+    // Revisar que no haya falsos positivos y luego promover la key a
+    // 'Content-Security-Policy' (enforcing).
+    const cspReportOnly = [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data:",
+      "style-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "connect-src 'self' https:",
+      "form-action 'self'",
+      "upgrade-insecure-requests",
+    ].join('; ')
+
     return [
       {
         source: '/(.*)',
         headers: [
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
           },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
-          },
+          { key: 'Content-Security-Policy-Report-Only', value: cspReportOnly },
         ],
       },
     ]

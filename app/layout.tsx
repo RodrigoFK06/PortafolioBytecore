@@ -38,7 +38,10 @@ export const metadata: Metadata = {
     "msapplication-TileColor": "#000000",
     "msapplication-config": "/browserconfig.xml",
   },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { "es-PE": "/", "x-default": "/" },
+  },
   icons: {
     icon: [
       {
@@ -69,7 +72,7 @@ export const metadata: Metadata = {
   creator: "Árkos",
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "es_PE",
     url: baseUrl,
     title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
     description:
@@ -89,7 +92,8 @@ export const metadata: Metadata = {
     title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
     description:
       "Árkos es una agencia digital en Perú especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras.",
-    creator: "@arkos",
+    site: "@ArkosPeru",
+    creator: "@ArkosPeru",
     images: [`${baseUrl}/og-image.webp`],
   },
 }
@@ -110,6 +114,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              "@id": `${baseUrl}/#organization`,
               name: "Árkos",
               alternateName: ["Arkos"],
               description:
@@ -117,10 +122,7 @@ export default function RootLayout({
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               foundingDate: "2020",
-              founder: {
-                "@type": "Person",
-                name: "Rodrigo Torres",
-              },
+              founder: { "@id": `${baseUrl}/#rodrigo-torres` },
               areaServed: [
                 { "@type": "Country", name: "Peru" },
                 { "@type": "Place", name: "Latinoamérica" },
@@ -180,32 +182,34 @@ export default function RootLayout({
                 ],
               },
               sameAs: [
-                "https://github.com/RodrigoFK06",
-                "https://www.linkedin.com/in/rodrigo-torres-arkos",
-                "https://www.linkedin.com/company/arkos",
+                "https://www.wikidata.org/wiki/Q140262378",
+                "https://x.com/ArkosPeru",
+                "https://www.linkedin.com/company/arkos-pe",
+                "https://clutch.co/profile/rkos",
               ],
             }),
           }}
         />
         <script
           type="application/ld+json"
-          // WebSite with SearchAction schema
+          // WebSite schema
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
+              "@id": `${baseUrl}/#website`,
               name: "Árkos",
               url: baseUrl,
               description:
                 "Sitio web oficial de Árkos, agencia de desarrollo de software y diseño UX/UI en Perú.",
-              creator: {
-                "@type": "Organization",
-                name: "Árkos",
-                url: "https://xn--rkos-4na.com",
-              },
+              inLanguage: "es-PE",
+              publisher: { "@id": `${baseUrl}/#organization` },
               potentialAction: {
                 "@type": "SearchAction",
-                target: `${baseUrl}/search?q={search_term_string}`,
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+                },
                 "query-input": "required name=search_term_string",
               },
             }),
@@ -241,10 +245,7 @@ export default function RootLayout({
                 { "@type": "Country", name: "Peru" },
                 { "@type": "Place", name: "Latinoamérica" },
               ],
-              founder: {
-                "@type": "Person",
-                name: "Rodrigo Torres",
-              },
+              founder: { "@id": `${baseUrl}/#rodrigo-torres` },
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Servicios Árkos",
@@ -282,12 +283,40 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          type="application/ld+json"
+          // Person schema — Rodrigo Torres (fundador, señal E-E-A-T)
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "@id": `${baseUrl}/#rodrigo-torres`,
+              name: "Rodrigo Torres",
+              url: baseUrl,
+              jobTitle: "Founder & Tech Lead",
+              worksFor: { "@id": `${baseUrl}/#organization` },
+              knowsAbout: [
+                "Desarrollo de Software a Medida",
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Diseño UX/UI",
+                "Inteligencia Artificial",
+              ],
+              sameAs: [
+                "https://github.com/RodrigoFK06",
+                "https://www.linkedin.com/in/rodrigo-torres-arkos",
+                "https://www.instagram.com/_rodrigofk_/",
+              ],
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
-           <p>Árkos es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales — a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: hola@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+           <p>Árkos es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales — a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
          </div>
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
