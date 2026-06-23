@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Árkos · Página Web — HVAC Climatización Nacional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    // docx no publica UMD; cargamos vía esm.sh y exponemos como global
+    import * as docx from 'https://esm.sh/docx@9.5.1';
+    window.docx = docx;
+    window.dispatchEvent(new Event('docx-ready'));
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+      .print-only { display: block !important; }
+      .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
+      .logo-screen { display: none !important; }
+      .logo-print { display: inline-block !important; }
+    }
+    .print-only { display: none; }
+    .logo-screen { display: inline-block; }
+    .logo-print { display: none; }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2">
+          <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-10 w-auto" />
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-10 w-auto" />
+          <span class="sr-only">Árkos</span>
+        </a>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Página Web · Carta de Presentación</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          PDF
+        </button>
+        <button id="btnWord" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#1D4E6A] text-white hover:bg-[#15394f]">
+          Word
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+
+        <!-- Encabezado de marca (visible en PDF) -->
+        <div class="print-only mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
+          <div class="flex items-center gap-3">
+            <div class="text-right text-xs text-neutral-600">
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p>rodrigoan.torresp@gmail.com · +51 961 869 348</p>
+              <p>Trujillo, Perú · árkos.com</p>
+            </div>
+            <img src="/logo_ico/final - LOGO 2-07.png" alt="" aria-hidden="true" class="h-10 w-10 opacity-80" />
+          </div>
+        </div>
+
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 23 Jun 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Tu nueva página web, tu mejor carta de presentación</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Reconstruimos tu página de aire acondicionado y climatización con tecnología moderna: la misma esencia de la que tenías, pero más rápida, más segura y con mejor presencia. Una carta de presentación digital para mostrar quién eres y todo lo que haces. Aquí tienes dos formas de hacerla.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2 flex-wrap">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Página informativa</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">HVAC · Climatización</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">Nancy</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">HVAC · Aire Acondicionado · Climatización Nacional — Página web informativa (carta de presentación)</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-NAN-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 2 Opciones                                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Tus dos opciones</span></h2>
+          <div class="grid gap-5 md:grid-cols-2">
+
+            <!-- Opción 1 — Tu página tal cual -->
+            <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-6 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 1</p>
+              <h3 class="mt-2 text-base font-bold">Tu página, tal cual la quieres</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 600</p>
+              <p class="text-xs text-neutral-500 mt-1">Tu web completa · con tu dominio conectado</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Todas las secciones de tu página: inicio, quiénes somos, propósito, servicios y galería de trabajos.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Formulario de contacto que te llega a tu correo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Botón de WhatsApp para que te contacten directo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Se ve perfecta en celular y en computadora.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> La publico y conecto tu dominio.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> 2 rondas de ajustes incluidas.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: aprox. 1 semana</p>
+            </div>
+
+            <!-- Opción 2 — Que te encuentren (RECOMENDADO) -->
+            <div class="rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-6 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Opción 2</p>
+              <h3 class="mt-2 text-base font-bold">Que te encuentren fácilmente</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 1,000</p>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">Tu página + presencia en Google</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo de la Opción 1.</strong></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Apareces en el mapa de Google con tus fotos, horario y botón para llamarte o escribirte.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tu página lista para que Google la muestre cuando busquen tus servicios.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Botón de WhatsApp visible en toda la página, con el mensaje ya armado.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Carga rápida en el celular, que es donde entra la mayoría.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Reporte mensual de cuánta gente entró a tu página.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Tiempo de entrega: aprox. 1 a 2 semanas</p>
+            </div>
+
+          </div>
+
+          <!-- Nota: por qué la Opción 2 -->
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">★</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">La diferencia entre las dos opciones</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-2">Las dos te dan la misma página: tu carta de presentación completa. <strong class="text-neutral-900 dark:text-white">La Opción 2 añade presencia: deja tu negocio ubicable en Google —en el mapa y en las búsquedas— y con tu contacto a un toque, para que cuando alguien te busque, te encuentre y vea lo profesional que eres.</strong></p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed italic">Para ser claros: aparecer en el <strong class="not-italic">mapa de Google</strong> (con tus fotos, horario y ubicación) sí se logra y hace que tu negocio se vea serio y fácil de ubicar. Subir al primer lugar en las búsquedas depende de muchos factores y toma tiempo — por eso no lo prometemos.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- QUÉ INCLUYE TU PÁGINA                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué incluye tu página</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Las secciones de tu página, igual que la que tenías antes. Esto va en ambas opciones.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Portada</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tu mensaje principal (HVAC · Aire Acondicionado · Climatización Nacional) y un botón para pedir cotización.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Quiénes somos?</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tu historia, tu experiencia y por qué confiar en ti.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Propósito · Misión y Visión</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Lo que representa tu empresa, presentado de forma profesional.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Servicios</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tus servicios: residencial, comercial, industrial, mantenimiento, ventilación mecánica y más.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Galería de trabajos realizados</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tus proyectos con fotos, para que se vea todo lo que ya has hecho.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Contacto</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tus datos (dirección, correo, teléfono), formulario y WhatsApp.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- LO QUE NO INCLUYE                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Para que quede todo claro desde el inicio (cualquiera de estos se puede cotizar aparte si lo necesitas)</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Tienda online o pagos por la página.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Sistema de reservas, citas o pedidos en línea.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Panel para que edites tú misma la página (se puede agregar — cuéntame si te interesa).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Redacción de los textos desde cero (los textos los pasas tú; si quieres que los escriba yo, se cotiza aparte).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Fotos profesionales (las fotos de tus trabajos las pasas tú).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Posicionamiento mensual continuo en Google (eso es un plan de mantenimiento aparte).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Dominio nuevo si aún no tienes uno (el dominio tiene un costo anual aparte).</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- HOSTING, DOMINIO Y MANTENIMIENTO                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Hosting, dominio y mantenimiento</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Lo que pasa después de publicar tu página.</p>
+            <div class="grid gap-5 md:grid-cols-3">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Hosting</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Incluido 1er año</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">El lugar donde vive tu página está incluido el primer año, sin costo extra. Me encargo de mantenerla en línea y funcionando.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Dominio</h3>
+                  <span class="inline-flex items-center rounded-full bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Anual</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">Tu dirección web (ej. tudominio.com) se renueva una vez al año. Si ya tienes tu dominio, lo conectamos sin problema.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Mantenimiento</h3>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Opcional</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">Si más adelante quieres cambios seguidos (fotos, textos, precios), tomamos un plan mensual. Los cambios sueltos se cotizan al momento.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- RESUMEN DE INVERSIÓN                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Resumen</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Una página profesional como esta suele cobrarse entre S/ 900 y S/ 1,800 en el mercado. Estos son los precios de Árkos para tu proyecto.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Opción</th>
+                    <th class="py-3 px-4 text-center">Tu página completa</th>
+                    <th class="py-3 px-4 text-center">Google + WhatsApp</th>
+                    <th class="py-3 px-4 text-center">Reporte mensual</th>
+                    <th class="py-3 px-4 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">1 · Tu página, tal cual</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">S/ 600</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">2 · Que te encuentren <span class="text-[10px] uppercase tracking-wide text-[#328298] font-bold">(Recomendado)</span></td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#1D4E6A] dark:text-white">S/ 1,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Forma de pago</h4>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">50% para empezar y 50% al entregar tu página funcionando. Se emite Recibo por Honorarios si lo necesitas.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Garantía</h4>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">15 días después de la entrega para corregir cualquier detalle sin costo. Tu página queda lista y operativa.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- DETALLE                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Cómo trabajamos</span></h2>
+        <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Del sí al lanzamiento, en pocos pasos</p>
+        <div class="grid gap-4 md:grid-cols-4 text-sm">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 1</p>
+            <p class="mt-2 font-semibold">Confirmamos</p>
+            <p class="text-xs text-neutral-500 mt-1">Eliges la opción, me pasas tus logos, fotos y datos, y arrancamos.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 2</p>
+            <p class="mt-2 font-semibold">Te muestro un avance</p>
+            <p class="text-xs text-neutral-500 mt-1">Armo tu página y te la enseño para que la veas antes de publicar.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 3</p>
+            <p class="mt-2 font-semibold">Ajustes</p>
+            <p class="text-xs text-neutral-500 mt-1">Me dices qué cambiar y lo dejo a tu gusto (2 rondas de ajustes).</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 4</p>
+            <p class="mt-2 font-semibold">Publico</p>
+            <p class="text-xs text-neutral-500 mt-1">Conecto tu dominio y tu página queda en línea, funcionando.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué necesito de ti para arrancar</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Mientras más completo me lo pases, más rápido sale.</p>
+        <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tu logo (si lo tienes) y el nombre exacto de la empresa.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Fotos de tus trabajos realizados.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los textos o, si prefieres, reuso los de tu página anterior.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tus datos de contacto: dirección, correo, teléfono y WhatsApp.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Acceso a tu dominio, si ya tienes uno.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Preguntas frecuentes</span></h2>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo editar la página yo misma después?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Por defecto, los cambios los hago yo (me escribes y los dejo listos). Si quieres editarla tú misma, se puede agregar un panel para hacerlo — cuéntame y lo cotizamos.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Necesito comprar un dominio?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Si ya tienes tu dominio, lo conectamos sin costo extra. Si no tienes, te ayudo a sacar uno — el dominio se paga una vez al año, aparte de la página.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Cuánto demora?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">La Opción 1, alrededor de 1 semana. La Opción 2, de 1 a 2 semanas (porque incluye la configuración de Google). Depende también de qué tan rápido me pases tus fotos y textos.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿La página funciona en celular?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, se ve perfecta en celular, tablet y computadora. La mayoría de la gente va a entrar desde el teléfono.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Y si quiero cambios más adelante?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Los cambios puntuales se cotizan al momento según lo que sea. Si vas a necesitar cambios seguidos, conviene un plan de mantenimiento mensual.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿La página es mía?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, la página es tuya y la operamos para ti. Si en algún momento quieres el código fuente para manejarlo por tu cuenta, se puede entregar bajo licencia.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-12 w-auto" />
+              <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-12 w-auto" />
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.3 7 12 8 12s8-6.7 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              Trujillo, Perú
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Contacto</h4>
+            <a href="mailto:rodrigoan.torresp@gmail.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              rodrigoan.torresp@gmail.com
+            </a>
+            <a href="tel:+51961869348" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3Z"/></svg>
+              +51 961 869 348
+            </a>
+            <a href="https://wa.me/51961869348" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              WhatsApp directo
+            </a>
+            <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm6.9 9h-3a15.6 15.6 0 0 0-1-5.1A8 8 0 0 1 18.9 11ZM12 4c.9 0 2.2 2.5 2.6 7H9.4C9.8 6.5 11.1 4 12 4ZM4 12c0-.3 0-.7.1-1H8c0 .7-.1 1.3-.1 2s0 1.3.1 2H4.1c-.1-.3-.1-.7-.1-1Zm1.1 5h2.9a15 15 0 0 0 1 4.1A8 8 0 0 1 5.1 17ZM8 7H5.1A8 8 0 0 1 9 2.9 15 15 0 0 0 8 7Zm4 13c-.9 0-2.2-2.5-2.6-7h5.2c-.4 4.5-1.7 7-2.6 7Zm3-9H9c0-.7-.1-1.3-.1-2s0-1.3.1-2h6c0 .7.1 1.3.1 2s0 1.3-.1 2Zm.1 9.1a15 15 0 0 0 1-4.1h2.8a8 8 0 0 1-3.8 4.1ZM16 13c0-.7.1-1.3.1-2s0-1.3-.1-2h3.9c.1.3.1.7.1 1s0 .7-.1 1H16Z"/></svg>
+              árkos.com
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Síguenos</h4>
+            <div class="flex flex-wrap items-center gap-2">
+              <a href="https://linkedin.com/company/arkos" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3v10ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.3c0-1.3-.5-2-1.5-2-1.1 0-1.8.8-1.8 2V19h-3V9h2.9v1.3c.5-.8 1.5-1.6 3.1-1.6 2.2 0 3.3 1.3 3.3 4V19Z"/></svg>
+              </a>
+              <a href="https://wa.me/51961869348" target="_blank" rel="noopener" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              </a>
+              <a href="mailto:rodrigoan.torresp@gmail.com" aria-label="Email" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-2">Respondemos en menos de 24 h hábiles.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
+          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>Propuesta ARK-NAN-2026-001 · Emitida 23 Jun 2026 · Validez 15 días</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+
+    // ═══════════════════════════════════════════════════════════
+    // DESCARGA WORD (.docx) — documento nativo construido con `docx`
+    // ═══════════════════════════════════════════════════════════
+    const btnWord = document.getElementById('btnWord');
+
+    function waitForDocx(timeoutMs = 15000) {
+      if (window.docx) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          window.removeEventListener('docx-ready', onReady);
+          reject(new Error('La librería docx tardó demasiado en cargar. Revisa tu conexión a internet.'));
+        }, timeoutMs);
+        const onReady = () => { clearTimeout(timer); resolve(); };
+        window.addEventListener('docx-ready', onReady, { once: true });
+      });
+    }
+
+    btnWord.addEventListener('click', async () => {
+      const originalLabel = btnWord.innerHTML;
+      btnWord.disabled = true;
+      btnWord.innerHTML = 'Generando…';
+      try {
+        await waitForDocx();
+        await generateArkosWordDoc();
+      } catch (err) {
+        console.error(err);
+        alert('Error generando Word: ' + (err?.message || err));
+      } finally {
+        btnWord.disabled = false;
+        btnWord.innerHTML = originalLabel;
+      }
+    });
+
+    async function generateArkosWordDoc() {
+      const D = window.docx;
+      const {
+        Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+        Table, TableRow, TableCell, ImageRun, WidthType, BorderStyle,
+        Header, Footer, PageNumber, VerticalAlign
+      } = D;
+
+      // Paleta Árkos
+      const C = {
+        deep:    '1D4E6A',
+        brand:   '328298',
+        tint:    'D6EFF2',
+        ink:     '1F2937',
+        body:    '404040',
+        soft:    '737373',
+        rule:    'E5E7EB',
+        bgSoft:  'F8FAFC',
+        red:     'B91C1C',
+        amber:   'B45309',
+        green:   '15803D'
+      };
+
+      const fetchBuf = async (path) => {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error('No se pudo cargar ' + path);
+        return await r.arrayBuffer();
+      };
+      const [logoBuf, isoBuf] = await Promise.all([
+        fetchBuf('/logo_ico/final - LOGO 2-01.png'),
+        fetchBuf('/logo_ico/final - LOGO 2-07.png')
+      ]);
+
+      // ─── Helpers tipográficos ──────────────────────────────────
+      const t = (text, opts = {}) => new TextRun({ text, font: 'Calibri', ...opts });
+
+      const p = (runs, opts = {}) => new Paragraph({
+        children: Array.isArray(runs) ? runs : [runs],
+        spacing: { after: 120, line: 300, ...opts.spacing },
+        alignment: opts.alignment,
+        indent: opts.indent,
+        pageBreakBefore: opts.pageBreakBefore,
+        border: opts.border
+      });
+
+      const blank = (after = 200) => new Paragraph({ children: [], spacing: { after } });
+
+      const eyebrow = (s) => p([t(s, { bold: true, size: 16, color: C.brand, characterSpacing: 30, allCaps: true })], { spacing: { after: 80 } });
+
+      const title = (s) => p([t(s, { bold: true, size: 48, color: C.deep })], { spacing: { before: 0, after: 200, line: 400 } });
+
+      const h1 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 36, color: C.deep })],
+        heading: HeadingLevel.HEADING_1,
+        spacing: { before: 360, after: 200, line: 340 },
+        border: { bottom: { color: C.brand, size: 12, space: 8, style: BorderStyle.SINGLE } }
+      });
+
+      const h2 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 26, color: C.deep })],
+        heading: HeadingLevel.HEADING_2,
+        spacing: { before: 280, after: 140 }
+      });
+
+      const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
+
+      const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
+
+      const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
+        const runs = [t(icon + '  ', { bold: true, color: iconColor, size: 22 })];
+        if (label) runs.push(t(label + ': ', { bold: true, color: C.deep, size: 22 }));
+        runs.push(t(txt, { size: 22, color: C.body }));
+        return new Paragraph({
+          children: runs,
+          spacing: { after: 90, line: 300 },
+          indent: { left: 240, hanging: 240 }
+        });
+      };
+
+      const negBullet = (s) => bullet(s, null, '×', C.red);
+      const posBullet = (s) => bullet(s, null, '✓', C.green);
+
+      // ─── Helpers de tabla ─────────────────────────────────────
+      const cell = (children, opts = {}) => new TableCell({
+        children: Array.isArray(children) ? children : [children],
+        margins: { top: 140, bottom: 140, left: 180, right: 180 },
+        shading: opts.shading,
+        width: opts.width,
+        columnSpan: opts.columnSpan,
+        verticalAlign: opts.verticalAlign || VerticalAlign.CENTER
+      });
+
+      const headerCell = (s) => cell([new Paragraph({
+        children: [t(s, { bold: true, color: 'FFFFFF', size: 18, allCaps: true, characterSpacing: 30 })],
+        alignment: AlignmentType.CENTER
+      })], { shading: { fill: C.deep } });
+
+      const dataCell = (s, opts = {}) => cell([new Paragraph({
+        children: [t(s, { size: 22, color: opts.brand ? C.brand : C.body, bold: opts.bold })],
+        alignment: opts.align || AlignmentType.CENTER
+      })], { shading: opts.shading });
+
+      // ─── Tarjeta de precio (helper de contenido) ───────────────
+      const pricingCard = (badge, titulo, precio, sub, items, popular = false) => {
+        const fill = popular ? C.tint : 'FFFFFF';
+        const borderSize = popular ? 16 : 6;
+        const borderColor = popular ? C.brand : C.rule;
+        return new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            bottom: { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            left:   { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            right:  { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [cell([
+            p([t(badge, { bold: true, size: 16, color: popular ? C.brand : C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+            p([t(titulo, { bold: true, size: 28, color: C.deep })], { spacing: { after: 120, line: 320 } }),
+            p([t(precio, { bold: true, size: 56, color: C.brand })], { spacing: { after: 40, line: 480 } }),
+            p([t(sub, { italic: true, size: 18, color: C.soft })], { spacing: { after: 220 } }),
+            ...items.map(i => bullet(i, null, '✓', C.brand))
+          ], { shading: { fill }, verticalAlign: VerticalAlign.TOP })]})]
+        });
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // PORTADA
+      // ═══════════════════════════════════════════════════════════
+      const cover = [
+        new Paragraph({
+          children: [new ImageRun({ type: 'png', data: logoBuf, transformation: { width: 200, height: 67 } })],
+          spacing: { after: 480 }
+        }),
+        eyebrow('Propuesta Comercial   ·   ARK-NAN-2026-001'),
+        title('Tu nueva página web, tu mejor carta de presentación'),
+        body('Reconstruimos tu página de aire acondicionado y climatización con tecnología moderna: la misma esencia de la que tenías, pero más rápida, más segura y con mejor presencia. Una carta de presentación digital para mostrar quién eres y todo lo que haces.'),
+        blank(320),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            bottom: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            left: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+            insideVertical: { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+          },
+          rows: [
+            new TableRow({ children: [
+              cell([
+                p([t('Cliente', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Nancy', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('HVAC · Aire Acondicionado · Climatización Nacional', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
+              cell([
+                p([t('Proyecto', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Página web informativa', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Carta de presentación', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
+            ]}),
+            new TableRow({ children: [
+              cell([
+                p([t('Emisión', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('23 de junio de 2026', { size: 22, color: C.body })])
+              ]),
+              cell([
+                p([t('Validez', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('15 días desde la emisión', { size: 22, color: C.body })])
+              ])
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // TUS DOS OPCIONES
+      // ═══════════════════════════════════════════════════════════
+      const pricing = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Tus dos opciones'),
+        body('Dos formas de tener tu carta de presentación digital. La Opción 2 es la recomendada: es la misma página, pero con presencia en Google para que tu negocio sea fácil de encontrar.'),
+        blank(180),
+
+        pricingCard('Opción 1', 'Tu página, tal cual la quieres', 'S/ 600', 'Tu web completa · con tu dominio conectado', [
+          'Todas las secciones de tu página: inicio, quiénes somos, propósito, servicios y galería de trabajos.',
+          'Formulario de contacto que te llega a tu correo.',
+          'Botón de WhatsApp para que te contacten directo.',
+          'Se ve perfecta en celular y en computadora.',
+          'La publico y conecto tu dominio.',
+          '2 rondas de ajustes incluidas.',
+          'Tiempo de entrega: aprox. 1 semana.'
+        ]),
+        blank(180),
+        pricingCard('Opción 2  ·  Recomendado', 'Que te encuentren fácilmente', 'S/ 1,000', 'Tu página + presencia en Google', [
+          'Todo lo de la Opción 1.',
+          'Apareces en el mapa de Google con tus fotos, horario y botón para llamarte o escribirte.',
+          'Tu página lista para que Google la muestre cuando busquen tus servicios.',
+          'Botón de WhatsApp visible en toda la página, con el mensaje ya armado.',
+          'Carga rápida en el celular, que es donde entra la mayoría.',
+          'Reporte mensual de cuánta gente entró a tu página.',
+          'Tiempo de entrega: aprox. 1 a 2 semanas.'
+        ], true),
+        blank(120),
+        p([t('La diferencia: las dos te dan la misma página. La Opción 2 añade presencia —deja tu negocio ubicable en Google, en el mapa y en las búsquedas, con tu contacto a un toque. Aparecer en el mapa de Google sí se logra; subir al primer lugar depende de muchos factores y toma tiempo, por eso no lo prometemos.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // QUÉ INCLUYE TU PÁGINA
+      // ═══════════════════════════════════════════════════════════
+      const incluye = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Qué incluye tu página'),
+        body('Las secciones de tu página, igual que la que tenías antes. Esto va en ambas opciones.'),
+        blank(120),
+        bullet('Tu mensaje principal y un botón para pedir cotización.', 'Portada'),
+        bullet('Tu historia, tu experiencia y por qué confiar en ti.', '¿Quiénes somos?'),
+        bullet('Lo que representa tu empresa, presentado de forma profesional.', 'Propósito · Misión y Visión'),
+        bullet('Residencial, comercial, industrial, mantenimiento, ventilación mecánica y más.', 'Servicios'),
+        bullet('Tus proyectos con fotos, para que se vea todo lo que ya has hecho.', 'Galería de trabajos'),
+        bullet('Tus datos (dirección, correo, teléfono), formulario y WhatsApp.', 'Contacto')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // LO QUE NO INCLUYE
+      // ═══════════════════════════════════════════════════════════
+      const noIncluye = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Lo que NO incluye'),
+        body('Para que quede todo claro desde el inicio. Cualquiera de estos se puede cotizar aparte si lo necesitas.'),
+        blank(120),
+        negBullet('Tienda online o pagos por la página.'),
+        negBullet('Sistema de reservas, citas o pedidos en línea.'),
+        negBullet('Panel para que edites tú misma la página (se puede agregar — solo avísame).'),
+        negBullet('Redacción de los textos desde cero (los textos los pasas tú; si quieres que los escriba yo, se cotiza aparte).'),
+        negBullet('Fotos profesionales (las fotos de tus trabajos las pasas tú).'),
+        negBullet('Posicionamiento mensual continuo en Google (es un plan de mantenimiento aparte).'),
+        negBullet('Dominio nuevo si aún no tienes uno (el dominio tiene un costo anual aparte).')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // HOSTING, DOMINIO Y MANTENIMIENTO
+      // ═══════════════════════════════════════════════════════════
+      const hosting = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Hosting, dominio y mantenimiento'),
+        body('Lo que pasa después de publicar tu página.'),
+        blank(120),
+        bullet('El lugar donde vive tu página está incluido el primer año, sin costo extra. Me encargo de mantenerla en línea.', 'Hosting (incluido 1er año)'),
+        bullet('Tu dirección web (ej. tudominio.com) se renueva una vez al año. Si ya tienes dominio, lo conectamos.', 'Dominio (anual)'),
+        bullet('Si más adelante quieres cambios seguidos (fotos, textos, precios), tomamos un plan mensual. Los cambios sueltos se cotizan al momento.', 'Mantenimiento (opcional)')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // RESUMEN + CÓMO TRABAJAMOS + PAGO + GARANTÍA
+      // ═══════════════════════════════════════════════════════════
+      const resumenTable = new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top:    { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          bottom: { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          left:   { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          right:  { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+          insideVertical:   { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+        },
+        rows: [
+          new TableRow({ tableHeader: true, children: [headerCell('Opción'), headerCell('Página completa'), headerCell('Google + WhatsApp'), headerCell('Reporte'), headerCell('Total')] }),
+          new TableRow({ children: [
+            dataCell('Opción 1 · Tu página', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Sí'), dataCell('—'), dataCell('—'),
+            dataCell('S/ 600', { brand: true, bold: true })
+          ]}),
+          new TableRow({ children: [
+            dataCell('Opción 2 · Recomendado', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+            dataCell('Sí', { shading: { fill: C.tint } }),
+            dataCell('Sí', { shading: { fill: C.tint } }),
+            dataCell('Sí', { shading: { fill: C.tint } }),
+            dataCell('S/ 1,000', { brand: true, bold: true, shading: { fill: C.tint } })
+          ]})
+        ]
+      });
+
+      const resumen = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Resumen'),
+        body('Una página profesional como esta suele cobrarse entre S/ 900 y S/ 1,800 en el mercado. Estos son los precios de Árkos para tu proyecto.'),
+        blank(160),
+        resumenTable,
+        blank(280),
+        h3('Cómo trabajamos'),
+        bullet('Eliges la opción, me pasas tus logos, fotos y datos, y arrancamos.', 'Paso 1 · Confirmamos'),
+        bullet('Armo tu página y te la enseño para que la veas antes de publicar.', 'Paso 2 · Te muestro un avance'),
+        bullet('Me dices qué cambiar y lo dejo a tu gusto (2 rondas de ajustes).', 'Paso 3 · Ajustes'),
+        bullet('Conecto tu dominio y tu página queda en línea, funcionando.', 'Paso 4 · Publico'),
+        blank(120),
+        h3('Forma de pago'),
+        body('50% para empezar y 50% al entregar tu página funcionando. Se emite Recibo por Honorarios si lo necesitas.'),
+        h3('Garantía'),
+        body('15 días después de la entrega para corregir cualquier detalle sin costo. Tu página queda lista y operativa.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ACEPTACIÓN / FIRMAS
+      // ═══════════════════════════════════════════════════════════
+      const firmas = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Aceptación de la Propuesta'),
+        body('La aceptación de esta propuesta confirma las condiciones, el alcance y los montos descritos. La propuesta tiene una validez de 15 días desde su fecha de emisión.'),
+        blank(640),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            bottom: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            left:   { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right:  { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Nancy', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('HVAC · Climatización Nacional', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ])
+          ]})]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ENCABEZADO + PIE GLOBAL
+      // ═══════════════════════════════════════════════════════════
+      const docHeader = new Header({
+        children: [new Paragraph({
+          children: [
+            new ImageRun({ type: 'png', data: isoBuf, transformation: { width: 22, height: 22 } }),
+            t('   Árkos  ·  Propuesta ARK-NAN-2026-001  ·  HVAC Climatización Nacional', { size: 16, color: C.soft, characterSpacing: 10 })
+          ],
+          spacing: { after: 60 },
+          border: { bottom: { color: C.rule, size: 4, space: 4, style: BorderStyle.SINGLE } }
+        })]
+      });
+
+      const docFooter = new Footer({
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [
+            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('rodrigoan.torresp@gmail.com', { size: 16, color: C.brand, bold: true }),
+            t('   ·   +51 961 869 348   ·   Trujillo, Perú   ·   Página ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
+            t(' de ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: C.soft, font: 'Calibri' })
+          ]
+        })]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // DOCUMENTO FINAL
+      // ═══════════════════════════════════════════════════════════
+      const doc = new Document({
+        creator: 'Árkos',
+        title: 'Propuesta Árkos · HVAC Climatización Nacional',
+        description: 'Propuesta comercial para página web — HVAC Climatización Nacional',
+        styles: {
+          default: {
+            document: { run: { font: 'Calibri', size: 22, color: C.body } }
+          }
+        },
+        sections: [{
+          properties: {
+            page: { margin: { top: 1100, right: 1000, bottom: 1200, left: 1000 } }
+          },
+          headers: { default: docHeader },
+          footers: { default: docFooter },
+          children: [
+            ...cover,
+            ...pricing,
+            ...incluye,
+            ...noIncluye,
+            ...hosting,
+            ...resumen,
+            ...firmas
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Propuesta-Arkos-Nancy-HVAC.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+    }
+  </script>
+</body>
+</html>
