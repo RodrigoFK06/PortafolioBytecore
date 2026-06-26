@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "¿Cuánto cuesta un ERP, CRM o SaaS a medida?",
-    a: "Un sistema a medida (ERP, CRM, PMS o SaaS) parte de S/ 13,000 (USD 3,500) y se cotiza por alcance, según los módulos que necesites. Construimos sistemas como Megalodon Pro (ERP de restaurantes) u OrquestadorADM (PMS hotelero con revenue management).",
+    a: "Un sistema a medida (ERP, CRM, PMS o SaaS) parte de S/ 13,000 (USD 3,500) y se cotiza por alcance, según los módulos que necesites. Construimos sistemas como RestHUB (ERP de restaurantes) u OrquestadorADM (PMS hotelero con revenue management).",
   },
   {
     q: "¿Por qué el software a medida cuesta más que una plantilla?",

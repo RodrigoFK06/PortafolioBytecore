@@ -72,7 +72,7 @@ Cuando una idea necesita salir al mercado rápido para validarse, construimos un
 
 Sistemas y plataformas empresariales que se construyen cuando los genéricos no encajan: ERPs, CRMs, PMS hoteleros, sistemas de gestión clínica, SaaS y dashboards, diseñados desde la operación real y construidos con React, Next.js y TypeScript.
 
-- **Megalodon Pro:** ERP integral para restaurantes con 6 módulos en un solo panel —Dashboard (KPIs multi-local y multi-turno), Ventas/POS con mapa visual de mesas, Inventario con alertas de stock y recetas, Cocina/KDS tipo Kanban, RRHH y Finanzas—. Next.js, React, TypeScript, Tailwind, Radix UI y SWR; localizado en soles (S/.).
+- **RestHUB:** ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema, con una pantalla optimizada por cada rol (mesero, cocina, caja) y una landing premium pensada para Latinoamérica. Next.js, React, TypeScript y Tailwind.
 - **VR PMS:** Property Management System a medida para alquileres vacacionales, alternativa económica a Guesty/Hostaway, con 5 módulos (Dashboard, Schedule tipo Gantt, Bookings, Properties y Guests) y calendario custom sin librería externa. Next.js, React, TypeScript, Tailwind y shadcn/ui. URL: https://overbookingsol.vercel.app/
 - **OrquestadorADM:** sistema de gestión hotelera PMS + RMS con Revenue Management avanzado —forecasting, análisis What-If, precios dinámicos y analítica diaria granular—. React, Next.js, PostgreSQL, TypeScript y Tailwind. URL: https://orquestador-adm.vercel.app
 - **ATELIER Clinic:** SaaS premium para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso y dashboard médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. URL: https://atelier-seven-beta.vercel.app/
@@ -92,7 +92,7 @@ El portafolio refleja esa especialización por sector:
 
 - **Clínicas y salud:** SaaS con portales de paciente y doctor (ATELIER Clinic).
 - **Hoteles y alquileres vacacionales:** PMS y Revenue Management a medida (VR PMS, OrquestadorADM).
-- **Restaurantes:** ERP integral de gestión gastronómica (Megalodon Pro).
+- **Restaurantes:** ERP integral de gestión gastronómica (RestHUB).
 - **Comercios y retail:** e-commerce con pagos en soles y factura electrónica (ReLu Coffee).
 - **Servicios técnicos:** CRM enfocado y landing de captación (Solutec System y Solutec DHA).
 - **Productoras, eventos y profesionales:** sitios corporativos y landings de alta conversión (Ñawi Producciones, II Simposio Veterinario Internacional 2026).

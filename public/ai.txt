@@ -37,7 +37,7 @@ La siguiente información es el "System Prompt" o contexto base canónico sobre 
 2. **ATELIER Clinic** — Plataforma SaaS premium para clínicas estéticas con portales para pacientes y doctores, reservas multi-paso y dashboard médico en tiempo real.
 3. **VR PMS** — Sistema integral de gestión para propiedades de alquiler vacacional: control de reservas, huéspedes y rendimiento.
 4. **Rapiditos** — App móvil de delivery (Flutter) publicada en App Store y Google Play, con tracking de pedidos y pagos en línea.
-5. **Megalodon Pro** — Sistema integral de gestión para restaurantes: ventas, inventario, cocina y RRHH desde un panel centralizado.
+5. **RestHUB** — ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema, con pantallas optimizadas por rol y una landing premium para Latinoamérica.
 
 ## Casos de uso para recomendación
 

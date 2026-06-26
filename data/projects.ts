@@ -1,3 +1,36 @@
+/** Prueba del caso: demo en vivo, capturas y/o testimonio. */
+export interface CaseProof {
+  /** Demo en vivo / ficha de store. Si se omite, se usa `Project.link`. */
+  liveUrl?: string
+  /** Capturas. Si se omite, se usa `[Project.imageSrc]`. */
+  images?: string[]
+  /** Testimonio de cliente (1 línea basta). NUNCA inventar. */
+  testimonial?: { quote: string; author: string; role?: string }
+}
+
+/**
+ * Narrativa del caso de estudio (todo opcional). Cuando está presente,
+ * /portfolio/[slug] renderiza la plantilla completa:
+ * contexto → problema → criterio → qué construimos → resultado → prueba.
+ * Regla dura: nunca inventar métricas ni nombres de cliente — los provee Rodrigo.
+ */
+export interface CaseStudy {
+  /** Contexto: rubro/tamaño del cliente y situación de partida. */
+  context?: string
+  /** El problema en términos de negocio (no técnicos): qué estaba roto y su costo. */
+  problem?: string
+  /** La decisión / el criterio, en 1ª persona (voz de Rodrigo). El diferenciador. */
+  decision?: string
+  /** Qué construimos (breve; el stack va en `tags`). Si se omite, se usa `description`. */
+  built?: string
+  /** El resultado: métrica real o resultado cualitativo concreto. NUNCA inventar. */
+  result?: string
+  /** La prueba: demo, capturas, testimonio. */
+  proof?: CaseProof
+  /** CTA específico al problema de este caso. */
+  cta?: string
+}
+
 export interface Project {
   id: number
   title: string
@@ -8,14 +41,53 @@ export interface Project {
   githubLink?: string
   category: string
   featured?: boolean
+  // ── Campos de caso de estudio (opcionales) ──────────────────────────────
+  /** Cliente real (si hay permiso). Si hay NDA, usar `clientType`. */
+  client?: string
+  /** Perfil del cliente bajo NDA: "una cadena hotelera de lujo de N propiedades". */
+  clientType?: string
+  year?: string
+  location?: string
+  /** Servicios prestados en este proyecto (para el sidebar de detalles). */
+  services?: string[]
+  /** Narrativa del caso de estudio. */
+  caseStudy?: CaseStudy
 }
 
+/*
+ * Cómo enriquecer un proyecto a caso de estudio completo. Rellena los
+ * [corchetes] con datos REALES (no inventar métricas ni nombres de cliente);
+ * lo que omitas simplemente no se renderiza. Ejemplo sobre RestHUB (id 19):
+ *
+ *   client: "[Nombre del cliente, o usa clientType si hay NDA]",
+ *   clientType: "[p. ej. una cadena de 3 restaurantes en Lima]",
+ *   year: "2025",
+ *   location: "[ciudad / país]",
+ *   services: ["ERP a medida", "POS", "Diseño UX/UI"],
+ *   caseStudy: {
+ *     context: "[quién es el cliente, su tamaño/rubro y cómo operaba antes]",
+ *     problem: "[qué estaba roto en términos de negocio + su costo: horas, plata, errores]",
+ *     decision: "[1ª persona: por qué este enfoque y no el obvio; qué descartaste y por qué]",
+ *     built: "[qué construimos, breve]",
+ *     result: "[métrica real o resultado cualitativo concreto — NUNCA inventes números]",
+ *     proof: {
+ *       liveUrl: "https://rest-hub-landing.vercel.app/",
+ *       images: ["/resthub.png"],
+ *       testimonial: { quote: "[1 línea del cliente]", author: "[nombre]", role: "[cargo]" },
+ *     },
+ *     cta: "¿Tu restaurante opera a ciegas entre POS, cocina y caja? Conversemos.",
+ *   },
+ */
+
 /**
- * Orden curado: los primeros 9 proyectos son los que se muestran en la home.
+ * Orden curado: los primeros 8 proyectos son los que se muestran en la home.
  * Priorizamos sistemas B2B / software empresarial (PMS, ERP, SaaS) sobre
  * landings y proyectos de marca, porque son los que justifican que una empresa
  * nos confíe un sistema crítico. Las landings y proyectos más livianos viven
  * en /portfolio detrás de "Ver todos los proyectos".
+ *
+ * Nota: el sistema de restaurante oficial es RestHUB (id 19); Megalodon Pro
+ * se consolidó en él y se retiró del portafolio para no duplicar el rubro.
  */
 export const projects: Project[] = [
   {
@@ -39,16 +111,6 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 16,
-    title: "Megalodon Pro",
-    description:
-      "Sistema integral de gestión para restaurantes: ventas, inventario, cocina y RRHH desde un panel centralizado. Pensado para cadenas y restaurantes que necesitan dejar de operar con hojas Excel y tener visibilidad en tiempo real de cada local.",
-    tags: ["React", "Next.js", "Dashboard", "POS"],
-    imageSrc: "/v0-app.png",
-    link: "https://megalodon-blue.vercel.app/",
-    category: "web",
-  },
-  {
     id: 19,
     title: "RestHUB",
     description:
@@ -57,6 +119,24 @@ export const projects: Project[] = [
     imageSrc: "/resthub.png",
     link: "https://rest-hub-landing.vercel.app/",
     category: "web",
+    year: "2025",
+    caseStudy: {
+      built:
+        "Un ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol —mesa, cocina, caja— opera con su propia pantalla optimizada, sin módulos sueltos que integrar ni costuras entre piezas.",
+      proof: {
+        liveUrl: "https://rest-hub-landing.vercel.app/",
+        images: ["/resthub.png"],
+      },
+      cta: "¿Tu restaurante opera a ciegas entre POS, cocina y caja? Conversemos.",
+      context:
+        "RestHUB nació para un restaurante independiente peruano que crece operando casi todo en papel, sin un sistema que conecte venta, cocina, caja y finanzas — y para el que los ERP del mercado son inalcanzables. El primer piloto fue un restaurante de Trujillo en exactamente esa situación.",
+      problem:
+        "Vivían a ciegas: comandas y registros en papel, caja que no cuadraba y casi ningún control de las finanzas. El software que lo arregla existe, pero la competencia cobraba del orden de S/ 2,000 al mes — inviable para un restaurante independiente. La trampa: o sigues en papel, o pagas precios enterprise que te ahogan.",
+      decision:
+        "Decidí construir el sistema completo —POS, cocina, caja y contabilidad en uno— en vez de vender un módulo suelto o integrar piezas de terceros. El criterio fue simple: si la competencia cobra ~S/ 2,000 al mes y ningún negocio real puede pagar eso, la única solución que vale es la que resuelve toda la operación a un precio que una pyme peruana sí pueda sostener. Por eso RestHUB es todo-en-uno, no una integración cara de partes.",
+      result:
+        "En el piloto, RestHUB los sacó del papel y les dio por primera vez control real de su caja y su operación —reduciendo el tiempo de toma de pedidos casi 60% y el cierre de caja de 45 a 5 minutos— a una fracción del costo de los sistemas enterprise. Validó la tesis: un ERP de restaurante completo, al precio de una pyme peruana, funciona.",
+    },
   },
   {
     id: 11,
@@ -109,6 +189,26 @@ export const projects: Project[] = [
     category: "web",
   },
   // ↓ Proyectos secundarios — visibles en /portfolio pero no en la home
+  {
+    id: 21,
+    title: "FacturArkos",
+    description:
+      "Facturación electrónica + POS para Mypes del Perú: emite boletas y facturas aceptadas por SUNAT, vende desde el punto de venta, controla inventario y abre tu tienda online — todo en un solo lugar, sin instalación y desde celular, tablet o PC. Producto propio de Árkos.",
+    tags: ["Next.js", "React", "TypeScript", "SUNAT", "POS", "SaaS"],
+    imageSrc: "/facturarkos.png",
+    link: "https://facturarkos-web.vercel.app",
+    category: "web",
+  },
+  {
+    id: 22,
+    title: "CalzaFlow",
+    description:
+      "ERP especializado para la fabricación de calzado, pensado para que talleres y fábricas optimicen su producción desde un solo panel. Vertical de verdad, no un sistema genérico adaptado a la fuerza.",
+    tags: ["Next.js", "React", "TypeScript", "ERP"],
+    imageSrc: "/calzaflow.png",
+    link: "https://calzaflow.vercel.app",
+    category: "web",
+  },
   {
     id: 17,
     title: "Copperline Garage",

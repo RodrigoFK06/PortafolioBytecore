@@ -68,6 +68,16 @@ const nextConfig = {
       },
     ]
   },
+  // Redirect 301: el piloto "Megalodon" se consolidó en el producto RestHUB.
+  async redirects() {
+    return [
+      {
+        source: '/blog/megalodon-pro-erp-restaurantes-nextjs',
+        destination: '/portfolio/19',
+        permanent: true,
+      },
+    ]
+  },
   // Configuración de compresión
   compress: true,
 

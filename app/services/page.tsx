@@ -15,7 +15,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Por qué contratar software a medida en lugar de un sistema enlatado o una plantilla?",
-    a: "El software a medida se construye desde tu operación real, no desde una plantilla genérica que te obliga a adaptar tu negocio al sistema. Árkos diseña ERPs, CRMs y PMS cuando los sistemas enlatados no encajan, como Megalodon Pro (ERP para restaurantes) o VR PMS para alquileres vacacionales, alternativa económica a Guesty u Hostaway.",
+    a: "El software a medida se construye desde tu operación real, no desde una plantilla genérica que te obliga a adaptar tu negocio al sistema. Árkos diseña ERPs, CRMs y PMS cuando los sistemas enlatados no encajan, como RestHUB (ERP para restaurantes) o VR PMS para alquileres vacacionales, alternativa económica a Guesty u Hostaway.",
   },
   {
     q: "¿Conviene un software a medida si mi PYME es pequeña y recién empieza?",
@@ -35,7 +35,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Cuánto tarda en desarrollarse un proyecto con Árkos?",
-    a: "El plazo depende del alcance: una landing de alta conversión no toma lo mismo que un ERP con varios módulos como Megalodon Pro o un PMS como OrquestadorADM. Un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.",
+    a: "El plazo depende del alcance: una landing de alta conversión no toma lo mismo que un ERP con varios módulos como RestHUB o un PMS como OrquestadorADM. Un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.",
   },
   {
     q: "¿Cómo es el proceso de trabajo desde que los contacto hasta la entrega?",
@@ -47,7 +47,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Tienen experiencia en mi sector y proyectos reales?",
-    a: "Sí. Árkos ha desarrollado para varios rubros: restaurantes (Megalodon Pro), hotelería y alquiler vacacional (VR PMS, OrquestadorADM), clínicas estéticas (ATELIER Clinic), servicio técnico (Solutec System y su landing Solutec DHA), delivery (Rapiditos, en App Store y Google Play) y audiovisual (Ñawi Producciones).",
+    a: "Sí. Árkos ha desarrollado para varios rubros: restaurantes (RestHUB), hotelería y alquiler vacacional (VR PMS, OrquestadorADM), clínicas estéticas (ATELIER Clinic), servicio técnico (Solutec System y su landing Solutec DHA), delivery (Rapiditos, en App Store y Google Play) y audiovisual (Ñawi Producciones).",
   },
 ];
 

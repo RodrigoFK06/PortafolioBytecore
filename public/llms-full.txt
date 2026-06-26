@@ -83,11 +83,11 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 - **Stack:** Next.js, React, TypeScript, Tailwind CSS, Supabase
 - **URL:** https://atelier-seven-beta.vercel.app/
 
-### 4.3 Megalodon Pro — Gestión de Restaurantes
-- **Tipo:** Sistema integral de gestión
-- **Características:** Control de ventas, inventario, cocina y recursos humanos desde un panel centralizado.
-- **Stack:** React, Next.js, Dashboard, POS
-- **URL:** https://megalodon-blue.vercel.app/
+### 4.3 RestHUB — ERP para Restaurantes
+- **Tipo:** ERP integral para restaurantes
+- **Características:** Unifica POS, cocina, caja y contabilidad en un solo sistema; cada rol opera con su propia pantalla optimizada, con una landing premium pensada para Latinoamérica.
+- **Stack:** Next.js, React, Tailwind CSS, TypeScript, ERP
+- **URL:** https://rest-hub-landing.vercel.app/
 
 ### 4.4 Ñawi — Productora Audiovisual
 - **Tipo:** Sitio web corporativo

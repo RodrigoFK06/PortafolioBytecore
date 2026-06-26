@@ -5,13 +5,15 @@ import { HeroSection } from "./sections/HeroSection"
 import { AboutSection } from "./sections/AboutSection"
 import { ServicesSection } from "./sections/ServicesSection"
 import TechnologiesSection from "./sections/TechnologiesSection"
-import type { Testimonial } from "./sections/TestimonialsSection"
+import ProjectsSection from "./sections/ProjectsSection"
+import ProcessSection from "./sections/ProcessSection"
+import ContactSection from "./sections/ContactSection"
+import TestimonialsSection, { type Testimonial } from "./sections/TestimonialsSection"
 
-// 🔹 Dynamic imports para mejorar rendimiento y evitar enviar JS innecesario al cliente
-const ProjectsSection = dynamic(() => import("./sections/ProjectsSection"), { ssr: false })
-const TestimonialsSection = dynamic(() => import("./sections/TestimonialsSection"), { ssr: false })
-const ProcessSection = dynamic(() => import("./sections/ProcessSection"), { ssr: false })
-const ContactSection = dynamic(() => import("./sections/ContactSection"), { ssr: false })
+// 🔹 Estas secciones se renderizan en el servidor (SSR) para que su contenido
+//    —proyectos, testimonios, proceso y datos de contacto— exista en el HTML
+//    inicial y sea indexable por buscadores y citable por motores de IA (AEO).
+//    Solo el dock flotante (UI puramente de cliente) se carga de forma diferida.
 const FloatingDock = dynamic(() => import("./floating-dock"), { ssr: false })
 
 

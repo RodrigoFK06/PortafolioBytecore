@@ -3,25 +3,26 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ExternalLink, Github } from "lucide-react"
+import { ArrowRight, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ProjectCardProps {
+  id: number
   title: string
   description: string
   tags: string[]
   imageSrc: string
-  link: string
+  link?: string
   githubLink?: string
   delay?: number
 }
 
 export function ProjectCard({
+  id,
   title,
   description,
   tags = [], // Provide default empty array
   imageSrc,
-  link,
   githubLink,
   delay = 0,
 }: ProjectCardProps) {
@@ -61,19 +62,15 @@ export function ProjectCard({
               ))}
           </div>
           <div className="flex gap-3 mt-auto relative z-10">
-            {link && (
-              <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
-                <Link
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center font-medium"
-                >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  Visitar
-                </Link>
-              </Button>
-            )}
+            <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
+              <Link
+                href={`/portfolio/${id}`}
+                className="flex items-center justify-center font-medium"
+              >
+                Ver caso
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
             {githubLink && (
               <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
                 <Link
@@ -93,4 +90,3 @@ export function ProjectCard({
     </motion.div>
   )
 }
-

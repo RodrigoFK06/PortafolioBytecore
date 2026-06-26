@@ -74,6 +74,7 @@ export default function ProjectsPage() {
             {displayedProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
+                id={project.id}
                 title={project.title}
                 description={project.description}
                 tags={project.tags}
