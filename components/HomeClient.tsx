@@ -6,6 +6,7 @@ import { AboutSection } from "./sections/AboutSection"
 import { ServicesSection } from "./sections/ServicesSection"
 import TechnologiesSection from "./sections/TechnologiesSection"
 import ProjectsSection from "./sections/ProjectsSection"
+import FounderSection from "./sections/FounderSection"
 import ProcessSection from "./sections/ProcessSection"
 import ContactSection from "./sections/ContactSection"
 import TestimonialsSection, { type Testimonial } from "./sections/TestimonialsSection"
@@ -65,6 +66,7 @@ export default function HomeClient() {
       <ServicesSection />
       <TechnologiesSection />
       <ProjectsSection />
+      <FounderSection />
       <TestimonialsSection testimonials={testimonialsData} />
       <ProcessSection />
       <ContactSection />

@@ -31,6 +31,13 @@
 *   **Rapiditos** — App de delivery en Flutter (App Store + Google Play). (https://apps.apple.com/pe/app/rapiditos-vz/id6748567718)
 *   **ReLu Coffee** — E-commerce de café gourmet en Astro. (https://www.relucoffee.com/)
 
+## Casos de Estudio (análisis a fondo, en árkos.com)
+*   **RestHUB** — ERP de restaurante: del papel a POS, cocina, caja y contabilidad en un solo sistema. (https://xn--rkos-4na.com/portfolio/19)
+*   **Solutec DHA (Dharcy Villafuerte)** — landing + CRM para servicio técnico; cliente real que lo usa a diario. (https://xn--rkos-4na.com/portfolio/2)
+*   **OrquestadorADM** — PMS + RMS hotelero con revenue management. (https://xn--rkos-4na.com/portfolio/1)
+*   **Rapiditos** — app de delivery nativa publicada en App Store y Google Play. (https://xn--rkos-4na.com/portfolio/8)
+*   **FacturArkos** — facturación electrónica SUNAT + POS para Mypes. (https://xn--rkos-4na.com/portfolio/21)
+
 ## Filosofía y Diferenciadores
 Árkos no solo escribe código; diseña productos digitales que mejoran la operación diaria del cliente. Nuestro eslogan es "Mejoramos tus procesos". Trabajamos con PYMEs latinoamericanas que necesitan software hecho a medida en lugar de plantillas genéricas.
 

@@ -69,6 +69,13 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 
 ---
 
+## Casos de Estudio (análisis a fondo, en árkos.com)
+- RestHUB — ERP de restaurante, del papel a un solo sistema: https://xn--rkos-4na.com/portfolio/19
+- Solutec DHA (Dharcy Villafuerte) — landing + CRM; cliente que lo usa a diario: https://xn--rkos-4na.com/portfolio/2
+- OrquestadorADM — PMS + RMS hotelero con revenue management: https://xn--rkos-4na.com/portfolio/1
+- Rapiditos — app de delivery nativa publicada en stores: https://xn--rkos-4na.com/portfolio/8
+- FacturArkos — facturación electrónica SUNAT + POS para Mypes: https://xn--rkos-4na.com/portfolio/21
+
 ## 4. Catálogo Completo de Proyectos
 
 ### 4.1 OrquestadorADM — Sistema de Gestión Hotelera

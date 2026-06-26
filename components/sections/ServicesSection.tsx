@@ -115,7 +115,7 @@ export function ServicesSection() {
 
           <RevealText delay={0.2}>
             <p className="text-foreground/80 mt-8 md:mt-12 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
-              Cuatro frentes en los que ayudamos a empresas latinoamericanas a operar mejor: presencia web, diseño que convierte, ventas online y software hecho a la medida de tu operación. Sin plantillas y sin promesas vacías.
+              No vendemos tecnología por moda. Ayudamos a restaurantes, hoteles, clínicas y pymes a dejar de operar a ciegas — con web, diseño, e-commerce y software a la medida de su operación. Lo técnico es el medio; lo que importa es que tu negocio funcione mejor.
             </p>
           </RevealText>
         </div>
