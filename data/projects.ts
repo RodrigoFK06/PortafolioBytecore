@@ -200,16 +200,6 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: 22,
-    title: "CalzaFlow",
-    description:
-      "ERP especializado para la fabricación de calzado, pensado para que talleres y fábricas optimicen su producción desde un solo panel. Vertical de verdad, no un sistema genérico adaptado a la fuerza.",
-    tags: ["Next.js", "React", "TypeScript", "ERP"],
-    imageSrc: "/calzaflow.png",
-    link: "https://calzaflow.vercel.app",
-    category: "web",
-  },
-  {
     id: 17,
     title: "Copperline Garage",
     description:
@@ -318,6 +308,33 @@ export const projects: Project[] = [
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
     category: "web",
+    client: "Dharcy Villafuerte",
+    year: "2026",
+    location: "Lima, Perú",
+    services: ["Landing premium", "Sistema de gestión de clientes", "Diseño UX/UI"],
+    caseStudy: {
+      context:
+        "Dharcy Villafuerte lidera un servicio técnico a domicilio de reparación de electrodomésticos en Lima y atiende a más de 2,500 clientes — toda esa relación vivía en WhatsApp, de tú a tú. Su marca era cercana; su miedo, que una web la hiciera ver fría o corporativa.",
+      problem:
+        "Crecer le exigía verse profesional sin perder lo que la hizo crecer: la cercanía. Y necesitaba ordenar una cartera de miles de clientes que solo existía en chats sueltos, sin forma real de hacerle seguimiento.",
+      decision:
+        "Mi criterio fue no imponerle una identidad corporativa que la traicionara: su negocio se sostiene en el trato cercano. Construí una web que la hace ver profesional al primer clic pero conserva su voz —conversaciones reales de WhatsApp, tono cálido— y, detrás, un sistema que ordena su cartera sin obligarla a cambiar cómo trata a su gente. La tecnología se adaptó a ella, no al revés.",
+      built:
+        "Una landing premium (galería de trabajos, formulario de diagnóstico sin compromiso, CTAs directos a contacto) conectada a un sistema de gestión de clientes que captura los leads de WhatsApp y los administra de punta a punta.",
+      result:
+        "Es el sistema mejor valuado de Árkos y el de uso más constante: Dharcy lo sigue usando hoy para operar su servicio técnico, sin haber dudado ni fallado en el camino. Luce profesional al primer clic, pero quien le escribe sigue encontrándose con la misma Dharcy de siempre.",
+      proof: {
+        liveUrl: "https://www.solutecdha.com",
+        images: ["/solutecdha.png"],
+        testimonial: {
+          quote:
+            "Atiendo a más de 2,500 clientes en Lima desde WhatsApp y mi marca siempre fue cercana, casi de tú a tú. Mi miedo era que una web me hiciera ver fría o corporativa de más. El equipo logró lo contrario: ahora luzco profesional al primer clic, pero quien me escribe sigue encontrándose con la misma Dharcy de siempre.",
+          author: "Dharcy Villafuerte",
+          role: "Fundadora y Gerente, Solutec DHA",
+        },
+      },
+      cta: "¿Tu negocio vive en WhatsApp y quieres verte profesional sin perder cercanía? Conversemos.",
+    },
   },
 ];
 
