@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Linkedin, Github } from "lucide-react"
 import { RevealText } from "@/components/gsap-reveal"
@@ -32,9 +33,6 @@ export default function FounderSection() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
         <div className="max-w-4xl relative text-left mb-12 md:mb-16">
           {/* Anotación Marginal */}
-          <div className="absolute -top-10 left-0 md:-left-4 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-1">
-             // Quién está detrás_
-          </div>
 
           <RevealText
             as="h2"
@@ -47,12 +45,15 @@ export default function FounderSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16 items-start">
           {/* Avatar + identidad */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            {/* TODO: reemplazar este avatar de iniciales por la foto real de Rodrigo. */}
-            <div
-              className="w-40 h-40 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-6"
-              aria-label="Rodrigo Torres"
-            >
-              <span className="font-black text-5xl text-brand tracking-tighter">RT</span>
+            <div className="relative w-44 h-52 rounded-2xl overflow-hidden border border-border mb-6">
+              <Image
+                src="/rodrigo-torres.png"
+                alt="Rodrigo Torres, fundador de Árkos"
+                fill
+                sizes="176px"
+                className="object-cover object-[50%_25%]"
+                priority
+              />
             </div>
             <p className="text-2xl font-bold text-foreground">Rodrigo Torres</p>
             <p className="text-sm font-mono uppercase tracking-widest text-foreground/60 mt-1">

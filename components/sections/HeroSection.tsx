@@ -27,7 +27,6 @@ export function HeroSection() {
   const descRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const noteRef = useRef<HTMLDivElement>(null)
   const proofRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -35,14 +34,6 @@ export function HeroSection() {
       if (!sectionRef.current) return
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
-
-      // 0. Marginal note
-      tl.fromTo(
-        noteRef.current,
-        { y: -10, opacity: 0, rotation: -6 },
-        { y: 0, opacity: 1, rotation: -2, duration: 1 },
-        0.2
-      )
 
       // 1. Tagline — slide in from left
       tl.fromTo(
@@ -153,16 +144,6 @@ export function HeroSection() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 pt-32 md:pt-40 pb-20 lg:pb-0 min-h-screen flex flex-col justify-center">
         <div className="max-w-7xl mx-auto relative text-left w-full">
           
-          {/* Anotación Marginal (Human-First text) */}
-          <div 
-            ref={noteRef}
-            className="absolute -top-16 left-4 md:-top-12 md:left-12 font-mono text-[10px] md:text-sm text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20"
-            style={{ opacity: 0 }}
-            aria-hidden="true"
-          >
-            // Iteración v2.4 — Diseño a mano
-          </div>
-
           {/* Tagline */}
           <h2
             ref={taglineRef}

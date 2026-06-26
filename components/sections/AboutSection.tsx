@@ -24,9 +24,6 @@ export function AboutSection() {
           <div className="w-full lg:w-1/2 relative space-y-12 md:space-y-16">
             <div className="relative">
                {/* Anotación Marginal */}
-               <div className="absolute -top-10 -left-4 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-2">
-                 // Archivo Base_
-               </div>
                
                <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10">
                  Sobre <br/><span className="text-brand">Nosotros</span>

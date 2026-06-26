@@ -12,9 +12,6 @@ export default function ProjectsSection() {
         <div className="max-w-4xl relative text-left">
 
           {/* Anotación Marginal */}
-          <div className="absolute -top-10 left-0 md:-left-4 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-1">
-             // Casos de Estudio_
-          </div>
 
           <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
             Proyectos <br className="hidden md:block" /> <span className="text-brand">Destacados</span>

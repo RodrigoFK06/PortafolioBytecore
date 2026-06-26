@@ -41,7 +41,7 @@ function ServiceCard({ icon: Icon, title, description, detailedDescription, offs
         className={`relative p-8 md:p-10 rounded-2xl transition-all duration-500 overflow-hidden h-full flex flex-col ${
           isModalOpen
             ? 'opacity-0 scale-95 pointer-events-none backdrop-blur-none bg-transparent border-transparent'
-            : 'opacity-100 scale-100 bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] backdrop-blur-[12px] border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)]'
+            : 'opacity-100 scale-100 bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)]'
         }`}
       >
         {/* Flashlight */}
@@ -78,8 +78,6 @@ function ServiceCard({ icon: Icon, title, description, detailedDescription, offs
           </Button>
         </div>
 
-        {/* Chiseled Light border on hover */}
-        <div className="absolute inset-0 border border-black/0 dark:border-white/0 group-hover:border-black/10 dark:group-hover:border-white/10 rounded-2xl transition-colors pointer-events-none opacity-0 group-hover:opacity-100 z-20" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
       </div>
 
       <ServiceModal
@@ -105,9 +103,6 @@ export function ServicesSection() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col mb-16 md:mb-24 relative">
           {/* Anotación Marginal */}
-          <div className="absolute -top-8 left-0 md:-left-8 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-3">
-             // En qué te ayudamos_
-          </div>
 
           <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 max-w-4xl">
             Nuestros <br className="hidden md:block" /> <span className="text-brand">Servicios</span>
