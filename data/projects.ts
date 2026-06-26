@@ -80,11 +80,10 @@ export interface Project {
  */
 
 /**
- * Orden curado: los primeros 8 proyectos son los que se muestran en la home.
- * Priorizamos sistemas B2B / software empresarial (PMS, ERP, SaaS) sobre
- * landings y proyectos de marca, porque son los que justifican que una empresa
- * nos confíe un sistema crítico. Las landings y proyectos más livianos viven
- * en /portfolio detrás de "Ver todos los proyectos".
+ * La home se cura por ID en HOME_PROJECT_IDS (abajo), NO por orden del array:
+ * RestHUB (19) va primero porque es el proyecto destacado. El resto del array
+ * vive en /portfolio. Priorizamos sistemas B2B / software empresarial (PMS, ERP,
+ * SaaS) sobre landings, porque son los que justifican un sistema crítico.
  *
  * Nota: el sistema de restaurante oficial es RestHUB (id 19); Megalodon Pro
  * se consolidó en él y se retiró del portafolio para no duplicar el rubro.
@@ -99,6 +98,28 @@ export const projects: Project[] = [
     imageSrc: "/LoginOrquestador.jpeg",
     link: "https://orquestador-adm.vercel.app",
     category: "web",
+    year: "2026",
+    clientType: "un hotel boutique / resort de lujo",
+    location: "Perú",
+    services: ["PMS a medida", "Revenue Management (RMS)", "Analítica"],
+    caseStudy: {
+      // ⚠️ MOCK (relleno temporal) — reemplazar con datos reales antes de publicar.
+      context:
+        "Un hotel boutique de lujo operaba reservas, tarifas y reportes en varios sistemas que no se hablaban entre sí.",
+      problem:
+        "Sin un revenue management real, las tarifas se fijaban a mano y a destiempo: cada decisión de pricing llegaba tarde y dejaba dinero sobre la mesa, sobre todo en temporada alta.",
+      decision:
+        "Decidí que el diferencial no era 'otro PMS más', sino el revenue management. Integré forecasting, análisis What-If y pricing dinámico para que el hotel decidiera con datos del día, no con la intuición de la semana pasada.",
+      built:
+        "Un PMS + RMS con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria, que reemplaza varios sistemas independientes por una sola operación coordinada.",
+      result:
+        "El hotel pasó de fijar tarifas a mano a un pricing automático con datos diarios, recuperando alrededor de un 15% de RevPAR en temporada alta.",
+      proof: {
+        liveUrl: "https://orquestador-adm.vercel.app",
+        images: ["/LoginOrquestador.jpeg"],
+      },
+      cta: "¿Tu hotel fija tarifas a mano y a destiempo? Hablemos de revenue management.",
+    },
   },
   {
     id: 6,
@@ -157,6 +178,28 @@ export const projects: Project[] = [
     imageSrc: "/rapiditosvz.png",
     link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
     category: "mobile",
+    year: "2025",
+    clientType: "un emprendimiento de delivery local",
+    location: "Perú",
+    services: ["App móvil nativa (Flutter)", "Backend (Spring Boot)", "Pagos en línea"],
+    caseStudy: {
+      // ⚠️ MOCK (relleno temporal) — reemplazar con datos reales antes de publicar.
+      context:
+        "Un emprendimiento de delivery local dependía de marketplaces de terceros que se llevaban una comisión alta de cada pedido y eran dueños de la relación con el cliente.",
+      problem:
+        "Sin app propia, cada pedido pagaba comisión a una plataforma ajena y el negocio no tenía control ni datos de sus propios clientes.",
+      decision:
+        "Decidí ir a app nativa con Flutter sobre un backend robusto (Spring Boot), no a un wrapper barato: si el negocio depende de la app, tiene que sentirse y responder como una app de verdad, no como una web envuelta.",
+      built:
+        "Una app móvil nativa para iOS y Android, publicada en App Store y Google Play, con seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y chat con el repartidor.",
+      result:
+        "Salieron de los marketplaces a su propia app en stores, recuperando el margen de comisión y, por primera vez, los datos de sus clientes. Más de 3,000 pedidos procesados en los primeros meses.",
+      proof: {
+        liveUrl: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
+        images: ["/rapiditosvz.png"],
+      },
+      cta: "¿Pagas comisiones altas a un marketplace? Hablemos de tu propia app.",
+    },
   },
   {
     id: 12,
@@ -198,6 +241,28 @@ export const projects: Project[] = [
     imageSrc: "/facturarkos.png",
     link: "https://facturarkos-web.vercel.app",
     category: "web",
+    year: "2026",
+    clientType: "Producto propio de Árkos (para Mypes del Perú)",
+    location: "Perú",
+    services: ["SaaS", "Facturación electrónica SUNAT", "POS"],
+    caseStudy: {
+      // ⚠️ MOCK (relleno temporal) — reemplazar con datos reales antes de publicar.
+      context:
+        "Para la Mype peruana, facturar con SUNAT y vender suele significar dos o tres herramientas distintas que no se hablan entre sí.",
+      problem:
+        "Las soluciones de facturación + POS o son caras, o son piezas sueltas que la Mype tiene que pegar a mano. El resultado es tiempo perdido y errores en comprobantes que la SUNAT rechaza.",
+      decision:
+        "Construí FacturArkos como un solo lugar —facturación electrónica SUNAT + POS + inventario + tienda online— y sin instalación, porque la Mype no tiene un área de IT: tiene que funcionar desde el celular, hoy, sin fricción.",
+      built:
+        "Un SaaS de facturación electrónica validada en vivo con SUNAT, con punto de venta, control de inventario y tienda online, desde celular, tablet o PC y sin instalación.",
+      result:
+        "Negocios emitiendo comprobantes válidos con SUNAT en minutos desde el primer día, vendiendo y facturando desde una sola herramienta.",
+      proof: {
+        liveUrl: "https://facturarkos-web.vercel.app",
+        images: ["/facturarkos.png"],
+      },
+      cta: "¿Facturas con SUNAT en una herramienta y vendes en otra? Únelo con FacturArkos.",
+    },
   },
   {
     id: 17,
@@ -345,6 +410,14 @@ export const getProjectsByCategory = (category: string) =>
   category === "all" ? projects : projects.filter(project => project.category === category)
 
 export const getProjectById = (id: number) => projects.find(project => project.id === id)
+
+// Selección y orden de la home. RestHUB (19) primero — es el proyecto destacado.
+// Editar aquí para curar la portada sin tocar el orden del array.
+export const HOME_PROJECT_IDS = [19, 2, 21, 1, 8, 6, 11, 20]
+export const getHomeProjects = (): Project[] =>
+  HOME_PROJECT_IDS
+    .map((id) => projects.find((p) => p.id === id))
+    .filter((p): p is Project => Boolean(p))
 
 // Categorías disponibles
 export const projectCategories = [

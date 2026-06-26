@@ -1,6 +1,6 @@
 import { RevealText } from "@/components/gsap-reveal"
 import ProjectsClient from "./ProjectsClient"
-import { projects } from "@/data/projects"
+import { getHomeProjects } from "@/data/projects"
 
 export default function ProjectsSection() {
   return (
@@ -10,7 +10,7 @@ export default function ProjectsSection() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
         <div className="max-w-4xl relative text-left">
-          
+
           {/* Anotación Marginal */}
           <div className="absolute -top-10 left-0 md:-left-4 font-mono text-[10px] text-brand/80 italic px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 z-20 transform -rotate-1">
              // Casos de Estudio_
@@ -29,7 +29,7 @@ export default function ProjectsSection() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
-        <ProjectsClient projects={projects.slice(0, 8)} />
+        <ProjectsClient projects={getHomeProjects()} />
       </div>
     </section>
   )
