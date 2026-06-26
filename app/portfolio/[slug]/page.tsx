@@ -133,7 +133,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             ) : null}
 
             {cs?.decision ? (
-              <section className="border-l-2 border-brand/40 pl-6">
+              <section className="bg-surface-1 border border-border rounded-xl p-6 md:p-8">
                 <h2 className="text-sm font-mono uppercase tracking-widest text-brand mb-4">
                   La decisión / el criterio
                 </h2>

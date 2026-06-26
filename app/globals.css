@@ -34,6 +34,19 @@ html {
   scroll-padding-top: 6rem;
 }
 
+/* Accesibilidad: respeta prefers-reduced-motion. Las animaciones JS/GSAP se
+   neutralizan en sus componentes; esto cubre las animaciones y transiciones CSS. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .dark {
   --background: 222 47% 11%;
   --foreground: 210 40% 98%;

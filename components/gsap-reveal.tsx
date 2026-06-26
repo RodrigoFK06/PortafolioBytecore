@@ -32,6 +32,11 @@ export function RevealText({
     () => {
       if (!wrapRef.current || !innerRef.current) return
 
+      if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(innerRef.current, { y: "0%", opacity: 1 })
+        return
+      }
+
       gsap.fromTo(
         innerRef.current,
         { y: "100%", opacity: 0 },
@@ -85,6 +90,11 @@ export function RevealBlock({
   useGSAP(
     () => {
       if (!wrapRef.current || !innerRef.current) return
+
+      if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(innerRef.current, { x: 0, y: 0, opacity: 1 })
+        return
+      }
 
       const fromVars: gsap.TweenVars = {
         bottom: { y: "100%", opacity: 0 },
@@ -153,6 +163,11 @@ export function StaggerReveal({
       if (!ref.current) return
       const items = ref.current.querySelectorAll(childSelector)
       if (!items.length) return
+
+      if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(items, { y: 0, opacity: 1 })
+        return
+      }
 
       gsap.fromTo(
         items,

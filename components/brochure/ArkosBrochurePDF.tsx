@@ -79,7 +79,7 @@ const Ft = ({ p, l }: { p: number; l?: boolean }) => (
 
 // Service card with numbered badge
 const SvcCard = ({ num, title, desc, dark }: { num: string; title: string; desc: string; dark?: boolean }) => (
-  <View style={{ backgroundColor: dark ? C.mid : C.light, padding: 20, borderRadius: 8, marginBottom: 14, borderLeft: `4px solid ${C.accent}` }}>
+  <View style={{ backgroundColor: dark ? C.mid : C.light, padding: 20, borderRadius: 8, marginBottom: 14 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
       <View style={{ width: 28, height: 28, backgroundColor: C.accent, borderRadius: 6, justifyContent: 'center', alignItems: 'center', marginRight: 10 }}>
         <Text style={{ color: C.white, fontSize: 12, fontWeight: 'bold' }}>{num}</Text>
@@ -306,7 +306,7 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
           { client: 'Clínica Juan Pablo II', type: 'Gestión Clínica', desc: 'Plataforma con módulos de historias clínicas, gestión de citas, facturación electrónica y reportes médicos automatizados.', tags: 'React / PostgreSQL / Node.js', stat: '60% menos tiempo' },
           { client: 'RestHUB', type: 'ERP Restaurantes', desc: 'ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, con una landing premium pensada para Latinoamérica.', tags: 'Next.js / React / TypeScript / ERP', stat: 'Operación unificada' },
         ].map((c, i) => (
-          <View key={i} style={{ backgroundColor: C.mid, borderRadius: 8, padding: 14, marginBottom: 10, borderLeft: `4px solid ${C.accent}` }}>
+          <View key={i} style={{ backgroundColor: C.mid, borderRadius: 8, padding: 14, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
               <View>
                 <Text style={{ fontSize: 14, fontWeight: 'bold', color: C.white }}>{c.client}</Text>

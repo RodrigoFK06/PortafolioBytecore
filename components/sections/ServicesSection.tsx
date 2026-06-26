@@ -131,9 +131,7 @@ export function ServicesSection() {
             icon={Palette}
             title="Diseño UI/UX"
             description="Interfaces claras donde tu cliente sabe en tres segundos qué tiene que hacer. Diseño que vende sin perder la identidad de tu marca."
-            detailedDescription="Diseñamos en Figma con foco en conversión: jerarquía visual clara, flujos cortos, animaciones que guían en lugar de distraer. Investigamos cómo se mueve tu cliente real antes de dibujar un solo botón."
-            offset={true}
-          />
+            detailedDescription="Diseñamos en Figma con foco en conversión: jerarquía visual clara, flujos cortos, animaciones que guían en lugar de distraer. Investigamos cómo se mueve tu cliente real antes de dibujar un solo botón."          />
           <ServiceCard
             icon={Monitor}
             title="E-Commerce"
@@ -144,9 +142,7 @@ export function ServicesSection() {
             icon={Boxes}
             title="Software a Medida"
             description="Sistemas, ERPs y dashboards hechos para tu operación: agendamiento de citas, gestión hotelera, restaurantes, talleres, clínicas. Lo que un Excel ya no resuelve."
-            detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Pensados desde la operación real de tu equipo, con módulos que crecen contigo."
-            offset={true}
-          />
+            detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Pensados desde la operación real de tu equipo, con módulos que crecen contigo."          />
         </StaggerReveal>
 
         <div className="mt-20 md:mt-32 text-center md:text-right relative z-10">

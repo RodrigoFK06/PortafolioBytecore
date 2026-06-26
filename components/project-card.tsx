@@ -52,7 +52,7 @@ export function ProjectCard({
         </div>
         <div className="p-4 md:p-6 flex-grow flex flex-col relative z-10">
           <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-brand transition-colors">{title || "Untitled Project"}</h3>
-          <p className="text-foreground/70 text-sm md:text-base mb-6 flex-grow leading-relaxed">{description || "No description available"}</p>
+          <p className="text-foreground/70 text-sm md:text-base mb-6 flex-grow leading-relaxed line-clamp-3">{description || "No description available"}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {tags &&
               tags.map((tag, index) => (
