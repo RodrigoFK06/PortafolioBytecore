@@ -40,7 +40,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </div>
 
           <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Lo que dicen <br className="hidden md:block" /> <span className="text-brand">nuestros socios</span>
+            Lo que dicen <br className="hidden md:block" /> <span className="text-brand">nuestros clientes</span>
           </RevealText>
 
           <RevealText delay={0.2}>

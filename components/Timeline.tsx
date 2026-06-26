@@ -100,7 +100,7 @@ function TimelineEvent({ event, index }: { event: TimelineEventType; index: numb
             )}
 
             <div className="font-mono text-brand text-xs uppercase tracking-[0.2em] mb-2 font-semibold flex items-center relative z-10">
-              <span className="opacity-50 mr-2">[ARCHIVE]</span>{event.year}
+              <span className="opacity-50 mr-2">[ARCHIVO]</span>{event.year}
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-brand transition-colors relative z-10">{event.title}</h3>
             <p className="text-foreground/70 text-sm leading-relaxed relative z-10">{event.description}</p>

@@ -14,7 +14,7 @@ export function ProjectFilter({ onFilterChange }: ProjectFilterProps) {
   const filters = [
     { id: "all", label: "Todos" },
     { id: "web", label: "Desarrollo Web" },
-    { id: "ui", label: "UX/UI Design" },
+    { id: "ui", label: "Diseño UX/UI" },
     { id: "mobile", label: "Móvil" },
   ];
 

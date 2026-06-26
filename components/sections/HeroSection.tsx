@@ -124,6 +124,7 @@ export function HeroSection() {
 
   return (
     <section
+      id="home"
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-[#050505] transition-colors duration-500"
     >

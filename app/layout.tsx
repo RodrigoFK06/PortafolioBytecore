@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { Preloader } from "@/components/preloader"
+import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -321,6 +322,7 @@ export default function RootLayout({
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Preloader />
+          <ServiceWorkerCleanup />
           <Navbar />
           {children}
           <Footer />

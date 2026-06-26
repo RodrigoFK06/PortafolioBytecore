@@ -13,10 +13,10 @@ export function ThemeToggle() {
       <Button
         variant="outline"
         size="icon"
-        aria-label="Toggle theme"
+        aria-label="Cambiar tema"
         disabled
       >
-        <div className="h-5 w-5" />
+        <Sun className="h-5 w-5" />
       </Button>
     )
   }
@@ -26,7 +26,7 @@ export function ThemeToggle() {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      aria-label={`Cambiar a modo ${theme === "dark" ? "claro" : "oscuro"}`}
       className="transition-all duration-200 hover:scale-105"
     >
       <motion.div

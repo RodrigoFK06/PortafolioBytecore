@@ -19,12 +19,13 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
-      const sections = ["home", "about", "services", "projects", "testimonials", "process", "contact"];
+      const sections = ["home", "about", "services", "technologies", "projects", "fundador", "testimonials", "process", "contact"];
+      const activationLine = window.innerHeight * 0.4;
       for (const section of [...sections].reverse()) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 100) {
+          if (rect.top <= activationLine) {
             setActiveSection(section);
             break;
           }
@@ -81,7 +82,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation — no staggered animations */}
-          <nav className="hidden md:flex items-center space-x-8 translate-y-[0.5px]">
+          <nav className="hidden md:flex items-center space-x-2 lg:space-x-4 xl:space-x-6 translate-y-[0.5px]">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className={getLinkClass(link.href)}>
                 {link.label}
