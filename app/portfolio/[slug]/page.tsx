@@ -4,7 +4,7 @@ import { ArrowLeft, ExternalLink, Quote } from "lucide-react"
 import type { Metadata } from "next"
 
 import { Button } from "@/components/ui/button"
-import { projects } from "@/data/projects"
+import { projects, getCategoryLabel } from "@/data/projects"
 
 const baseUrl = "https://xn--rkos-4na.com"
 
@@ -116,7 +116,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         {/* Hero */}
         <div className="max-w-3xl">
           {project.category ? (
-            <p className="font-mono text-xs uppercase tracking-widest text-brand mb-4">{project.category}</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-brand mb-4">{getCategoryLabel(project.category)}</p>
           ) : null}
           <h1 className="text-3xl md:text-5xl font-light mb-6 tracking-tight">{project.title}</h1>
           <p className="text-lg text-muted leading-relaxed">{cs?.context || project.description}</p>

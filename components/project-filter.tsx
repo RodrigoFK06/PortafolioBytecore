@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { projectCategories } from "@/data/projects";
 
 interface ProjectFilterProps {
   onFilterChange: (filterId: string) => void;
@@ -11,12 +12,7 @@ interface ProjectFilterProps {
 export function ProjectFilter({ onFilterChange }: ProjectFilterProps) {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const filters = [
-    { id: "all", label: "Todos" },
-    { id: "web", label: "Desarrollo Web" },
-    { id: "ui", label: "Diseño UX/UI" },
-    { id: "mobile", label: "Móvil" },
-  ];
+  const filters = projectCategories;
 
   const handleFilterChange = (filterId: string) => {
     setActiveFilter(filterId);

@@ -97,7 +97,7 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
     imageSrc: "/LoginOrquestador.jpeg",
     link: "https://orquestador-adm.vercel.app",
-    category: "web",
+    category: "sistemas-web",
     year: "2026",
     clientType: "un hotel boutique / resort de lujo",
     location: "Perú",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
     imageSrc: "/atelier.png",
     link: "https://atelier-seven-beta.vercel.app/",
-    category: "web",
+    category: "sistemas-web",
   },
   {
     id: 19,
@@ -139,7 +139,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript", "ERP"],
     imageSrc: "/resthub.png",
     link: "https://rest-hub-landing.vercel.app/",
-    category: "web",
+    category: "sistemas-web",
     year: "2025",
     caseStudy: {
       built:
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
     imageSrc: "/vr-pms.png",
     link: "https://overbookingsol.vercel.app/",
-    category: "web",
+    category: "sistemas-web",
   },
   {
     id: 8,
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
     imageSrc: "/rapiditosvz.png",
     link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
-    category: "mobile",
+    category: "apps",
     year: "2025",
     clientType: "un emprendimiento de delivery local",
     location: "Perú",
@@ -209,7 +209,7 @@ export const projects: Project[] = [
     tags: ["React", "Material UI", "Frontend", "ERP"],
     imageSrc: "/solutec.png",
     link: "https://front-dharcy.vercel.app/",
-    category: "web",
+    category: "sistemas-web",
   },
   {
     id: 20,
@@ -219,7 +219,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/vetcare.png",
     link: "https://veterinaria-web-tan.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 10,
@@ -229,7 +229,7 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
     imageSrc: "/ecodriveplus.webp",
     link: "https://ecodrive-two.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   // ↓ Proyectos secundarios — visibles en /portfolio pero no en la home
   {
@@ -240,7 +240,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "TypeScript", "SUNAT", "POS", "SaaS"],
     imageSrc: "/facturarkos.png",
     link: "https://facturarkos-web.vercel.app",
-    category: "web",
+    category: "sistemas-web",
     year: "2026",
     clientType: "Producto propio de Árkos (para Mypes del Perú)",
     location: "Perú",
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/copperline-garage.png",
     link: "https://automotriz-lyart.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 3,
@@ -282,7 +282,7 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
     imageSrc: "/encrypted.webp",
     link: "https://kevin-escape-room.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 13,
@@ -292,7 +292,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/kinetickblack.jpeg",
     link: "https://kinetic-black.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 14,
@@ -302,7 +302,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "Audiovisual"],
     imageSrc: "/nawi.png",
     link: "https://nawi-lac.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 18,
@@ -312,7 +312,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/freedy-sotelo.png",
     link: "https://freedy-sotelo.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 15,
@@ -322,7 +322,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React", "v0"],
     imageSrc: "/simposio.png",
     link: "https://v0-veterinary-symposium-registratio.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 5,
@@ -332,7 +332,7 @@ export const projects: Project[] = [
     tags: ["Astro", "Tailwind CSS"],
     imageSrc: "/relucoffee.webp",
     link: "https://www.relucoffee.com/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 4,
@@ -342,7 +342,7 @@ export const projects: Project[] = [
     tags: ["HTML", "CSS", "JavaScript", "PHP"],
     imageSrc: "/casaromahotel.webp",
     link: "https://casaromahostels.com/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 9,
@@ -352,7 +352,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React"],
     imageSrc: "/sonrisaperfectalanding.jpeg",
     link: "https://clinica-dental-landing-ten.vercel.app/",
-    category: "ui",
+    category: "paginas-web",
   },
   {
     id: 7,
@@ -362,7 +362,7 @@ export const projects: Project[] = [
     tags: ["React", "Next.js", "Tailwind CSS"],
     imageSrc: "/agencialandingpage.jpeg",
     link: "https://landing-page-place-holder.vercel.app/",
-    category: "web",
+    category: "paginas-web",
   },
   {
     id: 2,
@@ -372,7 +372,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Tailwind CSS", "React", "TypeScript"],
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
-    category: "web",
+    category: "paginas-web",
     client: "Dharcy Villafuerte",
     year: "2026",
     location: "Lima, Perú",
@@ -401,6 +401,26 @@ export const projects: Project[] = [
       cta: "¿Tu negocio vive en WhatsApp y quieres verte profesional sin perder cercanía? Conversemos.",
     },
   },
+  {
+    id: 22,
+    title: "Nexora",
+    description:
+      "Landing premium para una agencia creativa, bilingüe (ES/EN). Tipografía de alto impacto, scroll suave y secciones de manifiesto, servicios, trabajos destacados y contacto. Pensada para que la agencia conecte marcas con personas y convierta esa conexión en resultados reales.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Lenis", "i18n"],
+    imageSrc: "/nexora.png",
+    link: "https://nexora-agency-beta.vercel.app/es",
+    category: "paginas-web",
+  },
+  {
+    id: 23,
+    title: "Pattern Breaking",
+    description:
+      "Pieza editorial de data-storytelling que expone los patrones engañosos (dark patterns) de la moda ultra-rápida: urgencia falsa, stock fingido y otras tácticas de manipulación. Scrollytelling con gráficos animados, contadores y efectos WebGL para narrar el dato con impacto.",
+    tags: ["JavaScript", "GSAP", "Lenis", "WebGL", "Scrollytelling"],
+    imageSrc: "/pattern-breaking.png",
+    link: "https://pattern-breaking.vercel.app/",
+    category: "paginas-web",
+  },
 ];
 
 // Funciones de utilidad para filtrar proyectos
@@ -419,10 +439,14 @@ export const getHomeProjects = (): Project[] =>
     .map((id) => projects.find((p) => p.id === id))
     .filter((p): p is Project => Boolean(p))
 
-// Categorías disponibles
+// Categorías disponibles (fuente única de verdad para los filtros del portafolio)
 export const projectCategories = [
   { id: "all", label: "Todos" },
-  { id: "web", label: "Desarrollo Web" },
-  { id: "ui", label: "Diseño UX/UI" },
-  { id: "mobile", label: "Móvil" },
+  { id: "paginas-web", label: "Páginas web" },
+  { id: "sistemas-web", label: "Sistemas web" },
+  { id: "apps", label: "Apps" },
 ] as const
+
+/** Etiqueta legible de una categoría (para el eyebrow de /portfolio/[slug]). */
+export const getCategoryLabel = (id: string): string =>
+  projectCategories.find((c) => c.id === id)?.label ?? id
