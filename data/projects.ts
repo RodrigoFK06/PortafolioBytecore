@@ -433,7 +433,7 @@ export const getProjectById = (id: number) => projects.find(project => project.i
 
 // Selección y orden de la home. RestHUB (19) primero — es el proyecto destacado.
 // Editar aquí para curar la portada sin tocar el orden del array.
-export const HOME_PROJECT_IDS = [19, 2, 21, 1, 8, 6, 11, 20, 22, 23]
+export const HOME_PROJECT_IDS = [19, 21, 22, 23, 2, 1, 8, 6, 11, 20]
 export const getHomeProjects = (): Project[] =>
   HOME_PROJECT_IDS
     .map((id) => projects.find((p) => p.id === id))
