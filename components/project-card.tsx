@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Github } from "lucide-react"
+import { ArrowRight, ExternalLink, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ProjectCardProps {
@@ -23,6 +23,7 @@ export function ProjectCard({
   description,
   tags = [], // Provide default empty array
   imageSrc,
+  link,
   githubLink,
   delay = 0,
 }: ProjectCardProps) {
@@ -59,7 +60,7 @@ export function ProjectCard({
                 </span>
               ))}
           </div>
-          <div className="flex gap-3 mt-auto relative z-10">
+          <div className="flex gap-2 mt-auto relative z-10">
             <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
               <Link
                 href={`/portfolio/${id}`}
@@ -69,16 +70,41 @@ export function ProjectCard({
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
+            {link && (
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+                title="Visitar sitio en vivo"
+                className="shrink-0 w-10 px-0 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none"
+              >
+                <Link
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visitar el sitio de ${title} en una pestaña nueva`}
+                  className="flex items-center justify-center"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Link>
+              </Button>
+            )}
             {githubLink && (
-              <Button asChild size="sm" variant="outline" className="flex-1 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none">
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+                title="Ver código en GitHub"
+                className="shrink-0 w-10 px-0 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 text-foreground rounded-xl backdrop-blur-sm transition-all shadow-none"
+              >
                 <Link
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center font-medium"
+                  aria-label={`Ver el código de ${title} en GitHub`}
+                  className="flex items-center justify-center"
                 >
-                  <Github className="mr-2 h-4 w-4" />
-                  Código
+                  <Github className="h-4 w-4" />
                 </Link>
               </Button>
             )}

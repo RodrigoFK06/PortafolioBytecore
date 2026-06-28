@@ -43,9 +43,9 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
     return (
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-muted mb-6">Proyecto no encontrado.</p>
+          <p className="text-muted-foreground mb-6">Proyecto no encontrado.</p>
           <Button asChild variant="ghost" className="pl-0 hover:bg-transparent">
-            <Link href="/portfolio" className="flex items-center text-muted hover:text-text">
+            <Link href="/portfolio" className="flex items-center text-muted-foreground hover:text-foreground">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Volver al Portfolio
             </Link>
@@ -66,13 +66,23 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
     ? project.imageSrc
     : `${baseUrl}${project.imageSrc}`
 
+  // Estilos compartidos para mantener una jerarquía consistente en todo el caso.
+  const eyebrow = "text-xs font-mono uppercase tracking-widest text-brand"
+  const sectionLabel = `${eyebrow} mb-3`
+  const bodyText = "text-base md:text-lg leading-relaxed text-foreground/85"
+  const panel =
+    "rounded-2xl border border-border bg-black/[0.03] dark:bg-white/[0.04]"
+
   return (
-    <main className="pt-24 pb-16">
+    <main className="pt-24 md:pt-28 pb-20 md:pb-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Button asChild variant="ghost" className="mb-8 pl-0 hover:bg-transparent">
-          <Link href="/portfolio" className="flex items-center text-muted hover:text-text">
+        <Button asChild variant="ghost" className="mb-8 pl-0 h-auto py-1 hover:bg-transparent">
+          <Link
+            href="/portfolio"
+            className="flex items-center text-sm text-muted-foreground hover:text-foreground"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver al Portfolio
+            Volver al portafolio
           </Link>
         </Button>
 
@@ -114,115 +124,127 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         />
 
         {/* Hero */}
-        <div className="max-w-3xl">
+        <header className="max-w-3xl">
           {project.category ? (
-            <p className="font-mono text-xs uppercase tracking-widest text-brand mb-4">{getCategoryLabel(project.category)}</p>
+            <p className={`${eyebrow} mb-4`}>{getCategoryLabel(project.category)}</p>
           ) : null}
-          <h1 className="text-3xl md:text-5xl font-light mb-6 tracking-tight">{project.title}</h1>
-          <p className="text-lg text-muted leading-relaxed">{cs?.context || project.description}</p>
-        </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
+            {project.title}
+          </h1>
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-muted-foreground text-pretty">
+            {cs?.context || project.description}
+          </p>
+        </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 mt-12 md:mt-16 pt-12 md:pt-16 border-t border-border">
           {/* Columna principal: la narrativa del caso */}
-          <div className="lg:col-span-2 space-y-12">
+          <div className="lg:col-span-2 space-y-10 md:space-y-12">
             {cs?.problem ? (
               <section>
-                <h2 className="text-sm font-mono uppercase tracking-widest text-brand mb-4">El problema</h2>
-                <p className="text-text leading-relaxed text-lg">{cs.problem}</p>
+                <h2 className={sectionLabel}>El problema</h2>
+                <p className={bodyText}>{cs.problem}</p>
               </section>
             ) : null}
 
             {cs?.decision ? (
-              <section className="bg-surface-1 border border-border rounded-xl p-6 md:p-8">
-                <h2 className="text-sm font-mono uppercase tracking-widest text-brand mb-4">
-                  La decisión / el criterio
-                </h2>
-                <p className="text-text leading-relaxed text-lg italic">{cs.decision}</p>
-                <p className="mt-4 text-sm text-muted">— Rodrigo Torres, Árkos</p>
+              <section className={`${panel} p-6 md:p-8`}>
+                <h2 className={sectionLabel}>La decisión / el criterio</h2>
+                <p className="text-base md:text-lg leading-relaxed text-foreground/90 italic">
+                  {cs.decision}
+                </p>
+                <p className="mt-4 text-sm text-muted-foreground">— Rodrigo Torres, Árkos</p>
               </section>
             ) : null}
 
             <section>
-              <h2 className="text-sm font-mono uppercase tracking-widest text-brand mb-4">Qué construimos</h2>
-              <p className="text-text leading-relaxed">{built}</p>
+              <h2 className={sectionLabel}>Qué construimos</h2>
+              <p className={bodyText}>{built}</p>
             </section>
 
             {cs?.result ? (
               <section>
-                <h2 className="text-sm font-mono uppercase tracking-widest text-brand mb-4">El resultado</h2>
-                <p className="text-text leading-relaxed text-lg">{cs.result}</p>
+                <h2 className={sectionLabel}>El resultado</h2>
+                <p className={bodyText}>{cs.result}</p>
               </section>
             ) : null}
 
             {cs?.proof?.testimonial ? (
-              <figure className="bg-surface-1 border border-border p-6 rounded-xl">
-                <Quote className="h-6 w-6 text-brand/50 mb-3" aria-hidden="true" />
-                <blockquote className="text-text leading-relaxed">
+              <figure className={`${panel} p-6 md:p-8`}>
+                <Quote className="h-7 w-7 text-brand/60 mb-4" aria-hidden="true" />
+                <blockquote className="text-base md:text-lg leading-relaxed text-foreground/90">
                   “{cs.proof.testimonial.quote}”
                 </blockquote>
-                <figcaption className="mt-3 text-sm text-muted">
-                  {cs.proof.testimonial.author}
-                  {cs.proof.testimonial.role ? `, ${cs.proof.testimonial.role}` : ""}
+                <figcaption className="mt-4 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">{cs.proof.testimonial.author}</span>
+                  {cs.proof.testimonial.role ? ` · ${cs.proof.testimonial.role}` : ""}
                 </figcaption>
               </figure>
             ) : null}
           </div>
 
           {/* Sidebar: detalles + prueba */}
-          <aside className="space-y-6">
-            <div className="bg-surface-1 border border-border p-6 rounded-xl">
-              <h2 className="text-xl font-medium mb-6">Detalles del proyecto</h2>
-              <div className="space-y-4">
+          <aside className="space-y-4 lg:sticky lg:top-28 self-start">
+            <div className={`${panel} p-6`}>
+              <h2 className="text-base font-semibold text-foreground mb-5">Detalles del proyecto</h2>
+              <dl className="space-y-4">
                 {project.client || project.clientType ? (
                   <div>
-                    <p className="text-sm text-muted">Cliente</p>
-                    <p className="font-medium">{project.client || project.clientType}</p>
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">Cliente</dt>
+                    <dd className="mt-1 font-medium text-foreground">
+                      {project.client || project.clientType}
+                    </dd>
                   </div>
                 ) : null}
                 {project.location ? (
                   <div>
-                    <p className="text-sm text-muted">Ubicación</p>
-                    <p className="font-medium">{project.location}</p>
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">Ubicación</dt>
+                    <dd className="mt-1 font-medium text-foreground">{project.location}</dd>
                   </div>
                 ) : null}
                 {project.year ? (
                   <div>
-                    <p className="text-sm text-muted">Año</p>
-                    <p className="font-medium">{project.year}</p>
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">Año</dt>
+                    <dd className="mt-1 font-medium text-foreground">{project.year}</dd>
                   </div>
                 ) : null}
                 {project.services?.length ? (
                   <div>
-                    <p className="text-sm text-muted">Servicios</p>
-                    <ul className="list-disc list-inside">
-                      {project.services.map((s, i) => (
-                        <li key={i} className="font-medium">
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground mb-1.5">Servicios</dt>
+                    <dd>
+                      <ul className="space-y-1">
+                        {project.services.map((s, i) => (
+                          <li key={i} className="flex gap-2 text-sm text-foreground/90">
+                            <span aria-hidden="true" className="text-brand">·</span>
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </dd>
                   </div>
                 ) : null}
                 {project.tags?.length ? (
                   <div>
-                    <p className="text-sm text-muted mb-2">Stack</p>
-                    <div className="flex flex-wrap gap-2">
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Stack</dt>
+                    <dd className="flex flex-wrap gap-2">
                       {project.tags.map((t, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 border border-border rounded-md font-mono"
+                          className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 border border-border rounded-md font-mono text-foreground/80"
                         >
                           {t}
                         </span>
                       ))}
-                    </div>
+                    </dd>
                   </div>
                 ) : null}
-              </div>
+              </dl>
             </div>
 
             {liveUrl ? (
-              <Button asChild className="w-full rounded-none bg-brand hover:bg-brand/90 text-background">
+              <Button
+                asChild
+                className="w-full rounded-lg bg-brand hover:bg-brand/90 text-brand-foreground font-medium"
+              >
                 <Link
                   href={liveUrl}
                   target="_blank"
@@ -230,7 +252,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                   className="flex items-center justify-center"
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
-                  Ver demo en vivo
+                  Visitar sitio en vivo
                 </Link>
               </Button>
             ) : null}
@@ -239,33 +261,40 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
         {/* Prueba visual */}
         {images.length ? (
-          <div className="mt-16 space-y-8">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-border"
-              >
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt={`${project.title} — captura ${index + 1}`}
-                  fill
-                  sizes="(min-width: 1024px) 900px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
+          <section className="mt-16 md:mt-20">
+            <h2 className={`${sectionLabel} mb-5`}>Vistazo</h2>
+            <div className="space-y-6">
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-border bg-black/[0.03] dark:bg-white/[0.04]"
+                >
+                  <Image
+                    src={image || "/placeholder.svg"}
+                    alt={`${project.title} — captura ${index + 1}`}
+                    fill
+                    sizes="(min-width: 1024px) 1100px, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
         ) : null}
 
         {/* CTA */}
-        <div className="mt-20 text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl font-light mb-6">
+        <section className="mt-20 md:mt-24 text-center max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground text-balance mb-6">
             {cs?.cta || "¿Tienes un reto parecido en tu operación?"}
           </h2>
-          <Button asChild size="lg" className="rounded-none px-8 bg-brand hover:bg-brand/90 text-background">
+          <Button
+            asChild
+            size="lg"
+            className="rounded-lg px-8 bg-brand hover:bg-brand/90 text-brand-foreground font-medium"
+          >
             <Link href="/#contact">Conversemos tu proyecto</Link>
           </Button>
-        </div>
+        </section>
       </div>
     </main>
   )
