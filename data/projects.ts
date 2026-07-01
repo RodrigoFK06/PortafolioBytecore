@@ -421,6 +421,26 @@ export const projects: Project[] = [
     link: "https://pattern-breaking.vercel.app/",
     category: "paginas-web",
   },
+  {
+    id: 24,
+    title: "Maré",
+    description:
+      "Tienda online (e-commerce) de bienestar mediterráneo: comestibles, salud y belleza y hogar de origen vegetal con entrega de producto fresco. Catálogo por categorías y marcas, búsqueda, carrito y una experiencia de compra premium y bilingüe (ES/EN).",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
+    imageSrc: "/mare.jpg",
+    link: "https://mare-ecom.vercel.app/",
+    category: "paginas-web",
+  },
+  {
+    id: 25,
+    title: "Colibrí",
+    description:
+      "Tienda online para un micro-tostador de café climapositivo. Identidad de alto impacto (tipografía display, color vibrante y marquesinas animadas), catálogo de cafés, suscripciones y storytelling de marca en torno a lo artesanal y lo sostenible.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
+    imageSrc: "/colibri.png",
+    link: "https://colibri-beta.vercel.app/",
+    category: "paginas-web",
+  },
 ];
 
 // Funciones de utilidad para filtrar proyectos
