@@ -25,7 +25,7 @@ export default async function FineDiningSurveyPage({
   const params = await searchParams
   const restaurant = (params?.r || FD_DEFAULT_RESTAURANT).slice(0, 60)
 
-  const meta = ["≈ 4 minutos", "2 preguntas obligatorias", "100% confidencial"]
+  const meta = ["≈ 5 minutos", "Cero pitch de venta", "100% confidencial"]
 
   return (
     <main className="relative min-h-screen bg-background">
@@ -56,12 +56,14 @@ export default async function FineDiningSurveyPage({
 
             <div className="space-y-3 text-foreground/75 leading-relaxed text-[15px]">
               <p>
-                Estamos diseñando herramientas pensadas para restaurantes de menú degustación en Perú,
-                y tu experiencia con <strong className="text-foreground font-semibold">{restaurant}</strong> es
-                exactamente la mirada que necesitamos.
+                Ya conocimos cómo opera <strong className="text-foreground font-semibold">{restaurant}</strong> y,
+                sinceramente, nos voló la cabeza lo afinado que está todo. No venimos a proponerte nada:
+                venimos a aprender del sector desde tu experiencia.
               </p>
               <p className="text-foreground/60">
-                Son pocas preguntas, la mayoría rápidas. Gracias por el tiempo.
+                Queremos entender de verdad cómo se opera un menú degustación y, sobre todo, dónde la están
+                pasando mal los restaurantes parecidos al tuyo que todavía no llegan a ese nivel. Son pocas
+                preguntas y abiertas. Gracias por el tiempo.
               </p>
             </div>
 

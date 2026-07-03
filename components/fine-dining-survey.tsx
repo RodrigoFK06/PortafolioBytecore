@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { useForm, useWatch, type Control } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Check } from "lucide-react"
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -18,7 +19,6 @@ import {
   fineDiningSurveySchema,
   type FineDiningSurveyData,
   FD_OPTIONS,
-  FD_SCALE,
 } from "@/lib/fine-dining-survey"
 
 type Ctrl = Control<FineDiningSurveyData>
@@ -30,10 +30,10 @@ function RequiredMark() {
 
 // Preguntas que cuentan para la barra de progreso.
 const QUESTION_KEYS: FieldName[] = [
-  "s1_dificil", "s1_magia", "s1_descartado", "s1_manual",
-  "s2_ritmo", "s2_maridaje", "s2_pago", "s2_alergias", "s2_menu_cambio",
-  "s3_desperdicio", "s3_silos", "s3_conectar", "s3_falta",
-  "s4_conoces", "s4_presentar", "s4_contactos",
+  "s1_ritmo_real", "s1_metricas", "s1_maridaje_orq", "s1_reglas",
+  "s2_otros_no_resuelto", "s2_pain", "s2_lo_dificil",
+  "s3_conoces", "s3_presentar", "s3_contactos",
+  "s4_seguir", "s4_optimizar",
   "cierre_libre",
 ]
 
@@ -144,46 +144,53 @@ function ChoiceField({
   )
 }
 
-function ScaleField({
-  control, name, label,
+function CheckboxField({
+  control, name, label, hint, options,
 }: {
   control: Ctrl
   name: FieldName
   label: string
+  hint?: string
+  options: readonly { value: string; label: string }[]
 }) {
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <QCard>
-          <FormItem className="space-y-3.5">
-            <FormLabel className={qLabelCls}>{label}</FormLabel>
-            <FormControl>
-              <RadioGroup
-                onValueChange={field.onChange}
-                value={(field.value as string) ?? ""}
-                className="grid grid-cols-5 gap-1.5 sm:gap-2"
-              >
-                {FD_SCALE.map((opt) => (
+      render={({ field }) => {
+        const selected: string[] = Array.isArray(field.value) ? field.value : []
+        const toggle = (v: string) =>
+          field.onChange(selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v])
+        return (
+          <QCard>
+            <FormItem className="space-y-3.5">
+              <div>
+                <FormLabel className={qLabelCls}>{label}</FormLabel>
+                {hint && <p className="text-[13px] text-foreground/50 mt-1">{hint}</p>}
+              </div>
+              <div className="grid gap-1.5">
+                {options.map((opt) => (
                   <Label
                     key={opt.value}
                     htmlFor={`${name}-${opt.value}`}
-                    className="group flex flex-col items-center justify-start gap-1.5 rounded-lg border border-black/10 dark:border-white/10 px-1 py-3 text-center cursor-pointer transition-colors duration-150 hover:border-brand/50 hover:bg-brand/[0.05] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.1] font-normal"
+                    className="group flex items-center gap-3 rounded-lg border border-transparent px-3 py-2.5 cursor-pointer transition-colors duration-150 hover:bg-brand/[0.05] has-[[data-state=checked]]:border-brand/50 has-[[data-state=checked]]:bg-brand/[0.08] font-normal"
                   >
-                    <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} className="sr-only" />
-                    <span className="text-base sm:text-lg font-bold text-foreground/70 group-has-[[data-state=checked]]:text-brand">
-                      {opt.value}
+                    <Checkbox
+                      id={`${name}-${opt.value}`}
+                      checked={selected.includes(opt.value)}
+                      onCheckedChange={() => toggle(opt.value)}
+                    />
+                    <span className="text-sm text-foreground/85 group-has-[[data-state=checked]]:text-foreground group-has-[[data-state=checked]]:font-medium">
+                      {opt.label}
                     </span>
-                    <span className="text-[10px] leading-tight text-foreground/50">{opt.label}</span>
                   </Label>
                 ))}
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </QCard>
-      )}
+              </div>
+              <FormMessage />
+            </FormItem>
+          </QCard>
+        )
+      }}
     />
   )
 }
@@ -219,12 +226,12 @@ function Section({
   )
 }
 
-// Progreso aislado: sólo este componente se re-renderiza al escribir (useWatch),
-// no el formulario completo.
+// Progreso aislado: sólo este componente se re-renderiza al escribir (useWatch).
 function ProgressTracker({ control }: { control: Ctrl }) {
   const values = useWatch({ control })
   const answered = QUESTION_KEYS.filter((k) => {
     const v = values[k]
+    if (Array.isArray(v)) return v.length > 0
     return typeof v === "string" && v.trim() !== ""
   }).length
   const pct = Math.round((answered / QUESTION_KEYS.length) * 100)
@@ -260,28 +267,6 @@ function ProgressTracker({ control }: { control: Ctrl }) {
   )
 }
 
-// Textarea condicional "otro" aislado, para no re-renderizar el formulario entero.
-function RitmoOtro({ control }: { control: Ctrl }) {
-  const ritmo = useWatch({ control, name: "s2_ritmo" })
-  return (
-    <AnimatePresence initial={false}>
-      {ritmo === "otro" && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.25 }}
-          className="overflow-hidden"
-        >
-          <div className="pt-1">
-            <OpenField control={control} name="s2_ritmo_otro" label="Cuéntanos cómo lo hacen" rows={2} />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
 type Props = { restaurant: string }
 
 export function FineDiningSurvey({ restaurant }: Props) {
@@ -293,10 +278,10 @@ export function FineDiningSurvey({ restaurant }: Props) {
     resolver: zodResolver(fineDiningSurveySchema),
     defaultValues: {
       respondent: "", role: "", restaurant,
-      s1_dificil: "", s1_magia: "", s1_descartado: "", s1_manual: "",
-      s2_ritmo: "", s2_ritmo_otro: "", s2_maridaje: "", s2_pago: "", s2_alergias: "", s2_menu_cambio: "",
-      s3_desperdicio: "", s3_silos: "", s3_silos_comentario: "", s3_conectar: "", s3_falta: "",
-      s4_conoces: "", s4_presentar: "", s4_contactos: "",
+      s1_ritmo_real: "", s1_metricas: "", s1_maridaje_orq: "", s1_reglas: "",
+      s2_otros_no_resuelto: "", s2_pain: [], s2_lo_dificil: "",
+      s3_conoces: "", s3_presentar: "", s3_contactos: "",
+      s4_seguir: "", s4_optimizar: "",
       cierre_libre: "", website: "",
     },
   })
@@ -353,7 +338,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
           </div>
           <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Gracias, de verdad.</h3>
           <p className="text-foreground/70 leading-relaxed max-w-md mx-auto">
-            Tu mirada es exactamente lo que necesitábamos para diseñar algo que sirva de verdad en un fine dining.
+            Lo que nos compartiste es justo lo que necesitábamos para entender el sector de verdad.
             Si dejaste una puerta abierta para presentarnos a otros colegas, te escribiremos pronto.
           </p>
         </div>
@@ -396,7 +381,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
                 <FormItem className="space-y-2">
                   <FormLabel className="text-[13px] font-medium text-foreground/80">Tu rol</FormLabel>
                   <FormControl>
-                    <Input placeholder="Chef, gerente, sommelier…" className={inputCls} {...field} value={(field.value as string) ?? ""} />
+                    <Input placeholder="Chef, dueño, gerente…" className={inputCls} {...field} value={(field.value as string) ?? ""} />
                   </FormControl>
                 </FormItem>
               )}
@@ -404,38 +389,32 @@ export function FineDiningSurvey({ restaurant }: Props) {
           </div>
         </QCard>
 
-        {/* Sección 1 */}
-        <Section index={1} title="Tu mirada del sector" subtitle="Lo que ves desde dentro, sin filtros.">
-          <OpenField control={control} name="s1_dificil" label="En tu experiencia, ¿qué es lo más difícil de operar bien en un restaurante de menú degustación?" placeholder="Lo primero que se te venga a la cabeza." required />
-          <OpenField control={control} name="s1_magia" label="Si pudieras resolver mágicamente un solo problema operativo del fine dining, ¿cuál sería?" />
-          <OpenField control={control} name="s1_descartado" label="¿Qué software o herramientas evaluaste y descartaste antes de quedarte con lo que usas hoy? ¿Por qué no te convencieron?" />
-          <OpenField control={control} name="s1_manual" label="¿Hay algo que hoy resuelves a mano, en Excel o Notion, que te gustaría que un sistema hiciera solo?" />
+        {/* Sección 1 — aprender el vertical */}
+        <Section index={1} title="Cómo se opera de verdad" subtitle="Enséñanos el sector desde tu experiencia.">
+          <OpenField control={control} name="s1_ritmo_real" label="La cocina por tiempos de un menú de varios pasos: ¿cómo se coordina de verdad el ritmo entre cocina y salón para que todo salga clavado? ¿Dónde se rompe cuando se rompe?" placeholder="Lo que solo se aprende operándolo." required rows={4} />
+          <OpenField control={control} name="s1_metricas" label="Más allá de la venta del día, ¿qué números o señales miras para saber si al restaurante le está yendo bien?" />
+          <OpenField control={control} name="s1_maridaje_orq" label="El maridaje y el upselling de bebidas a lo largo de la experiencia, ¿cómo se orquesta bien sin romper el ritmo del menú?" />
+          <OpenField control={control} name="s1_reglas" label="Si le enseñaras a alguien que recién abre un fine dining, ¿cuáles son las 2-3 reglas que casi nadie entiende al principio?" />
         </Section>
 
-        {/* Sección 2 */}
-        <Section index={2} title="Cómo funciona por dentro" subtitle="El día a día de tu operación.">
-          <ChoiceField control={control} name="s2_ritmo" label="¿Cómo coordinan hoy salón y cocina el ritmo de los tiempos?" options={FD_OPTIONS.ritmo} />
-          <RitmoOtro control={control} />
-          <ChoiceField control={control} name="s2_maridaje" label="El maridaje y las bebidas extra, ¿se cobran aparte al final o van incluidos en el menú?" options={FD_OPTIONS.maridaje} />
-          <ChoiceField control={control} name="s2_pago" label="¿Cobran el 100% del menú por adelantado, un depósito parcial, o al final?" options={FD_OPTIONS.pago} />
-          <OpenField control={control} name="s2_alergias" label="¿Cómo manejan las alergias/restricciones desde que el cliente reserva hasta que llega a la cocina?" rows={2} />
-          <ChoiceField control={control} name="s2_menu_cambio" label="¿Cada cuánto cambian el menú?" options={FD_OPTIONS.menuCambio} />
+        {/* Sección 2 — perfilar a los imperfectos */}
+        <Section index={2} title="Dónde se traban los demás" subtitle="Lo que tú ya resolviste y otros todavía no.">
+          <OpenField control={control} name="s2_otros_no_resuelto" label="Tú tienes tu operación muy afinada. ¿Qué cosas que tú ya resolviste ves que OTROS restaurantes de menú degustación todavía NO tienen resueltas?" placeholder="Aquí está el oro. Sé tan específico como puedas." required rows={4} />
+          <CheckboxField control={control} name="s2_pain" label="Cuando piensas en restaurantes parecidos al tuyo que la pasan mal operativamente, ¿en qué se les va la vida?" hint="Marca todas las que apliquen." options={FD_OPTIONS.pain} />
+          <OpenField control={control} name="s2_lo_dificil" label="¿Qué te costó a ti dominar que crees que a la mayoría todavía se le escapa?" />
         </Section>
 
-        {/* Sección 3 */}
-        <Section index={3} title="Valida nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
-          <ScaleField control={control} name="s3_desperdicio" label="“Saber con anticipación cuántos comensales vienen permite comprar y preparar casi sin desperdicio.” ¿De acuerdo?" />
-          <ChoiceField control={control} name="s3_silos" label="“El mayor lío del sector es que reservas, punto de venta y contabilidad viven en sistemas separados que no se hablan.” ¿Coincide con lo que ves?" options={FD_OPTIONS.silos} />
-          <OpenField control={control} name="s3_silos_comentario" label="¿Quieres agregar algo sobre eso? (opcional)" rows={2} />
-          <ScaleField control={control} name="s3_conectar" label="“Un sistema que conecte reserva → cocina → facturación en un solo lugar sería valioso para un fine dining.” ¿De acuerdo?" />
-          <OpenField control={control} name="s3_falta" label="La más importante: ¿Qué le falta a esta idea? ¿Qué estamos pasando por alto?" placeholder="Sé tan crudo como quieras. Esto es lo que más nos ayuda." required rows={4} />
+        {/* Sección 3 — el puente */}
+        <Section index={3} title="El puente" subtitle="Llegar a más colegas que sí lo necesitan.">
+          <ChoiceField control={control} name="s3_conoces" label="¿Conoces restaurantes de menú degustación o alto ticket que estén peleando con su inventario de bodega, la coordinación de cocina o tener sus sistemas dispersos?" options={FD_OPTIONS.conoces} />
+          <ChoiceField control={control} name="s3_presentar" label="¿Estarías dispuesto a presentarnos?" options={FD_OPTIONS.presentar} />
+          <OpenField control={control} name="s3_contactos" label="(Opcional) Nombres o contactos que se te ocurran" rows={2} />
         </Section>
 
-        {/* Sección 4 */}
-        <Section index={4} title="El puente" subtitle="Nos ayudaría muchísimo llegar a más colegas como tú.">
-          <ChoiceField control={control} name="s4_conoces" label="¿Conoces otros restaurantes de tu estilo (menú degustación / alto ticket) que NO tengan tan resuelta su operación como ustedes?" options={FD_OPTIONS.conoces} />
-          <ChoiceField control={control} name="s4_presentar" label="Si es así, ¿estarías dispuesto a presentarnos?" options={FD_OPTIONS.presentar} />
-          <OpenField control={control} name="s4_contactos" label="(Opcional) Nombres o contactos que se te ocurran" rows={2} />
+        {/* Sección 4 — design partner */}
+        <Section index={4} title="Seguir aprendiendo juntos" subtitle="Un intercambio de ideas, sin venderte nada.">
+          <ChoiceField control={control} name="s4_seguir" label="Nos encantaría seguir aprendiendo del sector contigo, intercambiando ideas de optimización sin ningún compromiso comercial. ¿Te haría sentido?" options={FD_OPTIONS.seguir} />
+          <OpenField control={control} name="s4_optimizar" label="¿Hay algo de tu propia operación que te gustaría repensar u optimizar, aunque hoy funcione bien?" />
         </Section>
 
         {/* Cierre */}
