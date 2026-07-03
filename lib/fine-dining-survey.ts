@@ -82,7 +82,7 @@ export const fineDiningSurveySchema = z.object({
   s2_alergias: z.string().max(1000).optional().or(z.literal("")),
   s2_menu_cambio: z.enum(optionValues(FD_OPTIONS.menuCambio)).optional().or(z.literal("")),
 
-  // Sección 3 — Validá nuestra lectura
+  // Sección 3 — Valida nuestra lectura
   s3_desperdicio: z.enum(optionValues(FD_SCALE)).optional().or(z.literal("")),
   s3_silos: z.enum(optionValues(FD_OPTIONS.silos)).optional().or(z.literal("")),
   s3_silos_comentario: z.string().max(1000).optional().or(z.literal("")),
@@ -129,7 +129,7 @@ export const FD_EMAIL_SECTIONS: { title: string; fields: FieldDef[] }[] = [
     ],
   },
   {
-    title: "Sección 3 — Validá nuestra lectura",
+    title: "Sección 3 — Valida nuestra lectura",
     fields: [
       { id: "s3_desperdicio", label: "\"Saber con anticipación cuántos comensales vienen permite comprar/preparar casi sin desperdicio.\"", kind: "scale", options: FD_SCALE },
       { id: "s3_silos", label: "\"El mayor lío es que reservas, POS y contabilidad viven en sistemas separados que no se hablan.\"", kind: "option", options: FD_OPTIONS.silos },

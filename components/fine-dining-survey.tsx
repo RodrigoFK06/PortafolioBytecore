@@ -423,7 +423,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
         </Section>
 
         {/* Sección 3 */}
-        <Section index={3} title="Validá nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
+        <Section index={3} title="Valida nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
           <ScaleField control={control} name="s3_desperdicio" label="“Saber con anticipación cuántos comensales vienen permite comprar y preparar casi sin desperdicio.” ¿De acuerdo?" />
           <ChoiceField control={control} name="s3_silos" label="“El mayor lío del sector es que reservas, punto de venta y contabilidad viven en sistemas separados que no se hablan.” ¿Coincide con lo que ves?" options={FD_OPTIONS.silos} />
           <OpenField control={control} name="s3_silos_comentario" label="¿Quieres agregar algo sobre eso? (opcional)" rows={2} />
