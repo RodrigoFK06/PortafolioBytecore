@@ -58,8 +58,11 @@ export const fineDiningSurveySchema = z.object({
 
   // Sección 1 — Cómo se opera de verdad un menú degustación (aprender el vertical)
   s1_ritmo_real: z.string().min(4, { message: "Cuéntanos aunque sea en una línea." }).max(2000),
-  s1_metricas: z.string().max(2000).optional().or(z.literal("")),
   s1_maridaje_orq: z.string().max(2000).optional().or(z.literal("")),
+  s1_alergias: z.string().max(2000).optional().or(z.literal("")),
+  s1_metricas: z.string().max(2000).optional().or(z.literal("")),
+  s1_magia: z.string().max(2000).optional().or(z.literal("")),
+  s1_descartado: z.string().max(2000).optional().or(z.literal("")),
   s1_reglas: z.string().max(2000).optional().or(z.literal("")),
 
   // Sección 2 — Dónde se traban los que aún no lo tienen resuelto (perfilar imperfectos)
@@ -94,8 +97,11 @@ export const FD_EMAIL_SECTIONS: { title: string; fields: FieldDef[] }[] = [
     title: "Sección 1 — Cómo se opera de verdad un menú degustación",
     fields: [
       { id: "s1_ritmo_real", label: "La cocina por tiempos: ¿cómo se coordina de verdad el ritmo entre cocina y salón, y dónde se rompe?", kind: "text" },
-      { id: "s1_metricas", label: "Más allá de la venta del día, ¿qué números/señales mira para saber si le va bien?", kind: "text" },
       { id: "s1_maridaje_orq", label: "Maridaje y upselling de bebidas: ¿cómo se orquesta sin romper el ritmo del menú?", kind: "text" },
+      { id: "s1_alergias", label: "Cómo manejan las alergias/restricciones desde la reserva hasta la cocina", kind: "text" },
+      { id: "s1_metricas", label: "Más allá de la venta del día, ¿qué números/señales mira para saber si le va bien?", kind: "text" },
+      { id: "s1_magia", label: "Si pudiera resolver mágicamente un solo problema operativo, ¿cuál sería?", kind: "text" },
+      { id: "s1_descartado", label: "Qué software/herramientas evaluó y descartó, y por qué no le convencieron", kind: "text" },
       { id: "s1_reglas", label: "Las 2-3 reglas del sector que casi nadie entiende al principio", kind: "text" },
     ],
   },

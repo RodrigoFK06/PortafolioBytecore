@@ -30,7 +30,7 @@ function RequiredMark() {
 
 // Preguntas que cuentan para la barra de progreso.
 const QUESTION_KEYS: FieldName[] = [
-  "s1_ritmo_real", "s1_metricas", "s1_maridaje_orq", "s1_reglas",
+  "s1_ritmo_real", "s1_maridaje_orq", "s1_alergias", "s1_metricas", "s1_magia", "s1_descartado", "s1_reglas",
   "s2_otros_no_resuelto", "s2_pain", "s2_lo_dificil",
   "s3_conoces", "s3_presentar", "s3_contactos",
   "s4_seguir", "s4_optimizar",
@@ -278,7 +278,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
     resolver: zodResolver(fineDiningSurveySchema),
     defaultValues: {
       respondent: "", role: "", restaurant,
-      s1_ritmo_real: "", s1_metricas: "", s1_maridaje_orq: "", s1_reglas: "",
+      s1_ritmo_real: "", s1_maridaje_orq: "", s1_alergias: "", s1_metricas: "", s1_magia: "", s1_descartado: "", s1_reglas: "",
       s2_otros_no_resuelto: "", s2_pain: [], s2_lo_dificil: "",
       s3_conoces: "", s3_presentar: "", s3_contactos: "",
       s4_seguir: "", s4_optimizar: "",
@@ -392,8 +392,11 @@ export function FineDiningSurvey({ restaurant }: Props) {
         {/* Sección 1 — aprender el vertical */}
         <Section index={1} title="Cómo se opera de verdad" subtitle="Enséñanos el sector desde tu experiencia.">
           <OpenField control={control} name="s1_ritmo_real" label="La cocina por tiempos de un menú de varios pasos: ¿cómo se coordina de verdad el ritmo entre cocina y salón para que todo salga clavado? ¿Dónde se rompe cuando se rompe?" placeholder="Lo que solo se aprende operándolo." required rows={4} />
-          <OpenField control={control} name="s1_metricas" label="Más allá de la venta del día, ¿qué números o señales miras para saber si al restaurante le está yendo bien?" />
           <OpenField control={control} name="s1_maridaje_orq" label="El maridaje y el upselling de bebidas a lo largo de la experiencia, ¿cómo se orquesta bien sin romper el ritmo del menú?" />
+          <OpenField control={control} name="s1_alergias" label="¿Cómo manejan las alergias y restricciones desde que el cliente reserva hasta que llega a la cocina?" rows={2} />
+          <OpenField control={control} name="s1_metricas" label="Más allá de la venta del día, ¿qué números o señales miras para saber si al restaurante le está yendo bien?" />
+          <OpenField control={control} name="s1_magia" label="Si pudieras resolver mágicamente un solo problema operativo del fine dining, ¿cuál sería?" />
+          <OpenField control={control} name="s1_descartado" label="¿Qué software o herramientas evaluaste y descartaste antes de quedarte con lo que usas hoy? ¿Por qué no te convencieron?" />
           <OpenField control={control} name="s1_reglas" label="Si le enseñaras a alguien que recién abre un fine dining, ¿cuáles son las 2-3 reglas que casi nadie entiende al principio?" />
         </Section>
 
