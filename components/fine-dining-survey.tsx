@@ -38,13 +38,34 @@ const QUESTION_KEYS: FieldName[] = [
 ]
 
 const textareaCls =
-  "min-h-[104px] rounded-xl border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] text-[15px] leading-relaxed resize-y focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50 transition-colors"
+  "min-h-[92px] rounded-lg border-black/10 dark:border-white/10 bg-transparent text-[15px] leading-relaxed resize-y focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50 transition-colors"
 
 const inputCls =
-  "h-11 rounded-xl border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50"
+  "h-11 rounded-lg border-black/10 dark:border-white/10 bg-transparent focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50"
 
 const cardCls =
-  "rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/60 dark:bg-white/[0.02] backdrop-blur-sm shadow-sm"
+  "rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.03] backdrop-blur-sm shadow-sm"
+
+// Tarjeta de una sola pregunta (estilo Google Forms).
+const qCardBase =
+  "rounded-xl border bg-white/70 dark:bg-white/[0.025] shadow-sm px-5 py-5 sm:px-6 transition-colors"
+
+function QCard({ accent, children }: { accent?: boolean; children: React.ReactNode }) {
+  return (
+    <div
+      className={cn(
+        qCardBase,
+        accent
+          ? "border-brand/30 bg-brand/[0.035] dark:bg-brand/[0.06]"
+          : "border-black/[0.07] dark:border-white/[0.08]",
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+const qLabelCls = "text-[15px] font-semibold text-foreground leading-snug block"
 
 // --- Componentes de campo (a nivel de módulo: identidad estable, sin remontar) ---
 
@@ -63,15 +84,17 @@ function OpenField({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="space-y-2.5">
-          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">
-            {label}{required && <RequiredMark />}
-          </FormLabel>
-          <FormControl>
-            <Textarea rows={rows ?? 3} placeholder={placeholder} className={textareaCls} {...field} value={(field.value as string) ?? ""} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <QCard accent={required}>
+          <FormItem className="space-y-3">
+            <FormLabel className={qLabelCls}>
+              {label}{required && <RequiredMark />}
+            </FormLabel>
+            <FormControl>
+              <Textarea rows={rows ?? 3} placeholder={placeholder} className={textareaCls} {...field} value={(field.value as string) ?? ""} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </QCard>
       )}
     />
   )
@@ -90,30 +113,32 @@ function ChoiceField({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="space-y-3">
-          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">{label}</FormLabel>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              value={(field.value as string) ?? ""}
-              className={cn("grid gap-2.5", options.length <= 2 ? "sm:grid-cols-2" : "grid-cols-1")}
-            >
-              {options.map((opt) => (
-                <Label
-                  key={opt.value}
-                  htmlFor={`${name}-${opt.value}`}
-                  className="group flex items-center gap-3 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] px-4 py-3.5 cursor-pointer transition-all duration-150 hover:border-brand/50 hover:bg-brand/[0.04] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.08] has-[[data-state=checked]]:ring-1 has-[[data-state=checked]]:ring-brand/60 font-normal"
-                >
-                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} />
-                  <span className="text-sm text-foreground/85 group-has-[[data-state=checked]]:text-foreground group-has-[[data-state=checked]]:font-medium">
-                    {opt.label}
-                  </span>
-                </Label>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <QCard>
+          <FormItem className="space-y-3.5">
+            <FormLabel className={qLabelCls}>{label}</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                value={(field.value as string) ?? ""}
+                className="grid gap-1.5"
+              >
+                {options.map((opt) => (
+                  <Label
+                    key={opt.value}
+                    htmlFor={`${name}-${opt.value}`}
+                    className="group flex items-center gap-3 rounded-lg border border-transparent px-3 py-2.5 cursor-pointer transition-colors duration-150 hover:bg-brand/[0.05] has-[[data-state=checked]]:border-brand/50 has-[[data-state=checked]]:bg-brand/[0.08] font-normal"
+                  >
+                    <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} />
+                    <span className="text-sm text-foreground/85 group-has-[[data-state=checked]]:text-foreground group-has-[[data-state=checked]]:font-medium">
+                      {opt.label}
+                    </span>
+                  </Label>
+                ))}
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </QCard>
       )}
     />
   )
@@ -131,37 +156,40 @@ function ScaleField({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="space-y-3">
-          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">{label}</FormLabel>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              value={(field.value as string) ?? ""}
-              className="grid grid-cols-5 gap-1.5 sm:gap-2"
-            >
-              {FD_SCALE.map((opt) => (
-                <Label
-                  key={opt.value}
-                  htmlFor={`${name}-${opt.value}`}
-                  className="group flex flex-col items-center justify-start gap-1.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] px-1 py-3 text-center cursor-pointer transition-all duration-150 hover:border-brand/50 hover:bg-brand/[0.04] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.1] has-[[data-state=checked]]:ring-1 has-[[data-state=checked]]:ring-brand/60 font-normal"
-                >
-                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} className="sr-only" />
-                  <span className="text-base sm:text-lg font-bold text-foreground/70 group-has-[[data-state=checked]]:text-brand">
-                    {opt.value}
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] leading-tight text-foreground/50">{opt.label}</span>
-                </Label>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <QCard>
+          <FormItem className="space-y-3.5">
+            <FormLabel className={qLabelCls}>{label}</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                value={(field.value as string) ?? ""}
+                className="grid grid-cols-5 gap-1.5 sm:gap-2"
+              >
+                {FD_SCALE.map((opt) => (
+                  <Label
+                    key={opt.value}
+                    htmlFor={`${name}-${opt.value}`}
+                    className="group flex flex-col items-center justify-start gap-1.5 rounded-lg border border-black/10 dark:border-white/10 px-1 py-3 text-center cursor-pointer transition-colors duration-150 hover:border-brand/50 hover:bg-brand/[0.05] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.1] font-normal"
+                  >
+                    <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} className="sr-only" />
+                    <span className="text-base sm:text-lg font-bold text-foreground/70 group-has-[[data-state=checked]]:text-brand">
+                      {opt.value}
+                    </span>
+                    <span className="text-[10px] leading-tight text-foreground/50">{opt.label}</span>
+                  </Label>
+                ))}
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </QCard>
       )}
     />
   )
 }
 
-function SectionCard({
+// Encabezado de sección (no es tarjeta: separa grupos de preguntas).
+function Section({
   index, title, subtitle, children,
 }: {
   index: number
@@ -171,22 +199,22 @@ function SectionCard({
 }) {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={cn(cardCls, "p-6 sm:p-8")}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className="space-y-4"
     >
-      <div className="flex items-start gap-4 mb-6">
-        <span className="shrink-0 grid place-items-center h-10 w-10 rounded-xl bg-brand/10 text-brand font-mono text-sm font-bold ring-1 ring-brand/20">
+      <div className="flex items-center gap-3 px-1 pt-4">
+        <span className="shrink-0 grid place-items-center h-8 w-8 rounded-lg bg-brand/10 text-brand font-mono text-xs font-bold ring-1 ring-brand/20">
           {String(index).padStart(2, "0")}
         </span>
-        <div className="pt-0.5">
-          <h2 className="text-lg sm:text-xl font-bold text-foreground leading-tight">{title}</h2>
-          <p className="text-sm text-foreground/55 mt-0.5">{subtitle}</p>
+        <div>
+          <h2 className="text-base sm:text-lg font-bold text-foreground leading-tight">{title}</h2>
+          <p className="text-[13px] text-foreground/55 leading-tight">{subtitle}</p>
         </div>
       </div>
-      <div className="space-y-7">{children}</div>
+      {children}
     </motion.section>
   )
 }
@@ -346,21 +374,15 @@ export function FineDiningSurvey({ restaurant }: Props) {
         <ProgressTracker control={control} />
 
         {/* Identidad */}
-        <motion.section
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className={cn(cardCls, "p-6 sm:p-8")}
-        >
-          <p className="text-sm text-foreground/60 mb-5">Para saber a quién agradecerle (opcional).</p>
+        <QCard>
+          <p className="text-sm text-foreground/60 mb-4">Para saber a quién agradecerle <span className="text-foreground/40">(opcional)</span>.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField
               control={control}
               name="respondent"
               render={({ field }) => (
                 <FormItem className="space-y-2">
-                  <FormLabel className="text-sm text-foreground/80">Tu nombre</FormLabel>
+                  <FormLabel className="text-[13px] font-medium text-foreground/80">Tu nombre</FormLabel>
                   <FormControl>
                     <Input placeholder="Cómo te llamamos" className={inputCls} {...field} value={(field.value as string) ?? ""} />
                   </FormControl>
@@ -372,7 +394,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
               name="role"
               render={({ field }) => (
                 <FormItem className="space-y-2">
-                  <FormLabel className="text-sm text-foreground/80">Tu rol</FormLabel>
+                  <FormLabel className="text-[13px] font-medium text-foreground/80">Tu rol</FormLabel>
                   <FormControl>
                     <Input placeholder="Chef, gerente, sommelier…" className={inputCls} {...field} value={(field.value as string) ?? ""} />
                   </FormControl>
@@ -380,51 +402,49 @@ export function FineDiningSurvey({ restaurant }: Props) {
               )}
             />
           </div>
-        </motion.section>
+        </QCard>
 
         {/* Sección 1 */}
-        <SectionCard index={1} title="Tu mirada del sector" subtitle="Lo que ves desde dentro, sin filtros.">
+        <Section index={1} title="Tu mirada del sector" subtitle="Lo que ves desde dentro, sin filtros.">
           <OpenField control={control} name="s1_dificil" label="En tu experiencia, ¿qué es lo más difícil de operar bien en un restaurante de menú degustación?" placeholder="Lo primero que se te venga a la cabeza." required />
           <OpenField control={control} name="s1_magia" label="Si pudieras resolver mágicamente un solo problema operativo del fine dining, ¿cuál sería?" />
           <OpenField control={control} name="s1_descartado" label="¿Qué software o herramientas evaluaste y descartaste antes de quedarte con lo que usas hoy? ¿Por qué no te convencieron?" />
           <OpenField control={control} name="s1_manual" label="¿Hay algo que hoy resuelves a mano, en Excel o Notion, que te gustaría que un sistema hiciera solo?" />
-        </SectionCard>
+        </Section>
 
         {/* Sección 2 */}
-        <SectionCard index={2} title="Cómo funciona por dentro" subtitle="El día a día de tu operación.">
+        <Section index={2} title="Cómo funciona por dentro" subtitle="El día a día de tu operación.">
           <ChoiceField control={control} name="s2_ritmo" label="¿Cómo coordinan hoy salón y cocina el ritmo de los tiempos?" options={FD_OPTIONS.ritmo} />
           <RitmoOtro control={control} />
           <ChoiceField control={control} name="s2_maridaje" label="El maridaje y las bebidas extra, ¿se cobran aparte al final o van incluidos en el menú?" options={FD_OPTIONS.maridaje} />
           <ChoiceField control={control} name="s2_pago" label="¿Cobran el 100% del menú por adelantado, un depósito parcial, o al final?" options={FD_OPTIONS.pago} />
           <OpenField control={control} name="s2_alergias" label="¿Cómo manejan las alergias/restricciones desde que el cliente reserva hasta que llega a la cocina?" rows={2} />
           <ChoiceField control={control} name="s2_menu_cambio" label="¿Cada cuánto cambian el menú?" options={FD_OPTIONS.menuCambio} />
-        </SectionCard>
+        </Section>
 
         {/* Sección 3 */}
-        <SectionCard index={3} title="Validá nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
+        <Section index={3} title="Validá nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
           <ScaleField control={control} name="s3_desperdicio" label="“Saber con anticipación cuántos comensales vienen permite comprar y preparar casi sin desperdicio.” ¿De acuerdo?" />
           <ChoiceField control={control} name="s3_silos" label="“El mayor lío del sector es que reservas, punto de venta y contabilidad viven en sistemas separados que no se hablan.” ¿Coincide con lo que ves?" options={FD_OPTIONS.silos} />
           <OpenField control={control} name="s3_silos_comentario" label="¿Quieres agregar algo sobre eso? (opcional)" rows={2} />
           <ScaleField control={control} name="s3_conectar" label="“Un sistema que conecte reserva → cocina → facturación en un solo lugar sería valioso para un fine dining.” ¿De acuerdo?" />
-          <div className="rounded-xl bg-brand/[0.06] border border-brand/20 p-4 sm:p-5">
-            <OpenField control={control} name="s3_falta" label="La más importante: ¿Qué le falta a esta idea? ¿Qué estamos pasando por alto?" placeholder="Sé tan crudo como quieras. Esto es lo que más nos ayuda." required rows={4} />
-          </div>
-        </SectionCard>
+          <OpenField control={control} name="s3_falta" label="La más importante: ¿Qué le falta a esta idea? ¿Qué estamos pasando por alto?" placeholder="Sé tan crudo como quieras. Esto es lo que más nos ayuda." required rows={4} />
+        </Section>
 
         {/* Sección 4 */}
-        <SectionCard index={4} title="El puente" subtitle="Nos ayudaría muchísimo llegar a más colegas como tú.">
+        <Section index={4} title="El puente" subtitle="Nos ayudaría muchísimo llegar a más colegas como tú.">
           <ChoiceField control={control} name="s4_conoces" label="¿Conoces otros restaurantes de tu estilo (menú degustación / alto ticket) que NO tengan tan resuelta su operación como ustedes?" options={FD_OPTIONS.conoces} />
           <ChoiceField control={control} name="s4_presentar" label="Si es así, ¿estarías dispuesto a presentarnos?" options={FD_OPTIONS.presentar} />
           <OpenField control={control} name="s4_contactos" label="(Opcional) Nombres o contactos que se te ocurran" rows={2} />
-        </SectionCard>
+        </Section>
 
         {/* Cierre */}
-        <SectionCard index={5} title="Cierre" subtitle="La palabra final es tuya.">
+        <Section index={5} title="Cierre" subtitle="La palabra final es tuya.">
           <OpenField control={control} name="cierre_libre" label="Espacio libre para lo que quieras agregar o para cualquier idea que te haya quedado dando vueltas." rows={4} />
-        </SectionCard>
+        </Section>
 
         {/* Enviar */}
-        <div className={cn(cardCls, "p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5")}>
+        <div className={cn(cardCls, "p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5")}>
           <p className="text-xs font-mono text-foreground/55 leading-relaxed">
             <span className="text-brand" aria-hidden="true">*</span> Solo dos preguntas son obligatorias.<br className="hidden sm:block" /> El resto, lo que quieras responder.
           </p>

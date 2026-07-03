@@ -35,48 +35,55 @@ export default async function FineDiningSurveyPage({
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      <div className="relative mx-auto max-w-2xl px-5 sm:px-6 pt-28 sm:pt-36 pb-28">
-        {/* Encabezado / Intro */}
-        <header className="mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand/[0.06] px-3.5 py-1.5 mb-6">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
-              Árkos · Investigación
-            </span>
-          </div>
-
-          <h1 className="text-[2rem] leading-[1.1] sm:text-[2.75rem] font-bold text-foreground tracking-tight mb-6">
-            Tu mirada experta sobre el fine dining
-          </h1>
-
-          <div className="space-y-4 text-foreground/75 leading-relaxed text-[15px] sm:text-[17px] max-w-xl">
-            <p>
-              Estamos diseñando herramientas pensadas para restaurantes de menú degustación en Perú,
-              y tu experiencia con <strong className="text-foreground font-semibold">{restaurant}</strong> es
-              exactamente la mirada que necesitamos.
-            </p>
-            <p className="text-foreground/60">
-              Son pocas preguntas, la mayoría rápidas. Gracias por el tiempo.
-            </p>
-          </div>
-
-          <div className="mt-7 flex flex-wrap gap-2">
-            {meta.map((m) => (
-              <span
-                key={m}
-                className="inline-flex items-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-3 py-1 text-xs font-medium text-foreground/70"
-              >
-                {m}
+      {/* Centrado por flex: el hijo NO usa mx-auto para no chocar con la regla global
+          `.mx-auto { max-width: 100vw !important }` de globals.css que anularía el max-w. */}
+      <div className="relative flex justify-center px-4 sm:px-6 pt-24 sm:pt-32 pb-28">
+       <div className="w-full max-w-[600px]">
+        {/* Encabezado estilo banner (barra de acento de marca arriba) */}
+        <header className="overflow-hidden rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.03] backdrop-blur-sm shadow-sm mb-6">
+          <div className="h-2 w-full bg-gradient-to-r from-brand via-brand/80 to-brand/50" />
+          <div className="p-6 sm:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand/[0.06] px-3 py-1 mb-5">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand">
+                Árkos · Investigación
               </span>
-            ))}
+            </div>
+
+            <h1 className="text-2xl sm:text-[2rem] leading-[1.12] font-bold text-foreground tracking-tight mb-4">
+              Tu mirada experta sobre el fine dining
+            </h1>
+
+            <div className="space-y-3 text-foreground/75 leading-relaxed text-[15px]">
+              <p>
+                Estamos diseñando herramientas pensadas para restaurantes de menú degustación en Perú,
+                y tu experiencia con <strong className="text-foreground font-semibold">{restaurant}</strong> es
+                exactamente la mirada que necesitamos.
+              </p>
+              <p className="text-foreground/60">
+                Son pocas preguntas, la mayoría rápidas. Gracias por el tiempo.
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {meta.map((m) => (
+                <span
+                  key={m}
+                  className="inline-flex items-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-foreground/70"
+                >
+                  {m}
+                </span>
+              ))}
+            </div>
           </div>
         </header>
 
         <FineDiningSurvey restaurant={restaurant} />
 
-        <p className="mt-10 text-center text-xs text-foreground/45">
+        <p className="mt-8 text-center text-xs text-foreground/45">
           Tus respuestas llegan directo al equipo de Árkos. No las compartimos con terceros.
         </p>
+       </div>
       </div>
     </main>
   )
