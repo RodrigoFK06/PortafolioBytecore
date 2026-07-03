@@ -54,7 +54,12 @@ export async function POST(request: NextRequest) {
       console.log(`Cuestionario fine dining enviado desde ${clientIP}`)
       return NextResponse.json({ success: true, message: '¡Gracias! Recibimos tu respuesta.' }, { status: 200 })
     }
-    return NextResponse.json({ success: false, message: emailResult.message }, { status: 500 })
+
+    // Red de seguridad: si el correo falla (p. ej. SMTP caído / credenciales),
+    // NO perdemos la respuesta. Se registra el payload validado en los logs con un
+    // marcador buscable para recuperarlo, y se responde OK para no perder al usuario.
+    console.error(`SURVEY_SUBMISSION_FALLBACK ${JSON.stringify(validationResult.data)}`)
+    return NextResponse.json({ success: true, message: '¡Gracias! Recibimos tu respuesta.' }, { status: 200 })
   } catch (error) {
     console.error('Error en API de cuestionario:', error)
     return NextResponse.json({ success: false, message: 'Error interno del servidor. Por favor, intenta nuevamente.' }, { status: 500 })
