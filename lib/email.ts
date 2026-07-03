@@ -2,6 +2,7 @@
 import nodemailer from 'nodemailer'
 import type { ContactFormData, EmailResponse, SMTPConfig, EmailTemplate } from '@/types/email'
 import type { Lead, ChatMessage } from '@/types/chatbot'
+import { FD_EMAIL_SECTIONS, resolveAnswer, type FineDiningSurveyData } from '@/lib/fine-dining-survey'
 
 // Configuración SMTP
 const createTransporter = () => {
@@ -438,5 +439,132 @@ export const sendChatbotReportEmail = async (lead: Lead): Promise<EmailResponse>
   } catch (error) {
     console.error('Error enviando informe de lead:', error)
     return { success: false, message: 'Error al enviar el informe' }
+  }
+}
+
+// --- CUESTIONARIO FINE DINING ("Tu mirada experta sobre el fine dining") ---
+
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+
+const generateSurveyTemplate = (data: FineDiningSurveyData): EmailTemplate => {
+  const restaurant = (data.restaurant || '').trim()
+  const respondent = (data.respondent || '').trim()
+  const role = (data.role || '').trim()
+
+  const identityLine = [respondent, role, restaurant].filter(Boolean).join(' · ') || 'Sin identificar'
+
+  const htmlSections = FD_EMAIL_SECTIONS.map((section) => {
+    const rows = section.fields
+      .map((field) => {
+        const answer = resolveAnswer(field, data[field.id])
+        if (!answer) return ''
+        return `
+          <div class="qa">
+            <div class="q">${escapeHtml(field.label)}</div>
+            <div class="a">${escapeHtml(answer).replace(/\n/g, '<br>')}</div>
+          </div>`
+      })
+      .join('')
+    if (!rows) return ''
+    return `<div class="section"><h2>${escapeHtml(section.title)}</h2>${rows}</div>`
+  }).join('')
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <title>Cuestionario Fine Dining - Árkos</title>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #2c3e50; background: #f5f7fa; padding: 20px; margin: 0; }
+        .container { max-width: 720px; margin: auto; background: #fff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #0a6ca8, #084b74); color: #fff; padding: 28px 24px; }
+        .header h1 { margin: 0; font-size: 22px; }
+        .header p { margin: 6px 0 0; opacity: 0.9; font-size: 14px; }
+        .content { padding: 24px; }
+        .identity { background: #eef6fb; border-left: 4px solid #0a6ca8; padding: 14px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+        .section { margin-bottom: 26px; }
+        .section h2 { font-size: 15px; color: #0a6ca8; border-bottom: 1px solid #e3e8ef; padding-bottom: 6px; margin: 0 0 12px; }
+        .qa { margin-bottom: 14px; }
+        .q { font-size: 13px; color: #6b7684; font-weight: 600; }
+        .a { background: #f8fafc; border-radius: 6px; padding: 10px 12px; margin-top: 4px; border: 1px solid #eceff3; white-space: normal; }
+        .footer { background: #f8f9fa; padding: 18px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>🍽️ Nueva respuesta — Fine Dining</h1>
+          <p>Cuestionario "Tu mirada experta sobre el fine dining"</p>
+        </div>
+        <div class="content">
+          <div class="identity"><strong>Responde:</strong> ${escapeHtml(identityLine)}</div>
+          ${htmlSections}
+        </div>
+        <div class="footer">
+          <p>Enviado desde el cuestionario privado de Árkos · ${new Date().toLocaleString('es-PE')}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `
+
+  const textSections = FD_EMAIL_SECTIONS.map((section) => {
+    const rows = section.fields
+      .map((field) => {
+        const answer = resolveAnswer(field, data[field.id])
+        return answer ? `• ${field.label}\n  ${answer.replace(/\n/g, '\n  ')}` : ''
+      })
+      .filter(Boolean)
+      .join('\n\n')
+    return rows ? `\n${section.title}\n${'-'.repeat(section.title.length)}\n${rows}` : ''
+  }).join('\n')
+
+  const text = `Nueva respuesta — Cuestionario Fine Dining (Árkos)
+Responde: ${identityLine}
+${textSections}
+
+---
+Enviado ${new Date().toLocaleString('es-PE')}`.trim()
+
+  const subjectWho = respondent || restaurant || 'Anónimo'
+
+  return {
+    subject: `🍽️ [Árkos · Fine Dining] Nueva respuesta: ${subjectWho}`,
+    html,
+    text,
+  }
+}
+
+// Envía la respuesta del cuestionario de fine dining al correo de contacto.
+export const sendSurveyEmail = async (data: FineDiningSurveyData): Promise<EmailResponse> => {
+  try {
+    const transporter = createTransporter()
+    const template = generateSurveyTemplate(data)
+
+    await transporter.verify()
+
+    const mailOptions = {
+      from: {
+        name: 'Árkos · Fine Dining',
+        address: process.env.SMTP_FROM || process.env.SMTP_USER || '',
+      },
+      to: process.env.CONTACT_EMAIL || process.env.SMTP_USER || '',
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    }
+
+    const info = await transporter.sendMail(mailOptions)
+    return { success: true, message: 'Respuesta enviada', messageId: info.messageId }
+  } catch (error) {
+    console.error('Error enviando cuestionario fine dining:', error)
+    return { success: false, message: 'Error al enviar la respuesta. Por favor, intenta nuevamente.' }
   }
 }
