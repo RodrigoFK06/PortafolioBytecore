@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { useForm } from "react-hook-form"
+import { motion, AnimatePresence } from "framer-motion"
+import { useForm, useWatch, type Control } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -12,6 +13,7 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { LoadingSpinner } from "@/components/ui/loading"
+import { cn } from "@/lib/utils"
 import {
   fineDiningSurveySchema,
   type FineDiningSurveyData,
@@ -19,17 +21,236 @@ import {
   FD_SCALE,
 } from "@/lib/fine-dining-survey"
 
+type Ctrl = Control<FineDiningSurveyData>
+type FieldName = keyof FineDiningSurveyData
+
 function RequiredMark() {
   return <span className="text-brand ml-0.5" aria-hidden="true">*</span>
 }
 
-// Cabecera de sección
-function SectionHeading({ index, title }: { index: number; title: string }) {
+// Preguntas que cuentan para la barra de progreso.
+const QUESTION_KEYS: FieldName[] = [
+  "s1_dificil", "s1_magia", "s1_descartado", "s1_manual",
+  "s2_ritmo", "s2_maridaje", "s2_pago", "s2_alergias", "s2_menu_cambio",
+  "s3_desperdicio", "s3_silos", "s3_conectar", "s3_falta",
+  "s4_conoces", "s4_presentar", "s4_contactos",
+  "cierre_libre",
+]
+
+const textareaCls =
+  "min-h-[104px] rounded-xl border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] text-[15px] leading-relaxed resize-y focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50 transition-colors"
+
+const inputCls =
+  "h-11 rounded-xl border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50"
+
+const cardCls =
+  "rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/60 dark:bg-white/[0.02] backdrop-blur-sm shadow-sm"
+
+// --- Componentes de campo (a nivel de módulo: identidad estable, sin remontar) ---
+
+function OpenField({
+  control, name, label, placeholder, required, rows,
+}: {
+  control: Ctrl
+  name: FieldName
+  label: string
+  placeholder?: string
+  required?: boolean
+  rows?: number
+}) {
   return (
-    <div className="flex items-baseline gap-3 pt-2">
-      <span className="font-mono text-sm text-brand">{String(index).padStart(2, "0")}</span>
-      <h2 className="text-lg sm:text-xl font-bold text-foreground">{title}</h2>
-    </div>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="space-y-2.5">
+          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">
+            {label}{required && <RequiredMark />}
+          </FormLabel>
+          <FormControl>
+            <Textarea rows={rows ?? 3} placeholder={placeholder} className={textareaCls} {...field} value={(field.value as string) ?? ""} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+function ChoiceField({
+  control, name, label, options,
+}: {
+  control: Ctrl
+  name: FieldName
+  label: string
+  options: readonly { value: string; label: string }[]
+}) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="space-y-3">
+          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">{label}</FormLabel>
+          <FormControl>
+            <RadioGroup
+              onValueChange={field.onChange}
+              value={(field.value as string) ?? ""}
+              className={cn("grid gap-2.5", options.length <= 2 ? "sm:grid-cols-2" : "grid-cols-1")}
+            >
+              {options.map((opt) => (
+                <Label
+                  key={opt.value}
+                  htmlFor={`${name}-${opt.value}`}
+                  className="group flex items-center gap-3 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] px-4 py-3.5 cursor-pointer transition-all duration-150 hover:border-brand/50 hover:bg-brand/[0.04] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.08] has-[[data-state=checked]]:ring-1 has-[[data-state=checked]]:ring-brand/60 font-normal"
+                >
+                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} />
+                  <span className="text-sm text-foreground/85 group-has-[[data-state=checked]]:text-foreground group-has-[[data-state=checked]]:font-medium">
+                    {opt.label}
+                  </span>
+                </Label>
+              ))}
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+function ScaleField({
+  control, name, label,
+}: {
+  control: Ctrl
+  name: FieldName
+  label: string
+}) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="space-y-3">
+          <FormLabel className="text-[15px] sm:text-base font-medium text-foreground leading-snug block">{label}</FormLabel>
+          <FormControl>
+            <RadioGroup
+              onValueChange={field.onChange}
+              value={(field.value as string) ?? ""}
+              className="grid grid-cols-5 gap-1.5 sm:gap-2"
+            >
+              {FD_SCALE.map((opt) => (
+                <Label
+                  key={opt.value}
+                  htmlFor={`${name}-${opt.value}`}
+                  className="group flex flex-col items-center justify-start gap-1.5 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] px-1 py-3 text-center cursor-pointer transition-all duration-150 hover:border-brand/50 hover:bg-brand/[0.04] has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/[0.1] has-[[data-state=checked]]:ring-1 has-[[data-state=checked]]:ring-brand/60 font-normal"
+                >
+                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} className="sr-only" />
+                  <span className="text-base sm:text-lg font-bold text-foreground/70 group-has-[[data-state=checked]]:text-brand">
+                    {opt.value}
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] leading-tight text-foreground/50">{opt.label}</span>
+                </Label>
+              ))}
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+function SectionCard({
+  index, title, subtitle, children,
+}: {
+  index: number
+  title: string
+  subtitle: string
+  children: React.ReactNode
+}) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={cn(cardCls, "p-6 sm:p-8")}
+    >
+      <div className="flex items-start gap-4 mb-6">
+        <span className="shrink-0 grid place-items-center h-10 w-10 rounded-xl bg-brand/10 text-brand font-mono text-sm font-bold ring-1 ring-brand/20">
+          {String(index).padStart(2, "0")}
+        </span>
+        <div className="pt-0.5">
+          <h2 className="text-lg sm:text-xl font-bold text-foreground leading-tight">{title}</h2>
+          <p className="text-sm text-foreground/55 mt-0.5">{subtitle}</p>
+        </div>
+      </div>
+      <div className="space-y-7">{children}</div>
+    </motion.section>
+  )
+}
+
+// Progreso aislado: sólo este componente se re-renderiza al escribir (useWatch),
+// no el formulario completo.
+function ProgressTracker({ control }: { control: Ctrl }) {
+  const values = useWatch({ control })
+  const answered = QUESTION_KEYS.filter((k) => {
+    const v = values[k]
+    return typeof v === "string" && v.trim() !== ""
+  }).length
+  const pct = Math.round((answered / QUESTION_KEYS.length) * 100)
+
+  return (
+    <>
+      {/* Línea fija tipo "reading progress" */}
+      <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent pointer-events-none">
+        <motion.div
+          className="h-full bg-brand shadow-[0_0_10px_hsl(var(--brand))]"
+          initial={false}
+          animate={{ width: `${pct}%` }}
+          transition={{ type: "spring", stiffness: 200, damping: 30 }}
+        />
+      </div>
+
+      {/* Contador al inicio del formulario */}
+      <div className="rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.03] px-5 py-3.5">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-xs font-medium text-foreground/60">Tu progreso</span>
+          <span className="text-xs font-mono text-brand">{answered}/{QUESTION_KEYS.length} respondidas</span>
+        </div>
+        <div className="h-1.5 w-full rounded-full bg-black/[0.08] dark:bg-white/[0.08] overflow-hidden">
+          <motion.div
+            className="h-full rounded-full bg-brand"
+            initial={false}
+            animate={{ width: `${pct}%` }}
+            transition={{ type: "spring", stiffness: 200, damping: 30 }}
+          />
+        </div>
+      </div>
+    </>
+  )
+}
+
+// Textarea condicional "otro" aislado, para no re-renderizar el formulario entero.
+function RitmoOtro({ control }: { control: Ctrl }) {
+  const ritmo = useWatch({ control, name: "s2_ritmo" })
+  return (
+    <AnimatePresence initial={false}>
+      {ritmo === "otro" && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.25 }}
+          className="overflow-hidden"
+        >
+          <div className="pt-1">
+            <OpenField control={control} name="s2_ritmo_otro" label="Cuéntanos cómo lo hacen" rows={2} />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -43,39 +264,23 @@ export function FineDiningSurvey({ restaurant }: Props) {
   const form = useForm<FineDiningSurveyData>({
     resolver: zodResolver(fineDiningSurveySchema),
     defaultValues: {
-      respondent: "",
-      role: "",
-      restaurant,
-      s1_dificil: "",
-      s1_magia: "",
-      s1_descartado: "",
-      s1_manual: "",
-      s2_ritmo: "",
-      s2_ritmo_otro: "",
-      s2_maridaje: "",
-      s2_pago: "",
-      s2_alergias: "",
-      s2_menu_cambio: "",
-      s3_desperdicio: "",
-      s3_silos: "",
-      s3_silos_comentario: "",
-      s3_conectar: "",
-      s3_falta: "",
-      s4_conoces: "",
-      s4_presentar: "",
-      s4_contactos: "",
-      cierre_libre: "",
-      website: "",
+      respondent: "", role: "", restaurant,
+      s1_dificil: "", s1_magia: "", s1_descartado: "", s1_manual: "",
+      s2_ritmo: "", s2_ritmo_otro: "", s2_maridaje: "", s2_pago: "", s2_alergias: "", s2_menu_cambio: "",
+      s3_desperdicio: "", s3_silos: "", s3_silos_comentario: "", s3_conectar: "", s3_falta: "",
+      s4_conoces: "", s4_presentar: "", s4_contactos: "",
+      cierre_libre: "", website: "",
     },
   })
+  const control = form.control
 
-  async function onSubmit(values: FineDiningSurveyData) {
+  async function onSubmit(v: FineDiningSurveyData) {
     setIsSubmitting(true)
     try {
       const response = await fetch("/api/survey", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(v),
       })
       const result = await response.json()
       if (result.success) {
@@ -106,297 +311,125 @@ export function FineDiningSurvey({ restaurant }: Props) {
 
   if (submitted) {
     return (
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
         role="status"
         aria-live="polite"
-        className="p-8 sm:p-10 rounded-2xl bg-brand/5 border border-brand/20 text-center"
+        className="relative overflow-hidden p-8 sm:p-12 rounded-3xl bg-brand/5 border border-brand/20 text-center"
       >
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand/15 text-brand mb-4 text-2xl" aria-hidden="true">✓</div>
-        <h3 className="text-2xl font-bold text-foreground mb-2">Gracias, de verdad.</h3>
-        <p className="text-foreground/75 leading-relaxed max-w-md mx-auto">
-          Tu mirada es exactamente lo que necesitábamos para diseñar algo que sirva de verdad en un fine dining.
-          Si dejaste una puerta abierta para presentarnos a otros colegas, te escribiremos pronto.
-        </p>
-      </div>
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-48 w-48 rounded-full bg-brand/20 blur-3xl" />
+        <div className="relative">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand text-brand-foreground mb-5 shadow-lg shadow-brand/25" aria-hidden="true">
+            <Check className="h-8 w-8" />
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Gracias, de verdad.</h3>
+          <p className="text-foreground/70 leading-relaxed max-w-md mx-auto">
+            Tu mirada es exactamente lo que necesitábamos para diseñar algo que sirva de verdad en un fine dining.
+            Si dejaste una puerta abierta para presentarnos a otros colegas, te escribiremos pronto.
+          </p>
+        </div>
+      </motion.div>
     )
   }
 
-  // Helper de campo abierto (Textarea)
-  const OpenField = ({
-    name,
-    label,
-    placeholder,
-    required,
-    rows = 3,
-  }: {
-    name: keyof FineDiningSurveyData
-    label: string
-    placeholder?: string
-    required?: boolean
-    rows?: number
-  }) => (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-base font-medium text-foreground/90 leading-snug">
-            {label}
-            {required && <RequiredMark />}
-          </FormLabel>
-          <FormControl>
-            <Textarea rows={rows} placeholder={placeholder} {...field} value={(field.value as string) ?? ""} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-
-  // Helper de opción múltiple (radios verticales)
-  const ChoiceField = ({
-    name,
-    label,
-    options,
-  }: {
-    name: keyof FineDiningSurveyData
-    label: string
-    options: readonly { value: string; label: string }[]
-  }) => (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-base font-medium text-foreground/90 leading-snug">{label}</FormLabel>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              value={(field.value as string) ?? ""}
-              className="grid gap-2 pt-1"
-            >
-              {options.map((opt) => (
-                <Label
-                  key={opt.value}
-                  htmlFor={`${name}-${opt.value}`}
-                  className="flex items-center gap-3 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.03] px-4 py-3 cursor-pointer transition-colors hover:border-brand/40 has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5 font-normal"
-                >
-                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} />
-                  <span className="text-sm text-foreground/85">{opt.label}</span>
-                </Label>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-
-  // Helper de escala Likert 1–5 (horizontal)
-  const ScaleField = ({
-    name,
-    label,
-  }: {
-    name: keyof FineDiningSurveyData
-    label: string
-  }) => (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="text-base font-medium text-foreground/90 leading-snug">{label}</FormLabel>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              value={(field.value as string) ?? ""}
-              className="flex flex-wrap gap-2 pt-1"
-            >
-              {FD_SCALE.map((opt) => (
-                <Label
-                  key={opt.value}
-                  htmlFor={`${name}-${opt.value}`}
-                  className="flex flex-1 min-w-[6rem] flex-col items-center gap-1 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.03] px-2 py-3 text-center cursor-pointer transition-colors hover:border-brand/40 has-[[data-state=checked]]:border-brand has-[[data-state=checked]]:bg-brand/5 font-normal"
-                >
-                  <RadioGroupItem value={opt.value} id={`${name}-${opt.value}`} className="sr-only" />
-                  <span className="text-lg font-bold text-foreground/80">{opt.value}</span>
-                  <span className="text-[11px] leading-tight text-foreground/55">{opt.label}</span>
-                </Label>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="space-y-12" noValidate>
-        {/* Honeypot anti-spam (oculto) */}
+      <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="space-y-6" noValidate>
+        {/* Honeypot */}
         <input
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
+          type="text" tabIndex={-1} autoComplete="off" aria-hidden="true"
           className="absolute -left-[9999px] h-0 w-0 opacity-0"
           {...form.register("website")}
         />
 
+        <ProgressTracker control={control} />
+
         {/* Identidad */}
-        <section className="space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <motion.section
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className={cn(cardCls, "p-6 sm:p-8")}
+        >
+          <p className="text-sm text-foreground/60 mb-5">Para saber a quién agradecerle (opcional).</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField
-              control={form.control}
+              control={control}
               name="respondent"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tu nombre (opcional)</FormLabel>
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-sm text-foreground/80">Tu nombre</FormLabel>
                   <FormControl>
-                    <Input placeholder="Cómo te llamamos" {...field} value={(field.value as string) ?? ""} />
+                    <Input placeholder="Cómo te llamamos" className={inputCls} {...field} value={(field.value as string) ?? ""} />
                   </FormControl>
                 </FormItem>
               )}
             />
             <FormField
-              control={form.control}
+              control={control}
               name="role"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tu rol (opcional)</FormLabel>
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-sm text-foreground/80">Tu rol</FormLabel>
                   <FormControl>
-                    <Input placeholder="Chef, gerente, sommelier…" {...field} value={(field.value as string) ?? ""} />
+                    <Input placeholder="Chef, gerente, sommelier…" className={inputCls} {...field} value={(field.value as string) ?? ""} />
                   </FormControl>
                 </FormItem>
               )}
             />
           </div>
-        </section>
+        </motion.section>
 
         {/* Sección 1 */}
-        <section className="space-y-6">
-          <SectionHeading index={1} title="Tu mirada del sector" />
-          <OpenField
-            name="s1_dificil"
-            label="En tu experiencia, ¿qué es lo más difícil de operar bien en un restaurante de menú degustación?"
-            placeholder="Lo primero que se te venga a la cabeza."
-            required
-          />
-          <OpenField
-            name="s1_magia"
-            label="Si pudieras resolver mágicamente un solo problema operativo del fine dining, ¿cuál sería?"
-          />
-          <OpenField
-            name="s1_descartado"
-            label="¿Qué software o herramientas evaluaste y descartaste antes de quedarte con lo que usas hoy? ¿Por qué no te convencieron?"
-          />
-          <OpenField
-            name="s1_manual"
-            label="¿Hay algo que hoy resuelves a mano, en Excel o Notion, que te gustaría que un sistema hiciera solo?"
-          />
-        </section>
+        <SectionCard index={1} title="Tu mirada del sector" subtitle="Lo que ves desde dentro, sin filtros.">
+          <OpenField control={control} name="s1_dificil" label="En tu experiencia, ¿qué es lo más difícil de operar bien en un restaurante de menú degustación?" placeholder="Lo primero que se te venga a la cabeza." required />
+          <OpenField control={control} name="s1_magia" label="Si pudieras resolver mágicamente un solo problema operativo del fine dining, ¿cuál sería?" />
+          <OpenField control={control} name="s1_descartado" label="¿Qué software o herramientas evaluaste y descartaste antes de quedarte con lo que usas hoy? ¿Por qué no te convencieron?" />
+          <OpenField control={control} name="s1_manual" label="¿Hay algo que hoy resuelves a mano, en Excel o Notion, que te gustaría que un sistema hiciera solo?" />
+        </SectionCard>
 
         {/* Sección 2 */}
-        <section className="space-y-6">
-          <SectionHeading index={2} title="Cómo funciona por dentro" />
-          <ChoiceField
-            name="s2_ritmo"
-            label="¿Cómo coordinan hoy salón y cocina el ritmo de los tiempos?"
-            options={FD_OPTIONS.ritmo}
-          />
-          {form.watch("s2_ritmo") === "otro" && (
-            <OpenField name="s2_ritmo_otro" label="Cuéntanos cómo lo hacen (otro)" rows={2} />
-          )}
-          <ChoiceField
-            name="s2_maridaje"
-            label="El maridaje y las bebidas extra, ¿se cobran aparte al final o van incluidos en el menú?"
-            options={FD_OPTIONS.maridaje}
-          />
-          <ChoiceField
-            name="s2_pago"
-            label="¿Cobran el 100% del menú por adelantado, un depósito parcial, o al final?"
-            options={FD_OPTIONS.pago}
-          />
-          <OpenField
-            name="s2_alergias"
-            label="¿Cómo manejan las alergias/restricciones desde que el cliente reserva hasta que llega a la cocina?"
-            rows={2}
-          />
-          <ChoiceField
-            name="s2_menu_cambio"
-            label="¿Cada cuánto cambian el menú?"
-            options={FD_OPTIONS.menuCambio}
-          />
-        </section>
+        <SectionCard index={2} title="Cómo funciona por dentro" subtitle="El día a día de tu operación.">
+          <ChoiceField control={control} name="s2_ritmo" label="¿Cómo coordinan hoy salón y cocina el ritmo de los tiempos?" options={FD_OPTIONS.ritmo} />
+          <RitmoOtro control={control} />
+          <ChoiceField control={control} name="s2_maridaje" label="El maridaje y las bebidas extra, ¿se cobran aparte al final o van incluidos en el menú?" options={FD_OPTIONS.maridaje} />
+          <ChoiceField control={control} name="s2_pago" label="¿Cobran el 100% del menú por adelantado, un depósito parcial, o al final?" options={FD_OPTIONS.pago} />
+          <OpenField control={control} name="s2_alergias" label="¿Cómo manejan las alergias/restricciones desde que el cliente reserva hasta que llega a la cocina?" rows={2} />
+          <ChoiceField control={control} name="s2_menu_cambio" label="¿Cada cuánto cambian el menú?" options={FD_OPTIONS.menuCambio} />
+        </SectionCard>
 
         {/* Sección 3 */}
-        <section className="space-y-6">
-          <SectionHeading index={3} title="Validá nuestra lectura" />
-          <ScaleField
-            name="s3_desperdicio"
-            label="“Saber con anticipación cuántos comensales vienen permite comprar y preparar casi sin desperdicio.” ¿De acuerdo?"
-          />
-          <ChoiceField
-            name="s3_silos"
-            label="“El mayor lío del sector es que reservas, punto de venta y contabilidad viven en sistemas separados que no se hablan.” ¿Coincide con lo que ves?"
-            options={FD_OPTIONS.silos}
-          />
-          <OpenField
-            name="s3_silos_comentario"
-            label="¿Quieres agregar algo sobre eso? (opcional)"
-            rows={2}
-          />
-          <ScaleField
-            name="s3_conectar"
-            label="“Un sistema que conecte reserva → cocina → facturación en un solo lugar sería valioso para un fine dining.” ¿De acuerdo?"
-          />
-          <OpenField
-            name="s3_falta"
-            label="La más importante: ¿Qué le falta a esta idea? ¿Qué estamos pasando por alto?"
-            placeholder="Sé tan crudo como quieras. Esto es lo que más nos ayuda."
-            required
-            rows={4}
-          />
-        </section>
+        <SectionCard index={3} title="Validá nuestra lectura" subtitle="Dinos si vamos bien o si estamos equivocados.">
+          <ScaleField control={control} name="s3_desperdicio" label="“Saber con anticipación cuántos comensales vienen permite comprar y preparar casi sin desperdicio.” ¿De acuerdo?" />
+          <ChoiceField control={control} name="s3_silos" label="“El mayor lío del sector es que reservas, punto de venta y contabilidad viven en sistemas separados que no se hablan.” ¿Coincide con lo que ves?" options={FD_OPTIONS.silos} />
+          <OpenField control={control} name="s3_silos_comentario" label="¿Quieres agregar algo sobre eso? (opcional)" rows={2} />
+          <ScaleField control={control} name="s3_conectar" label="“Un sistema que conecte reserva → cocina → facturación en un solo lugar sería valioso para un fine dining.” ¿De acuerdo?" />
+          <div className="rounded-xl bg-brand/[0.06] border border-brand/20 p-4 sm:p-5">
+            <OpenField control={control} name="s3_falta" label="La más importante: ¿Qué le falta a esta idea? ¿Qué estamos pasando por alto?" placeholder="Sé tan crudo como quieras. Esto es lo que más nos ayuda." required rows={4} />
+          </div>
+        </SectionCard>
 
         {/* Sección 4 */}
-        <section className="space-y-6">
-          <SectionHeading index={4} title="El puente" />
-          <ChoiceField
-            name="s4_conoces"
-            label="¿Conoces otros restaurantes de tu estilo (menú degustación / alto ticket) que NO tengan tan resuelta su operación como ustedes?"
-            options={FD_OPTIONS.conoces}
-          />
-          <ChoiceField
-            name="s4_presentar"
-            label="Si es así, ¿estarías dispuesto a presentarnos?"
-            options={FD_OPTIONS.presentar}
-          />
-          <OpenField
-            name="s4_contactos"
-            label="(Opcional) Nombres o contactos que se te ocurran"
-            rows={2}
-          />
-        </section>
+        <SectionCard index={4} title="El puente" subtitle="Nos ayudaría muchísimo llegar a más colegas como tú.">
+          <ChoiceField control={control} name="s4_conoces" label="¿Conoces otros restaurantes de tu estilo (menú degustación / alto ticket) que NO tengan tan resuelta su operación como ustedes?" options={FD_OPTIONS.conoces} />
+          <ChoiceField control={control} name="s4_presentar" label="Si es así, ¿estarías dispuesto a presentarnos?" options={FD_OPTIONS.presentar} />
+          <OpenField control={control} name="s4_contactos" label="(Opcional) Nombres o contactos que se te ocurran" rows={2} />
+        </SectionCard>
 
         {/* Cierre */}
-        <section className="space-y-6">
-          <SectionHeading index={5} title="Cierre" />
-          <OpenField
-            name="cierre_libre"
-            label="Espacio libre para lo que quieras agregar o para cualquier idea que te haya quedado dando vueltas."
-            rows={4}
-          />
-        </section>
+        <SectionCard index={5} title="Cierre" subtitle="La palabra final es tuya.">
+          <OpenField control={control} name="cierre_libre" label="Espacio libre para lo que quieras agregar o para cualquier idea que te haya quedado dando vueltas." rows={4} />
+        </SectionCard>
 
-        <div className="border-t border-black/10 dark:border-white/10 pt-6 space-y-4">
-          <p className="text-xs font-mono text-foreground/55">
-            <span className="text-brand" aria-hidden="true">*</span> Solo estas dos son obligatorias · El resto, lo que quieras responder
+        {/* Enviar */}
+        <div className={cn(cardCls, "p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5")}>
+          <p className="text-xs font-mono text-foreground/55 leading-relaxed">
+            <span className="text-brand" aria-hidden="true">*</span> Solo dos preguntas son obligatorias.<br className="hidden sm:block" /> El resto, lo que quieras responder.
           </p>
-          <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.995 }}>
-            <Button type="submit" disabled={isSubmitting} size="lg" className="w-full sm:w-auto">
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="shrink-0">
+            <Button type="submit" disabled={isSubmitting} size="lg" className="w-full sm:w-auto px-8 shadow-lg shadow-brand/20">
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
                   <LoadingSpinner size="sm" />
