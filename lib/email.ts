@@ -458,6 +458,28 @@ const generateSurveyTemplate = (data: FineDiningSurveyData): EmailTemplate => {
   const role = (data.role || '').trim()
 
   const identityLine = [respondent, role, restaurant].filter(Boolean).join(' · ') || 'Sin identificar'
+  const adjuntos = data.adjuntos ?? []
+
+  const formatSize = (bytes: number): string =>
+    bytes >= 1024 * 1024 ? `${(bytes / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`
+
+  const htmlAdjuntos = adjuntos.length
+    ? `
+        <div class="section">
+          <h2>📎 Material adjunto (${adjuntos.length})</h2>
+          ${adjuntos
+            .map(
+              (f) => `
+          <div class="qa">
+            <div class="a">
+              <a href="${escapeHtml(f.url)}" style="color: #0a6ca8; text-decoration: none; font-weight: 600;">${escapeHtml(f.name)}</a>
+              <span style="color: #6b7684; font-size: 12px;"> · ${escapeHtml(f.type || 'archivo')} · ${formatSize(f.size)}</span>
+            </div>
+          </div>`,
+            )
+            .join('')}
+        </div>`
+    : ''
 
   const htmlSections = FD_EMAIL_SECTIONS.map((section) => {
     const rows = section.fields
@@ -506,6 +528,7 @@ const generateSurveyTemplate = (data: FineDiningSurveyData): EmailTemplate => {
         <div class="content">
           <div class="identity"><strong>Responde:</strong> ${escapeHtml(identityLine)}</div>
           ${htmlSections}
+          ${htmlAdjuntos}
         </div>
         <div class="footer">
           <p>Enviado desde el cuestionario privado de Árkos · ${new Date().toLocaleString('es-PE')}</p>
@@ -526,9 +549,15 @@ const generateSurveyTemplate = (data: FineDiningSurveyData): EmailTemplate => {
     return rows ? `\n${section.title}\n${'-'.repeat(section.title.length)}\n${rows}` : ''
   }).join('\n')
 
+  const textAdjuntos = adjuntos.length
+    ? `\n\nMaterial adjunto (${adjuntos.length})\n${'-'.repeat(16)}\n${adjuntos
+        .map((f) => `• ${f.name} (${formatSize(f.size)})\n  ${f.url}`)
+        .join('\n')}`
+    : ''
+
   const text = `Nueva respuesta — Cuestionario Fine Dining (Árkos)
 Responde: ${identityLine}
-${textSections}
+${textSections}${textAdjuntos}
 
 ---
 Enviado ${new Date().toLocaleString('es-PE')}`.trim()

@@ -44,6 +44,23 @@ export const FD_OPTIONS = {
 // Nombre del restaurante al que se personaliza el cuestionario (editable por query ?r=).
 export const FD_DEFAULT_RESTAURANT = "Piedra"
 
+// Límites de material adjunto (comparten cliente, endpoint de upload y esquema).
+export const FD_MAX_FILES = 12
+export const FD_MAX_FILE_SIZE = 200 * 1024 * 1024 // 200 MB por archivo (videos de celular)
+// Tipos aceptados: fotos, videos, audio y documentos habituales de operación.
+export const FD_ALLOWED_CONTENT_TYPES = [
+  "image/*",
+  "video/*",
+  "audio/*",
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "text/plain",
+  "text/csv",
+]
+
 const optionValues = <T extends readonly { value: string }[]>(opts: T) =>
   opts.map((o) => o.value) as [string, ...string[]]
 
@@ -81,6 +98,33 @@ export const fineDiningSurveySchema = z.object({
 
   // Cierre
   cierre_libre: z.string().max(2000).optional().or(z.literal("")),
+
+  // Material de apoyo: archivos ya subidos a Firebase Storage desde el cliente
+  // (vía URL firmada emitida por /api/survey/upload). Al servidor solo llegan las
+  // URLs resultantes (el payload sigue siendo texto, así el correo SMTP y el
+  // fallback SURVEY_SUBMISSION_FALLBACK no cambian).
+  adjuntos: z
+    .array(
+      z.object({
+        url: z
+          .string()
+          .url()
+          .max(1000)
+          .refine((u) => {
+            try {
+              return new URL(u).hostname === "firebasestorage.googleapis.com"
+            } catch {
+              return false
+            }
+          }, { message: "URL de archivo no válida." }),
+        name: z.string().min(1).max(200),
+        size: z.number().int().nonnegative().max(FD_MAX_FILE_SIZE),
+        type: z.string().max(100).optional().or(z.literal("")),
+      }),
+    )
+    .max(FD_MAX_FILES)
+    .optional()
+    .default([]),
 
   // Honeypot anti-spam (debe llegar vacío)
   website: z.string().max(0).optional().or(z.literal("")),

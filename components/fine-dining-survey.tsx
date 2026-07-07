@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { useForm, useWatch, type Control } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Check } from "lucide-react"
+import { Check, FileText, Film, ImageIcon, Music, Paperclip, UploadCloud, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -19,6 +19,9 @@ import {
   fineDiningSurveySchema,
   type FineDiningSurveyData,
   FD_OPTIONS,
+  FD_ALLOWED_CONTENT_TYPES,
+  FD_MAX_FILES,
+  FD_MAX_FILE_SIZE,
 } from "@/lib/fine-dining-survey"
 
 type Ctrl = Control<FineDiningSurveyData>
@@ -158,7 +161,7 @@ function CheckboxField({
       control={control}
       name={name}
       render={({ field }) => {
-        const selected: string[] = Array.isArray(field.value) ? field.value : []
+        const selected: string[] = Array.isArray(field.value) ? (field.value as string[]) : []
         const toggle = (v: string) =>
           field.onChange(selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v])
         return (
@@ -186,6 +189,243 @@ function CheckboxField({
                   </Label>
                 ))}
               </div>
+              <FormMessage />
+            </FormItem>
+          </QCard>
+        )
+      }}
+    />
+  )
+}
+
+// --- Material de apoyo (fotos, videos, documentos) ---
+// Los archivos suben directo del navegador a Firebase Storage: /api/survey/upload
+// emite una URL firmada (PUT) y el formulario solo guarda la URL de descarga
+// resultante, así el envío final sigue siendo JSON.
+
+type Adjunto = { url: string; name: string; size: number; type?: string }
+type UploadingItem = { id: string; name: string; progress: number }
+
+// Sube un archivo en tres pasos: pedir URL firmada ("sign"), PUT directo al
+// bucket con XMLHttpRequest (fetch aún no reporta progreso de subida), y
+// "complete" para que el servidor emita la URL de descarga permanente.
+async function uploadAdjunto(file: File, onProgress: (pct: number) => void): Promise<string> {
+  const api = async (payload: object) => {
+    const res = await fetch("/api/survey/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+    const data = await res.json().catch(() => null)
+    if (!res.ok) throw new Error(data?.error || "No se pudo preparar la subida.")
+    return data
+  }
+
+  const signed = await api({
+    action: "sign",
+    name: file.name,
+    type: file.type || "application/octet-stream",
+    size: file.size,
+  })
+
+  await new Promise<void>((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open("PUT", signed.uploadUrl)
+    for (const [k, v] of Object.entries((signed.headers ?? {}) as Record<string, string>)) {
+      xhr.setRequestHeader(k, v)
+    }
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress((e.loaded / e.total) * 100)
+    }
+    xhr.onload = () =>
+      xhr.status >= 200 && xhr.status < 300
+        ? resolve()
+        : reject(new Error(`La subida falló (HTTP ${xhr.status}).`))
+    xhr.onerror = () => reject(new Error("Error de red durante la subida."))
+    xhr.send(file)
+  })
+
+  const completed = await api({ action: "complete", path: signed.path })
+  return completed.downloadUrl as string
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`
+  return `${bytes} B`
+}
+
+function FileTypeIcon({ type }: { type?: string }) {
+  const cls = "h-4 w-4 shrink-0 text-brand"
+  if (type?.startsWith("image/")) return <ImageIcon className={cls} />
+  if (type?.startsWith("video/")) return <Film className={cls} />
+  if (type?.startsWith("audio/")) return <Music className={cls} />
+  return <FileText className={cls} />
+}
+
+function AttachmentsField({
+  control, getAdjuntos, onUploadingChange,
+}: {
+  control: Ctrl
+  // Lee el valor vigente del form (no el del render): evita pisar subidas paralelas.
+  getAdjuntos: () => Adjunto[]
+  onUploadingChange: (uploading: boolean) => void
+}) {
+  const { toast } = useToast()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState<UploadingItem[]>([])
+  const [dragOver, setDragOver] = useState(false)
+
+  // Avisar al padre fuera del render (setState de otro componente durante un
+  // updater dispara el warning "Cannot update a component while rendering").
+  const hasUploads = uploading.length > 0
+  useEffect(() => {
+    onUploadingChange(hasUploads)
+  }, [hasUploads, onUploadingChange])
+
+  return (
+    <FormField
+      control={control}
+      name="adjuntos"
+      render={({ field }) => {
+        const files: Adjunto[] = Array.isArray(field.value) ? (field.value as Adjunto[]) : []
+
+        const startUploads = async (selected: FileList | File[]) => {
+          const list = Array.from(selected)
+          if (!list.length) return
+          if (files.length + uploading.length + list.length > FD_MAX_FILES) {
+            toast({
+              title: `Máximo ${FD_MAX_FILES} archivos`,
+              description: "Si necesitas compartir más material, pega un link de Drive en el espacio libre.",
+              variant: "destructive",
+            })
+            return
+          }
+          const tooBig = list.find((f) => f.size > FD_MAX_FILE_SIZE)
+          if (tooBig) {
+            toast({
+              title: "Archivo muy pesado",
+              description: `"${tooBig.name}" supera los 200 MB. Puedes pegar un link de Drive/YouTube en el espacio libre.`,
+              variant: "destructive",
+            })
+            return
+          }
+
+          // Subidas en paralelo; cada una actualiza su propio progreso.
+          await Promise.all(
+            list.map(async (file) => {
+              const id = `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2)}`
+              setUploading((prev) => [...prev, { id, name: file.name, progress: 0 }])
+              try {
+                const url = await uploadAdjunto(file, (pct) => {
+                  setUploading((prev) => prev.map((u) => (u.id === id ? { ...u, progress: pct } : u)))
+                })
+                const nuevo: Adjunto = { url, name: file.name, size: file.size, type: file.type }
+                field.onChange([...getAdjuntos(), nuevo])
+              } catch (err) {
+                console.error("Error subiendo adjunto:", err)
+                toast({
+                  title: `No se pudo subir "${file.name}"`,
+                  description:
+                    err instanceof Error && err.message
+                      ? err.message
+                      : "Revisa tu conexión e inténtalo de nuevo, o compártelo como link en el espacio libre.",
+                  variant: "destructive",
+                })
+              } finally {
+                setUploading((prev) => prev.filter((u) => u.id !== id))
+              }
+            }),
+          )
+        }
+
+        return (
+          <QCard>
+            <FormItem className="space-y-3.5">
+              <div>
+                <FormLabel className={qLabelCls}>
+                  ¿Tienes fotos, videos o documentos que nos ayuden a entender tu operación?
+                </FormLabel>
+                <p className="text-[13px] text-foreground/50 mt-1">
+                  Comandas, la pizarra de tiempos, el Excel de bodega, un video del pase… todo suma.
+                  Hasta {FD_MAX_FILES} archivos, máx. 200 MB cada uno.
+                </p>
+              </div>
+
+              <FormControl>
+                <div>
+                  <input
+                    ref={inputRef}
+                    type="file"
+                    multiple
+                    accept={FD_ALLOWED_CONTENT_TYPES.join(",")}
+                    className="sr-only"
+                    onChange={(e) => {
+                      if (e.target.files) startUploads(e.target.files)
+                      e.target.value = ""
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => inputRef.current?.click()}
+                    onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+                    onDragLeave={() => setDragOver(false)}
+                    onDrop={(e) => {
+                      e.preventDefault()
+                      setDragOver(false)
+                      if (e.dataTransfer.files?.length) startUploads(e.dataTransfer.files)
+                    }}
+                    className={cn(
+                      "w-full rounded-lg border border-dashed px-4 py-6 text-center transition-colors cursor-pointer",
+                      "flex flex-col items-center gap-2",
+                      dragOver
+                        ? "border-brand bg-brand/[0.08]"
+                        : "border-black/15 dark:border-white/15 hover:border-brand/50 hover:bg-brand/[0.04]",
+                    )}
+                  >
+                    <UploadCloud className="h-6 w-6 text-brand" aria-hidden="true" />
+                    <span className="text-sm text-foreground/75 font-medium">
+                      Toca para elegir archivos <span className="text-foreground/45 font-normal">o arrástralos aquí</span>
+                    </span>
+                    <span className="text-xs text-foreground/45">Fotos, videos, audios, PDF, Word, Excel</span>
+                  </button>
+                </div>
+              </FormControl>
+
+              {(uploading.length > 0 || files.length > 0) && (
+                <ul className="space-y-2">
+                  {uploading.map((u) => (
+                    <li key={u.id} className="rounded-lg border border-black/[0.07] dark:border-white/[0.08] px-3 py-2.5">
+                      <div className="flex items-center gap-2.5 mb-1.5">
+                        <Paperclip className="h-4 w-4 shrink-0 text-foreground/40 animate-pulse" />
+                        <span className="text-sm text-foreground/70 truncate flex-1">{u.name}</span>
+                        <span className="text-xs font-mono text-brand shrink-0">{Math.round(u.progress)}%</span>
+                      </div>
+                      <div className="h-1 w-full rounded-full bg-black/[0.08] dark:bg-white/[0.08] overflow-hidden">
+                        <div className="h-full rounded-full bg-brand transition-[width]" style={{ width: `${u.progress}%` }} />
+                      </div>
+                    </li>
+                  ))}
+                  {files.map((f) => (
+                    <li
+                      key={f.url}
+                      className="flex items-center gap-2.5 rounded-lg border border-brand/25 bg-brand/[0.04] px-3 py-2.5"
+                    >
+                      <FileTypeIcon type={f.type} />
+                      <span className="text-sm text-foreground/85 truncate flex-1">{f.name}</span>
+                      <span className="text-xs text-foreground/45 shrink-0">{formatBytes(f.size)}</span>
+                      <button
+                        type="button"
+                        aria-label={`Quitar ${f.name}`}
+                        onClick={() => field.onChange(files.filter((x) => x.url !== f.url))}
+                        className="shrink-0 rounded-md p-1 text-foreground/40 hover:text-foreground hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-colors"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <FormMessage />
             </FormItem>
           </QCard>
@@ -272,6 +512,7 @@ type Props = { restaurant: string }
 export function FineDiningSurvey({ restaurant }: Props) {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploadingFiles, setIsUploadingFiles] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
   const form = useForm<FineDiningSurveyData>({
@@ -282,7 +523,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
       s2_otros_no_resuelto: "", s2_pain: [], s2_lo_dificil: "",
       s3_conoces: "", s3_presentar: "", s3_contactos: "",
       s4_seguir: "", s4_optimizar: "",
-      cierre_libre: "", website: "",
+      cierre_libre: "", adjuntos: [], website: "",
     },
   })
   const control = form.control
@@ -422,7 +663,12 @@ export function FineDiningSurvey({ restaurant }: Props) {
 
         {/* Cierre */}
         <Section index={5} title="Cierre" subtitle="La palabra final es tuya.">
-          <OpenField control={control} name="cierre_libre" label="Espacio libre para lo que quieras agregar o para cualquier idea que te haya quedado dando vueltas." rows={4} />
+          <OpenField control={control} name="cierre_libre" label="Espacio libre para lo que quieras agregar o para cualquier idea que te haya quedado dando vueltas. Si tienes material en Drive, YouTube o similar, pega los links aquí." rows={4} />
+          <AttachmentsField
+            control={control}
+            getAdjuntos={() => (form.getValues("adjuntos") as Adjunto[]) ?? []}
+            onUploadingChange={setIsUploadingFiles}
+          />
         </Section>
 
         {/* Enviar */}
@@ -431,11 +677,11 @@ export function FineDiningSurvey({ restaurant }: Props) {
             <span className="text-brand" aria-hidden="true">*</span> Solo dos preguntas son obligatorias.<br className="hidden sm:block" /> El resto, lo que quieras responder.
           </p>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="shrink-0">
-            <Button type="submit" disabled={isSubmitting} size="lg" className="w-full sm:w-auto px-8 shadow-lg shadow-brand/20">
-              {isSubmitting ? (
+            <Button type="submit" disabled={isSubmitting || isUploadingFiles} size="lg" className="w-full sm:w-auto px-8 shadow-lg shadow-brand/20">
+              {isSubmitting || isUploadingFiles ? (
                 <span className="flex items-center gap-2">
                   <LoadingSpinner size="sm" />
-                  Enviando…
+                  {isUploadingFiles ? "Subiendo archivos…" : "Enviando…"}
                 </span>
               ) : (
                 "Enviar mis respuestas"
