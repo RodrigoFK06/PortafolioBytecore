@@ -453,7 +453,12 @@ export const getProjectById = (id: number) => projects.find(project => project.i
 
 // Selección y orden de la home. RestHUB (19) primero — es el proyecto destacado.
 // Editar aquí para curar la portada sin tocar el orden del array.
-export const HOME_PROJECT_IDS = [19, 21, 22, 23, 2, 1, 8, 6, 11, 20]
+// Ojo: cada filtro (Páginas web / Sistemas web / Apps) debe quedar bien poblado;
+// una categoría con 3-4 cards deja la cuadrícula vacía.
+export const HOME_PROJECT_IDS = [
+  19, 21, 22, 23, 2, 1, 8, 6, 11, // núcleo B2B + destacados
+  20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
+]
 export const getHomeProjects = (): Project[] =>
   HOME_PROJECT_IDS
     .map((id) => projects.find((p) => p.id === id))
