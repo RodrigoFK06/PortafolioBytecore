@@ -33,6 +33,16 @@ export function HeroSection() {
     () => {
       if (!sectionRef.current) return
 
+      // Igual que el resto de componentes GSAP del sitio: con reduced-motion
+      // se salta la coreografía y todo queda en su estado final.
+      if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set([taglineRef.current, descRef.current, proofRef.current, scrollRef.current], { x: 0, y: 0, opacity: 1 })
+        gsap.set(".hero-word", { y: 0 })
+        const buttons = ctaRef.current?.querySelectorAll(":scope > *")
+        if (buttons?.length) gsap.set(buttons, { y: 0, opacity: 1 })
+        return
+      }
+
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
 
       // 1. Tagline — slide in from left

@@ -151,12 +151,6 @@ body {
   overflow-x: hidden !important;
 }
 
-/* Asegurar que todos los elementos se ajusten al viewport */
-.container,
-.mx-auto {
-  max-width: 100vw !important;
-}
-
 .custom-scroll::-webkit-scrollbar {
   width: 8px;
 }

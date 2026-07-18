@@ -34,12 +34,13 @@ export function RevealText({
 
       if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
         gsap.set(innerRef.current, { y: "0%", opacity: 1 })
+        gsap.set(wrapRef.current, { overflow: "visible" })
         return
       }
 
       gsap.fromTo(
         innerRef.current,
-        { y: "100%", opacity: 0 },
+        { y: "110%", opacity: 0 },
         {
           y: "0%",
           opacity: 1,
@@ -51,6 +52,11 @@ export function RevealText({
             start: "top 88%",
             once: true,
           },
+          // La máscara solo se necesita durante el reveal; en reposo se libera
+          // para que ningún descendente (y, g, j) quede recortado a ningún tamaño.
+          onComplete: () => {
+            if (wrapRef.current) wrapRef.current.style.overflow = "visible"
+          },
         }
       )
     },
@@ -58,8 +64,8 @@ export function RevealText({
   )
 
   return (
-    <div ref={wrapRef} className="overflow-hidden">
-      <Tag ref={innerRef as React.Ref<any>} className={className} style={{ transform: "translateY(100%)", opacity: 0 }}>
+    <div ref={wrapRef} className="overflow-hidden pt-[0.1em] -mt-[0.1em] pb-[0.25em] -mb-[0.25em] pr-[0.15em] -mr-[0.15em]">
+      <Tag ref={innerRef as React.Ref<any>} className={className} style={{ transform: "translateY(110%)", opacity: 0 }}>
         {children}
       </Tag>
     </div>
@@ -93,6 +99,7 @@ export function RevealBlock({
 
       if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
         gsap.set(innerRef.current, { x: 0, y: 0, opacity: 1 })
+        gsap.set(wrapRef.current, { overflow: "visible" })
         return
       }
 
@@ -116,6 +123,10 @@ export function RevealBlock({
             trigger: wrapRef.current,
             start: "top 85%",
             once: true,
+          },
+          // Liberar el clip al terminar: evita recortar sombras y descendentes.
+          onComplete: () => {
+            if (wrapRef.current) wrapRef.current.style.overflow = "visible"
           },
         }
       )
