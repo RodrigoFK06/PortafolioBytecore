@@ -83,12 +83,12 @@ export default function FounderSection() {
 
           {/* Bio + criterio (voz de Rodrigo) */}
           <div className="lg:col-span-2">
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed font-light">
+            <p className="text-xl md:text-2xl text-foreground leading-relaxed font-light max-w-3xl">
               Construyo software vertical para pymes de Latinoamérica. No vendo "Next.js":
               resuelvo operaciones que ya no entran en un Excel.
             </p>
-            <p className="text-foreground/70 leading-relaxed mt-6">En los últimos años puse en producción cosas como:</p>
-            <ul className="mt-4 space-y-2">
+            <p className="text-foreground/70 leading-relaxed mt-6 max-w-xl">En los últimos años puse en producción cosas como:</p>
+            <ul className="mt-4 space-y-2 max-w-xl">
               {LO_QUE_HAGO.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-foreground/80 leading-relaxed">
                   <span className="text-brand mt-1.5 shrink-0" aria-hidden="true">▹</span>
@@ -96,7 +96,7 @@ export default function FounderSection() {
                 </li>
               ))}
             </ul>
-            <p className="text-foreground/70 leading-relaxed mt-6">
+            <p className="text-foreground/70 leading-relaxed mt-6 max-w-xl">
               Si tu negocio creció más rápido que tus sistemas, esa es exactamente la conversación que me gusta tener.
             </p>
 
@@ -104,7 +104,7 @@ export default function FounderSection() {
             <div className="mt-10 p-6 md:p-8 rounded-2xl bg-brand/5 border border-brand/15">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-brand mb-2">Diagnóstico gratis</p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">¿No sabes por dónde empezar?</h3>
-              <p className="text-foreground/75 leading-relaxed mb-6">
+              <p className="text-foreground/75 leading-relaxed mb-6 max-w-prose">
                 Agenda 30 minutos conmigo, sin compromiso. Te digo con honestidad si lo que
                 necesitas es un sistema, un ajuste o nada todavía — aunque no terminemos
                 trabajando juntos.
