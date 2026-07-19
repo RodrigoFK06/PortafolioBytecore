@@ -6,7 +6,6 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { LenisProvider } from "@/components/motion/lenis-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { Preloader } from "@/components/preloader"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
 
 const baseUrl = "https://xn--rkos-4na.com"
@@ -316,7 +315,6 @@ export default function RootLayout({
          </div>
 
         <LenisProvider>
-          <Preloader />
           <ServiceWorkerCleanup />
           <Navbar />
           {children}

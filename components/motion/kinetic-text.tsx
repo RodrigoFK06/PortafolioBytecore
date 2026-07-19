@@ -24,6 +24,8 @@ interface KineticTextProps {
   trigger?: "load" | "scroll"
   stagger?: number
   delay?: number
+  /** Duración por unidad; por defecto DUR.slow (sort) / DUR.base (rise) */
+  duration?: number
   /** Selector de nodos que SplitText no debe partir (p.ej. el logo inline del hero) */
   ignore?: string
   "aria-label"?: string
@@ -44,6 +46,7 @@ export function KineticText({
   trigger = "scroll",
   stagger = 0.05,
   delay = 0,
+  duration,
   ignore,
   "aria-label": ariaLabel,
 }: KineticTextProps) {
@@ -102,7 +105,7 @@ export function KineticText({
           yPercent: 0,
           rotation: 0,
           autoAlpha: 1,
-          duration: mode === "sort" ? DUR.slow : DUR.base,
+          duration: duration ?? (mode === "sort" ? DUR.slow : DUR.base),
           ease: "arkos-out",
           delay,
           stagger:
@@ -119,8 +122,13 @@ export function KineticText({
               }
             : {}),
           onComplete: () => {
-            split?.revert()
-            split = null
+            // Revertir un split por chars re-kernea las letras y la línea
+            // "brinca" un par de píxeles: los chars se quedan spliteados
+            // (render estable > DOM prístino). Words/lines sí se revierten.
+            if (by !== "chars") {
+              split?.revert()
+              split = null
+            }
           },
         })
       })

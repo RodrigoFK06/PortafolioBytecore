@@ -37,7 +37,7 @@ export function HeroSection() {
           duration: DUR.base,
           ease: "arkos-out",
           stagger: 0.09,
-          delay: 0.25,
+          delay: 0.55,
         }
       )
     },
@@ -70,8 +70,9 @@ export function HeroSection() {
             by="chars"
             mode="sort"
             trigger="load"
-            stagger={0.02}
-            delay={0.35}
+            stagger={0.028}
+            delay={0.15}
+            duration={0.75}
             ignore=".kinetic-ignore"
             aria-label="Mejoramos tus procesos"
             className="font-display text-[3rem] sm:text-6xl md:text-8xl lg:text-[8.5rem] font-bold tracking-tight leading-[0.95] text-foreground mb-10 md:mb-14"
