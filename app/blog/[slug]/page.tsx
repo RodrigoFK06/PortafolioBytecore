@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: data.title,
       description: data.description,
-      images: [{ url: data.image || "/og-image.webp" }],
+      images: [{ url: data.image || "/og-image.png" }],
       type: "article",
       publishedTime: data.date,
       authors: [data.author || "Árkos"],
@@ -181,7 +181,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             "@type": "Article",
             headline: data.title,
             description: data.description,
-            image: data.image ? `${baseUrl}${data.image}` : `${baseUrl}/og-image.webp`,
+            image: data.image ? `${baseUrl}${data.image}` : `${baseUrl}/og-image.png`,
             datePublished: data.date,
             dateModified: data.updated || data.date,
             author:

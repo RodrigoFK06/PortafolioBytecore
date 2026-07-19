@@ -1,7 +1,7 @@
 ---
 title: "5 señales de que tu negocio ya necesita un sistema (y no un Excel más)"
 description: "Una checklist honesta para saber si tu operación pyme ya pide software a medida — o si todavía no. Escrita desde casos reales de restaurantes, hoteles y servicios técnicos."
-image: "/og-image.webp"
+image: "/blog-cover-senales-sistema.png"
 date: "2026-06-25"
 author: "Rodrigo Torres"
 tags: ["Criterio", "PYMEs", "Software a medida", "Diagnóstico"]

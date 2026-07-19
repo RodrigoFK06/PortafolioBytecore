@@ -28,7 +28,7 @@ function getBlogPosts(): BlogPost[] {
         slug,
         title: data.title || slug,
         description: data.description || "",
-        image: data.image || "/og-image.webp",
+        image: data.image || "/og-image.png",
         date: data.date || "",
         author: data.author || "Árkos",
         tags: data.tags || [],

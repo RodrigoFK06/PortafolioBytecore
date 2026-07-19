@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     siteName: "Árkos",
     images: [
       {
-        url: `${baseUrl}/og-image.webp`,
+        url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Árkos - Agencia Digital",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
       "Árkos es una agencia digital en Perú especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras.",
     site: "@ArkosPeru",
     creator: "@ArkosPeru",
-    images: [`${baseUrl}/og-image.webp`],
+    images: [`${baseUrl}/og-image.png`],
   },
 }
 
@@ -222,7 +222,7 @@ export default function RootLayout({
               description:
                 "Agencia de desarrollo de software a medida, aplicaciones web y diseño UX/UI en Trujillo, Perú. Especialistas en React, Next.js y soluciones con IA.",
               url: baseUrl,
-              image: `${baseUrl}/og-image.webp`,
+              image: `${baseUrl}/og-image.png`,
               telephone: "+51 961 869 348",
               email: "gerencia@árkos.com",
               priceRange: "$$",
