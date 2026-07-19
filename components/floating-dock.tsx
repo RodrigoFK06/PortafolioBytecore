@@ -361,10 +361,10 @@ export default function FloatingDock() {
                 </Button>
               </div>
 
-              <div className="flex justify-between items-center mt-3 text-[10px] text-muted-foreground/70 font-mono uppercase tracking-widest">
+              <div className="flex justify-between items-center mt-3 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
                 <span>AI Core v2.4</span>
                 {input.length > 0 && (
-                  <span className={input.length > 900 ? "text-red-500" : "text-muted-foreground/70"}>
+                  <span className={input.length > 900 ? "text-red-500" : "text-muted-foreground"}>
                     {input.length}/1000
                   </span>
                 )}

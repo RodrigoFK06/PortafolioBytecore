@@ -135,7 +135,7 @@ export function HeroSection() {
               <span className="hidden md:block w-px h-4 bg-border" aria-hidden="true" />
               <span className="text-sm text-muted-foreground">
                 <span className="tabular font-medium text-foreground">78%</span> de citas digitales{" "}
-                <span className="text-muted-foreground/70">— Clínica Juan Pablo II</span>
+                <span className="text-muted-foreground">— Clínica Juan Pablo II</span>
               </span>
               <span className="hidden md:block w-px h-4 bg-border" aria-hidden="true" />
               <a
@@ -145,7 +145,7 @@ export function HeroSection() {
                 className="text-sm text-muted-foreground hover:text-brand transition-colors"
               >
                 <span className="font-medium text-foreground">Rapiditos</span> en App Store{" "}
-                <span className="text-muted-foreground/70">— delivery activo</span>
+                <span className="text-muted-foreground">— delivery activo</span>
               </a>
               <span className="hidden md:block w-px h-4 bg-border" aria-hidden="true" />
               <span className="text-sm text-muted-foreground">
