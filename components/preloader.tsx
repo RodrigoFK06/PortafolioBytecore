@@ -31,14 +31,7 @@ export function Preloader() {
               src="/logo_ico/final - LOGO 2-01.png"
               alt=""
               fill
-              className="object-contain dark:hidden"
-              priority
-            />
-            <Image
-              src="/logo_ico/final - LOGO 2-02.png"
-              alt=""
-              fill
-              className="object-contain hidden dark:block"
+              className="object-contain"
               priority
             />
           </div>

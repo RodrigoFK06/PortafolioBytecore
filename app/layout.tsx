@@ -1,18 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
+import { fontSans, fontMono } from "@/app/fonts"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ThemeProvider } from "@/components/theme-provider"
+import { LenisProvider } from "@/components/motion/lenis-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { Preloader } from "@/components/preloader"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-})
 
 const baseUrl = "https://xn--rkos-4na.com"
 
@@ -105,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="es">
       <head>
         {/* La etiqueta de ícono ahora se genera a través del objeto `metadata` anterior */}
         <script
@@ -313,21 +308,21 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}>
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
            <p>Árkos es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales — a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
          </div>
 
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <LenisProvider>
           <Preloader />
           <ServiceWorkerCleanup />
           <Navbar />
           {children}
           <Footer />
           <Toaster />
-        </ThemeProvider>
+        </LenisProvider>
       </body>
     </html>
   )

@@ -16,6 +16,18 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display, var(--font-sans))", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      boxShadow: {
+        hairline: "0 0 0 1px hsl(var(--border))",
+        "hairline-md": "0 0 0 1px hsl(var(--border)), 0 2px 8px -2px rgb(0 0 0 / 0.06)",
+      },
+      borderColor: {
+        strong: "hsl(var(--border-strong))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,19 +71,6 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        // Árkos brand colors
-        arkos: {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
         },
       },
       borderRadius: {

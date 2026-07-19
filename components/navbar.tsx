@@ -5,15 +5,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
-import { useThemeState } from "@/hooks/use-theme-state";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { theme, mounted } = useThemeState();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,8 +50,8 @@ export function Navbar() {
     const isActive = activeSection === sectionId;
     return `text-sm transition-all duration-300 px-4 py-2 rounded-full ${
       isActive
-        ? "bg-black/5 dark:bg-white/5 text-brand font-semibold"
-        : "text-foreground/70 hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground font-medium"
+        ? "bg-black/5 text-brand font-semibold"
+        : "text-foreground/70 hover:bg-black/5 hover:text-foreground font-medium"
     }`;
   };
 
@@ -63,8 +60,8 @@ export function Navbar() {
       <header
         className={`pointer-events-auto transition-all duration-500 w-full relative overflow-hidden ${
           isScrolled
-            ? "max-w-5xl bg-slate-50/70 dark:bg-[#050505]/70 backdrop-blur-[24px] border border-black/10 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-full py-3"
-            : "max-w-full bg-gradient-to-b from-slate-50/80 via-slate-50/40 to-transparent dark:from-[#050505]/80 dark:via-[#050505]/40 dark:to-transparent backdrop-blur-[8px] py-6"
+            ? "max-w-5xl bg-background/80 backdrop-blur-[24px] border border-border shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full py-3"
+            : "max-w-full bg-gradient-to-b from-background/80 via-background/40 to-transparent backdrop-blur-[8px] py-6"
         }`}
       >
         <div className={`mx-auto ${isScrolled ? "px-6 sm:px-8" : "container px-4 sm:px-6 lg:px-8"}`}>
@@ -72,7 +69,7 @@ export function Navbar() {
           {/* Logo — clean, no glow */}
           <Link href="/" className="relative opacity-90 hover:opacity-100 transition-opacity duration-200 mr-2 shrink-0">
             <Image
-              src={theme === "light" ? "/logo_ico/final - LOGO 2-01.png" : "/logo_ico/final - LOGO 2-02.png"}
+              src="/logo_ico/final - LOGO 2-01.png"
               alt="Árkos Logo"
               width={250}
               height={100}
@@ -88,7 +85,6 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <ThemeToggle />
             <Button asChild size="sm">
               <Link href="#contact">Contáctanos</Link>
             </Button>
@@ -96,7 +92,6 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
             <button
               className="focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -117,7 +112,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.3, type: "spring", bounce: 0.3 }}
-            className="md:hidden fixed top-24 left-4 right-4 bg-slate-50/95 dark:bg-[#050505]/95 backdrop-blur-[24px] border border-black/10 dark:border-white/10 shadow-2xl rounded-3xl pointer-events-auto z-40 overflow-hidden"
+            className="md:hidden fixed top-24 left-4 right-4 bg-background/95 backdrop-blur-[24px] border border-border shadow-2xl rounded-3xl pointer-events-auto z-40 overflow-hidden"
           >
             <nav className="p-6 flex flex-col space-y-4">
               {navLinks.map((link) => (
@@ -126,8 +121,8 @@ export function Navbar() {
                   href={link.href}
                   className={`text-base font-medium transition-all duration-300 p-3 rounded-2xl ${
                     activeSection === link.href.replace("#", "")
-                      ? "bg-black/5 dark:bg-white/5 text-brand"
-                      : "text-foreground/70 hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground"
+                      ? "bg-black/5 text-brand"
+                      : "text-foreground/70 hover:bg-black/5 hover:text-foreground"
                   }`}
                   onClick={closeMenu}
                 >
