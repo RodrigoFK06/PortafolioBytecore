@@ -57,7 +57,12 @@ export default function NecesitasUnSistemaPage() {
           <Link href="/blog/5-senales-tu-negocio-necesita-un-sistema" className="text-brand hover:underline">
             “5 señales de que tu negocio ya necesita un sistema”
           </Link>
-          , escrita desde casos reales de restaurantes, hoteles, clínicas y servicios técnicos en Perú.
+          , escrita desde casos reales de restaurantes, hoteles, clínicas y servicios técnicos en
+          Perú. ¿Quieres ver el costo en soles? Prueba la{" "}
+          <Link href="/costo-del-excel" className="text-brand hover:underline">
+            calculadora del costo del Excel
+          </Link>
+          .
         </p>
       </div>
     </main>

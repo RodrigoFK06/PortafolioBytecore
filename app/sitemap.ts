@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/diagnostico`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/necesitas-un-sistema`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/cumplimiento-sunat`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/costo-del-excel`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/precios`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/terminosycondiciones`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },

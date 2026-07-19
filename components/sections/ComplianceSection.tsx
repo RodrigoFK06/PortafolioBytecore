@@ -99,13 +99,21 @@ export default function ComplianceSection() {
               ¿No sabes en qué estado está tu operación frente a SUNAT — o si tu sistema actual
               te está dejando huecos? Empecemos por un diagnóstico honesto.
             </p>
-            <Link
-              href="/diagnostico"
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors shrink-0"
-            >
-              Ver el diagnóstico
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <Link
+                href="/cumplimiento-sunat"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-background text-sm font-semibold text-foreground shadow-hairline hover:shadow-hairline-md transition-all"
+              >
+                Evaluar mi cumplimiento
+              </Link>
+              <Link
+                href="/diagnostico"
+                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
+              >
+                Ver el diagnóstico
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </Reveal>
       </div>

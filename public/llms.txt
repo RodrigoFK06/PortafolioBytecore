@@ -22,6 +22,8 @@
 *   **Llamada de diagnóstico (gratis, 30 min):** lectura honesta de si el negocio necesita un sistema, un ajuste o nada todavía. (https://xn--rkos-4na.com/diagnostico)
 *   **Diagnóstico profundo (S/ 950, 2 semanas):** auditoría de operación y cumplimiento SUNAT con informe y roadmap con costos; el precio se descuenta íntegro del proyecto si se avanza.
 *   **Test interactivo "¿Necesitas un sistema?":** 10 preguntas con resultado al instante. (https://xn--rkos-4na.com/necesitas-un-sistema)
+*   **Assessment de cumplimiento SUNAT:** 8 preguntas que miden fricción y riesgo frente a SUNAT (CPE, PLE/SIRE, validación de datos). (https://xn--rkos-4na.com/cumplimiento-sunat)
+*   **Calculadora del costo del Excel:** cuánto cuesta al mes operar con Excel/WhatsApp/cuadernos, en soles y con los números del propio negocio. (https://xn--rkos-4na.com/costo-del-excel)
 
 ## Tecnologías Core
 *   Frontend: React, Next.js, Tailwind CSS, TypeScript, Framer Motion.

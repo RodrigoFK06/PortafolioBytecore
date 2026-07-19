@@ -255,7 +255,15 @@ export default function DiagnosticoPage() {
               <p className="spec-label text-brand mb-2">3 minutos</p>
               <p className="text-foreground text-sm md:text-base leading-relaxed max-w-xl">
                 ¿No estás seguro de si esto es para ti? Responde el test de 10 preguntas y te damos
-                una lectura inicial al instante.
+                una lectura inicial al instante. También tenemos un{" "}
+                <Link href="/cumplimiento-sunat" className="text-brand hover:underline">
+                  assessment de cumplimiento SUNAT
+                </Link>{" "}
+                y una{" "}
+                <Link href="/costo-del-excel" className="text-brand hover:underline">
+                  calculadora del costo del Excel
+                </Link>
+                .
               </p>
             </div>
             <Link
