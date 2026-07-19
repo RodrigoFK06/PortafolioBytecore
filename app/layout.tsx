@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
-import { fontSans, fontMono } from "@/app/fonts"
+import { fontSans, fontMono, fontDisplay } from "@/app/fonts"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { LenisProvider } from "@/components/motion/lenis-provider"
@@ -308,7 +308,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} ${fontDisplay.variable} font-sans antialiased`}>
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
