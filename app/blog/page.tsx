@@ -81,9 +81,9 @@ export default function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="group block"
               >
-                <article className="h-full rounded-2xl border border-black/5 dark:border-white/10 bg-white dark:bg-white/[0.04] overflow-hidden transition-all duration-300 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 hover:-translate-y-1">
+                <article className="h-full rounded-2xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 hover:-translate-y-1">
                   {/* Imagen */}
-                  <div className="relative aspect-[16/9] overflow-hidden bg-black/5 dark:bg-white/5">
+                  <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
                     <Image
                       src={post.image}
                       alt={post.title}
@@ -120,7 +120,7 @@ export default function BlogIndexPage() {
                     </p>
 
                     {/* Footer del card */}
-                    <div className="flex items-center justify-between pt-4 border-t border-black/5 dark:border-white/10">
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
                       <span className="text-xs text-foreground/40 font-medium">
                         {formatDate(post.date)}
                       </span>
@@ -138,7 +138,7 @@ export default function BlogIndexPage() {
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-12 mt-20">
-        <div className="rounded-2xl bg-gradient-to-br from-brand/5 to-brand/10 dark:from-brand/10 dark:to-brand/5 border border-brand/10 p-8 md:p-12 text-center">
+        <div className="rounded-2xl bg-gradient-to-br from-brand/5 to-brand/10 border border-brand/10 p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             ¿Tienes un proyecto similar?
           </h2>

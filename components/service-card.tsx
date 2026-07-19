@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Building,
@@ -28,13 +27,11 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
 
   return (
     <>
-      <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+      <div
         onClick={() => setIsOpen(true)}
-        className="cursor-pointer"
+        className="cursor-pointer transition-transform duration-200 hover:-translate-y-1 h-full"
       >
-        <div className="p-8 border border-border rounded-lg bg-card hover:border-brand/30 transition-colors duration-300 h-full flex flex-col">
+        <div className="p-8 rounded-lg bg-card shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 h-full flex flex-col">
           <div className="mb-6 text-brand">
             <IconComponent className="h-10 w-10" />
           </div>
@@ -49,7 +46,7 @@ export function ServiceCard({ title, description, icon }: ServiceCardProps) {
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Modal de detalles */}
       <ServiceModal

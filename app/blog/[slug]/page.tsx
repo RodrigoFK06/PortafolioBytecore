@@ -100,7 +100,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </p>
 
         {/* Meta info */}
-        <div className="flex items-center gap-4 text-sm text-foreground/40 pb-8 border-b border-black/5 dark:border-white/10">
+        <div className="flex items-center gap-4 text-sm text-foreground/40 pb-8 border-b border-border">
           <span className="font-medium">{data.author && data.author !== "Árkos" ? data.author : "Rodrigo Torres"}</span>
           <span>·</span>
           <time dateTime={data.date}>{formatDate(data.date)}</time>
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* Imagen hero del artículo */}
       {data.image && (
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mb-12">
-          <div className="relative aspect-[2/1] rounded-2xl overflow-hidden bg-black/5 dark:bg-white/5">
+          <div className="relative aspect-[2/1] rounded-2xl overflow-hidden bg-secondary">
             <Image
               src={data.image}
               alt={data.title}
@@ -133,9 +133,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {/* Contenido del artículo */}
       <article className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl">
-        <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none
+        <div className="prose prose-lg prose-neutral max-w-none
           prose-headings:font-bold prose-headings:tracking-tight
-          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-black/5 prose-h2:dark:border-white/10 prose-h2:pb-4
+          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border prose-h2:pb-4
           prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
           prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-3
           prose-p:leading-relaxed prose-p:text-foreground/80
@@ -144,10 +144,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           prose-a:text-brand prose-a:no-underline hover:prose-a:underline
           prose-code:text-brand prose-code:bg-brand/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm
           prose-table:text-sm
-          prose-th:bg-black/5 prose-th:dark:bg-white/5 prose-th:px-4 prose-th:py-2
+          prose-th:bg-secondary prose-th:px-4 prose-th:py-2
           prose-td:px-4 prose-td:py-2
           prose-blockquote:border-brand prose-blockquote:bg-brand/5 prose-blockquote:rounded-r-lg prose-blockquote:py-1
-          prose-hr:border-black/10 prose-hr:dark:border-white/10
+          prose-hr:border-border
           prose-img:rounded-xl
         ">
           <Markdown>{content}</Markdown>
@@ -155,7 +155,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </article>
 
       {/* Footer del artículo */}
-      <footer className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mt-16 pt-8 border-t border-black/5 dark:border-white/10">
+      <footer className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mt-16 pt-8 border-t border-border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link
             href="/blog"

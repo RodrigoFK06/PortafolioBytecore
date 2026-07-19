@@ -71,7 +71,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const sectionLabel = `${eyebrow} mb-3`
   const bodyText = "text-base md:text-lg leading-relaxed text-foreground/85"
   const panel =
-    "rounded-2xl border border-border bg-black/[0.03] dark:bg-white/[0.04]"
+    "rounded-2xl border border-border bg-secondary"
 
   return (
     <main className="pt-24 md:pt-28 pb-20 md:pb-28">
@@ -229,7 +229,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                       {project.tags.map((t, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 border border-border rounded-md font-mono text-foreground/80"
+                          className="text-xs px-2 py-1 bg-secondary border border-border rounded-md font-mono text-foreground/80"
                         >
                           {t}
                         </span>
@@ -267,7 +267,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-border bg-black/[0.03] dark:bg-white/[0.04]"
+                  className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-border bg-secondary"
                 >
                   <Image
                     src={image || "/placeholder.svg"}

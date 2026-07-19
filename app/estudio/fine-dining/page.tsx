@@ -40,7 +40,7 @@ export default async function FineDiningSurveyPage({
       <div className="relative flex justify-center px-4 sm:px-6 pt-24 sm:pt-32 pb-28">
        <div className="w-full max-w-[600px]">
         {/* Encabezado estilo banner (barra de acento de marca arriba) */}
-        <header className="overflow-hidden rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.03] backdrop-blur-sm shadow-sm mb-6">
+        <header className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white/70 backdrop-blur-sm shadow-sm mb-6">
           <div className="h-2 w-full bg-gradient-to-r from-brand via-brand/80 to-brand/50" />
           <div className="p-6 sm:p-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-brand/25 bg-brand/[0.06] px-3 py-1 mb-5">
@@ -71,7 +71,7 @@ export default async function FineDiningSurveyPage({
               {meta.map((m) => (
                 <span
                   key={m}
-                  className="inline-flex items-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-foreground/70"
+                  className="inline-flex items-center rounded-full border border-black/10 bg-black/[0.03] px-2.5 py-1 text-[11px] font-medium text-foreground/70"
                 >
                   {m}
                 </span>

@@ -99,10 +99,10 @@ export default function PreciosPage() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto mb-4 overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
+        <div className="max-w-4xl mx-auto mb-4 overflow-hidden rounded-2xl border border-border">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-black/[0.03] dark:bg-white/[0.03] text-sm">
+              <tr className="bg-secondary text-sm">
                 <th className="p-4 font-semibold">Tipo de proyecto</th>
                 <th className="p-4 font-semibold text-right whitespace-nowrap">Desde (S/)</th>
                 <th className="p-4 font-semibold text-right whitespace-nowrap">Desde (USD)</th>
@@ -110,7 +110,7 @@ export default function PreciosPage() {
             </thead>
             <tbody>
               {tiers.map((t) => (
-                <tr key={t.name} className="border-t border-black/5 dark:border-white/5 align-top">
+                <tr key={t.name} className="border-t border-border align-top">
                   <td className="p-4">
                     <div className="font-medium">
                       {t.name}
@@ -156,7 +156,7 @@ export default function PreciosPage() {
 
         <section className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold mb-6 tracking-tight">Preguntas frecuentes sobre precios</h2>
-          <div className="divide-y divide-black/5 dark:divide-white/5">
+          <div className="divide-y divide-border">
             {faqs.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="cursor-pointer font-medium list-none flex justify-between items-center gap-4">
@@ -169,7 +169,7 @@ export default function PreciosPage() {
           </div>
         </section>
 
-        <div className="max-w-3xl mx-auto mt-16 text-center rounded-2xl border border-black/10 dark:border-white/10 p-8 bg-black/[0.02] dark:bg-white/[0.02]">
+        <div className="max-w-3xl mx-auto mt-16 text-center rounded-2xl border border-border p-8 bg-secondary">
           <h2 className="text-2xl font-bold mb-3 tracking-tight">¿Listo para cotizar tu proyecto?</h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
             Cuéntanos qué necesitas y te damos una cotización a medida según tu operación.
@@ -178,7 +178,7 @@ export default function PreciosPage() {
             <a href="https://wa.me/51961869348" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-brand px-6 py-3 font-medium text-white transition hover:opacity-90">
               Cotizar por WhatsApp
             </a>
-            <a href="mailto:gerencia@árkos.com" className="inline-flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 px-6 py-3 font-medium transition hover:bg-black/5 dark:hover:bg-white/5">
+            <a href="mailto:gerencia@árkos.com" className="inline-flex items-center justify-center rounded-xl border border-border px-6 py-3 font-medium transition hover:bg-secondary">
               gerencia@árkos.com
             </a>
           </div>

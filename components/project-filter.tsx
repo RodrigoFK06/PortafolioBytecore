@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { projectCategories } from "@/data/projects";
 
@@ -22,16 +21,15 @@ export function ProjectFilter({ onFilterChange }: ProjectFilterProps) {
   return (
     <div className="flex flex-wrap justify-center gap-2 mb-8">
       {filters.map((filter) => (
-        <motion.div key={filter.id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button
-            variant={activeFilter === filter.id ? "default" : "outline"}
-            size="sm"
-            onClick={() => handleFilterChange(filter.id)}
-            className="rounded-full"
-          >
-            {filter.label}
-          </Button>
-        </motion.div>
+        <Button
+          key={filter.id}
+          variant={activeFilter === filter.id ? "default" : "outline"}
+          size="sm"
+          onClick={() => handleFilterChange(filter.id)}
+          className="rounded-full transition-transform hover:scale-105 active:scale-95"
+        >
+          {filter.label}
+        </Button>
       ))}
     </div>
   );

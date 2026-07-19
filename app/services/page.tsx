@@ -99,7 +99,7 @@ export default function ServicesPage() {
           <h2 className="text-2xl md:text-3xl font-bold mb-8 tracking-tight text-center">
             Preguntas <span className="text-brand">frecuentes</span>
           </h2>
-          <div className="divide-y divide-black/5 dark:divide-white/5">
+          <div className="divide-y divide-border">
             {faqs.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="cursor-pointer font-medium list-none flex justify-between items-center gap-4">

@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
 import { useForm, useWatch, type Control } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Check, FileText, Film, ImageIcon, Music, Paperclip, UploadCloud, X } from "lucide-react"
@@ -41,17 +40,17 @@ const QUESTION_KEYS: FieldName[] = [
 ]
 
 const textareaCls =
-  "min-h-[92px] rounded-lg border-black/10 dark:border-white/10 bg-transparent text-[15px] leading-relaxed resize-y focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50 transition-colors"
+  "min-h-[92px] rounded-lg border-black/10 bg-transparent text-[15px] leading-relaxed resize-y focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50 transition-colors"
 
 const inputCls =
-  "h-11 rounded-lg border-black/10 dark:border-white/10 bg-transparent focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50"
+  "h-11 rounded-lg border-black/10 bg-transparent focus-visible:ring-brand/60 focus-visible:ring-offset-0 focus-visible:border-brand/50"
 
 const cardCls =
-  "rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.03] backdrop-blur-sm shadow-sm"
+  "rounded-2xl border border-black/[0.08] bg-white/70 backdrop-blur-sm shadow-sm"
 
 // Tarjeta de una sola pregunta (estilo Google Forms).
 const qCardBase =
-  "rounded-xl border bg-white/70 dark:bg-white/[0.025] shadow-sm px-5 py-5 sm:px-6 transition-colors"
+  "rounded-xl border bg-white/70 shadow-sm px-5 py-5 sm:px-6 transition-colors"
 
 function QCard({ accent, children }: { accent?: boolean; children: React.ReactNode }) {
   return (
@@ -59,8 +58,8 @@ function QCard({ accent, children }: { accent?: boolean; children: React.ReactNo
       className={cn(
         qCardBase,
         accent
-          ? "border-brand/30 bg-brand/[0.035] dark:bg-brand/[0.06]"
-          : "border-black/[0.07] dark:border-white/[0.08]",
+          ? "border-brand/30 bg-brand/[0.035]"
+          : "border-black/[0.07]",
       )}
     >
       {children}
@@ -380,7 +379,7 @@ function AttachmentsField({
                       "flex flex-col items-center gap-2",
                       dragOver
                         ? "border-brand bg-brand/[0.08]"
-                        : "border-black/15 dark:border-white/15 hover:border-brand/50 hover:bg-brand/[0.04]",
+                        : "border-black/15 hover:border-brand/50 hover:bg-brand/[0.04]",
                     )}
                   >
                     <UploadCloud className="h-6 w-6 text-brand" aria-hidden="true" />
@@ -395,13 +394,13 @@ function AttachmentsField({
               {(uploading.length > 0 || files.length > 0) && (
                 <ul className="space-y-2">
                   {uploading.map((u) => (
-                    <li key={u.id} className="rounded-lg border border-black/[0.07] dark:border-white/[0.08] px-3 py-2.5">
+                    <li key={u.id} className="rounded-lg border border-black/[0.07] px-3 py-2.5">
                       <div className="flex items-center gap-2.5 mb-1.5">
                         <Paperclip className="h-4 w-4 shrink-0 text-foreground/40 animate-pulse" />
                         <span className="text-sm text-foreground/70 truncate flex-1">{u.name}</span>
                         <span className="text-xs font-mono text-brand shrink-0">{Math.round(u.progress)}%</span>
                       </div>
-                      <div className="h-1 w-full rounded-full bg-black/[0.08] dark:bg-white/[0.08] overflow-hidden">
+                      <div className="h-1 w-full rounded-full bg-black/[0.08] overflow-hidden">
                         <div className="h-full rounded-full bg-brand transition-[width]" style={{ width: `${u.progress}%` }} />
                       </div>
                     </li>
@@ -418,7 +417,7 @@ function AttachmentsField({
                         type="button"
                         aria-label={`Quitar ${f.name}`}
                         onClick={() => field.onChange(files.filter((x) => x.url !== f.url))}
-                        className="shrink-0 rounded-md p-1 text-foreground/40 hover:text-foreground hover:bg-black/[0.06] dark:hover:bg-white/[0.08] transition-colors"
+                        className="shrink-0 rounded-md p-1 text-foreground/40 hover:text-foreground hover:bg-black/[0.06] transition-colors"
                       >
                         <X className="h-4 w-4" />
                       </button>
@@ -445,13 +444,7 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
-      className="space-y-4"
-    >
+    <section className="space-y-4">
       <div className="flex items-center gap-3 px-1 pt-4">
         <span className="shrink-0 grid place-items-center h-8 w-8 rounded-lg bg-brand/10 text-brand font-mono text-xs font-bold ring-1 ring-brand/20">
           {String(index).padStart(2, "0")}
@@ -462,7 +455,7 @@ function Section({
         </div>
       </div>
       {children}
-    </motion.section>
+    </section>
   )
 }
 
@@ -480,26 +473,22 @@ function ProgressTracker({ control }: { control: Ctrl }) {
     <>
       {/* Línea fija tipo "reading progress" */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent pointer-events-none">
-        <motion.div
-          className="h-full bg-brand shadow-[0_0_10px_hsl(var(--brand))]"
-          initial={false}
-          animate={{ width: `${pct}%` }}
-          transition={{ type: "spring", stiffness: 200, damping: 30 }}
+        <div
+          className="h-full bg-brand shadow-[0_0_10px_hsl(var(--brand))] transition-[width] duration-500 ease-out"
+          style={{ width: `${pct}%` }}
         />
       </div>
 
       {/* Contador al inicio del formulario */}
-      <div className="rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.03] px-5 py-3.5">
+      <div className="rounded-xl border border-black/[0.06] bg-black/[0.02] px-5 py-3.5">
         <div className="flex items-center justify-between mb-1.5">
           <span className="text-xs font-medium text-foreground/60">Tu progreso</span>
           <span className="text-xs font-mono text-brand">{answered}/{QUESTION_KEYS.length} respondidas</span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-black/[0.08] dark:bg-white/[0.08] overflow-hidden">
-          <motion.div
-            className="h-full rounded-full bg-brand"
-            initial={false}
-            animate={{ width: `${pct}%` }}
-            transition={{ type: "spring", stiffness: 200, damping: 30 }}
+        <div className="h-1.5 w-full rounded-full bg-black/[0.08] overflow-hidden">
+          <div
+            className="h-full rounded-full bg-brand transition-[width] duration-500 ease-out"
+            style={{ width: `${pct}%` }}
           />
         </div>
       </div>
@@ -565,9 +554,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
 
   if (submitted) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
+      <div
         role="status"
         aria-live="polite"
         className="relative overflow-hidden p-8 sm:p-12 rounded-3xl bg-brand/5 border border-brand/20 text-center"
@@ -583,7 +570,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
             Si dejaste una puerta abierta para presentarnos a otros colegas, te escribiremos pronto.
           </p>
         </div>
-      </motion.div>
+      </div>
     )
   }
 
@@ -676,7 +663,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
           <p className="text-xs font-mono text-foreground/55 leading-relaxed">
             <span className="text-brand" aria-hidden="true">*</span> Solo dos preguntas son obligatorias.<br className="hidden sm:block" /> El resto, lo que quieras responder.
           </p>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="shrink-0">
+          <div className="shrink-0 transition-transform hover:scale-[1.02] active:scale-[0.98]">
             <Button type="submit" disabled={isSubmitting || isUploadingFiles} size="lg" className="w-full sm:w-auto px-8 shadow-lg shadow-brand/20">
               {isSubmitting || isUploadingFiles ? (
                 <span className="flex items-center gap-2">
@@ -687,7 +674,7 @@ export function FineDiningSurvey({ restaurant }: Props) {
                 "Enviar mis respuestas"
               )}
             </Button>
-          </motion.div>
+          </div>
         </div>
       </form>
     </Form>

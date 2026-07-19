@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface LoadingSpinnerProps {
@@ -14,13 +13,9 @@ export function LoadingSpinner({ size = "md", className }: LoadingSpinnerProps) 
   }
 
   return (
-    <motion.div
-      className={cn("relative", sizeClasses[size], className)}
-      animate={{ rotate: 360 }}
-      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-    >
+    <div className={cn("relative animate-spin", sizeClasses[size], className)}>
       <div className="absolute inset-0 border-2 border-current border-t-transparent rounded-full" />
-    </motion.div>
+    </div>
   )
 }
 
@@ -33,18 +28,10 @@ export function LoadingSkeleton({ className, lines = 3 }: LoadingSkeletonProps) 
   return (
     <div className={cn("space-y-2", className)}>
       {Array.from({ length: lines }).map((_, i) => (
-        <motion.div
+        <div
           key={i}
           className="h-4 bg-muted rounded animate-pulse"
-          style={{ width: `${Math.random() * 40 + 60}%` }}
-          initial={{ opacity: 0.6 }}
-          animate={{ opacity: 1 }}
-          transition={{ 
-            duration: 1.5, 
-            repeat: Infinity, 
-            repeatType: "reverse",
-            delay: i * 0.1 
-          }}
+          style={{ width: `${((i * 37) % 40) + 60}%`, animationDelay: `${i * 100}ms` }}
         />
       ))}
     </div>
@@ -62,17 +49,12 @@ export function LoadingOverlay({ isLoading, children, message = "Cargando..." }:
     <div className="relative">
       {children}
       {isLoading && (
-        <motion.div
-          className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-200">
           <div className="flex flex-col items-center space-y-4">
             <LoadingSpinner size="lg" />
             <p className="text-sm text-muted-foreground">{message}</p>
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   )
