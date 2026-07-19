@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { Mail, MapPin, Github, Linkedin } from "lucide-react"
 import { SITE_CONFIG } from "@/lib/constants"
@@ -8,6 +9,9 @@ import { BrochureDownloadButton } from "@/components/brochure/BrochureDownloadBu
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const pathname = usePathname()
+  // Las anclas solo existen en el home: desde subpáginas navegan a /#ancla.
+  const toHref = (href: string) => (href.startsWith("#") && pathname !== "/" ? `/${href}` : href)
 
   return (
     <footer className="bg-background py-16 border-t border-border relative">
@@ -73,32 +77,32 @@ export function Footer() {
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Navegación</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="#about" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#about")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Nosotros
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#services")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Servicios
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#projects")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Proyectos
                 </Link>
               </li>
               <li>
-                <Link href="#testimonials" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#testimonials")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Testimonios
                 </Link>
               </li>
               <li>
-                <Link href="#process" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#process")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Proceso
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href={toHref("#contact")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Contacto
                 </Link>
               </li>
@@ -109,22 +113,22 @@ export function Footer() {
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Servicios</h3>
             <ul className="space-y-4">
               <li>
-                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Desarrollo Web
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Diseño UI/UX
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   E-Commerce
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Software a Medida
                 </Link>
               </li>

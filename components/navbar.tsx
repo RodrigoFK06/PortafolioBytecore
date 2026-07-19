@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
@@ -21,6 +22,12 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
+
+  // Las anclas (#about, #contact...) solo existen en el home: desde una
+  // subpágina deben navegar a /#ancla, no a /subpagina#ancla (ruta muerta).
+  const toHref = (href: string) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,12 +83,12 @@ export function Navbar() {
           {/* Desktop */}
           <nav className="hidden md:flex items-center gap-7 lg:gap-9">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className={linkClass(link.href)}>
+              <Link key={link.href} href={toHref(link.href)} className={linkClass(link.href)}>
                 {link.label}
               </Link>
             ))}
             <Link
-              href="#contact"
+              href={toHref("#contact")}
               className="inline-flex items-center px-5 py-2.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
             >
               Contáctanos
@@ -107,7 +114,7 @@ export function Navbar() {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={toHref(link.href)}
                 className={`py-3 border-b border-border/60 last:border-0 ${linkClass(link.href)}`}
                 onClick={closeMenu}
               >
@@ -115,7 +122,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link
-              href="#contact"
+              href={toHref("#contact")}
               onClick={closeMenu}
               className="mt-4 inline-flex items-center justify-center px-5 py-3 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
             >
