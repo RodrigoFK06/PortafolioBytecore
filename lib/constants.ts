@@ -22,7 +22,7 @@ export const SITE_CONFIG = {
   social: {
     twitter: "https://twitter.com/arkos",
     github: "https://github.com/RodrigoFK06",
-    linkedin: "https://linkedin.com/company/arkos",
+    linkedin: "https://www.linkedin.com/in/rodrigo-torres-arkos",
     instagram: "https://instagram.com/arkos",
   },
 

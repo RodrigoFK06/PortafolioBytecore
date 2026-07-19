@@ -180,7 +180,7 @@ export default function RootLayout({
               sameAs: [
                 "https://www.wikidata.org/wiki/Q140262378",
                 "https://x.com/ArkosPeru",
-                "https://www.linkedin.com/company/arkos-pe",
+                "https://www.linkedin.com/in/rodrigo-torres-arkos",
                 "https://clutch.co/profile/rkos",
               ],
             }),
