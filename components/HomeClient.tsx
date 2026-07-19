@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"
 import { HeroSection } from "./sections/HeroSection"
 import { AboutSection } from "./sections/AboutSection"
 import { ServicesSection } from "./sections/ServicesSection"
+import ComplianceSection from "./sections/ComplianceSection"
 import TechnologiesSection from "./sections/TechnologiesSection"
 import ProjectsSection from "./sections/ProjectsSection"
 import FounderSection from "./sections/FounderSection"
@@ -64,6 +65,7 @@ export default function HomeClient() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <ComplianceSection />
       <TechnologiesSection />
       <ProjectsSection />
       <FounderSection />

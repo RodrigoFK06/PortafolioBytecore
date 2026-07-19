@@ -63,7 +63,7 @@ export default function ProcessSection() {
         <header className="max-w-4xl">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            FIG. 08 — Proceso
+            FIG. 09 — Proceso
           </p>
           <KineticText
             as="h2"

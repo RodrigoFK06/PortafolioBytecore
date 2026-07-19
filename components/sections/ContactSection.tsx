@@ -53,7 +53,7 @@ export default function ContactSection() {
         <header className="max-w-4xl mb-14 md:mb-20">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            FIG. 09 — Contacto
+            FIG. 10 — Contacto
           </p>
           <KineticText
             as="h2"

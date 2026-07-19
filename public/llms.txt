@@ -16,7 +16,12 @@
 1.  **Desarrollo Web:** Landing pages, sitios corporativos y plataformas web con Next.js y React, rápidas en cualquier conexión y optimizadas para SEO.
 2.  **Diseño UI/UX:** Interfaces claras con foco en conversión, diseñadas en Figma a partir de investigación del cliente real.
 3.  **E-Commerce:** Tiendas online con pasarelas en soles (Izipay, Culqi), factura electrónica, control de stock e integración con courier.
-4.  **Software a Medida:** ERPs, PMS hoteleros, sistemas de gestión clínica, paneles administrativos y dashboards diseñados desde la operación real del cliente.
+4.  **Software a Medida:** ERPs, PMS hoteleros, sistemas de gestión clínica, paneles administrativos y dashboards diseñados desde la operación real del cliente. Cumplimiento SUNAT de fábrica: facturación electrónica (CPE), libros electrónicos PLE/SIRE y validación RENIEC/SUNAT integrados.
+
+## Oferta de Entrada: Diagnóstico
+*   **Llamada de diagnóstico (gratis, 30 min):** lectura honesta de si el negocio necesita un sistema, un ajuste o nada todavía. (https://xn--rkos-4na.com/diagnostico)
+*   **Diagnóstico profundo (S/ 950, 2 semanas):** auditoría de operación y cumplimiento SUNAT con informe y roadmap con costos; el precio se descuenta íntegro del proyecto si se avanza.
+*   **Test interactivo "¿Necesitas un sistema?":** 10 preguntas con resultado al instante. (https://xn--rkos-4na.com/necesitas-un-sistema)
 
 ## Tecnologías Core
 *   Frontend: React, Next.js, Tailwind CSS, TypeScript, Framer Motion.

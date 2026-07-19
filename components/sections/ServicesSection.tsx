@@ -114,7 +114,7 @@ export function ServicesSection() {
             index={4}
             title="Software a Medida"
             description="Sistemas, ERPs y dashboards hechos para tu operación: agendamiento de citas, gestión hotelera, restaurantes, talleres, clínicas. Lo que un Excel ya no resuelve."
-            detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Pensados desde la operación real de tu equipo, con módulos que crecen contigo."
+            detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Con cumplimiento SUNAT de fábrica — facturación electrónica, PLE/SIRE y validación RENIEC integrados. Pensados desde la operación real de tu equipo, con módulos que crecen contigo."
           />
         </StaggerGroup>
 

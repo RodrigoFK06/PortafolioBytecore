@@ -11,6 +11,8 @@ La mayoría de las pymes con las que trabajo no necesitaban software "porque sí
 
 Esta es la checklist honesta que uso para distinguir una de la otra. Si reconoces tres o más de estas señales, probablemente ya es hora.
 
+> **¿Prefieres una respuesta al instante?** Convertimos esta checklist en un [test interactivo de 3 minutos](/necesitas-un-sistema): 10 preguntas y una lectura honesta de tu caso — incluida la respuesta "todavía no".
+
 ## 1. Tu información vive en varios lugares que no se hablan
 
 Ventas en un cuaderno, clientes en WhatsApp, inventario en un Excel, caja en otro. Cada vez que necesitas una respuesta, la armas a mano cruzando fuentes. Eso no escala: el día que tengas el doble de volumen, te toma el doble de tiempo.
@@ -44,4 +46,4 @@ Cuando los sistemas genéricos te obligan a adaptar tu negocio a su forma, en ve
 Depende del alcance. Un MVP a medida parte desde lo esencial y crece por módulos, justamente para no pagar de golpe por todo. La idea es resolver primero lo que más duele.
 
 **¿Por dónde empiezo si reconozco varias señales?**
-Por un diagnóstico honesto de tu operación antes de escribir una sola línea de código. A veces la respuesta es un sistema; a veces es solo ordenar lo que ya tienes.
+Por un diagnóstico honesto de tu operación antes de escribir una sola línea de código. A veces la respuesta es un sistema; a veces es solo ordenar lo que ya tienes. En Árkos ofrecemos [dos niveles de diagnóstico](/diagnostico): una llamada gratis de 30 minutos y un diagnóstico profundo de dos semanas con informe y roadmap con costos.

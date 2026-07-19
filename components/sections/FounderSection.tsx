@@ -32,7 +32,7 @@ export default function FounderSection() {
         <header className="max-w-4xl mb-12 md:mb-16">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            FIG. 06 — Fundador
+            FIG. 07 — Fundador
           </p>
           <KineticText
             as="h2"
@@ -104,18 +104,18 @@ export default function FounderSection() {
 
             {/* CTA consultivo — diagnóstico (punto de entrada de asesor, no de vendor) */}
             <div className="mt-10 p-6 md:p-8 rounded-lg bg-secondary shadow-hairline">
-              <p className="spec-label text-brand mb-2">Diagnóstico gratis</p>
+              <p className="spec-label text-brand mb-2">Diagnóstico — desde gratis</p>
               <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-3">¿No sabes por dónde empezar?</h3>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-prose">
-                Agenda 30 minutos conmigo, sin compromiso. Te digo con honestidad si lo que
-                necesitas es un sistema, un ajuste o nada todavía — aunque no terminemos
-                trabajando juntos.
+                Empieza con 30 minutos conmigo, sin compromiso: te digo con honestidad si lo que
+                necesitas es un sistema, un ajuste o nada todavía. Y si quieres ir a fondo, el
+                diagnóstico profundo pone números y un plan sobre la mesa.
               </p>
               <Link
-                href="#contact"
+                href="/diagnostico"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
               >
-                Agendar diagnóstico
+                Ver el diagnóstico
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
