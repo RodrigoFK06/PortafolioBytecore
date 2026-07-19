@@ -3,7 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { RevealText, StaggerReveal } from "@/components/gsap-reveal"
+import { KineticText } from "@/components/motion/kinetic-text"
+import { Reveal } from "@/components/motion/reveal"
+import { StaggerGroup } from "@/components/motion/stagger-group"
 
 export interface Testimonial {
   name: string
@@ -20,124 +22,118 @@ export interface Testimonial {
 }
 
 const LOGO_BG_CLASS: Record<NonNullable<Testimonial["logoBg"]>, string> = {
-  white: "bg-white border-black/10",
-  dark: "bg-slate-900 border-white/10",
-  neutral: "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10",
+  white: "bg-white",
+  dark: "bg-slate-900",
+  neutral: "bg-secondary",
 }
 
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <section id="testimonials" className="py-16 md:py-32 bg-slate-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-500">
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
-        <div className="max-w-4xl relative text-left">
-
-          {/* Anotación Marginal */}
-
-          <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Lo que dicen <br className="hidden md:block" /> <span className="text-brand">nuestros clientes</span>
-          </RevealText>
-
-          <RevealText delay={0.2}>
-            <p className="text-foreground/80 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
-              No construimos para clientes, forjamos alianzas con visionarios. Estas son las impresiones de quienes apostaron por la arquitectura de élite.
+    <section id="testimonials" className="py-20 md:py-32 bg-background relative border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-14 md:mb-20">
+        <header className="max-w-4xl">
+          <p className="spec-label mb-6 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
+            FIG. 07 — Clientes
+          </p>
+          <KineticText
+            as="h2"
+            mode="rise"
+            by="words"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
+          >
+            Lo que dicen <span className="text-brand">nuestros clientes</span>
+          </KineticText>
+          <Reveal effect="fade" delay={0.15}>
+            <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
+              Sistemas en producción, operados a diario por gente real. Esto es lo que cuentan
+              quienes ya trabajan con nosotros.
             </p>
-          </RevealText>
-        </div>
+          </Reveal>
+        </header>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
-        <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8" stagger={0.1}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5" stagger={0.08}>
           {testimonials.map((testimonial, index) => (
             <article
               key={index}
-              className="group relative bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] backdrop-blur-[12px] p-8 md:p-10 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 transition-all duration-500 h-full flex flex-col shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)] overflow-hidden"
+              className="group relative bg-card p-8 rounded-lg shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 h-full flex flex-col"
               aria-label={`Testimonio de ${testimonial.name}, ${testimonial.position}`}
             >
-              {/* Chiseled Light border on hover */}
-              <div className="absolute inset-0 border border-black/0 dark:border-white/0 group-hover:border-black/10 dark:group-hover:border-white/10 rounded-2xl transition-colors pointer-events-none opacity-0 group-hover:opacity-100 z-20" style={{ background: "linear-gradient(135deg, rgba(150,150,150,0.15) 0%, rgba(150,150,150,0) 100%)", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", padding: "1px"}} />
-
-              <div className="flex flex-col h-full relative z-10">
-                {/* Opening quote (decorative) */}
+              <div className="flex flex-col h-full">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 32 32"
-                  className="h-9 w-9 text-brand/40 mb-6 group-hover:text-brand transition-colors duration-300"
+                  className="h-8 w-8 text-brand/30 mb-6 group-hover:text-brand transition-colors duration-300"
                   fill="currentColor"
                 >
                   <path d="M10.5 8C6.91 8 4 10.91 4 14.5V24h9.5v-9.5H8.5C8.5 12.57 9.57 11.5 11.5 11.5h.5V8h-1.5zm14 0c-3.59 0-6.5 2.91-6.5 6.5V24H27.5v-9.5h-5C22.5 12.57 23.57 11.5 25.5 11.5h.5V8h-1.5z" />
                 </svg>
 
-                {/* Testimonial text — contraste reforzado para WCAG AA */}
-                <p className="text-foreground/95 dark:text-foreground/90 leading-relaxed mb-8 flex-grow text-base md:text-lg">
-                  <span aria-hidden="true">“</span>{testimonial.text}<span aria-hidden="true">”</span>
+                <p className="text-foreground leading-relaxed mb-8 flex-grow text-base">
+                  <span aria-hidden="true">“</span>
+                  {testimonial.text}
+                  <span aria-hidden="true">”</span>
                 </p>
 
-                {/* Metric / highlight badge */}
                 {testimonial.metric && (
                   <div className="mb-6">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono uppercase tracking-wider bg-brand/10 text-brand border border-brand/20">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand" aria-hidden="true" />
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded text-[11px] font-mono uppercase tracking-wider bg-brand/5 text-brand">
+                      <span className="w-1 h-1 bg-brand" aria-hidden="true" />
                       {testimonial.metric}
                     </span>
                   </div>
                 )}
 
-                {/* Project / service rendered */}
-                <p className="text-xs font-mono uppercase tracking-wider text-foreground/60 mb-4">
-                  <span className="text-brand/70">— </span>{testimonial.project}
-                </p>
+                <p className="spec-label mb-4">{testimonial.project}</p>
 
-                {/* Client info */}
-                <div className="pt-6 border-t border-black/[0.08] dark:border-white/[0.06] flex items-center gap-4">
-                   <div className={`w-14 h-14 rounded-full overflow-hidden border flex items-center justify-center shrink-0 relative p-2 ${LOGO_BG_CLASS[testimonial.logoBg ?? "neutral"]}`}>
-                     <Image
-                       src={testimonial.logo}
-                       alt={`Logo de ${testimonial.company}`}
-                       fill
-                       sizes="56px"
-                       className="object-contain p-1"
-                     />
-                   </div>
-                   <div className="min-w-0">
-                     <p className="font-bold text-foreground group-hover:text-brand transition-colors truncate">{testimonial.name}</p>
-                     <p className="text-xs font-mono tracking-wider uppercase text-foreground/75">
-                       {testimonial.position}
-                     </p>
-                     <a
-                       href={testimonial.link}
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       aria-label={`Visitar el sitio web de ${testimonial.company} (se abre en una nueva pestaña)`}
-                       className="mt-1 text-xs font-mono tracking-wider uppercase text-brand hover:underline inline-flex items-center gap-0.5"
-                     >
-                       {testimonial.company}
-                       <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-                     </a>
-                   </div>
+                <div className="pt-6 border-t border-border flex items-center gap-4">
+                  <div
+                    className={`w-12 h-12 rounded-md overflow-hidden shadow-hairline flex items-center justify-center shrink-0 relative ${LOGO_BG_CLASS[testimonial.logoBg ?? "neutral"]}`}
+                  >
+                    <Image
+                      src={testimonial.logo}
+                      alt={`Logo de ${testimonial.company}`}
+                      fill
+                      sizes="48px"
+                      className="object-contain p-1.5"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-foreground truncate">{testimonial.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">{testimonial.position}</p>
+                    <a
+                      href={testimonial.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar el sitio web de ${testimonial.company} (se abre en una nueva pestaña)`}
+                      className="mt-0.5 text-xs font-mono tracking-wide text-brand hover:underline inline-flex items-center gap-0.5"
+                    >
+                      {testimonial.company}
+                      <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </article>
           ))}
-        </StaggerReveal>
+        </StaggerGroup>
 
-        {/* CTA al pie de la sección */}
-        <RevealText delay={0.3}>
-          <div className="mt-16 md:mt-20 flex flex-col items-center text-center">
-            <p className="text-foreground/70 text-sm md:text-base mb-6 max-w-xl">
-              ¿Listo para sumar tu visión a esta lista? Construyamos algo que merezca contarse.
+        <Reveal effect="fade">
+          <div className="mt-14 md:mt-20 flex flex-col items-center text-center">
+            <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-xl">
+              ¿Listo para sumar tu operación a esta lista? Construyamos algo que merezca contarse.
             </p>
             <Link
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-brand-foreground font-mono text-sm uppercase tracking-wider hover:bg-brand/90 transition-colors duration-300 border border-brand/40"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
             >
               Conversemos sobre tu proyecto
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </Link>
           </div>
-        </RevealText>
+        </Reveal>
       </div>
     </section>
   )

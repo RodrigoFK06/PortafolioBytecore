@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Bot, SendHorizonal, X, Phone, Mail, ExternalLink, Loader2, MessageCircle, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -180,27 +179,20 @@ export default function FloatingDock() {
 
   return (
     <>
-      {/* Dock Flotante (Glassmorphism 2.0) */}
-      <AnimatePresence>
-        {isVisible && (
-          <motion.div
-            className="fixed bottom-6 md:bottom-8 right-4 md:right-8 z-[9999] flex flex-col items-center gap-2 p-2 bg-slate-50/50 dark:bg-[#050505]/50 backdrop-blur-[16px] border border-black/10 dark:border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-            initial={{ opacity: 0, y: 50, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.8 }}
-            transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
-          >
+      {/* Dock flotante */}
+      {isVisible && (
+          <div className="fixed bottom-6 md:bottom-8 right-4 md:right-8 z-[9999] flex flex-col items-center gap-2 p-2 bg-background/90 backdrop-blur-sm rounded-full shadow-hairline-md animate-in fade-in slide-in-from-bottom-4 duration-300">
             {/* Scroll to Top */}
             <Button
               size="icon"
               onClick={scrollToTop}
-              className="w-12 h-12 rounded-full bg-transparent hover:bg-black/5 dark:hover:bg-white/5 text-foreground/50 hover:text-foreground border-none transition-all duration-300"
+              className="w-12 h-12 rounded-full bg-transparent hover:bg-secondary text-muted-foreground hover:text-foreground border-none transition-all duration-300"
               aria-label="Volver arriba"
             >
               <ArrowUp className="w-5 h-5" />
             </Button>
 
-            <div className="w-8 h-[1px] bg-black/10 dark:bg-white/10 my-1" />
+            <div className="w-8 h-[1px] bg-border my-1" />
 
             {/* WhatsApp */}
             <Button
@@ -216,70 +208,34 @@ export default function FloatingDock() {
               </span>
             </Button>
 
-            <div className="w-8 h-[1px] bg-black/10 dark:bg-white/10 my-1" />
+            <div className="w-8 h-[1px] bg-border my-1" />
 
             {/* Chatbot Toggle */}
             <Button
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
-              className="relative w-14 h-14 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-foreground border-none transition-all duration-300"
+              className="relative w-14 h-14 rounded-full bg-secondary hover:bg-muted text-foreground border-none transition-all duration-300"
               aria-label="Abrir asistente IA"
             >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="bot"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Bot className="w-6 h-6 text-brand" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6 text-brand" />}
 
               {!isOpen && (
                 <>
-                  <motion.div
-                    className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
+                  <div className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background animate-pulse" />
                   <span className="absolute right-full mr-4 bg-background/90 text-foreground px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-border">
                     ArkBot IA
                   </span>
                 </>
               )}
             </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
 
       {/* Ventana del Chatbot */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed bottom-6 md:bottom-8 right-20 md:right-28 w-[calc(100vw-6rem)] sm:w-96 h-[500px] md:h-[600px] max-h-[80vh] z-[9998] flex flex-col overflow-hidden bg-slate-50/95 dark:bg-[#050505]/95 backdrop-blur-[24px] border border-black/10 dark:border-white/10 shadow-2xl rounded-2xl"
-            initial={{ opacity: 0, y: 20, scale: 0.95, x: 20 }}
-            animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95, x: 20 }}
-            transition={{ duration: 0.3, type: "spring", bounce: 0.3 }}
-          >
+      {isOpen && (
+          <div className="fixed bottom-6 md:bottom-8 right-20 md:right-28 w-[calc(100vw-6rem)] sm:w-96 h-[500px] md:h-[600px] max-h-[80vh] z-[9998] flex flex-col overflow-hidden bg-background shadow-hairline-md shadow-2xl rounded-lg animate-in fade-in slide-in-from-bottom-2 duration-200">
             {/* Header Chiseled */}
-            <div className="p-4 border-b border-black/10 dark:border-white/10 flex items-center justify-between bg-black/5 dark:bg-white/5 relative overflow-hidden">
-               {/* Shine effect */}
-               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
+            <div className="p-4 border-b border-border flex items-center justify-between bg-secondary relative overflow-hidden">
               
               <div className="flex items-center gap-3 relative z-10">
                 <div className="relative w-10 h-10 rounded-full bg-background flex justify-center items-center border border-border">
@@ -290,7 +246,7 @@ export default function FloatingDock() {
                 </div>
                 <div>
                   <h3 className="font-bold text-base text-foreground">ArkBot</h3>
-                  <p className="text-xs text-foreground/60 font-mono tracking-wider uppercase">
+                  <p className="text-xs text-muted-foreground font-mono tracking-wider uppercase">
                     {connectionStatus === 'connected' ? 'IA • Online' :
                       connectionStatus === 'connecting' ? 'Connecting...' : 'Offline'}
                   </p>
@@ -311,12 +267,7 @@ export default function FloatingDock() {
 
             {/* Acciones rápidas */}
             {shouldCollectContact && (
-              <motion.div
-                className="p-3 bg-brand/5 border-b border-brand/10"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="p-3 bg-secondary border-b border-border animate-in fade-in duration-200">
                 <p className="text-xs text-brand mb-2 font-mono uppercase tracking-wider">
                   // Sugerencias
                 </p>
@@ -334,30 +285,27 @@ export default function FloatingDock() {
                     </Button>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             )}
 
             {/* Área de mensajes */}
-            <div className="flex-1 overflow-y-auto space-y-4 p-4 scrollbar-thin scrollbar-thumb-black/10 dark:scrollbar-thumb-white/10">
+            <div className="flex-1 overflow-y-auto space-y-4 p-4 custom-scroll">
               {messages.map((msg, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}
+                  className={`flex flex-col animate-in fade-in slide-in-from-bottom-1 duration-200 ${msg.role === "user" ? "items-end" : "items-start"}`}
                 >
                   {msg.role === "assistant" && (
                      <div className="flex items-center gap-2 mb-1">
                        <Bot className="w-4 h-4 text-brand" />
-                       <span className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase">ArkBot</span>
+                       <span className="text-[10px] text-muted-foreground font-mono tracking-widest uppercase">ArkBot</span>
                      </div>
                   )}
 
                   <div
                     className={`max-w-[85%] p-4 rounded-2xl transition-all duration-200 text-sm ${msg.role === "user"
                         ? "bg-foreground text-background ml-auto rounded-tr-none"
-                        : "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground rounded-tl-none"
+                        : "bg-secondary shadow-hairline text-foreground rounded-tl-none"
                       }`}
                   >
                     {msg.role === "assistant" ? (
@@ -366,33 +314,29 @@ export default function FloatingDock() {
                       <p className="whitespace-pre-wrap leading-relaxed">{msg.message}</p>
                     )}
                   </div>
-                </motion.div>
+                </div>
               ))}
 
               {isTyping && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-2"
-                >
+                <div className="flex items-center gap-2 animate-in fade-in duration-200">
                   <Bot className="w-4 h-4 text-brand" />
-                  <div className="bg-black/5 dark:bg-white/5 p-3 rounded-2xl border border-black/10 dark:border-white/10 rounded-tl-none">
+                  <div className="bg-secondary p-3 rounded-2xl shadow-hairline rounded-tl-none">
                     <div className="flex items-center gap-2">
                        <div className="flex gap-1">
-                          <motion.div className="w-1.5 h-1.5 rounded-full bg-brand" animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} />
-                          <motion.div className="w-1.5 h-1.5 rounded-full bg-brand" animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} />
-                          <motion.div className="w-1.5 h-1.5 rounded-full bg-brand" animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }} />
+                          <div className="w-1.5 h-1.5 rounded-full bg-brand animate-bounce" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-brand animate-bounce [animation-delay:150ms]" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-brand animate-bounce [animation-delay:300ms]" />
                        </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               <div ref={messagesEndRef} />
             </div>
 
             {/* Input area */}
-            <div className="border-t border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 p-4">
+            <div className="border-t border-border bg-secondary p-4">
               <div className="flex gap-2">
                 <Input
                   value={input}
@@ -400,14 +344,14 @@ export default function FloatingDock() {
                   onKeyDown={handleKeyPress}
                   placeholder={isTyping ? "Procesando..." : "Escribe tu directiva..."}
                   disabled={isTyping}
-                  className="flex-1 bg-background border-border focus:border-brand transition-colors h-12 rounded-xl"
+                  className="flex-1 bg-background border-border focus:border-brand transition-colors h-12 rounded-md"
                   maxLength={1000}
                 />
                 <Button
                   size="icon"
                   onClick={sendMessage}
                   disabled={isTyping || !input.trim()}
-                  className="h-12 w-12 bg-foreground text-background hover:bg-foreground/90 transition-opacity rounded-xl"
+                  className="h-12 w-12 bg-foreground text-background hover:bg-foreground/90 transition-opacity rounded-md"
                 >
                   {isTyping ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -417,19 +361,17 @@ export default function FloatingDock() {
                 </Button>
               </div>
 
-              <div className="flex justify-between items-center mt-3 text-[10px] text-foreground/40 font-mono uppercase tracking-widest">
+              <div className="flex justify-between items-center mt-3 text-[10px] text-muted-foreground/70 font-mono uppercase tracking-widest">
                 <span>AI Core v2.4</span>
                 {input.length > 0 && (
-                  <span className={input.length > 900 ? "text-red-500" : "text-foreground/40"}>
+                  <span className={input.length > 900 ? "text-red-500" : "text-muted-foreground/70"}>
                     {input.length}/1000
                   </span>
                 )}
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
+          </div>
+      )}
     </>
   )
 }

@@ -1,31 +1,32 @@
-import { RevealText } from "@/components/gsap-reveal"
+import { KineticText } from "@/components/motion/kinetic-text"
 import ProjectsClient from "./ProjectsClient"
 import { getHomeProjects } from "@/data/projects"
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-16 md:py-32 bg-slate-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-500">
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
-        <div className="max-w-4xl relative text-left">
-
-          {/* Anotación Marginal */}
-
-          <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Proyectos <br className="hidden md:block" /> <span className="text-brand">Destacados</span>
-          </RevealText>
-
-          <RevealText delay={0.2}>
-            <p className="text-foreground/70 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
-              Una selección curada de trabajos recientes. Diseño que empuja límites, desarrollo ultra-rápido y experiencias que conectan directamente con el usuario final.
-            </p>
-          </RevealText>
-        </div>
+    <section id="projects" className="py-20 md:py-32 bg-background relative border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-14 md:mb-20">
+        <header className="max-w-4xl">
+          <p className="spec-label mb-6 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
+            FIG. 05 — Casos
+          </p>
+          <KineticText
+            as="h2"
+            mode="rise"
+            by="words"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
+          >
+            Proyectos <span className="text-brand">Destacados</span>
+          </KineticText>
+          <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
+            Una selección curada de trabajos recientes. Diseño que empuja límites, desarrollo
+            ultra-rápido y experiencias que conectan directamente con el usuario final.
+          </p>
+        </header>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <ProjectsClient projects={getHomeProjects()} />
       </div>
     </section>

@@ -2,7 +2,9 @@
 
 import { MessageSquare, FileText, Code2, Headphones } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
-import { RevealText, StaggerReveal } from "@/components/gsap-reveal"
+import { KineticText } from "@/components/motion/kinetic-text"
+import { Reveal } from "@/components/motion/reveal"
+import { StaggerGroup } from "@/components/motion/stagger-group"
 
 interface ProcessStep {
   icon: LucideIcon
@@ -56,77 +58,79 @@ const NEXT_STEPS: string[] = [
 
 export default function ProcessSection() {
   return (
-    <section id="process" className="py-16 md:py-32 bg-slate-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-500">
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
-        <div className="max-w-4xl relative text-left">
-
-          {/* Anotación Marginal */}
-
-          <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Cómo <br className="hidden md:block" /> <span className="text-brand">trabajamos</span>
-          </RevealText>
-
-          <RevealText delay={0.2}>
-            <p className="text-foreground/80 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
-              Cuatro pasos claros, sin sorpresas. Sabes exactamente qué pasa antes de firmar, durante el desarrollo y después de la entrega.
+    <section id="process" className="py-20 md:py-32 bg-background relative border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-14 md:mb-20">
+        <header className="max-w-4xl">
+          <p className="spec-label mb-6 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
+            FIG. 08 — Proceso
+          </p>
+          <KineticText
+            as="h2"
+            mode="rise"
+            by="words"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
+          >
+            Cómo <span className="text-brand">trabajamos</span>
+          </KineticText>
+          <Reveal effect="fade" delay={0.15}>
+            <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
+              Cuatro pasos claros, sin sorpresas. Sabes exactamente qué pasa antes de firmar,
+              durante el desarrollo y después de la entrega.
             </p>
-          </RevealText>
-        </div>
+          </Reveal>
+        </header>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12">
-        <StaggerReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative" stagger={0.1}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <StaggerGroup
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative"
+          stagger={0.08}
+          childSelector=":scope > article"
+        >
           {/* Línea conectora horizontal en desktop */}
           <div
             aria-hidden="true"
-            className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand/25 to-transparent pointer-events-none"
+            className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-border pointer-events-none"
           />
 
           {STEPS.map((step) => (
             <article
               key={step.number}
-              className="group relative bg-black/[0.04] dark:bg-white/[0.03] hover:bg-black/[0.06] dark:hover:bg-white/[0.05] backdrop-blur-[12px] p-6 md:p-8 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/15 dark:hover:border-white/20 transition-all duration-500 h-full flex flex-col shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)]"
+              className="group relative bg-card p-7 rounded-lg shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 h-full flex flex-col"
             >
-              {/* Número + ícono */}
-              <div className="flex items-center justify-between mb-6 relative z-10">
-                <span className="font-mono text-xs tracking-[0.2em] uppercase text-brand opacity-70">
-                  [{step.number}]
-                </span>
-                <div className="w-12 h-12 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center group-hover:bg-brand/20 group-hover:scale-110 transition-all duration-500">
+              <div className="flex items-center justify-between mb-6">
+                <span className="spec-label text-brand">[{step.number}]</span>
+                <div className="w-11 h-11 rounded-md bg-secondary flex items-center justify-center">
                   <step.icon className="h-5 w-5 text-brand" aria-hidden="true" />
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-brand transition-colors relative z-10">
-                {step.title}
-              </h3>
+              <h3 className="font-display text-xl font-bold mb-1.5 text-foreground">{step.title}</h3>
 
-              <p className="text-xs font-mono uppercase tracking-wider text-foreground/55 mb-4 relative z-10">
-                {step.duration}
+              <p className="spec-label mb-4">
+                <span className="tabular">{step.duration}</span>
               </p>
 
-              <p className="text-foreground/80 text-sm leading-relaxed flex-grow relative z-10">
+              <p className="text-muted-foreground text-sm leading-relaxed flex-grow">
                 {step.description}
               </p>
             </article>
           ))}
-        </StaggerReveal>
+        </StaggerGroup>
 
         {/* Qué pasa después de enviar el formulario */}
-        <div className="mt-16 md:mt-20 max-w-4xl mx-auto">
-          <RevealText delay={0.3}>
-            <div className="rounded-2xl bg-brand/5 border border-brand/15 p-6 md:p-10">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-brand mb-4">
+        <div className="mt-14 md:mt-20 max-w-4xl mx-auto">
+          <Reveal effect="rise">
+            <div className="rounded-lg bg-secondary p-6 md:p-10 shadow-hairline">
+              <p className="spec-label text-brand mb-5">
                 Qué pasa después de que envíes el formulario
               </p>
-              <ol className="space-y-3 text-foreground/85">
+              <ol className="space-y-3 text-foreground">
                 {NEXT_STEPS.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm md:text-base leading-relaxed">
                     <span
-                      className="shrink-0 w-6 h-6 rounded-full bg-brand/15 text-brand text-xs font-bold flex items-center justify-center mt-0.5 font-mono"
+                      className="shrink-0 w-6 h-6 rounded bg-background shadow-hairline text-brand text-xs font-mono font-medium flex items-center justify-center mt-0.5 tabular"
                       aria-hidden="true"
                     >
                       {i + 1}
@@ -136,7 +140,7 @@ export default function ProcessSection() {
                 ))}
               </ol>
             </div>
-          </RevealText>
+          </Reveal>
         </div>
       </div>
     </section>

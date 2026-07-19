@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react"
 import { ProjectCard } from "@/components/project-card"
 import { ProjectFilter } from "@/components/project-filter"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { StaggerGroup } from "@/components/motion/stagger-group"
+import { Reveal } from "@/components/motion/reveal"
 
 interface Project {
   id: number
@@ -41,8 +41,13 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
     <>
       <ProjectFilter onFilterChange={setActiveFilter} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayedProjects.map((project, index) => (
+      <StaggerGroup
+        key={activeFilter}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        stagger={0.06}
+        from="start"
+      >
+        {displayedProjects.map((project) => (
           <ProjectCard
             key={project.id}
             id={project.id}
@@ -51,29 +56,20 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
             tags={project.tags}
             imageSrc={project.imageSrc}
             link={project.link}
-            delay={0.1 * (index + 1)}
           />
         ))}
-      </div>
+      </StaggerGroup>
 
-      <div className="mt-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Button
-            asChild
-            size="lg"
-            className="group"
+      <div className="mt-14 text-center">
+        <Reveal effect="fade">
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
           >
-            <Link href="/projects" className="flex items-center">
-              Ver todos los proyectos
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </motion.div>
+            Ver todos los proyectos
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+          </Link>
+        </Reveal>
       </div>
     </>
   )

@@ -1,10 +1,10 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
-import { RevealText } from "@/components/gsap-reveal"
+import { gsap, ScrollTrigger } from "@/lib/motion"
+import { KineticText } from "@/components/motion/kinetic-text"
+import { Reveal } from "@/components/motion/reveal"
 
 import {
   SiReact,
@@ -31,8 +31,6 @@ import {
 } from "react-icons/si"
 import { TbApi, TbRefresh, TbDatabase, TbBrandAws } from "react-icons/tb"
 import type { IconType } from "react-icons"
-
-gsap.registerPlugin(ScrollTrigger)
 
 interface TechItem {
   name: string
@@ -69,9 +67,9 @@ const technologies: TechItem[] = [
 
 function TechChip({ tech }: { tech: TechItem }) {
   return (
-    <div className="flex items-center gap-3 px-6 py-4 border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-[12px] rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300 shrink-0 group shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
-      <tech.Icon className="w-6 h-6 text-foreground/70 group-hover:text-brand transition-colors duration-300" aria-hidden="true" />
-      <span className="text-sm font-medium text-foreground/80 whitespace-nowrap group-hover:text-foreground transition-colors duration-300 font-mono tracking-wide">
+    <div className="flex items-center gap-3 px-6 py-4 rounded-md bg-card shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 shrink-0 group">
+      <tech.Icon className="w-6 h-6 text-muted-foreground group-hover:text-brand transition-colors duration-300" aria-hidden="true" />
+      <span className="text-sm font-medium text-muted-foreground whitespace-nowrap group-hover:text-foreground transition-colors duration-300 font-mono tracking-wide">
         {tech.name}
       </span>
     </div>
@@ -161,25 +159,28 @@ function Marquee({ items, speed }: { items: TechItem[]; speed: number }) {
 
 export default function TechnologiesSection() {
   return (
-    <section id="technologies" className="py-16 md:py-32 bg-slate-50 dark:bg-[#050505] relative overflow-hidden transition-colors duration-500">
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-[0.06] dark:opacity-[0.04] bg-noise" />
+    <section id="technologies" className="py-20 md:py-32 bg-background relative overflow-hidden border-t border-border">
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-12 mb-16 md:mb-24">
-        <div className="max-w-4xl relative text-left">
-
-          {/* Anotación Marginal */}
-
-          <RevealText as="h2" className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-left relative z-10 mb-8 md:mb-12">
-            Nuestras <br className="hidden md:block" /> <span className="text-brand">Tecnologías</span>
-          </RevealText>
-
-          <RevealText delay={0.2}>
-            <p className="text-foreground/80 mt-8 max-w-2xl text-base md:text-lg leading-relaxed relative z-10 md:pl-16 border-l-[2px] border-brand/30 ml-2">
+        <header className="max-w-4xl">
+          <p className="spec-label mb-6 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
+            FIG. 04 — Stack
+          </p>
+          <KineticText
+            as="h2"
+            mode="rise"
+            by="words"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
+          >
+            Nuestras <span className="text-brand">Tecnologías</span>
+          </KineticText>
+          <Reveal effect="fade" delay={0.15}>
+            <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
               Herramientas con las que trabajamos a diario. Elegimos cada una según el problema, no por moda: si tu proyecto necesita Laravel o CodeIgniter, no te vamos a empujar a Next.js solo porque suena bien.
             </p>
-          </RevealText>
-        </div>
+          </Reveal>
+        </header>
       </div>
 
       {/* Lista accesible para lectores de pantalla */}

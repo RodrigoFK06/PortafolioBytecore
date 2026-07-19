@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -112,11 +111,11 @@ export function ContactForm() {
       <div
         role="status"
         aria-live="polite"
-        className="p-8 rounded-2xl bg-brand/5 border border-brand/20 text-center"
+        className="p-8 rounded-lg bg-secondary shadow-hairline text-center"
       >
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand/15 text-brand mb-4 text-2xl" aria-hidden="true">✓</div>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand/10 text-brand mb-4 text-2xl" aria-hidden="true">✓</div>
         <h4 className="text-xl font-bold text-foreground mb-2">Mensaje recibido</h4>
-        <p className="text-foreground/75 leading-relaxed mb-6">
+        <p className="text-muted-foreground leading-relaxed mb-6">
           Gracias por escribirnos. Te respondemos en menos de 24 horas hábiles al correo que indicaste.
         </p>
         <Button variant="outline" onClick={() => setSubmitted(false)}>
@@ -210,7 +209,7 @@ export function ContactForm() {
           control={form.control}
           name="consent"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start gap-3 space-y-0 rounded-xl border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] p-4">
+            <FormItem className="flex flex-row items-start gap-3 space-y-0 rounded-md bg-secondary shadow-hairline p-4">
               <FormControl>
                 <Checkbox
                   checked={field.value}
@@ -223,7 +222,7 @@ export function ContactForm() {
                 <FormLabel className="text-sm font-medium text-foreground cursor-pointer">
                   Acepto el tratamiento de mis datos<RequiredMark />
                 </FormLabel>
-                <p className="text-xs text-foreground/65 leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Usamos tus datos únicamente para responder esta consulta. No compartimos con terceros ni enviamos publicidad sin consentimiento. Más detalles en nuestra{" "}
                   <Link href="/politicadeprivacidad" className="text-brand hover:underline">Política de Privacidad</Link>.
                 </p>
@@ -233,22 +232,20 @@ export function ContactForm() {
           )}
         />
 
-        <p className="text-xs font-mono text-foreground/55">
+        <p className="text-xs font-mono text-muted-foreground">
           <span className="text-brand" aria-hidden="true">*</span> Campos obligatorios · Te respondemos en menos de 24 horas hábiles
         </p>
 
-        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <LoadingSpinner size="sm" />
-                Enviando...
-              </span>
-            ) : (
-              "Solicitar propuesta"
-            )}
-          </Button>
-        </motion.div>
+        <Button type="submit" disabled={isSubmitting} className="w-full active:scale-[0.99] transition-transform">
+          {isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <LoadingSpinner size="sm" />
+              Enviando...
+            </span>
+          ) : (
+            "Solicitar propuesta"
+          )}
+        </Button>
       </form>
     </Form>
   )
