@@ -2,11 +2,18 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Bot, SendHorizonal, X, Phone, Mail, ExternalLink, Loader2, MessageCircle, ArrowUp } from "lucide-react"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Markdown } from "@/components/markdown"
 import { SITE_CONFIG } from "@/lib/constants"
+
+// react-markdown y su pipeline pesan; se cargan recién cuando el chat
+// muestra el primer mensaje del asistente, no con el dock.
+const Markdown = dynamic(() => import("@/components/markdown").then((m) => m.Markdown), {
+  ssr: false,
+  loading: () => null,
+})
 import type { ChatMessage } from "@/types/chatbot"
 
 interface SuggestedAction {

@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { HeroSection } from "./sections/HeroSection"
 import { AboutSection } from "./sections/AboutSection"
@@ -20,6 +21,16 @@ const FloatingDock = dynamic(() => import("./floating-dock"), { ssr: false })
 
 
 export default function HomeClient() {
+  // El dock (chatbot + accesos) solo es visible tras scrollear; su bundle es
+  // el más pesado del home, así que ni siquiera se descarga hasta el primer
+  // scroll — recorta ~6s de script del hilo principal en móvil.
+  const [dockReady, setDockReady] = useState(false)
+  useEffect(() => {
+    const arm = () => setDockReady(true)
+    window.addEventListener("scroll", arm, { once: true, passive: true })
+    return () => window.removeEventListener("scroll", arm)
+  }, [])
+
   const testimonialsData: Testimonial[] = [
     {
       name: "Guillermo Sánchez",
@@ -61,7 +72,7 @@ export default function HomeClient() {
 
   return (
     <main>
-      <FloatingDock />
+      {dockReady && <FloatingDock />}
       <HeroSection />
       <AboutSection />
       <ServicesSection />
