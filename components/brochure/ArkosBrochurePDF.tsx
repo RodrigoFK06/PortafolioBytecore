@@ -2,12 +2,20 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font, Svg, Path } from '@react-pdf/renderer';
 import { theme } from './theme';
 
-// Register Inter font from Google Fonts CDN for proper accent/ñ support
+// Fuente de marca self-hosteada (TTF — react-pdf no soporta woff2).
+// Switzer se usa en cuerpo Y display: la estática de Cabinet Grotesk de
+// Fontshare trae los contornos de las vocales acentuadas mal dibujados
+// (aguda→grave, "Árkos"→"Àrkos") y la variante variable instanciada
+// cuelga a fontkit; Switzer Bold da títulos limpios con tildes correctas.
+// Rutas relativas: el PDF se genera en el navegador, resuelven al origen.
+// ?v= versiona el asset: evita que un navegador con una versión previa de
+// la fuente en caché HTTP se la sirva a fontkit (una fuente malformada lo
+// mete en un bucle que congela el hilo). Subir el número al cambiar el TTF.
 Font.register({
-  family: 'Inter',
+  family: 'Switzer',
   fonts: [
-    { src: 'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf', fontWeight: 'normal' },
-    { src: 'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf', fontWeight: 'bold' },
+    { src: '/fonts-pdf/Switzer-Regular.ttf?v=2', fontWeight: 'normal' },
+    { src: '/fonts-pdf/Switzer-Bold.ttf?v=2', fontWeight: 'bold' },
   ],
 });
 
@@ -16,8 +24,8 @@ Font.registerHyphenationCallback((word) => [word]);
 
 // Path segments — combined with baseUrl at render time
 const PATHS = {
-  logo: '/logo_ico/final - LOGO 2-02.png',      // lockup completo (blanco, para fondo oscuro) — solo portada / cierre
-  iconWhite: '/logo_ico/final - LOGO 2-08.png',  // ícono del cubo (blanco)
+  logo: '/logo_ico/final - LOGO 2-01.png',      // lockup completo (tinta oscura, para fondo claro) — solo portada / cierre
+  iconWhite: '/logo_ico/final - LOGO 2-07.png',  // ícono del cubo (tinta oscura/cian, para fondo claro)
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -151,7 +159,7 @@ const SvcCard = ({ num, title, desc }: { num: string; title: string; desc: strin
 );
 
 const s = StyleSheet.create({
-  page: { backgroundColor: theme.bg, color: theme.text, fontFamily: 'Inter', position: 'relative' as const },
+  page: { backgroundColor: theme.bg, color: theme.text, fontFamily: 'Switzer', position: 'relative' as const },
   pad: { flex: 1, padding: 50 },
   row: { flexDirection: 'row' as const },
   w50: { width: '50%' },
@@ -240,7 +248,7 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
       <Footer p={2} />
     </Page>
 
-    {/* P3: ABOUT — ahora en tema oscuro */}
+    {/* P3: ABOUT */}
     <Page size="A4" style={[s.page, { flexDirection: 'row' }]}>
       <View style={{ width: '42%' }}>
         {/* 🖼️ "QUIÉNES SOMOS" — reemplaza con /public/assets/resthub-dashboard.png (USE_LOCAL_IMAGES = true) */}

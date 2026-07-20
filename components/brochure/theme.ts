@@ -1,16 +1,17 @@
 // ─────────────────────────────────────────────────────────────
 // Árkos — Tokens de marca del brochure corporativo.
 // FUENTE ÚNICA DE COLOR. Ninguna página debe usar hex sueltos:
-// todo color sale de aquí. Acento ÚNICO = turquesa (#52D2D7).
+// todo color sale de aquí. Sistema "Light 2026": fondo claro,
+// near-black y acento ÚNICO cobalto — el mismo lenguaje del sitio.
 // ─────────────────────────────────────────────────────────────
 export const theme = {
-  bg:       '#200E3A', // fondo base (todas las páginas) — indigo profundo
-  surface:  '#2A1A4A', // superficie / tarjetas
-  border:   '#3A2A5C', // borde sutil
-  accent:   '#52D2D7', // acento ÚNICO — turquesa
-  text:     '#F3F8FF', // texto principal
-  muted:    '#B9B2CC', // texto secundario / muted
-  onAccent: '#200E3A', // texto/íconos SOBRE el turquesa (usa el fondo para máximo contraste)
+  bg:       '#FFFFFF', // fondo base (todas las páginas) — blanco
+  surface:  '#F7F7F8', // superficie / tarjetas (secondary del sitio)
+  border:   '#E6E6E6', // hairline
+  accent:   '#0A33FF', // acento ÚNICO — cobalto eléctrico
+  text:     '#171717', // texto principal — near-black
+  muted:    '#616161', // texto secundario / muted
+  onAccent: '#FFFFFF', // texto/íconos SOBRE el cobalto
 } as const;
 
 export type Theme = typeof theme;
