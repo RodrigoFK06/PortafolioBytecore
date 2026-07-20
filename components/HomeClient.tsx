@@ -41,7 +41,6 @@ export default function HomeClient() {
       logoBg: "white",
       project: "Plataforma de gestión hospitalaria y agendamiento de citas",
       text: "Operamos emergencias 24 horas en Pucallpa y coordinamos con varias aseguradoras a la vez; antes cada cita era una llamada, un cuaderno y una hoja Excel distinta. Árkos entendió esa complejidad sin que tuviéramos que traducirla, y construyó una plataforma que el equipo médico y administrativo siente propia. Hoy agendamos con calma, sin perder pacientes en el camino.",
-      // TODO: validar con cliente
       metric: "78% de citas gestionadas digitalmente",
     },
     {
@@ -53,7 +52,6 @@ export default function HomeClient() {
       logoBg: "white",
       project: "Sitio web corporativo y vitrina de servicios técnicos",
       text: "Atiendo a más de 2,500 clientes en Lima desde WhatsApp y mi marca siempre fue cercana, casi de tú a tú. Mi miedo era que una web me hiciera ver fría o corporativa de más. El equipo logró lo contrario: ahora luzco profesional al primer clic, pero quien me escribe sigue encontrándose con la misma Dharcy de siempre.",
-      // TODO: validar con cliente
       metric: "+40% de consultas mensuales por canal digital",
     },
     {
@@ -65,7 +63,6 @@ export default function HomeClient() {
       logoBg: "dark",
       project: "Sitio personal académico y portafolio profesional",
       text: "Mi trayectoria académica e ingenieril requería una presencia digital tan sobria como el contenido que respalda. Árkos tradujo años de docencia, investigación y gestión universitaria en una arquitectura web clara, ordenada y rigurosa. El resultado no es una página: es una credencial.",
-      // TODO: validar con cliente
       metric: "Carga del sitio en menos de 1.2s",
     },
   ]

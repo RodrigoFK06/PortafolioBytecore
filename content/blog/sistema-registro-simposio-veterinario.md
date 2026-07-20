@@ -3,7 +3,7 @@ title: "Cómo creamos el sistema de registro para un simposio veterinario intern
 description: "Caso de estudio sobre la landing page y sistema de registro del II Simposio Veterinario Internacional 2026 en Trujillo, con countdown en vivo, agenda interactiva y diseño académico premium."
 image: "/simposio.png"
 date: "2026-01-15"
-author: "Árkos"
+author: "Rodrigo Torres"
 tags: ["Next.js", "React", "Landing Page", "Eventos", "Caso de Estudio"]
 ---
 

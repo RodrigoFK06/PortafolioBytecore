@@ -3,7 +3,7 @@ title: "Solutec System: cómo construimos un CRM de gestión de clientes con Rea
 description: "Caso de estudio sobre Solutec System, el CRM/ERP que construimos para Solutec DHA — servicio técnico a domicilio de reparación de electrodomésticos en Lima — con filtros avanzados, exportación a Excel y panel administrativo moderno."
 image: "/solutec.png"
 date: "2026-01-20"
-author: "Árkos"
+author: "Rodrigo Torres"
 tags: ["React", "Material UI", "CRM", "Frontend", "Caso de Estudio"]
 ---
 

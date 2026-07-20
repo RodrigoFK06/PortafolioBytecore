@@ -3,7 +3,7 @@ title: "Diseño web para productora audiovisual: el caso de Ñawi Producciones"
 description: "Cómo diseñamos una web con estética cinematográfica para una productora audiovisual de cine documental, con integración de YouTube, modo dark premium y arquitectura Next.js."
 image: "/nawi.png"
 date: "2026-01-10"
-author: "Árkos"
+author: "Rodrigo Torres"
 tags: ["Next.js", "React", "Diseño Web", "UX/UI", "Caso de Estudio"]
 ---
 

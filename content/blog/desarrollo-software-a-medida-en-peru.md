@@ -3,7 +3,7 @@ title: "Desarrollo de software a medida en Perú: guía completa de Árkos"
 description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué PYMEs de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
-author: "Árkos"
+author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
 
@@ -24,7 +24,7 @@ El desarrollo a medida es la mejor decisión cuando:
 - **El sistema genérico no encaja con tu operación.** Terminas adaptando tu forma de trabajar al software, en vez de al revés.
 - **Pagas por funciones que no usas** o, peor, te faltan las que sí necesitas. Herramientas como Salesforce o HubSpot pueden ser excesivas para un servicio técnico o una PYME.
 - **Tu información está dispersa** entre WhatsApp, hojas de Excel sueltas y una agenda física, y nadie tiene una vista única del negocio.
-- **Necesitas integraciones específicas:** pasarelas de pago en soles, factura electrónica, courier, exportación a Excel respetando filtros o un chatbot de ventas con IA.
+- **Necesitas integraciones específicas:** pasarelas de pago en soles, [facturación electrónica según los requisitos de SUNAT](https://cpe.sunat.gob.pe/), courier, exportación a Excel respetando filtros o un chatbot de ventas con IA.
 - **Quieres ser dueño del producto y de los datos**, sin depender de la hoja de ruta ni de los precios de un proveedor externo.
 
 Un caso real: para **Solutec System** —el CRM/ERP de Solutec DHA, un servicio técnico a domicilio en Lima— evaluamos un CRM genérico como HubSpot o Salesforce y lo descartamos por ser excesivo para una operación así. En su lugar construimos un sistema enfocado solo en lo que el negocio necesita: listado de clientes con filtros avanzados, búsqueda, exportación a Excel/CSV respetando los filtros activos y fichas con campos del rubro (DNI, distrito, electrodoméstico, garantía, historial), con React 18 y Material UI (MUI DataGrid).

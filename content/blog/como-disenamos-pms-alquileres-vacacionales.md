@@ -3,7 +3,7 @@ title: "Cómo diseñamos un PMS para Alquileres Vacacionales desde cero"
 description: "Caso de estudio técnico sobre VR PMS: un Property Management System construido con Next.js y React para gestionar propiedades de alquiler vacacional, reservas y huéspedes en tiempo real."
 image: "/vr-pms.png"
 date: "2026-02-15"
-author: "Árkos"
+author: "Rodrigo Torres"
 tags: ["Next.js", "React", "PMS", "Caso de Estudio", "SaaS"]
 ---
 

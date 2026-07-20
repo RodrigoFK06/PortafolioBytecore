@@ -27,7 +27,7 @@ Cuánto vendiste esta semana, qué local rinde mejor, cuánto te debe cada clien
 
 ## 4. Cometes los mismos errores manuales una y otra vez
 
-Una factura mal emitida, un pedido que se pierde, una cita que se duplica. Cuando el error es recurrente y humano, no es mala suerte: es que el proceso le pide a una persona algo que un sistema debería garantizar.
+Una [factura electrónica](https://cpe.sunat.gob.pe/) mal emitida, un pedido que se pierde, una cita que se duplica. Cuando el error es recurrente y humano, no es mala suerte: es que el proceso le pide a una persona algo que un sistema debería garantizar.
 
 ## 5. Pagas suscripciones por funciones que no usas
 
