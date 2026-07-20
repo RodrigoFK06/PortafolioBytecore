@@ -102,13 +102,16 @@ export default function RootLayout({
     <html lang="es">
       <head>
         {/* La etiqueta de ícono ahora se genera a través del objeto `metadata` anterior */}
+        <link rel="alternate" type="application/rss+xml" title="Blog de Árkos" href="/rss.xml" />
         <script
           type="application/ld+json"
-          // Organization schema — Entidad principal Árkos
+          // Entidad principal Árkos — nodo único multi-type (Organization +
+          // LocalBusiness + ProfessionalService) para que los parsers vean UNA
+          // sola entidad con @id, no dos "Árkos" duplicadas.
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
               "@id": `${baseUrl}/#organization`,
               name: "Árkos",
               alternateName: ["Arkos"],
@@ -116,6 +119,21 @@ export default function RootLayout({
                 "Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
+              image: `${baseUrl}/og-image.png`,
+              telephone: "+51 961 869 348",
+              email: "gerencia@árkos.com",
+              priceRange: "$$",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "PE",
+                addressLocality: "Trujillo",
+                addressRegion: "La Libertad",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "-8.1116",
+                longitude: "-79.0288",
+              },
               foundingDate: "2020",
               founder: { "@id": `${baseUrl}/#rodrigo-torres` },
               areaServed: [
@@ -176,10 +194,14 @@ export default function RootLayout({
                   },
                 ],
               },
+              // Nota: el perfil de LinkedIn PERSONAL vive en el sameAs de la
+              // entidad Person (#rodrigo-torres), no aquí — un perfil solo
+              // puede ser sameAs de UNA entidad. Cuando exista la LinkedIn
+              // Company Page de Árkos, añadirla aquí. El QID de Wikidata se
+              // retiró porque la entidad no existe (404); recrear el ítem
+              // cuando haya 2+ referencias externas y actualizar.
               sameAs: [
-                "https://www.wikidata.org/wiki/Q140262378",
                 "https://x.com/ArkosPeru",
-                "https://www.linkedin.com/in/rodrigo-torres-arkos",
                 "https://clutch.co/profile/rkos",
               ],
             }),
@@ -206,74 +228,6 @@ export default function RootLayout({
                   urlTemplate: `${baseUrl}/search?q={search_term_string}`,
                 },
                 "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          // LocalBusiness + ProfessionalService schema
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["LocalBusiness", "ProfessionalService"],
-              name: "Árkos",
-              description:
-                "Agencia de desarrollo de software a medida, aplicaciones web y diseño UX/UI en Trujillo, Perú. Especialistas en React, Next.js y soluciones con IA.",
-              url: baseUrl,
-              image: `${baseUrl}/og-image.png`,
-              telephone: "+51 961 869 348",
-              email: "gerencia@árkos.com",
-              priceRange: "$$",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "PE",
-                addressLocality: "Trujillo",
-                addressRegion: "La Libertad",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: "-8.1116",
-                longitude: "-79.0288",
-              },
-              areaServed: [
-                { "@type": "Country", name: "Peru" },
-                { "@type": "Place", name: "Latinoamérica" },
-              ],
-              founder: { "@id": `${baseUrl}/#rodrigo-torres` },
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Servicios Árkos",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Desarrollo de Software a Medida",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Desarrollo Web Full Stack",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Diseño UX/UI",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Integración de Inteligencia Artificial",
-                    },
-                  },
-                ],
               },
             }),
           }}

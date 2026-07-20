@@ -72,7 +72,7 @@ export interface Project {
  *     result: "[métrica real o resultado cualitativo concreto — NUNCA inventes números]",
  *     proof: {
  *       liveUrl: "https://rest-hub-landing.vercel.app/",
- *       images: ["/resthub.png"],
+ *       images: ["/resthub.webp"],
  *       testimonial: { quote: "[1 línea del cliente]", author: "[nombre]", role: "[cargo]" },
  *     },
  *     cta: "¿Tu restaurante opera a ciegas entre POS, cocina y caja? Conversemos.",
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     description:
       "ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, sin módulos extra ni costuras, con una landing premium pensada para Latinoamérica.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript", "ERP"],
-    imageSrc: "/resthub.png",
+    imageSrc: "/resthub.webp",
     link: "https://rest-hub-landing.vercel.app/",
     category: "sistemas-web",
     year: "2025",
@@ -146,7 +146,7 @@ export const projects: Project[] = [
         "Un ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol —mesa, cocina, caja— opera con su propia pantalla optimizada, sin módulos sueltos que integrar ni costuras entre piezas.",
       proof: {
         liveUrl: "https://rest-hub-landing.vercel.app/",
-        images: ["/resthub.png"],
+        images: ["/resthub.webp"],
       },
       cta: "¿Tu restaurante opera a ciegas entre POS, cocina y caja? Conversemos.",
       context:

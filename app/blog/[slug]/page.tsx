@@ -50,6 +50,23 @@ function formatDate(dateStr: string): string {
   })
 }
 
+// Extrae pares pregunta/respuesta de la sección "## Preguntas frecuentes"
+// del markdown (formato: **¿Pregunta?** seguida de su párrafo de respuesta).
+function extractFaqs(md: string): { q: string; a: string }[] {
+  const section = md.split(/^##\s+Preguntas frecuentes\s*$/m)[1]
+  if (!section) return []
+  const chunk = section.split(/^##\s+/m)[0]
+  const faqs: { q: string; a: string }[] = []
+  const re = /\*\*(.+?)\*\*\s*\n([\s\S]+?)(?=\n\s*\n\*\*|$)/g
+  let m: RegExpExecArray | null
+  while ((m = re.exec(chunk)) !== null) {
+    const q = m[1].trim()
+    const a = m[2].replace(/\s+/g, " ").replace(/\[([^\]]+)\]\([^\)]*\)/g, "$1").trim()
+    if (q && a) faqs.push({ q, a })
+  }
+  return faqs
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const filePath = path.join(BLOG_DIR, `${slug}.md`)
@@ -57,6 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const { data, content } = matter(fs.readFileSync(filePath, "utf-8"))
   const tags = data.tags || []
+  const faqs = extractFaqs(content)
 
   return (
     <main className="pt-28 pb-20">
@@ -154,8 +172,48 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </article>
 
+      {/* Author box — señal E-E-A-T visible: quién escribe y sus perfiles */}
+      <aside className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mt-16">
+        <div className="flex items-start gap-5 p-6 rounded-lg bg-secondary shadow-hairline">
+          <div className="relative w-16 h-16 rounded-md overflow-hidden shadow-hairline shrink-0">
+            <Image
+              src="/rodrigo-torres.webp"
+              alt="Rodrigo Torres, fundador de Árkos"
+              fill
+              sizes="64px"
+              className="object-cover object-[50%_25%]"
+            />
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">Rodrigo Torres</p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-1">
+              Fundador de Árkos. Construye ERPs, PMS hoteleros y apps en producción para pymes de
+              Perú y Latinoamérica — con cumplimiento SUNAT integrado de fábrica.
+            </p>
+            <div className="flex gap-4 mt-2 text-sm">
+              <a
+                href="https://www.linkedin.com/in/rodrigo-torres-arkos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand hover:underline"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/RodrigoFK06"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand hover:underline"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
       {/* Footer del artículo */}
-      <footer className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mt-16 pt-8 border-t border-border">
+      <footer className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mt-10 pt-8 border-t border-border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link
             href="/blog"
@@ -185,11 +243,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             datePublished: data.date,
             dateModified: data.updated || data.date,
             author:
-              data.author && data.author !== "Árkos"
+              data.author && data.author !== "Árkos" && data.author !== "Rodrigo Torres"
                 ? { "@type": "Person", name: data.author }
                 : { "@type": "Person", "@id": `${baseUrl}/#rodrigo-torres`, name: "Rodrigo Torres" },
             publisher: {
               "@type": "Organization",
+              "@id": `${baseUrl}/#organization`,
               name: "Árkos",
               url: baseUrl,
               logo: {
@@ -202,9 +261,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               "@id": `${baseUrl}/blog/${slug}`,
             },
             keywords: tags.join(", "),
+            inLanguage: "es-PE",
           }),
         }}
       />
+
+      {/* FAQPage — solo si el post tiene sección "Preguntas frecuentes" visible */}
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            }),
+          }}
+        />
+      )}
     </main>
   )
 }

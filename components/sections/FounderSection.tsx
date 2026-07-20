@@ -49,7 +49,7 @@ export default function FounderSection() {
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="relative w-44 h-52 rounded-lg overflow-hidden shadow-hairline mb-6">
               <Image
-                src="/rodrigo-torres.png"
+                src="/rodrigo-torres.webp"
                 alt="Rodrigo Torres, fundador de Árkos"
                 fill
                 sizes="176px"

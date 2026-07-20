@@ -51,6 +51,15 @@ const faqs: { q: string; a: string }[] = [
   },
 ];
 
+const SERVICES = [
+  { title: "Desarrollo Web", description: "Creamos sitios web y aplicaciones a medida utilizando las últimas tecnologías.", icon: "Code" },
+  { title: "Diseño UI/UX", description: "Diseñamos interfaces intuitivas y atractivas centradas en el usuario.", icon: "Palette" },
+  { title: "E-Commerce", description: "Desarrollamos tiendas online personalizadas y optimizadas para conversión.", icon: "Monitor" },
+  { title: "Aplicaciones Móviles", description: "Creamos aplicaciones nativas y multiplataforma con excelente UX.", icon: "Box" },
+  { title: "Desarrollo Backend", description: "Construimos APIs robustas, bases de datos optimizadas y sistemas escalables.", icon: "Database" },
+  { title: "Consultoría Digital", description: "Proporcionamos asesoramiento estratégico y técnico en tecnología digital.", icon: "MessageSquare" },
+]
+
 export default function ServicesPage() {
   const faqLd = {
     "@context": "https://schema.org",
@@ -62,26 +71,43 @@ export default function ServicesPage() {
     })),
   };
 
+  const catalogSchema = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": "https://xn--rkos-4na.com/services#catalog",
+    name: "Servicios de desarrollo de software de Árkos",
+    provider: { "@id": "https://xn--rkos-4na.com/#organization" },
+    itemListElement: SERVICES.map((sv) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: sv.title,
+        description: sv.description,
+        provider: { "@id": "https://xn--rkos-4na.com/#organization" },
+      },
+    })),
+  };
+
   return (
     <main className="pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-            Nuestros <span className="text-brand">Servicios</span>
+          <h1 className="font-display text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+            Servicios de <span className="text-brand">desarrollo de software</span> en Perú
           </h1>
           <p className="text-muted-foreground leading-relaxed">
-            En Árkos ofrecemos una gama completa de servicios digitales, cada uno entregado con el mismo compromiso inquebrantable de excelencia y atención al detalle.
+            Árkos ofrece seis servicios: desarrollo web, diseño UI/UX, e-commerce, aplicaciones
+            móviles, desarrollo backend y consultoría digital — para clínicas, hoteles,
+            restaurantes, comercios y pymes de Perú y Latinoamérica, con cumplimiento SUNAT
+            integrado cuando el sistema lo requiere.
           </p>
         </div>
 
         {/* Tarjetas de Servicios */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ServiceCard title="Desarrollo Web" description="Creamos sitios web y aplicaciones a medida utilizando las últimas tecnologías." icon="Code" />
-          <ServiceCard title="Diseño UI/UX" description="Diseñamos interfaces intuitivas y atractivas centradas en el usuario." icon="Palette" />
-          <ServiceCard title="E-Commerce" description="Desarrollamos tiendas online personalizadas y optimizadas para conversión." icon="Monitor" />
-          <ServiceCard title="Aplicaciones Móviles" description="Creamos aplicaciones nativas y multiplataforma con excelente UX." icon="Box" />
-          <ServiceCard title="Desarrollo Backend" description="Construimos APIs robustas, bases de datos optimizadas y sistemas escalables." icon="Database" />
-          <ServiceCard title="Consultoría Digital" description="Proporcionamos asesoramiento estratégico y técnico en tecnología digital." icon="MessageSquare" />
+          {SERVICES.map((sv) => (
+            <ServiceCard key={sv.title} title={sv.title} description={sv.description} icon={sv.icon} />
+          ))}
         </div>
 
         {/* Enlace a precios */}
@@ -116,6 +142,10 @@ export default function ServicesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(catalogSchema) }}
       />
     </main>
   );

@@ -84,6 +84,22 @@ const FAQS = [
 export default function DiagnosticoPage() {
   return (
     <main className="pt-28 md:pt-36 pb-20 bg-background">
+      {/* JSON-LD: FAQ visible de la página (mismo array FAQS → siempre en sync) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
+      />
+
       {/* JSON-LD: servicio con sus dos ofertas */}
       <script
         type="application/ld+json"
