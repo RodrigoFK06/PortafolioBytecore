@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Árkos · Plataforma Bombón Warehouses</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    // docx no publica UMD; cargamos vía esm.sh y exponemos como global
+    import * as docx from 'https://esm.sh/docx@9.5.1';
+    window.docx = docx;
+    window.dispatchEvent(new Event('docx-ready'));
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+      .print-only { display: block !important; }
+      .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
+      .pricing-card { break-inside: avoid; page-break-inside: avoid; }
+      .logo-screen { display: none !important; }
+      .logo-print { display: inline-block !important; }
+    }
+    .print-only { display: none; }
+    .logo-screen { display: inline-block; }
+    .logo-print { display: none; }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2">
+          <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-10 w-auto" />
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-10 w-auto" />
+          <span class="sr-only">Árkos</span>
+        </a>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Plataforma a Medida · Casillero Internacional</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          PDF
+        </button>
+        <button id="btnWord" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#1D4E6A] text-white hover:bg-[#15394f]">
+          Word
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+
+        <!-- Encabezado de marca (visible en PDF) -->
+        <div class="print-only mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
+          <div class="flex items-center gap-3">
+            <div class="text-right text-xs text-neutral-600">
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p>rodrigoan.torresp@gmail.com · +51 961 869 348</p>
+              <p>Trujillo, Perú · árkos.com</p>
+            </div>
+            <img src="/logo_ico/final - LOGO 2-07.png" alt="" aria-hidden="true" class="h-10 w-10 opacity-80" />
+          </div>
+        </div>
+
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 23 Jul 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Tu operación completa en un solo sistema</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Un portal donde tus clientes ven sus artículos y registran sus pedidos, y un panel donde tú controlas los tres almacenes. Aquí está todo lo que incluye y cuánto cuesta.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2 flex-wrap">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Portal de clientes</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Tres almacenes</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">Mich — Bombón Warehouses</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">Casillero internacional y compra asistida — Corea, Japón y Estados Unidos</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-BOM-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 3 Opciones                                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Tus tres opciones</span></h2>
+          <div class="grid gap-5 md:grid-cols-3">
+
+            <!-- Opción 1 — Esencial -->
+            <div class="pricing-card rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 1</p>
+              <h3 class="mt-2 text-base font-bold">Esencial</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">USD 1,000</p>
+              <p class="text-xs text-neutral-500 mt-1">El sistema completo · resuelve tu día a día</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tus clientes entran con su cuenta y ven solo sus artículos.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Cada quien registra su producto antes de que llegue al almacén.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Corea, Japón y Estados Unidos en un solo lugar.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> El sistema empareja cada paquete con su dueño; los no identificados quedan en una bandeja aparte.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tus consolidaciones organizadas con su fecha límite.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> EMS y Cruce se calculan solos, con tarifas propias por almacén.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Pagos ligados a cada artículo y multas por atraso según tu regla.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Mayoreo e individual separados; tus clientes te piden productos pegando el link.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Estado de cuenta por cliente y reportes de tu operación.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Página pública para que te encuentren nuevos clientes.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Pasamos tu información de Notion, te enseñamos a usarlo y publicamos con hosting y dominio incluidos el primer año.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: aprox. 7 a 8 semanas</p>
+            </div>
+
+            <!-- Opción 2 — Integral (RECOMENDADO) -->
+            <div class="pricing-card rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Opción 2</p>
+              <h3 class="mt-2 text-base font-bold">Integral</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">USD 2,000</p>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">Todo lo anterior + pagos en línea</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo de la opción Esencial.</strong></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Pago en línea desde el mismo portal.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Cada pago en línea se registra solo contra su artículo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tus clientes liquidan sin escribirte y tú lo ves reflejado al momento.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Tiempo de entrega: aprox. 9 a 10 semanas</p>
+            </div>
+
+            <!-- Opción 3 — Profesional -->
+            <div class="pricing-card rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Opción 3</p>
+              <h3 class="mt-2 text-base font-bold">Profesional</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">USD 3,000</p>
+              <p class="text-xs text-neutral-500 mt-1">Todo lo anterior + tu operación avisa sola</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo de la opción Integral.</strong></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Avisos automáticos por WhatsApp a tus clientes.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Recordatorios de pago antes de la fecha límite.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Control de artículos abandonados y su liquidación.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Aplicación instalable en el celular, para ti y tus clientes.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Tiempo de entrega: aprox. 11 a 12 semanas</p>
+            </div>
+
+          </div>
+
+          <!-- Nota: por qué la opción Profesional -->
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">★</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">Las tres opciones te resuelven el problema</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">El sistema completo va en las tres: desde la Esencial dejas de buscar a quién pertenece cada paquete, de sacar cuentas a mano y de perseguir los pagos, y tu página pública ya está en línea para que te encuentren nuevos clientes. La Integral suma el cobro en línea desde el mismo portal. Y la Profesional hace que tu operación avise sola por WhatsApp, que es donde hoy se te va el día.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- QUÉ VAS A PODER HACER                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué vas a poder hacer</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Lo que cambia en tu día a día cuando el sistema esté funcionando.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Tus clientes se atienden solos</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Entran con su cuenta y ven sus artículos, su estado y lo que deben pagar. Ya no tienen que buscar entre las listas de todos.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Cada paquete llega con nombre</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">El cliente registra su producto y su guía antes de que llegue. Cuando la mercancía aparece en el almacén, el sistema ya sabe de quién es.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Los tres almacenes en una sola pantalla</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Corea, Japón y Estados Unidos dejan de vivir en listas separadas. Filtras por almacén cuando lo necesitas.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Las cuentas se hacen solas</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">EMS, Cruce y totales por cliente se calculan a partir de tus tarifas. Se acabó escribir los montos a mano.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Los pagos quedan amarrados al artículo</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Cada pago se registra contra el pedido que corresponde, con su fecha límite y su multa si aplica.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Mayoreo e individual, cada uno por su lado</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Tus dos tipos de cliente conviven en el mismo sistema sin mezclarse.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- CÓMO TE ACOMPAÑAMOS                                        -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Cómo te acompañamos</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Esto va incluido en cualquiera de las tres opciones.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Acompañamiento en todo el camino</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Durante el proyecto y después de la entrega seguimos contigo: revisamos los avances juntos y resolvemos tus dudas directo por WhatsApp.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Visión de mercado</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Te ayudamos a aterrizar cómo presentar tu servicio: qué mostrar en el portal, cómo ordenar tus tarifas y cómo se ve todo frente a tus clientes.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Aprendizaje continuo</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Cada parte del sistema llega con su capacitación. Tú y tu equipo aprenden a su ritmo, sin quedarse solos.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Formas de trabajar</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Trabajamos por partes, con avances constantes que revisas antes de seguir. Nada se publica sin que lo hayas visto.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- LO QUE NO INCLUYE                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Para que quede todo claro desde el inicio</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> La renovación del hosting y el dominio después del primer año (el primer año va por nuestra cuenta).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> La operación logística: negociación con almacenes, fletes y aduanas.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Migrar el historial de conversaciones de WhatsApp.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Facturación fiscal mexicana (CFDI); se cotiza aparte si la necesitas.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Aplicación nativa para iOS y Android. En la opción Profesional va la versión instalable desde el navegador.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> El pago en línea dentro del portal viene desde la opción Integral.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Cambios de alcance fuera de lo listado en la opción que elijas.</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- INFRAESTRUCTURA Y MANTENIMIENTO                            -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Infraestructura y mantenimiento</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Lo que pasa después de publicar tu plataforma. El primer año, hosting y dominio van por nuestra cuenta.</p>
+            <div class="grid gap-5 md:grid-cols-3">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Infraestructura</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Incluida 1er año</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">El primer año va por nuestra cuenta. Después, desde USD 25 al mes a tu nombre; sube solo si tu volumen crece mucho.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Dominio</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Incluido 1er año</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">El primer año lo cubrimos nosotros. Después se renueva por alrededor de USD 15 al año. Si ya tienes uno, lo conectamos sin costo.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Mantenimiento</h3>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Opcional</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">USD 180 al mes, opcional. Los primeros 60 días van incluidos sin costo.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- RESUMEN DE INVERSIÓN                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Resumen</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Elige la opción y arrancamos. Puedes empezar con la Esencial y sumar el resto después sin rehacer nada.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Opción</th>
+                    <th class="py-3 px-4 text-center">Sistema completo</th>
+                    <th class="py-3 px-4 text-center">Pago en línea</th>
+                    <th class="py-3 px-4 text-center">Avisos y app</th>
+                    <th class="py-3 px-4 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">1 · Esencial</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">USD 1,000</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">2 · Integral <span class="text-[10px] uppercase tracking-wide text-[#328298] font-bold">(Recomendado)</span></td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#1D4E6A] dark:text-white">USD 2,000</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">3 · Profesional</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">USD 3,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Forma de pago</h4>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Esencial:</strong> 50% para arrancar y 50% al entregar.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Integral:</strong> 50% para arrancar, 30% con el avance principal y 20% al terminar.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Profesional:</strong> en cuatro pagos repartidos a lo largo del proyecto.</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Garantía</h4>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">60 días después de la entrega para corregir cualquier detalle sin costo.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- DETALLE                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Cómo trabajamos</span></h2>
+        <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Del sí al arranque, en pocos pasos</p>
+        <div class="grid gap-4 md:grid-cols-4 text-sm">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 1</p>
+            <p class="mt-2 font-semibold">Confirmamos</p>
+            <p class="text-xs text-neutral-500 mt-1">Eliges la opción y revisamos juntos tus tarifas, tus almacenes y cómo cobras hoy.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 2</p>
+            <p class="mt-2 font-semibold">Armamos el sistema</p>
+            <p class="text-xs text-neutral-500 mt-1">Trabajamos por partes y te vamos mostrando el avance para que lo revises.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 3</p>
+            <p class="mt-2 font-semibold">Pasamos tu información</p>
+            <p class="text-xs text-neutral-500 mt-1">Llevamos tus listas de Notion al sistema y verificamos que todo esté completo.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 4</p>
+            <p class="mt-2 font-semibold">Arrancamos</p>
+            <p class="text-xs text-neutral-500 mt-1">Publicamos, te enseñamos a usarlo y acompañamos a tus clientes en el cambio.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué necesito de ti para arrancar</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Mientras más completo me lo pases, más rápido sale.</p>
+        <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tus listas de Notion exportadas.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Las direcciones exactas de tus almacenes de Corea, Japón y Estados Unidos.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tu tarifario: cómo calculas EMS y Cruce en cada almacén.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tu regla de multas: a partir de cuándo y de cuánto.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cómo cobras hoy y qué método quieres conservar.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tu logo y los colores de tu marca, si los tienes.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Preguntas frecuentes</span></h2>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿El sistema es mío?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí. Al terminar te entregamos todo, con sus accesos. No quedas amarrada a nosotros.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Mis clientes van a tener que aprender algo nuevo?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Entran, ven sus artículos y listo. Está pensado para que sea más fácil que buscar en Notion.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Qué pasa con todo lo que ya tengo registrado?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Lo pasamos al sistema. No empiezas de cero.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Funciona en celular?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, tanto para ti como para tus clientes.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo empezar con la opción Esencial y crecer después?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí. Está construido por partes, así que sumar lo demás no implica rehacer nada.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo seguir usando Notion mientras tanto?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, durante la transición. La idea es que dejes de necesitarlo por tu cuenta.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-12 w-auto" />
+              <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-12 w-auto" />
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.3 7 12 8 12s8-6.7 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              Trujillo, Perú
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Contacto</h4>
+            <a href="mailto:rodrigoan.torresp@gmail.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              rodrigoan.torresp@gmail.com
+            </a>
+            <a href="tel:+51961869348" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3Z"/></svg>
+              +51 961 869 348
+            </a>
+            <a href="https://wa.me/51961869348" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              WhatsApp directo
+            </a>
+            <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm6.9 9h-3a15.6 15.6 0 0 0-1-5.1A8 8 0 0 1 18.9 11ZM12 4c.9 0 2.2 2.5 2.6 7H9.4C9.8 6.5 11.1 4 12 4ZM4 12c0-.3 0-.7.1-1H8c0 .7-.1 1.3-.1 2s0 1.3.1 2H4.1c-.1-.3-.1-.7-.1-1Zm1.1 5h2.9a15 15 0 0 0 1 4.1A8 8 0 0 1 5.1 17ZM8 7H5.1A8 8 0 0 1 9 2.9 15 15 0 0 0 8 7Zm4 13c-.9 0-2.2-2.5-2.6-7h5.2c-.4 4.5-1.7 7-2.6 7Zm3-9H9c0-.7-.1-1.3-.1-2s0-1.3.1-2h6c0 .7.1 1.3.1 2s0 1.3-.1 2Zm.1 9.1a15 15 0 0 0 1-4.1h2.8a8 8 0 0 1-3.8 4.1ZM16 13c0-.7.1-1.3.1-2s0-1.3-.1-2h3.9c.1.3.1.7.1 1s0 .7-.1 1H16Z"/></svg>
+              árkos.com
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Síguenos</h4>
+            <div class="flex flex-wrap items-center gap-2">
+              <a href="https://linkedin.com/company/arkos" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3v10ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.3c0-1.3-.5-2-1.5-2-1.1 0-1.8.8-1.8 2V19h-3V9h2.9v1.3c.5-.8 1.5-1.6 3.1-1.6 2.2 0 3.3 1.3 3.3 4V19Z"/></svg>
+              </a>
+              <a href="https://wa.me/51961869348" target="_blank" rel="noopener" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              </a>
+              <a href="mailto:rodrigoan.torresp@gmail.com" aria-label="Email" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-2">Respondemos en menos de 24 h hábiles.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
+          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>Propuesta ARK-BOM-2026-001 · Emitida 23 Jul 2026 · Validez 15 días</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+
+    // ═══════════════════════════════════════════════════════════
+    // DESCARGA WORD (.docx) — documento nativo construido con `docx`
+    // ═══════════════════════════════════════════════════════════
+    const btnWord = document.getElementById('btnWord');
+
+    function waitForDocx(timeoutMs = 15000) {
+      if (window.docx) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          window.removeEventListener('docx-ready', onReady);
+          reject(new Error('La librería docx tardó demasiado en cargar. Revisa tu conexión a internet.'));
+        }, timeoutMs);
+        const onReady = () => { clearTimeout(timer); resolve(); };
+        window.addEventListener('docx-ready', onReady, { once: true });
+      });
+    }
+
+    btnWord.addEventListener('click', async () => {
+      const originalLabel = btnWord.innerHTML;
+      btnWord.disabled = true;
+      btnWord.innerHTML = 'Generando…';
+      try {
+        await waitForDocx();
+        await generateArkosWordDoc();
+      } catch (err) {
+        console.error(err);
+        alert('Error generando Word: ' + (err?.message || err));
+      } finally {
+        btnWord.disabled = false;
+        btnWord.innerHTML = originalLabel;
+      }
+    });
+
+    async function generateArkosWordDoc() {
+      const D = window.docx;
+      const {
+        Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+        Table, TableRow, TableCell, ImageRun, WidthType, BorderStyle,
+        Header, Footer, PageNumber, VerticalAlign
+      } = D;
+
+      // Paleta Árkos
+      const C = {
+        deep:    '1D4E6A',
+        brand:   '328298',
+        tint:    'D6EFF2',
+        ink:     '1F2937',
+        body:    '404040',
+        soft:    '737373',
+        rule:    'E5E7EB',
+        bgSoft:  'F8FAFC',
+        red:     'B91C1C',
+        amber:   'B45309',
+        green:   '15803D'
+      };
+
+      const fetchBuf = async (path) => {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error('No se pudo cargar ' + path);
+        return await r.arrayBuffer();
+      };
+      const [logoBuf, isoBuf] = await Promise.all([
+        fetchBuf('/logo_ico/final - LOGO 2-01.png'),
+        fetchBuf('/logo_ico/final - LOGO 2-07.png')
+      ]);
+
+      // ─── Helpers tipográficos ──────────────────────────────────
+      const t = (text, opts = {}) => new TextRun({ text, font: 'Calibri', ...opts });
+
+      const p = (runs, opts = {}) => new Paragraph({
+        children: Array.isArray(runs) ? runs : [runs],
+        spacing: { after: 120, line: 300, ...opts.spacing },
+        alignment: opts.alignment,
+        indent: opts.indent,
+        pageBreakBefore: opts.pageBreakBefore,
+        border: opts.border
+      });
+
+      const blank = (after = 200) => new Paragraph({ children: [], spacing: { after } });
+
+      const eyebrow = (s) => p([t(s, { bold: true, size: 16, color: C.brand, characterSpacing: 30, allCaps: true })], { spacing: { after: 80 } });
+
+      const title = (s) => p([t(s, { bold: true, size: 48, color: C.deep })], { spacing: { before: 0, after: 200, line: 400 } });
+
+      const h1 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 36, color: C.deep })],
+        heading: HeadingLevel.HEADING_1,
+        spacing: { before: 360, after: 200, line: 340 },
+        border: { bottom: { color: C.brand, size: 12, space: 8, style: BorderStyle.SINGLE } }
+      });
+
+      const h2 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 26, color: C.deep })],
+        heading: HeadingLevel.HEADING_2,
+        spacing: { before: 280, after: 140 }
+      });
+
+      const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
+
+      const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
+
+      const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
+        const runs = [t(icon + '  ', { bold: true, color: iconColor, size: 22 })];
+        if (label) runs.push(t(label + ': ', { bold: true, color: C.deep, size: 22 }));
+        runs.push(t(txt, { size: 22, color: C.body }));
+        return new Paragraph({
+          children: runs,
+          spacing: { after: 90, line: 300 },
+          indent: { left: 240, hanging: 240 }
+        });
+      };
+
+      const negBullet = (s) => bullet(s, null, '×', C.red);
+      const posBullet = (s) => bullet(s, null, '✓', C.green);
+
+      // ─── Helpers de tabla ─────────────────────────────────────
+      const cell = (children, opts = {}) => new TableCell({
+        children: Array.isArray(children) ? children : [children],
+        margins: { top: 140, bottom: 140, left: 180, right: 180 },
+        shading: opts.shading,
+        width: opts.width,
+        columnSpan: opts.columnSpan,
+        verticalAlign: opts.verticalAlign || VerticalAlign.CENTER
+      });
+
+      const headerCell = (s) => cell([new Paragraph({
+        children: [t(s, { bold: true, color: 'FFFFFF', size: 18, allCaps: true, characterSpacing: 30 })],
+        alignment: AlignmentType.CENTER
+      })], { shading: { fill: C.deep } });
+
+      const dataCell = (s, opts = {}) => cell([new Paragraph({
+        children: [t(s, { size: 22, color: opts.brand ? C.brand : C.body, bold: opts.bold })],
+        alignment: opts.align || AlignmentType.CENTER
+      })], { shading: opts.shading });
+
+      // ─── Tarjeta de precio (helper de contenido) ───────────────
+      const pricingCard = (badge, titulo, precio, sub, items, popular = false) => {
+        const fill = popular ? C.tint : 'FFFFFF';
+        const borderSize = popular ? 16 : 6;
+        const borderColor = popular ? C.brand : C.rule;
+        return new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            bottom: { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            left:   { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            right:  { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [cell([
+            p([t(badge, { bold: true, size: 16, color: popular ? C.brand : C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+            p([t(titulo, { bold: true, size: 28, color: C.deep })], { spacing: { after: 120, line: 320 } }),
+            p([t(precio, { bold: true, size: 56, color: C.brand })], { spacing: { after: 40, line: 480 } }),
+            p([t(sub, { italic: true, size: 18, color: C.soft })], { spacing: { after: 220 } }),
+            ...items.map(i => bullet(i, null, '✓', C.brand))
+          ], { shading: { fill }, verticalAlign: VerticalAlign.TOP })]})]
+        });
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // PORTADA
+      // ═══════════════════════════════════════════════════════════
+      const cover = [
+        new Paragraph({
+          children: [new ImageRun({ type: 'png', data: logoBuf, transformation: { width: 200, height: 67 } })],
+          spacing: { after: 480 }
+        }),
+        eyebrow('Propuesta Comercial   ·   ARK-BOM-2026-001'),
+        title('Tu operación completa en un solo sistema'),
+        body('Un portal donde tus clientes ven sus artículos y registran sus pedidos, y un panel donde tú controlas los tres almacenes. Aquí está todo lo que incluye y cuánto cuesta.'),
+        blank(320),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            bottom: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            left: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+            insideVertical: { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+          },
+          rows: [
+            new TableRow({ children: [
+              cell([
+                p([t('Cliente', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Mich — Bombón Warehouses', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Casillero internacional y compra asistida — Corea, Japón y Estados Unidos', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
+              cell([
+                p([t('Proyecto', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Plataforma a medida', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Portal de clientes y panel de operación', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
+            ]}),
+            new TableRow({ children: [
+              cell([
+                p([t('Emisión', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('23 de julio de 2026', { size: 22, color: C.body })])
+              ]),
+              cell([
+                p([t('Validez', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('15 días desde la emisión', { size: 22, color: C.body })])
+              ])
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // TUS TRES OPCIONES
+      // ═══════════════════════════════════════════════════════════
+      const pricing = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Tus tres opciones'),
+        body('Las tres opciones incluyen el sistema completo, con hosting y dominio cubiertos el primer año. La Integral es la recomendada. Puedes empezar con la Esencial y sumar el resto después sin rehacer nada.'),
+        blank(180),
+
+        pricingCard('Opción 1', 'Esencial', 'USD 1,000', 'El sistema completo · resuelve tu día a día', [
+          'Tus clientes entran con su cuenta y ven solo sus artículos.',
+          'Cada quien registra su producto antes de que llegue al almacén.',
+          'Corea, Japón y Estados Unidos en un solo lugar.',
+          'El sistema empareja cada paquete con su dueño; los no identificados quedan en una bandeja aparte.',
+          'Tus consolidaciones organizadas con su fecha límite.',
+          'EMS y Cruce se calculan solos, con tarifas propias por almacén.',
+          'Pagos ligados a cada artículo y multas por atraso según tu regla.',
+          'Mayoreo e individual separados; tus clientes te piden productos pegando el link.',
+          'Estado de cuenta por cliente y reportes de tu operación.',
+          'Página pública para que te encuentren nuevos clientes.',
+          'Pasamos tu información de Notion, te enseñamos a usarlo y publicamos con hosting y dominio incluidos el primer año.',
+          'Tiempo de entrega: aprox. 7 a 8 semanas.'
+        ]),
+        blank(180),
+        pricingCard('Opción 2  ·  Recomendado', 'Integral', 'USD 2,000', 'Todo lo anterior + pagos en línea', [
+          'Todo lo de la opción Esencial.',
+          'Pago en línea desde el mismo portal.',
+          'Cada pago en línea se registra solo contra su artículo.',
+          'Tus clientes liquidan sin escribirte y tú lo ves reflejado al momento.',
+          'Tiempo de entrega: aprox. 9 a 10 semanas.'
+        ], true),
+        blank(180),
+        pricingCard('Opción 3', 'Profesional', 'USD 3,000', 'Todo lo anterior + tu operación avisa sola', [
+          'Todo lo de la opción Integral.',
+          'Avisos automáticos por WhatsApp a tus clientes.',
+          'Recordatorios de pago antes de la fecha límite.',
+          'Control de artículos abandonados y su liquidación.',
+          'Aplicación instalable en el celular, para ti y tus clientes.',
+          'Tiempo de entrega: aprox. 11 a 12 semanas.'
+        ]),
+        blank(120),
+        p([t('Las tres opciones te resuelven el problema: el sistema completo va en las tres. Desde la Esencial dejas de buscar a quién pertenece cada paquete, de sacar cuentas a mano y de perseguir los pagos, y tu página pública ya está en línea para que te encuentren nuevos clientes. La Integral suma el cobro en línea desde el mismo portal. Y la Profesional hace que tu operación avise sola por WhatsApp, que es donde hoy se te va el día.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // QUÉ VAS A PODER HACER
+      // ═══════════════════════════════════════════════════════════
+      const incluye = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Qué vas a poder hacer'),
+        body('Lo que cambia en tu día a día cuando el sistema esté funcionando.'),
+        blank(120),
+        bullet('Entran con su cuenta y ven sus artículos, su estado y lo que deben pagar. Ya no tienen que buscar entre las listas de todos.', 'Tus clientes se atienden solos'),
+        bullet('El cliente registra su producto y su guía antes de que llegue. Cuando la mercancía aparece en el almacén, el sistema ya sabe de quién es.', 'Cada paquete llega con nombre'),
+        bullet('Corea, Japón y Estados Unidos dejan de vivir en listas separadas. Filtras por almacén cuando lo necesitas.', 'Los tres almacenes en una sola pantalla'),
+        bullet('EMS, Cruce y totales por cliente se calculan a partir de tus tarifas. Se acabó escribir los montos a mano.', 'Las cuentas se hacen solas'),
+        bullet('Cada pago se registra contra el pedido que corresponde, con su fecha límite y su multa si aplica.', 'Los pagos quedan amarrados al artículo'),
+        bullet('Tus dos tipos de cliente conviven en el mismo sistema sin mezclarse.', 'Mayoreo e individual, cada uno por su lado')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // CÓMO TE ACOMPAÑAMOS
+      // ═══════════════════════════════════════════════════════════
+      const acompanamiento = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Cómo te acompañamos'),
+        body('Esto va incluido en cualquiera de las tres opciones.'),
+        blank(120),
+        bullet('Durante el proyecto y después de la entrega seguimos contigo: revisamos los avances juntos y resolvemos tus dudas directo por WhatsApp.', 'Acompañamiento en todo el camino'),
+        bullet('Te ayudamos a aterrizar cómo presentar tu servicio: qué mostrar en el portal, cómo ordenar tus tarifas y cómo se ve todo frente a tus clientes.', 'Visión de mercado'),
+        bullet('Cada parte del sistema llega con su capacitación. Tú y tu equipo aprenden a su ritmo, sin quedarse solos.', 'Aprendizaje continuo'),
+        bullet('Trabajamos por partes, con avances constantes que revisas antes de seguir. Nada se publica sin que lo hayas visto.', 'Formas de trabajar')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // LO QUE NO INCLUYE
+      // ═══════════════════════════════════════════════════════════
+      const noIncluye = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Lo que NO incluye'),
+        body('Para que quede todo claro desde el inicio.'),
+        blank(120),
+        negBullet('La renovación del hosting y el dominio después del primer año (el primer año va por nuestra cuenta).'),
+        negBullet('La operación logística: negociación con almacenes, fletes y aduanas.'),
+        negBullet('Migrar el historial de conversaciones de WhatsApp.'),
+        negBullet('Facturación fiscal mexicana (CFDI); se cotiza aparte si la necesitas.'),
+        negBullet('Aplicación nativa para iOS y Android. En la opción Profesional va la versión instalable desde el navegador.'),
+        negBullet('El pago en línea dentro del portal viene desde la opción Integral.'),
+        negBullet('Cambios de alcance fuera de lo listado en la opción que elijas.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // INFRAESTRUCTURA Y MANTENIMIENTO
+      // ═══════════════════════════════════════════════════════════
+      const hosting = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Infraestructura y mantenimiento'),
+        body('Lo que pasa después de publicar tu plataforma. El primer año, hosting y dominio van por nuestra cuenta.'),
+        blank(120),
+        bullet('El primer año va por nuestra cuenta. Después, desde USD 25 al mes a tu nombre; sube solo si tu volumen crece mucho.', 'Infraestructura (incluida 1er año)'),
+        bullet('El primer año lo cubrimos nosotros. Después se renueva por alrededor de USD 15 al año. Si ya tienes uno, lo conectamos sin costo.', 'Dominio (incluido 1er año)'),
+        bullet('USD 180 al mes, opcional. Los primeros 60 días van incluidos sin costo.', 'Mantenimiento (opcional)')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // RESUMEN + CÓMO TRABAJAMOS + PAGO + GARANTÍA
+      // ═══════════════════════════════════════════════════════════
+      const resumenTable = new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top:    { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          bottom: { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          left:   { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          right:  { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+          insideVertical:   { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+        },
+        rows: [
+          new TableRow({ tableHeader: true, children: [headerCell('Opción'), headerCell('Sistema completo'), headerCell('Pago en línea'), headerCell('Avisos y app'), headerCell('Total')] }),
+          new TableRow({ children: [
+            dataCell('1 · Esencial', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Sí'), dataCell('—'), dataCell('—'),
+            dataCell('USD 1,000', { brand: true, bold: true })
+          ]}),
+          new TableRow({ children: [
+            dataCell('2 · Integral · Recomendado', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+            dataCell('Sí', { shading: { fill: C.tint } }),
+            dataCell('Sí', { shading: { fill: C.tint } }),
+            dataCell('—', { shading: { fill: C.tint } }),
+            dataCell('USD 2,000', { brand: true, bold: true, shading: { fill: C.tint } })
+          ]}),
+          new TableRow({ children: [
+            dataCell('3 · Profesional', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Sí'), dataCell('Sí'), dataCell('Sí'),
+            dataCell('USD 3,000', { brand: true, bold: true })
+          ]})
+        ]
+      });
+
+      const resumen = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Resumen'),
+        body('Elige la opción y arrancamos. Puedes empezar con la Esencial y sumar el resto después sin rehacer nada.'),
+        blank(160),
+        resumenTable,
+        blank(280),
+        h3('Cómo trabajamos'),
+        bullet('Eliges la opción y revisamos juntos tus tarifas, tus almacenes y cómo cobras hoy.', 'Paso 1 · Confirmamos'),
+        bullet('Trabajamos por partes y te vamos mostrando el avance para que lo revises.', 'Paso 2 · Armamos el sistema'),
+        bullet('Llevamos tus listas de Notion al sistema y verificamos que todo esté completo.', 'Paso 3 · Pasamos tu información'),
+        bullet('Publicamos, te enseñamos a usarlo y acompañamos a tus clientes en el cambio.', 'Paso 4 · Arrancamos'),
+        blank(120),
+        h3('Forma de pago'),
+        bullet('50% para arrancar y 50% al entregar.', 'Esencial'),
+        bullet('50% para arrancar, 30% con el avance principal y 20% al terminar.', 'Integral'),
+        bullet('En cuatro pagos repartidos a lo largo del proyecto.', 'Profesional'),
+        blank(120),
+        h3('Garantía'),
+        body('60 días después de la entrega para corregir cualquier detalle sin costo.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ACEPTACIÓN / FIRMAS
+      // ═══════════════════════════════════════════════════════════
+      const firmas = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Aceptación de la Propuesta'),
+        body('La aceptación de esta propuesta confirma las condiciones, el alcance y los montos descritos. La propuesta tiene una validez de 15 días desde su fecha de emisión.'),
+        blank(640),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            bottom: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            left:   { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right:  { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Mich', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Bombón Warehouses', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ])
+          ]})]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ENCABEZADO + PIE GLOBAL
+      // ═══════════════════════════════════════════════════════════
+      const docHeader = new Header({
+        children: [new Paragraph({
+          children: [
+            new ImageRun({ type: 'png', data: isoBuf, transformation: { width: 22, height: 22 } }),
+            t('   Árkos  ·  Propuesta ARK-BOM-2026-001  ·  Bombón Warehouses', { size: 16, color: C.soft, characterSpacing: 10 })
+          ],
+          spacing: { after: 60 },
+          border: { bottom: { color: C.rule, size: 4, space: 4, style: BorderStyle.SINGLE } }
+        })]
+      });
+
+      const docFooter = new Footer({
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [
+            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('rodrigoan.torresp@gmail.com', { size: 16, color: C.brand, bold: true }),
+            t('   ·   +51 961 869 348   ·   Trujillo, Perú   ·   Página ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
+            t(' de ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: C.soft, font: 'Calibri' })
+          ]
+        })]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // DOCUMENTO FINAL
+      // ═══════════════════════════════════════════════════════════
+      const doc = new Document({
+        creator: 'Árkos',
+        title: 'Propuesta Árkos · Plataforma Bombón Warehouses',
+        description: 'Propuesta comercial para plataforma de casillero internacional — Bombón Warehouses',
+        styles: {
+          default: {
+            document: { run: { font: 'Calibri', size: 22, color: C.body } }
+          }
+        },
+        sections: [{
+          properties: {
+            page: { margin: { top: 1100, right: 1000, bottom: 1200, left: 1000 } }
+          },
+          headers: { default: docHeader },
+          footers: { default: docFooter },
+          children: [
+            ...cover,
+            ...pricing,
+            ...incluye,
+            ...acompanamiento,
+            ...noIncluye,
+            ...hosting,
+            ...resumen,
+            ...firmas
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Propuesta-Arkos-Bombon-Warehouses.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+    }
+  </script>
+</body>
+</html>
