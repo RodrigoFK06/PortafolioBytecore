@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Propuesta Árkos · SIGIV — Sistema de Gestión de Inventarios y Ventas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    // docx no publica UMD; cargamos vía esm.sh y exponemos como global
+    import * as docx from 'https://esm.sh/docx@9.5.1';
+    window.docx = docx;
+    window.dispatchEvent(new Event('docx-ready'));
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    /* Anexo — trama sutil para separarlo visualmente de la oferta activa */
+    .annex-surface {
+      background-image: repeating-linear-gradient(135deg, rgba(100,116,139,.055) 0 12px, transparent 12px 24px);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+      .print-only { display: block !important; }
+      /* El encabezado de marca es una fila flex: forzar block lo apilaría */
+      .brand-print-header { display: flex !important; }
+      .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
+      .pricing-card { break-inside: avoid; page-break-inside: avoid; }
+      /* En papel el fondo es blanco: siempre la versión oscura del logo */
+      .logo-on-light { display: inline-block !important; }
+      .logo-on-dark  { display: none !important; }
+      /* El PDF siempre lleva las dos vistas, sin importar la pestaña activa */
+      #quote, #proposal { display: block !important; }
+      /* Ninguna tarjeta ni bloque se parte a la mitad entre páginas */
+      .print-block { break-inside: avoid; page-break-inside: avoid; }
+      h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+      .print-break { break-before: page; page-break-before: always; }
+      .annex-surface { background-image: none !important; }
+    }
+    .print-only { display: none; }
+    /* Especificidad mayor que la utilidad .flex de Tailwind, que se inyecta después */
+    html .brand-print-header { display: none; }
+    /* El logo sigue el tema del fondo: versión oscura sobre claro, clara sobre oscuro */
+    .logo-on-light { display: inline-block; }
+    .logo-on-dark  { display: none; }
+    @media (prefers-color-scheme: dark) {
+      .logo-on-light { display: none; }
+      .logo-on-dark  { display: inline-block; }
+    }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-on-light h-10 w-auto" />
+          <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-on-dark h-10 w-auto" />
+          <span class="sr-only">Árkos</span>
+        </a>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Sistema de Gestión · Inventarios y Ventas</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          Descargar PDF
+        </button>
+        <button id="btnWord" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#1D4E6A] text-white hover:bg-[#15394f]">
+          Word
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+
+        <!-- Encabezado de marca (visible en PDF) -->
+        <div class="brand-print-header mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
+          <div class="flex items-center gap-3">
+            <div class="text-right text-xs text-neutral-600">
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p>rodrigoan.torresp@gmail.com · +51 961 869 348</p>
+              <p>Trujillo, Perú · árkos.com</p>
+            </div>
+            <img src="/logo_ico/final - LOGO 2-07.png" alt="" aria-hidden="true" class="h-10 w-10 opacity-80" />
+          </div>
+        </div>
+
+        <div class="print-block mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Propuesta</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 27 Jul 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Sistema de Gestión de Inventarios y Ventas — SIGIV</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Implementación funcional del sistema SIGIV para el caso IMPORTACIONES B&amp;L SAC, construido exactamente sobre el diseño y el flujo de procesos ya definidos por el equipo. Aplicación web completa, con base de datos real, autenticación y datos persistentes — desplegada y lista para operar y sustentar.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2 flex-wrap">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Aplicación web</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Base de datos real</span>
+          </div>
+        </div>
+
+        <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">Helen Vergaray Hurtado</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">Caso de estudio: IMPORTACIONES B&amp;L SAC — SIGIV, Sistema Integrado de Gestión de Inventarios y Ventas</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-SIGIV-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- INVERSIÓN — card única                                      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Inversión</span></h2>
+
+          <div class="pricing-card print-block rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-6 sm:p-7 shadow-sm fx-card pricing-popular">
+            <div class="grid gap-6 md:grid-cols-5 items-start">
+
+              <div class="md:col-span-2">
+                <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold">Precio único · proyecto completo</p>
+                <h3 class="mt-2 text-base font-bold">SIGIV — Implementación funcional</h3>
+                <p class="mt-3 text-4xl sm:text-5xl font-bold text-[#1D4E6A] dark:text-white">USD 950</p>
+                <p class="text-sm text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1 font-medium">Referencial: S/ 3,515 · TC 3.70</p>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-3">Precio único, sin IGV. Emitido por persona natural, sin comprobante electrónico.</p>
+              </div>
+
+              <div class="md:col-span-3 md:border-l md:border-[#328298]/25 md:pl-6">
+                <h4 class="font-semibold text-sm mb-3 text-[#1D4E6A] dark:text-[#D6EFF2]">Forma de pago</h4>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div class="rounded-xl border border-[#328298]/30 bg-white/70 dark:bg-neutral-900/70 p-4">
+                    <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">60% al inicio</p>
+                    <p class="mt-1 text-2xl font-bold text-[#328298]">USD 570</p>
+                    <p class="text-xs text-neutral-500 mt-1">El proyecto inicia con este pago confirmado.</p>
+                  </div>
+                  <div class="rounded-xl border border-[#328298]/30 bg-white/70 dark:bg-neutral-900/70 p-4">
+                    <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">40% contra entrega</p>
+                    <p class="mt-1 text-2xl font-bold text-[#328298]">USD 380</p>
+                    <p class="text-xs text-neutral-500 mt-1">Al entregar el sistema desplegado y funcionando.</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-xs text-neutral-600 dark:text-neutral-400">Medios de pago: transferencia bancaria o Yape / Plin.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- PLAZO DE ENTREGA                                            -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">⏱</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">Plazo de entrega: 4 semanas calendario desde el pago inicial y la entrega de accesos/contenido por parte del cliente.</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">El plazo asume respuestas del cliente dentro de 48 horas hábiles. Demoras en aprobaciones desplazan la fecha de entrega.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- ORIGEN DEL ALCANCE                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100/60 dark:bg-neutral-950/60 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Origen del alcance</span></h2>
+            <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">El alcance de esta propuesta corresponde textualmente a los requerimientos definidos por el cliente en la especificación del sistema SIGIV, y al prototipo visual de 8 pantallas entregado. Se transcriben los objetivos declarados:</p>
+            <ul class="mt-4 text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">·</span> Reducir errores operativos</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">·</span> Mejorar el control de existencias</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">·</span> Agilizar la atención de pedidos</li>
+            </ul>
+            <p class="mt-4 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">Toda funcionalidad no contemplada en dicha especificación o en las 8 pantallas del prototipo se considera fuera de alcance y se cotiza por separado.</p>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- ALCANCE INCLUIDO — 8 módulos                                -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Alcance incluido · 8 módulos</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Alcance cerrado. Corresponde 1:1 al prototipo entregado por el cliente.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">01</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Dashboard</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">KPIs de pedidos, ventas, clientes, productos y stock bajo. Gráfico de ventas semanales, distribución por categoría, panel de alertas de inventario y listado de pedidos recientes. Todo calculado desde datos reales de la base de datos.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">02</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Nueva Venta (Punto de Venta)</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Numeración correlativa automática, fecha de venta, selección de cliente, botones de filtro por línea de producto (Todos / Manguera Corrugada / Cintillo de Sujeción / Cinta Aislante), buscador de productos con stock en tiempo real, validación de stock disponible, tabla de detalle editable (Código / Producto / Cantidad / Precio unitario / Subtotal / Eliminar), cálculo automático de Subtotal, IGV (18%) y Total a pagar. Botones: Registrar venta, Generar boleta, Imprimir comprobante, Limpiar venta. El registro de venta descuenta el inventario automáticamente.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">03</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Productos</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Alta, edición y baja de productos. Código, nombre, categoría, precio unitario, stock actual y stock mínimo. Buscador y filtros por categoría. Estados automáticos: Disponible / Stock Bajo / Agotado.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">04</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Pedidos</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Registro de pedidos por cliente, con estados Recibido / En Preparación / Entregado, filtros por estado con contadores y totalizado.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">05</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Inventario</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Vista consolidada de stock con cálculo automático de déficit frente al stock mínimo. Contadores por estado y filtros. Exportación.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">06</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Ventas</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Historial completo de ventas con filtros, total del período, número de transacciones, ticket promedio y vendedor asignado.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">07</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Clientes</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Registro de clientes con RUC, razón social, contacto, teléfono, email, ciudad y total acumulado de compras. Buscador por nombre o RUC.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-xs font-bold text-[#328298]">08</span>
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Reportes</h4>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Ventas mensuales, distribución por categoría, resumen de ventas por vendedor con participación porcentual, y reporte de inventario crítico con valor de reposición. Exportación a PDF.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- QUÉ INCLUYE ADEMÁS                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué incluye además</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Lo técnico y lo operativo que acompaña a los 8 módulos.</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Aplicación web responsive (escritorio y móvil).</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Base de datos PostgreSQL con datos persistentes reales.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Autenticación de usuarios con roles (Administrador / Vendedor).</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Despliegue en producción con URL pública accesible.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Entrega del código fuente completo.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Manual de uso básico (PDF) y una sesión de capacitación remota (60 min).</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> 2 rondas de correcciones sobre el alcance definido.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> 15 días de soporte correctivo post-entrega (corrección de errores del alcance entregado, no nuevas funcionalidades).</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- LO QUE NO INCLUYE                                           -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Para que quede todo claro desde el inicio</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> <span>Facturación electrónica ante SUNAT (emisión de boletas/facturas con validez tributaria, XML UBL, CDR, OSE/PSE). <strong class="text-neutral-900 dark:text-white">El comprobante del sistema es un documento interno de control, no un comprobante fiscal.</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Módulo de Compras y costeo de importación (DUA, flete, seguro, ad valorem, prorrateo de gastos al costo unitario).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Gestión multi-almacén.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Aplicación móvil nativa.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Integración con hardware (lector de código de barras, impresora térmica, balanzas).</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Migración de datos históricos desde sistemas existentes.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Módulos contables, planilla o CRM.</li>
+              <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Hosting pagado: el sistema se despliega en planes gratuitos (Vercel + Supabase) a nombre del cliente. La continuidad y los costos futuros de esas cuentas son responsabilidad del cliente.</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- CRONOGRAMA                                                  -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Cronograma</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">4 semanas calendario desde el pago inicial.</p>
+            <div class="grid gap-4 md:grid-cols-4 text-sm">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Semana 1</p>
+                <p class="mt-2 font-semibold">Cimientos</p>
+                <p class="text-xs text-neutral-500 mt-1">Modelado de base de datos, autenticación, módulos Productos y Clientes.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Semana 2</p>
+                <p class="mt-2 font-semibold">Stock y pedidos</p>
+                <p class="text-xs text-neutral-500 mt-1">Inventario, Pedidos y lógica de stock.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Semana 3</p>
+                <p class="mt-2 font-semibold">Venta y tablero</p>
+                <p class="text-xs text-neutral-500 mt-1">Punto de Venta, Ventas y Dashboard.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Semana 4</p>
+                <p class="mt-2 font-semibold">Cierre y entrega</p>
+                <p class="text-xs text-neutral-500 mt-1">Reportes, despliegue, capacitación y entrega.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- PROPIEDAD Y LICENCIA                                        -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Propiedad y licencia</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Qué queda en manos de quién al terminar el proyecto.</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Se entrega el código fuente completo al cliente para fines académicos y de sustentación.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Árkos conserva la titularidad de los componentes, librerías internas y arquitectura base preexistentes.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El uso comercial del sistema por parte de IMPORTACIONES B&amp;L SAC o cualquier tercero requiere un acuerdo de licencia comercial independiente, que se cotiza por separado.</li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- CONDICIONES COMERCIALES                                     -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Condiciones comerciales</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Las reglas del acuerdo, en corto.</p>
+            <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Alcance cerrado:</strong> el alcance corresponde exactamente a los 8 módulos y al diseño del prototipo entregado por el cliente. Cualquier funcionalidad, pantalla o proceso adicional se cotiza por separado antes de su ejecución.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Pagos:</strong> 60% al inicio, 40% contra entrega. El proyecto inicia con el pago inicial confirmado.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Correcciones:</strong> 2 rondas incluidas. Rondas adicionales se cotizan aparte.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Validez:</strong> 15 días calendario desde la fecha de emisión.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Medios de pago:</strong> transferencia bancaria o Yape / Plin.</span></li>
+            </ul>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- OBSERVACIONES AL DISEÑO PLANTEADO                           -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border-l-4 border-l-[#1D4E6A] border border-neutral-200 dark:border-neutral-800 bg-[#1D4E6A]/[0.04] dark:bg-[#1D4E6A]/15 p-6 shadow-sm fx-card">
+            <div class="flex flex-wrap items-center gap-3 mb-3">
+              <span class="inline-flex items-center rounded-full bg-[#1D4E6A] text-white px-3 py-1 text-[10px] font-bold uppercase tracking-wide">Revisión técnica</span>
+            </div>
+            <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Observaciones al diseño planteado</span></h2>
+            <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-5">Durante la revisión del prototipo se identificaron cuatro inconsistencias funcionales entre módulos. Las tres primeras se corrigen dentro del alcance contratado, sin costo adicional. La cuarta requiere una definición por parte del cliente antes del inicio del desarrollo.</p>
+
+            <div class="space-y-4">
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/70 p-4">
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Observación 1 — Selección de cliente en el punto de venta</h4>
+                  <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Corrección incluida sin costo</span>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">En la última iteración del prototipo, el selector de cliente del módulo Nueva Venta fue reemplazado por botones de línea de producto. Sin embargo, el módulo Ventas mantiene una columna «Cliente» en su historial y el módulo Clientes acumula un «Total de compras» por cliente — ambos dependen de que la venta registre a quién se le vendió. Adicionalmente, un comprobante sin cliente identificado no cumple su función. Se implementarán ambos elementos: los botones de línea de producto como filtro del buscador, y el selector de cliente como dato de la venta.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/70 p-4">
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Observación 2 — Identificación del vendedor</h4>
+                  <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Corrección incluida sin costo</span>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">Los módulos Ventas y Reportes muestran información por vendedor (columna «Vendedor» y reporte de participación porcentual), pero el diseño no contempla un módulo de vendedores ni un campo de asignación en el punto de venta. Se resolverá vinculando cada venta al usuario autenticado que la registra, lo que alimenta automáticamente el reporte por vendedor.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/70 p-4">
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Observación 3 — Especificación del módulo Clientes</h4>
+                  <span class="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Corrección incluida sin costo</span>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">El módulo Clientes no cuenta con especificación funcional escrita. Se toman como definitivos los campos del prototipo: RUC, razón social, contacto, teléfono, email, ciudad y total de compras acumulado.</p>
+              </div>
+
+              <div class="print-block rounded-xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/60 dark:bg-amber-950/20 p-4">
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">⚠ Observación 4 — Relación entre Pedidos y Ventas</h4>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Requiere definición del cliente antes del inicio</span>
+                </div>
+                <p class="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed">El diseño contempla Pedidos y Ventas como módulos independientes, con numeración propia (PED-XXXX y VTA-XXXX). No está definido si un pedido se convierte en venta al ser entregado, o si son procesos separados. Esta definición es crítica: si ambos módulos descuentan inventario de forma independiente, el stock se descontaría dos veces por la misma mercadería. Se requiere confirmación antes del inicio del desarrollo.</p>
+              </div>
+
+              <div class="print-block rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-950/60 p-4">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Nota adicional — Cálculo de «valor a reponer»</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">El reporte de inventario crítico calcula el valor de reposición sobre el precio de venta del producto. Tratándose de una empresa importadora, el costo real de reposición incluye flete, seguro, tributos aduaneros y tipo de cambio. El cálculo se implementa tal como fue especificado; el costeo real de importación se detalla en el anexo de mejoras.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- FIRMAS                                                      -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="print-block mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 sm:p-8 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Aceptación de la propuesta</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-10">La aceptación de esta propuesta confirma las condiciones, el alcance y los montos descritos. Validez de 15 días calendario desde la fecha de emisión.</p>
+            <div class="grid gap-8 sm:grid-cols-2">
+              <div class="text-center">
+                <div class="border-t border-neutral-400 dark:border-neutral-600 pt-3">
+                  <p class="font-bold text-sm text-neutral-900 dark:text-white">Helen Vergaray Hurtado</p>
+                  <p class="text-xs text-neutral-500 italic mt-1">Cliente</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="border-t border-neutral-400 dark:border-neutral-600 pt-3">
+                  <p class="font-bold text-sm text-neutral-900 dark:text-white">Árkos · Rodrigo Torres</p>
+                  <p class="text-xs text-neutral-500 italic mt-1">DNI 75893674</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- ANEXO — MEJORAS RECOMENDADAS (fuera de alcance)              -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="annex" class="print-break mt-10 rounded-3xl border-2 border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-100/70 dark:bg-neutral-950/70 annex-surface shadow-sm overflow-hidden">
+      <div class="p-6 sm:p-8">
+
+        <div class="flex flex-wrap items-center gap-3 mb-3">
+          <span class="inline-flex items-center rounded-full border border-neutral-400 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 px-3 py-1 text-[10px] font-bold uppercase tracking-wide">Anexo · Fuera de alcance</span>
+          <span class="text-xs text-neutral-500">No forma parte de la cotización</span>
+        </div>
+
+        <h2 class="text-lg font-semibold mb-3 text-neutral-700 dark:text-neutral-300">Mejoras recomendadas</h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6 max-w-3xl leading-relaxed">El sistema cotizado arriba responde al diseño planteado por el equipo y cumple con el alcance académico definido. A continuación se detallan las capacidades que un sistema de este tipo requeriría para operar en un entorno real dentro de una empresa importadora. Se incluyen como referencia técnica y comercial, y no forman parte del alcance contratado.</p>
+
+        <div class="grid gap-5 md:grid-cols-3">
+
+          <div class="print-block rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white/60 dark:bg-neutral-900/60 p-5 shadow-none flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Mejora 1</p>
+              <span class="inline-flex items-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">No incluido</span>
+            </div>
+            <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-200">Facturación Electrónica SUNAT</h3>
+            <p class="mt-2 text-xl font-bold text-neutral-500 dark:text-neutral-400">USD 1,000</p>
+            <p class="text-[10px] uppercase tracking-wide text-neutral-400 mt-1 font-semibold">Precio referencial</p>
+            <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">El sistema actual genera un comprobante interno de control. Para que IMPORTACIONES B&amp;L SAC pueda emitir boletas y facturas con validez tributaria se requiere generación de XML bajo el estándar UBL 2.1, firma digital, envío a SUNAT vía OSE/PSE, recepción y almacenamiento de CDR, y comunicaciones de baja. Sin esto, cada venta registrada en el sistema tiene que volver a digitarse en otro sistema de facturación — doble trabajo y riesgo de descuadre.</p>
+            </div>
+          </div>
+
+          <div class="print-block rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white/60 dark:bg-neutral-900/60 p-5 shadow-none flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Mejora 2</p>
+              <span class="inline-flex items-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">No incluido</span>
+            </div>
+            <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-200">Módulo de Compras y Costeo de Importación</h3>
+            <p class="mt-2 text-xl font-bold text-neutral-500 dark:text-neutral-400">USD 500</p>
+            <p class="text-[10px] uppercase tracking-wide text-neutral-400 mt-1 font-semibold">Precio referencial</p>
+            <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">Es la mejora de mayor impacto para el negocio. Siendo B&amp;L una importadora, el costo real de cada producto no es el precio de compra: incluye flete internacional, seguro, ad valorem, IGV de importación, gastos de aduana y tipo de cambio. Sin prorratear esos gastos al costo unitario, el margen que muestra el sistema es una estimación, y el campo «valor a reponer» del reporte de inventario crítico no refleja el desembolso real. Este módulo cubre órdenes de compra, registro de DUA, prorrateo automático de gastos de importación y costo promedio ponderado por producto.</p>
+            </div>
+          </div>
+
+          <div class="print-block rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white/60 dark:bg-neutral-900/60 p-5 shadow-none flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Mejora 3</p>
+              <span class="inline-flex items-center rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">No incluido</span>
+            </div>
+            <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-200">Gestión Multi-Almacén</h3>
+            <p class="mt-2 text-xl font-bold text-neutral-500 dark:text-neutral-400">USD 250</p>
+            <p class="text-[10px] uppercase tracking-wide text-neutral-400 mt-1 font-semibold">Precio referencial</p>
+            <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">Si la empresa opera con más de una ubicación física (almacén central, tienda, depósito), el stock deja de ser un número único por producto. Incluye stock independiente por almacén, transferencias entre almacenes con trazabilidad, y reportes consolidados y por ubicación.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="mt-6 text-xs text-neutral-500 dark:text-neutral-400 italic">Precios referenciales a julio de 2026, sujetos a relevamiento de requerimientos. No constituyen una oferta vigente.</p>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- DETALLE                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+      <div class="print-block rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Cómo trabajamos</span></h2>
+        <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">Del sí al arranque, en pocos pasos</p>
+        <div class="grid gap-4 md:grid-cols-4 text-sm">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 1</p>
+            <p class="mt-2 font-semibold">Confirmamos</p>
+            <p class="text-xs text-neutral-500 mt-1">Se aprueba la cotización, se registra el pago inicial y revisamos juntos el prototipo módulo por módulo.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 2</p>
+            <p class="mt-2 font-semibold">Construimos por partes</p>
+            <p class="text-xs text-neutral-500 mt-1">Cada semana cierra un bloque del sistema y lo revisas antes de seguir con el siguiente.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 3</p>
+            <p class="mt-2 font-semibold">Correcciones</p>
+            <p class="text-xs text-neutral-500 mt-1">Aplicamos las 2 rondas de correcciones incluidas sobre el alcance definido.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 4</p>
+            <p class="mt-2 font-semibold">Entrega</p>
+            <p class="text-xs text-neutral-500 mt-1">Despliegue con URL pública, código fuente, manual en PDF y capacitación remota de 60 minutos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="print-block rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué necesito de ti para arrancar</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Mientras más completo me lo pases, más rápido sale.</p>
+        <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El prototipo completo del sistema, con todas sus pantallas.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los datos de IMPORTACIONES B&amp;L SAC que deban aparecer en el sistema (razón social, RUC, logo).</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El catálogo base de productos y sus categorías, aunque sea de muestra.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> La lista de clientes de ejemplo con RUC y razón social.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los usuarios que necesitas y su rol (Administrador o Vendedor).</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El formato del comprobante interno que quieres imprimir.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> La fecha de sustentación, para calzar el cronograma.</li>
+        </ul>
+      </div>
+
+      <div class="print-block rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Preguntas frecuentes</span></h2>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿El sistema es un prototipo o funciona de verdad?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Funciona de verdad. Base de datos PostgreSQL, autenticación con roles y datos que persisten. Registras una venta y el stock baja; entras al día siguiente y todo sigue ahí.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo emitir facturas reales con esto?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">No. El comprobante que genera el sistema es un documento interno de control, no un comprobante fiscal. La facturación electrónica ante SUNAT está en el anexo de mejoras, fuera de este alcance.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo mostrarlo desde cualquier computadora en la sustentación?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí. Queda desplegado con una URL pública: abres el navegador, entras con tu usuario y está listo. No hay que instalar nada.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Me entregan el código?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, el código fuente completo, para fines académicos y de sustentación. El uso comercial requiere un acuerdo de licencia aparte.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Tiene costo mantenerlo en línea?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Se despliega en planes gratuitos (Vercel + Supabase) a tu nombre. No hay costo de hosting dentro del alcance, pero la continuidad de esas cuentas queda a tu cargo.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Qué pasa si aparece un error después de la entrega?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Hay 15 días de soporte correctivo post-entrega. Cubre errores del alcance entregado; funcionalidades nuevas se cotizan aparte.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Puedo agregar módulos después?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí. El anexo lista las mejoras más probables con precio referencial. Cualquier adicional se cotiza y se aprueba antes de ejecutarse.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-on-light h-12 w-auto" />
+              <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-on-dark h-12 w-auto" />
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.3 7 12 8 12s8-6.7 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              Trujillo, Perú
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Contacto</h4>
+            <a href="mailto:rodrigoan.torresp@gmail.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              rodrigoan.torresp@gmail.com
+            </a>
+            <a href="tel:+51961869348" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3Z"/></svg>
+              +51 961 869 348
+            </a>
+            <a href="https://wa.me/51961869348" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              WhatsApp directo
+            </a>
+            <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm6.9 9h-3a15.6 15.6 0 0 0-1-5.1A8 8 0 0 1 18.9 11ZM12 4c.9 0 2.2 2.5 2.6 7H9.4C9.8 6.5 11.1 4 12 4ZM4 12c0-.3 0-.7.1-1H8c0 .7-.1 1.3-.1 2s0 1.3.1 2H4.1c-.1-.3-.1-.7-.1-1Zm1.1 5h2.9a15 15 0 0 0 1 4.1A8 8 0 0 1 5.1 17ZM8 7H5.1A8 8 0 0 1 9 2.9 15 15 0 0 0 8 7Zm4 13c-.9 0-2.2-2.5-2.6-7h5.2c-.4 4.5-1.7 7-2.6 7Zm3-9H9c0-.7-.1-1.3-.1-2s0-1.3.1-2h6c0 .7.1 1.3.1 2s0 1.3-.1 2Zm.1 9.1a15 15 0 0 0 1-4.1h2.8a8 8 0 0 1-3.8 4.1ZM16 13c0-.7.1-1.3.1-2s0-1.3-.1-2h3.9c.1.3.1.7.1 1s0 .7-.1 1H16Z"/></svg>
+              árkos.com
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Síguenos</h4>
+            <div class="flex flex-wrap items-center gap-2">
+              <a href="https://linkedin.com/company/arkos" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3v10ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.3c0-1.3-.5-2-1.5-2-1.1 0-1.8.8-1.8 2V19h-3V9h2.9v1.3c.5-.8 1.5-1.6 3.1-1.6 2.2 0 3.3 1.3 3.3 4V19Z"/></svg>
+              </a>
+              <a href="https://wa.me/51961869348" target="_blank" rel="noopener" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              </a>
+              <a href="mailto:rodrigoan.torresp@gmail.com" aria-label="Email" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-2">Respondemos en menos de 24 h hábiles.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
+          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>Propuesta ARK-SIGIV-2026-001 · Emitida 27 Jul 2026 · Validez 15 días</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#ff5c7a', '#8a5cff', '#00ffd1'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+    const annex = document.getElementById('annex');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        annex.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        annex.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+
+    // ═══════════════════════════════════════════════════════════
+    // DESCARGA WORD (.docx) — documento nativo construido con `docx`
+    // ═══════════════════════════════════════════════════════════
+    const btnWord = document.getElementById('btnWord');
+
+    function waitForDocx(timeoutMs = 15000) {
+      if (window.docx) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          window.removeEventListener('docx-ready', onReady);
+          reject(new Error('La librería docx tardó demasiado en cargar. Revisa tu conexión a internet.'));
+        }, timeoutMs);
+        const onReady = () => { clearTimeout(timer); resolve(); };
+        window.addEventListener('docx-ready', onReady, { once: true });
+      });
+    }
+
+    btnWord.addEventListener('click', async () => {
+      const originalLabel = btnWord.innerHTML;
+      btnWord.disabled = true;
+      btnWord.innerHTML = 'Generando…';
+      try {
+        await waitForDocx();
+        await generateArkosWordDoc();
+      } catch (err) {
+        console.error(err);
+        alert('Error generando Word: ' + (err?.message || err));
+      } finally {
+        btnWord.disabled = false;
+        btnWord.innerHTML = originalLabel;
+      }
+    });
+
+    async function generateArkosWordDoc() {
+      const D = window.docx;
+      const {
+        Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+        Table, TableRow, TableCell, ImageRun, WidthType, BorderStyle,
+        Header, Footer, PageNumber, VerticalAlign
+      } = D;
+
+      // Paleta Árkos
+      const C = {
+        deep:    '1D4E6A',
+        brand:   '328298',
+        tint:    'D6EFF2',
+        ink:     '1F2937',
+        body:    '404040',
+        soft:    '737373',
+        rule:    'E5E7EB',
+        bgSoft:  'F8FAFC',
+        red:     'B91C1C',
+        amber:   'B45309',
+        green:   '15803D'
+      };
+
+      const fetchBuf = async (path) => {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error('No se pudo cargar ' + path);
+        return await r.arrayBuffer();
+      };
+      const [logoBuf, isoBuf] = await Promise.all([
+        fetchBuf('/logo_ico/final - LOGO 2-01.png'),
+        fetchBuf('/logo_ico/final - LOGO 2-07.png')
+      ]);
+
+      // ─── Helpers tipográficos ──────────────────────────────────
+      const t = (text, opts = {}) => new TextRun({ text, font: 'Calibri', ...opts });
+
+      const p = (runs, opts = {}) => new Paragraph({
+        children: Array.isArray(runs) ? runs : [runs],
+        spacing: { after: 120, line: 300, ...opts.spacing },
+        alignment: opts.alignment,
+        indent: opts.indent,
+        pageBreakBefore: opts.pageBreakBefore,
+        border: opts.border
+      });
+
+      const blank = (after = 200) => new Paragraph({ children: [], spacing: { after } });
+
+      const eyebrow = (s) => p([t(s, { bold: true, size: 16, color: C.brand, characterSpacing: 30, allCaps: true })], { spacing: { after: 80 } });
+
+      const title = (s) => p([t(s, { bold: true, size: 48, color: C.deep })], { spacing: { before: 0, after: 200, line: 400 } });
+
+      const h1 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 36, color: C.deep })],
+        heading: HeadingLevel.HEADING_1,
+        spacing: { before: 360, after: 200, line: 340 },
+        border: { bottom: { color: C.brand, size: 12, space: 8, style: BorderStyle.SINGLE } }
+      });
+
+      const h2 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 26, color: C.deep })],
+        heading: HeadingLevel.HEADING_2,
+        spacing: { before: 280, after: 140 }
+      });
+
+      const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
+
+      const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
+
+      const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
+        const runs = [t(icon + '  ', { bold: true, color: iconColor, size: 22 })];
+        if (label) runs.push(t(label + ': ', { bold: true, color: C.deep, size: 22 }));
+        runs.push(t(txt, { size: 22, color: C.body }));
+        return new Paragraph({
+          children: runs,
+          spacing: { after: 90, line: 300 },
+          indent: { left: 240, hanging: 240 }
+        });
+      };
+
+      const negBullet = (s) => bullet(s, null, '×', C.red);
+      const posBullet = (s) => bullet(s, null, '✓', C.green);
+
+      // ─── Helpers de tabla ─────────────────────────────────────
+      const cell = (children, opts = {}) => new TableCell({
+        children: Array.isArray(children) ? children : [children],
+        margins: { top: 140, bottom: 140, left: 180, right: 180 },
+        shading: opts.shading,
+        width: opts.width,
+        columnSpan: opts.columnSpan,
+        verticalAlign: opts.verticalAlign || VerticalAlign.CENTER
+      });
+
+      const headerCell = (s) => cell([new Paragraph({
+        children: [t(s, { bold: true, color: 'FFFFFF', size: 18, allCaps: true, characterSpacing: 30 })],
+        alignment: AlignmentType.CENTER
+      })], { shading: { fill: C.deep } });
+
+      const dataCell = (s, opts = {}) => cell([new Paragraph({
+        children: [t(s, { size: 22, color: opts.brand ? C.brand : C.body, bold: opts.bold })],
+        alignment: opts.align || AlignmentType.CENTER
+      })], { shading: opts.shading });
+
+      // ─── Tarjeta de precio (helper de contenido) ───────────────
+      const pricingCard = (badge, titulo, precio, sub, items, popular = false) => {
+        const fill = popular ? C.tint : 'FFFFFF';
+        const borderSize = popular ? 16 : 6;
+        const borderColor = popular ? C.brand : C.rule;
+        return new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            bottom: { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            left:   { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            right:  { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [cell([
+            p([t(badge, { bold: true, size: 16, color: popular ? C.brand : C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+            p([t(titulo, { bold: true, size: 28, color: C.deep })], { spacing: { after: 120, line: 320 } }),
+            p([t(precio, { bold: true, size: 56, color: C.brand })], { spacing: { after: 40, line: 480 } }),
+            p([t(sub, { italic: true, size: 18, color: C.soft })], { spacing: { after: 220 } }),
+            ...items.map(i => bullet(i, null, '✓', C.brand))
+          ], { shading: { fill }, verticalAlign: VerticalAlign.TOP })]})]
+        });
+      };
+
+      // ─── Tarjeta de anexo (gris, claramente fuera de oferta) ───
+      const annexCard = (badge, titulo, precio, texto) => new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top:    { style: BorderStyle.DASHED, size: 6, color: C.soft },
+          bottom: { style: BorderStyle.DASHED, size: 6, color: C.soft },
+          left:   { style: BorderStyle.DASHED, size: 6, color: C.soft },
+          right:  { style: BorderStyle.DASHED, size: 6, color: C.soft },
+          insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+          insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+        },
+        rows: [new TableRow({ children: [cell([
+          p([t(badge + '   ·   NO INCLUIDO', { bold: true, size: 16, color: C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+          p([t(titulo, { bold: true, size: 26, color: C.ink })], { spacing: { after: 100, line: 320 } }),
+          p([t(precio, { bold: true, size: 32, color: C.soft })], { spacing: { after: 20, line: 340 } }),
+          p([t('Precio referencial', { italic: true, size: 16, color: C.soft })], { spacing: { after: 180 } }),
+          body(texto)
+        ], { shading: { fill: 'F5F5F5' }, verticalAlign: VerticalAlign.TOP })]})]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // PORTADA
+      // ═══════════════════════════════════════════════════════════
+      const cover = [
+        new Paragraph({
+          children: [new ImageRun({ type: 'png', data: logoBuf, transformation: { width: 200, height: 67 } })],
+          spacing: { after: 480 }
+        }),
+        eyebrow('Propuesta Comercial   ·   ARK-SIGIV-2026-001'),
+        title('Sistema de Gestión de Inventarios y Ventas — SIGIV'),
+        body('Implementación funcional del sistema SIGIV para el caso IMPORTACIONES B&L SAC, construido exactamente sobre el diseño y el flujo de procesos ya definidos por el equipo. Aplicación web completa, con base de datos real, autenticación y datos persistentes — desplegada y lista para operar y sustentar.'),
+        blank(320),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            bottom: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            left: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+            insideVertical: { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+          },
+          rows: [
+            new TableRow({ children: [
+              cell([
+                p([t('Cliente', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Helen Vergaray Hurtado', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Caso de estudio: IMPORTACIONES B&L SAC', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
+              cell([
+                p([t('Proyecto', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('SIGIV', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Sistema Integrado de Gestión de Inventarios y Ventas', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
+            ]}),
+            new TableRow({ children: [
+              cell([
+                p([t('Emisión', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('27 de julio de 2026', { size: 22, color: C.body })])
+              ]),
+              cell([
+                p([t('Validez', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('15 días calendario desde la emisión', { size: 22, color: C.body })])
+              ])
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // INVERSIÓN
+      // ═══════════════════════════════════════════════════════════
+      const pricing = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Inversión'),
+        body('Precio único por el proyecto completo, sin IGV. Emitido por persona natural, sin comprobante electrónico.'),
+        blank(180),
+
+        pricingCard('Precio único · proyecto completo', 'SIGIV — Implementación funcional', 'USD 950', 'Referencial: S/ 3,515 · TC 3.70', [
+          '60% al inicio: USD 570. El proyecto inicia con este pago confirmado.',
+          '40% contra entrega: USD 380, al entregar el sistema desplegado y funcionando.',
+          'Medios de pago: transferencia bancaria o Yape / Plin.',
+          'Plazo de entrega: 4 semanas calendario desde el pago inicial y la entrega de accesos/contenido por parte del cliente.'
+        ], true),
+        blank(160),
+        p([t('El plazo asume respuestas del cliente dentro de 48 horas hábiles. Demoras en aprobaciones desplazan la fecha de entrega.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ALCANCE INCLUIDO — 8 MÓDULOS
+      // ═══════════════════════════════════════════════════════════
+      const alcance = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Origen del alcance'),
+        body('El alcance de esta propuesta corresponde textualmente a los requerimientos definidos por el cliente en la especificación del sistema SIGIV, y al prototipo visual de 8 pantallas entregado. Se transcriben los objetivos declarados:'),
+        bullet('Reducir errores operativos'),
+        bullet('Mejorar el control de existencias'),
+        bullet('Agilizar la atención de pedidos'),
+        blank(80),
+        body('Toda funcionalidad no contemplada en dicha especificación o en las 8 pantallas del prototipo se considera fuera de alcance y se cotiza por separado.'),
+
+        h1('Alcance incluido · 8 módulos'),
+        body('Alcance cerrado. Corresponde 1:1 al prototipo entregado por el cliente.'),
+        blank(120),
+        bullet('KPIs de pedidos, ventas, clientes, productos y stock bajo. Gráfico de ventas semanales, distribución por categoría, panel de alertas de inventario y listado de pedidos recientes. Todo calculado desde datos reales de la base de datos.', '01 · Dashboard'),
+        bullet('Numeración correlativa automática, fecha de venta, selección de cliente, botones de filtro por línea de producto (Todos / Manguera Corrugada / Cintillo de Sujeción / Cinta Aislante), buscador de productos con stock en tiempo real, validación de stock disponible, tabla de detalle editable (Código / Producto / Cantidad / Precio unitario / Subtotal / Eliminar), cálculo automático de Subtotal, IGV (18%) y Total a pagar. Botones: Registrar venta, Generar boleta, Imprimir comprobante, Limpiar venta. El registro de venta descuenta el inventario automáticamente.', '02 · Nueva Venta (Punto de Venta)'),
+        bullet('Alta, edición y baja de productos. Código, nombre, categoría, precio unitario, stock actual y stock mínimo. Buscador y filtros por categoría. Estados automáticos: Disponible / Stock Bajo / Agotado.', '03 · Productos'),
+        bullet('Registro de pedidos por cliente, con estados Recibido / En Preparación / Entregado, filtros por estado con contadores y totalizado.', '04 · Pedidos'),
+        bullet('Vista consolidada de stock con cálculo automático de déficit frente al stock mínimo. Contadores por estado y filtros. Exportación.', '05 · Inventario'),
+        bullet('Historial completo de ventas con filtros, total del período, número de transacciones, ticket promedio y vendedor asignado.', '06 · Ventas'),
+        bullet('Registro de clientes con RUC, razón social, contacto, teléfono, email, ciudad y total acumulado de compras. Buscador por nombre o RUC.', '07 · Clientes'),
+        bullet('Ventas mensuales, distribución por categoría, resumen de ventas por vendedor con participación porcentual, y reporte de inventario crítico con valor de reposición. Exportación a PDF.', '08 · Reportes'),
+        blank(160),
+        h3('Qué incluye además'),
+        posBullet('Aplicación web responsive (escritorio y móvil).'),
+        posBullet('Base de datos PostgreSQL con datos persistentes reales.'),
+        posBullet('Autenticación de usuarios con roles (Administrador / Vendedor).'),
+        posBullet('Despliegue en producción con URL pública accesible.'),
+        posBullet('Entrega del código fuente completo.'),
+        posBullet('Manual de uso básico (PDF) y una sesión de capacitación remota (60 min).'),
+        posBullet('2 rondas de correcciones sobre el alcance definido.'),
+        posBullet('15 días de soporte correctivo post-entrega (corrección de errores del alcance entregado, no nuevas funcionalidades).')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // LO QUE NO INCLUYE
+      // ═══════════════════════════════════════════════════════════
+      const noIncluye = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Lo que NO incluye'),
+        body('Para que quede todo claro desde el inicio.'),
+        blank(120),
+        negBullet('Facturación electrónica ante SUNAT (emisión de boletas/facturas con validez tributaria, XML UBL, CDR, OSE/PSE). El comprobante del sistema es un documento interno de control, no un comprobante fiscal.'),
+        negBullet('Módulo de Compras y costeo de importación (DUA, flete, seguro, ad valorem, prorrateo de gastos al costo unitario).'),
+        negBullet('Gestión multi-almacén.'),
+        negBullet('Aplicación móvil nativa.'),
+        negBullet('Integración con hardware (lector de código de barras, impresora térmica, balanzas).'),
+        negBullet('Migración de datos históricos desde sistemas existentes.'),
+        negBullet('Módulos contables, planilla o CRM.'),
+        negBullet('Hosting pagado: el sistema se despliega en planes gratuitos (Vercel + Supabase) a nombre del cliente. La continuidad y los costos futuros de esas cuentas son responsabilidad del cliente.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // CRONOGRAMA
+      // ═══════════════════════════════════════════════════════════
+      const cronogramaTable = new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top:    { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          bottom: { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+          left:   { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          right:  { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+          insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+          insideVertical:   { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+        },
+        rows: [
+          new TableRow({ tableHeader: true, children: [headerCell('Fase'), headerCell('Entregable')] }),
+          new TableRow({ children: [
+            dataCell('Semana 1', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Modelado de base de datos, autenticación, módulos Productos y Clientes.', { align: AlignmentType.LEFT })
+          ]}),
+          new TableRow({ children: [
+            dataCell('Semana 2', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Inventario, Pedidos y lógica de stock.', { align: AlignmentType.LEFT })
+          ]}),
+          new TableRow({ children: [
+            dataCell('Semana 3', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Punto de Venta, Ventas y Dashboard.', { align: AlignmentType.LEFT })
+          ]}),
+          new TableRow({ children: [
+            dataCell('Semana 4', { align: AlignmentType.LEFT, bold: true }),
+            dataCell('Reportes, despliegue, capacitación y entrega.', { align: AlignmentType.LEFT })
+          ]})
+        ]
+      });
+
+      const cronograma = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Cronograma'),
+        body('4 semanas calendario desde el pago inicial.'),
+        blank(160),
+        cronogramaTable
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // PROPIEDAD Y LICENCIA + CONDICIONES COMERCIALES
+      // ═══════════════════════════════════════════════════════════
+      const condiciones = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Propiedad y licencia'),
+        blank(80),
+        bullet('Se entrega el código fuente completo al cliente para fines académicos y de sustentación.'),
+        bullet('Árkos conserva la titularidad de los componentes, librerías internas y arquitectura base preexistentes.'),
+        bullet('El uso comercial del sistema por parte de IMPORTACIONES B&L SAC o cualquier tercero requiere un acuerdo de licencia comercial independiente, que se cotiza por separado.'),
+        blank(240),
+        h1('Condiciones comerciales'),
+        blank(80),
+        bullet('El alcance corresponde exactamente a los 8 módulos y al diseño del prototipo entregado por el cliente. Cualquier funcionalidad, pantalla o proceso adicional se cotiza por separado antes de su ejecución.', 'Alcance cerrado'),
+        bullet('60% al inicio, 40% contra entrega. El proyecto inicia con el pago inicial confirmado.', 'Pagos'),
+        bullet('2 rondas incluidas. Rondas adicionales se cotizan aparte.', 'Correcciones'),
+        bullet('15 días calendario desde la fecha de emisión.', 'Validez de la cotización'),
+        bullet('Transferencia bancaria o Yape / Plin.', 'Medios de pago')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // OBSERVACIONES AL DISEÑO PLANTEADO
+      // ═══════════════════════════════════════════════════════════
+      const obsCard = (titulo, etiqueta, texto, alerta = false) => new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top:    { style: BorderStyle.SINGLE, size: alerta ? 12 : 4, color: alerta ? C.amber : C.rule },
+          bottom: { style: BorderStyle.SINGLE, size: alerta ? 12 : 4, color: alerta ? C.amber : C.rule },
+          left:   { style: BorderStyle.SINGLE, size: alerta ? 12 : 4, color: alerta ? C.amber : C.rule },
+          right:  { style: BorderStyle.SINGLE, size: alerta ? 12 : 4, color: alerta ? C.amber : C.rule },
+          insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+          insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+        },
+        rows: [new TableRow({ children: [cell([
+          p([t(titulo, { bold: true, size: 24, color: C.deep })], { spacing: { after: 60, line: 320 } }),
+          p([t(etiqueta, { bold: true, italic: true, size: 18, color: alerta ? C.amber : C.green })], { spacing: { after: 140 } }),
+          body(texto)
+        ], { shading: { fill: alerta ? 'FFFBEB' : 'FFFFFF' }, verticalAlign: VerticalAlign.TOP })]})]
+      });
+
+      const observaciones = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Observaciones al diseño planteado'),
+        body('Durante la revisión del prototipo se identificaron cuatro inconsistencias funcionales entre módulos. Las tres primeras se corrigen dentro del alcance contratado, sin costo adicional. La cuarta requiere una definición por parte del cliente antes del inicio del desarrollo.'),
+        blank(180),
+
+        obsCard('Observación 1 — Selección de cliente en el punto de venta', 'Corrección incluida sin costo.',
+          'En la última iteración del prototipo, el selector de cliente del módulo Nueva Venta fue reemplazado por botones de línea de producto. Sin embargo, el módulo Ventas mantiene una columna «Cliente» en su historial y el módulo Clientes acumula un «Total de compras» por cliente — ambos dependen de que la venta registre a quién se le vendió. Adicionalmente, un comprobante sin cliente identificado no cumple su función. Se implementarán ambos elementos: los botones de línea de producto como filtro del buscador, y el selector de cliente como dato de la venta.'),
+        blank(160),
+        obsCard('Observación 2 — Identificación del vendedor', 'Corrección incluida sin costo.',
+          'Los módulos Ventas y Reportes muestran información por vendedor (columna «Vendedor» y reporte de participación porcentual), pero el diseño no contempla un módulo de vendedores ni un campo de asignación en el punto de venta. Se resolverá vinculando cada venta al usuario autenticado que la registra, lo que alimenta automáticamente el reporte por vendedor.'),
+        blank(160),
+        obsCard('Observación 3 — Especificación del módulo Clientes', 'Corrección incluida sin costo.',
+          'El módulo Clientes no cuenta con especificación funcional escrita. Se toman como definitivos los campos del prototipo: RUC, razón social, contacto, teléfono, email, ciudad y total de compras acumulado.'),
+        blank(160),
+        obsCard('⚠ Observación 4 — Relación entre Pedidos y Ventas', 'Requiere definición del cliente antes del inicio.',
+          'El diseño contempla Pedidos y Ventas como módulos independientes, con numeración propia (PED-XXXX y VTA-XXXX). No está definido si un pedido se convierte en venta al ser entregado, o si son procesos separados. Esta definición es crítica: si ambos módulos descuentan inventario de forma independiente, el stock se descontaría dos veces por la misma mercadería. Se requiere confirmación antes del inicio del desarrollo.', true),
+        blank(200),
+        h3('Nota adicional — Cálculo de «valor a reponer»'),
+        body('El reporte de inventario crítico calcula el valor de reposición sobre el precio de venta del producto. Tratándose de una empresa importadora, el costo real de reposición incluye flete, seguro, tributos aduaneros y tipo de cambio. El cálculo se implementa tal como fue especificado; el costeo real de importación se detalla en el anexo de mejoras.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ANEXO — MEJORAS RECOMENDADAS (fuera de alcance)
+      // ═══════════════════════════════════════════════════════════
+      const anexo = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        p([t('Anexo   ·   Fuera de alcance   ·   No forma parte de la cotización', { bold: true, size: 18, color: C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 100 } }),
+        new Paragraph({
+          children: [t('Mejoras recomendadas', { bold: true, size: 36, color: C.soft })],
+          heading: HeadingLevel.HEADING_1,
+          spacing: { before: 0, after: 200, line: 340 },
+          border: { bottom: { color: C.soft, size: 8, space: 8, style: BorderStyle.DASHED } }
+        }),
+        body('El sistema cotizado arriba responde al diseño planteado por el equipo y cumple con el alcance académico definido. A continuación se detallan las capacidades que un sistema de este tipo requeriría para operar en un entorno real dentro de una empresa importadora. Se incluyen como referencia técnica y comercial, y no forman parte del alcance contratado.'),
+        blank(200),
+
+        annexCard('Mejora 1', 'Facturación Electrónica SUNAT', 'USD 1,000',
+          'El sistema actual genera un comprobante interno de control. Para que IMPORTACIONES B&L SAC pueda emitir boletas y facturas con validez tributaria se requiere generación de XML bajo el estándar UBL 2.1, firma digital, envío a SUNAT vía OSE/PSE, recepción y almacenamiento de CDR, y comunicaciones de baja. Sin esto, cada venta registrada en el sistema tiene que volver a digitarse en otro sistema de facturación — doble trabajo y riesgo de descuadre.'),
+        blank(180),
+        annexCard('Mejora 2', 'Módulo de Compras y Costeo de Importación', 'USD 500',
+          'Es la mejora de mayor impacto para el negocio. Siendo B&L una importadora, el costo real de cada producto no es el precio de compra: incluye flete internacional, seguro, ad valorem, IGV de importación, gastos de aduana y tipo de cambio. Sin prorratear esos gastos al costo unitario, el margen que muestra el sistema es una estimación, y el campo «valor a reponer» del reporte de inventario crítico no refleja el desembolso real. Este módulo cubre órdenes de compra, registro de DUA, prorrateo automático de gastos de importación y costo promedio ponderado por producto.'),
+        blank(180),
+        annexCard('Mejora 3', 'Gestión Multi-Almacén', 'USD 250',
+          'Si la empresa opera con más de una ubicación física (almacén central, tienda, depósito), el stock deja de ser un número único por producto. Incluye stock independiente por almacén, transferencias entre almacenes con trazabilidad, y reportes consolidados y por ubicación.'),
+        blank(160),
+        p([t('Precios referenciales a julio de 2026, sujetos a relevamiento de requerimientos. No constituyen una oferta vigente.', { italic: true, size: 20, color: C.soft })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ACEPTACIÓN / FIRMAS
+      // ═══════════════════════════════════════════════════════════
+      const firmas = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Aceptación de la Propuesta'),
+        body('La aceptación de esta propuesta confirma las condiciones, el alcance y los montos descritos. La propuesta tiene una validez de 15 días calendario desde su fecha de emisión.'),
+        blank(640),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            bottom: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            left:   { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right:  { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Helen Vergaray Hurtado', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Cliente', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ])
+          ]})]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ENCABEZADO + PIE GLOBAL
+      // ═══════════════════════════════════════════════════════════
+      const docHeader = new Header({
+        children: [new Paragraph({
+          children: [
+            new ImageRun({ type: 'png', data: isoBuf, transformation: { width: 22, height: 22 } }),
+            t('   Árkos  ·  Propuesta ARK-SIGIV-2026-001  ·  SIGIV', { size: 16, color: C.soft, characterSpacing: 10 })
+          ],
+          spacing: { after: 60 },
+          border: { bottom: { color: C.rule, size: 4, space: 4, style: BorderStyle.SINGLE } }
+        })]
+      });
+
+      const docFooter = new Footer({
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [
+            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('rodrigoan.torresp@gmail.com', { size: 16, color: C.brand, bold: true }),
+            t('   ·   +51 961 869 348   ·   Trujillo, Perú   ·   Página ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
+            t(' de ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: C.soft, font: 'Calibri' })
+          ]
+        })]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // DOCUMENTO FINAL
+      // ═══════════════════════════════════════════════════════════
+      const doc = new Document({
+        creator: 'Árkos',
+        title: 'Propuesta Árkos · SIGIV — Sistema de Gestión de Inventarios y Ventas',
+        description: 'Propuesta comercial para el Sistema Integrado de Gestión de Inventarios y Ventas (SIGIV) — caso IMPORTACIONES B&L SAC',
+        styles: {
+          default: {
+            document: { run: { font: 'Calibri', size: 22, color: C.body } }
+          }
+        },
+        sections: [{
+          properties: {
+            page: { margin: { top: 1100, right: 1000, bottom: 1200, left: 1000 } }
+          },
+          headers: { default: docHeader },
+          footers: { default: docFooter },
+          children: [
+            ...cover,
+            ...pricing,
+            ...alcance,
+            ...noIncluye,
+            ...cronograma,
+            ...condiciones,
+            ...observaciones,
+            ...firmas,
+            ...anexo
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Propuesta-Arkos-SIGIV-Helen-Vergaray.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+    }
+  </script>
+</body>
+</html>
