@@ -1,0 +1,39 @@
+/* design-sync: @font-face rules for the Árkos "Light 2026" typography.
+   The app itself loads these through next/font/local (app/fonts.ts), which
+   generates its @font-face at Next build time — nothing a static bundle can
+   reuse. These rules point at the same .woff2 files on disk; the converter
+   copies them into the bundle's fonts/ and rewrites the url()s.
+   Only @font-face blocks survive extraFonts parsing — the --font-* variable
+   mapping lives in .design-sync/build-css.mjs instead. */
+
+@font-face {
+  font-family: "Switzer";
+  src: url("../app/fonts/Switzer-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("../app/fonts/CabinetGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../app/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../app/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,20 @@
+/* design-sync only. Read by the converter's esbuild paths plugin (cfg.tsconfig)
+   — never by Next or tsc. Keeps the repo's own @/* alias working and swaps
+   next/* for static shims so preview cards, and every design built from this
+   system, render outside a Next runtime.
+
+   Do NOT add a "//" string key here: the converter strips comments with a
+   regex that also eats a "//" JSON key, which silently kills the whole
+   plugin and lets real Next runtime code back into the bundle. */
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      "@/*": ["./*"],
+      "next/link": ["./.design-sync/shims/next-link.tsx"],
+      "next/image": ["./.design-sync/shims/next-image.tsx"],
+      "next/navigation": ["./.design-sync/shims/next-navigation.tsx"],
+      "next/dynamic": ["./.design-sync/shims/next-dynamic.tsx"]
+    }
+  }
+}
