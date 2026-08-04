@@ -24,6 +24,15 @@ export default function PortfolioPage() {
           <ProjectFilter onFilterChange={setActiveFilter} />
         </div>
 
+        {/* Las tarjetas titulan con <h3>: sin este <h2> la página saltaba de
+            H1 a H3 y rompía la jerarquía de encabezados. */}
+        <h2 className="text-2xl font-bold mb-8 tracking-tight">
+          {activeFilter === "all" ? "Todos los proyectos" : "Proyectos filtrados"}
+          <span className="ml-3 text-base font-normal text-muted-foreground tabular">
+            {filteredProjects.length}
+          </span>
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
               <ProjectCard

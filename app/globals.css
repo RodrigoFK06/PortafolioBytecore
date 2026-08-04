@@ -117,3 +117,28 @@ body {
   background: hsl(var(--border-strong));
   border-radius: 8px;
 }
+
+/* ── Red de seguridad del texto cinético ────────────────────────
+   KineticText se servía con `visibility:hidden` y esperaba a que GSAP lo
+   revelara. El H1 del home es el ÚNICO h1 de la página: si el JS falla, se
+   bloquea o el parser no lo ejecuta, ese H1 quedaba invisible.
+   Ahora se sirve con `opacity:0` (el elemento existe y ocupa su caja para
+   los parsers) y esta animación lo devuelve a opacidad plena a los 1.6 s
+   pase lo que pase — las declaraciones de @keyframes ganan sobre el estilo
+   inline, así que revela incluso si GSAP nunca corrió. Para entonces la
+   entrada real ya terminó, de modo que no pelea con la animación. */
+.kinetic-text {
+  animation: kinetic-failsafe 0s linear 1.6s forwards;
+}
+
+@keyframes kinetic-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinetic-text {
+    animation-delay: 0s;
+  }
+}

@@ -61,7 +61,7 @@ export function HeroSection() {
           {/* Etiqueta técnica */}
           <p ref={taglineRef} className="spec-label mb-8 md:mb-10 flex items-center gap-3" style={{ opacity: 0 }}>
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            FIG. 01 — Agencia de software · Trujillo, Perú
+            FIG. 01 — Agencia de software · Lima, Perú
           </p>
 
           {/* Headline — kinetic type que se ordena */}
@@ -74,7 +74,7 @@ export function HeroSection() {
             delay={0.15}
             duration={0.75}
             ignore=".kinetic-ignore"
-            aria-label="Mejoramos tus procesos"
+            aria-label="Mejoramos tus procesos con software a medida"
             className="font-display text-[3rem] sm:text-6xl md:text-8xl lg:text-[8.5rem] font-bold tracking-tight leading-[0.95] text-foreground mb-10 md:mb-14"
           >
             Mejoramos
@@ -99,6 +99,13 @@ export function HeroSection() {
                 </span>
                 cesos
               </span>
+            </span>
+            {/* El H1 no decía qué vende Árkos: "Mejoramos tus procesos" no tiene
+                ni categoría ni keyword. La segunda línea añade la categoría
+                DENTRO del H1 sin tocar el eslogan, que vive también en
+                SITE_CONFIG, en el brochure y en llms.txt. */}
+            <span className="block mt-4 md:mt-6 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold leading-tight text-muted-foreground">
+              con software a medida
             </span>
           </KineticText>
 

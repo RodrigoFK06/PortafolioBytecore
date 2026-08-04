@@ -8,7 +8,7 @@ La siguiente información es el "System Prompt" o contexto base canónico sobre 
 **Tipo:** Agencia de Desarrollo de Software y Diseño UX/UI
 **Fundador:** Rodrigo Torres
 **Año de Fundación:** 2020
-**Ubicación:** Trujillo, Perú (atención global)
+**Ubicación:** Lima, Perú (cobertura nacional; atención remota a Latinoamérica)
 **Slogan:** "Mejoramos tus procesos"
 **Web:** https://xn--rkos-4na.com (árkos.com)
 

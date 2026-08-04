@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { alternates } from "@/lib/seo"
 import Link from "next/link"
 import ExcelCostCalculator from "@/components/ExcelCostCalculator"
 import { KineticText } from "@/components/motion/kinetic-text"
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   title: "Calculadora: ¿cuánto te cuesta operar en Excel? | Árkos",
   description:
     "Calcula con tus propios números cuánto te cuesta al mes operar tu negocio con Excel, WhatsApp y cuadernos: horas de digitación doble y errores manuales, en soles. Sin registro.",
-  alternates: { canonical: "/costo-del-excel" },
+  alternates: alternates("/costo-del-excel"),
   openGraph: {
     title: "¿Cuánto te cuesta operar en Excel?",
     description:

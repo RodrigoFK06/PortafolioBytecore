@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { alternates } from "@/lib/seo"
 import SystemTest from "@/components/SystemTest"
 import { KineticText } from "@/components/motion/kinetic-text"
 
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   title: "Test: ¿Tu negocio ya necesita un sistema? | Árkos",
   description:
     "10 preguntas honestas para saber si tu pyme ya necesita software a medida, un ajuste de lo que tienes — o nada todavía. Resultado al instante, sin registro.",
-  alternates: { canonical: "/necesitas-un-sistema" },
+  alternates: alternates("/necesitas-un-sistema"),
   openGraph: {
     title: "Test: ¿Tu negocio ya necesita un sistema?",
     description:

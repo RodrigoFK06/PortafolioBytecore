@@ -63,7 +63,10 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
       <div className="mt-14 text-center">
         <Reveal effect="fade">
           <Link
-            href="/projects"
+            // /projects redirige 301 a /portfolio: enlazar a la URL redirigida
+            // gastaba un salto de rastreo en cada visita de Googlebot desde el
+            // home, que es la única página que Google rastreaba.
+            href="/portfolio"
             className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
           >
             Ver todos los proyectos

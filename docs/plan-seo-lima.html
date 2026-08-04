@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Árkos · Plan para ser #1 en "desarrollo de software Lima"</title>
+<style>
+:root{
+  --bg:#0c0d10; --panel:#141519; --panel2:#1a1c21; --line:#26282f;
+  --tx:#e8e9ec; --tx2:#9a9ea8; --tx3:#6e727c;
+  --acc:#5b8dff; --good:#3fb98a; --warn:#e0a444; --bad:#e0645f; --neutral:#7b7f8a;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media(prefers-color-scheme:light){
+  :root{--bg:#f7f7f9;--panel:#fff;--panel2:#f1f2f5;--line:#e2e4e9;
+        --tx:#16171b;--tx2:#5d616b;--tx3:#888d97;--acc:#2b62d9;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font:15px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:44px 22px 90px}
+h1{font-size:31px;line-height:1.2;margin:0 0 8px;letter-spacing:-.02em;font-weight:660}
+h2{font-size:19px;margin:52px 0 4px;letter-spacing:-.01em;font-weight:640;
+   display:flex;align-items:baseline;gap:10px}
+h2 .n{font:600 11px/1 var(--mono);color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent);
+      padding:5px 7px;border-radius:5px;letter-spacing:.04em}
+h3{font-size:15px;margin:26px 0 6px;font-weight:640}
+p{margin:9px 0;color:var(--tx2)}
+p strong,li strong{color:var(--tx);font-weight:620}
+a{color:var(--acc)}
+.sub{color:var(--tx3);font-size:13.5px;margin:0 0 6px}
+.rule{height:1px;background:var(--line);margin:14px 0 0}
+.lede{font-size:16.5px;color:var(--tx);margin:16px 0 0;line-height:1.6}
+
+.verdict{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);
+  border-radius:10px;padding:20px 22px;margin:26px 0}
+.verdict p{margin:0;color:var(--tx);font-size:15.5px}
+.verdict p+p{margin-top:11px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:11px;margin:20px 0 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:14px 15px}
+.kpi .v{font:640 25px/1.1 var(--mono);letter-spacing:-.02em}
+.kpi .l{font-size:11.5px;color:var(--tx3);margin-top:6px;line-height:1.4}
+.kpi.bad .v{color:var(--bad)} .kpi.good .v{color:var(--good)} .kpi.warn .v{color:var(--warn)}
+
+table{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:13px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--tx3);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+   background:var(--panel2);position:sticky;top:0}
+td:first-child{color:var(--tx);font-weight:600}
+tbody tr:hover{background:var(--panel)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel)}
+.scroll table{margin:0}
+.y{color:var(--good);font-weight:640} .n{color:var(--bad);font-weight:640}
+.dim{color:var(--tx3)}
+code{font:12.5px/1.5 var(--mono);background:var(--panel2);padding:1.5px 5px;border-radius:4px;
+     border:1px solid var(--line);color:var(--tx)}
+
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:11px;margin:18px 0 0}
+.gap{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:15px 16px}
+.gap b{display:block;font-size:13.5px;margin-bottom:5px}
+.gap span{font-size:12.5px;color:var(--tx2);line-height:1.5}
+.gap .tag{display:inline-block;margin-top:9px;font:600 10px/1 var(--mono);letter-spacing:.05em;
+  padding:5px 7px;border-radius:4px;background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+
+ul{margin:9px 0;padding-left:19px;color:var(--tx2)} li{margin:5px 0}
+ol{margin:9px 0;padding-left:21px;color:var(--tx2)} ol li{margin:7px 0}
+
+.phase{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;margin:11px 0}
+.phase .hd{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:4px}
+.phase .hd b{font-size:14.5px}
+.pill{font:600 10px/1 var(--mono);padding:5px 8px;border-radius:20px;letter-spacing:.05em;
+  border:1px solid var(--line);color:var(--tx3);white-space:nowrap}
+.pill.hi{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad);border-color:transparent}
+.pill.md{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn);border-color:transparent}
+.pill.lo{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good);border-color:transparent}
+.phase ul{margin:8px 0 0;font-size:13.5px}
+
+.warnbox{background:color-mix(in srgb,var(--bad) 7%,var(--panel));border:1px solid color-mix(in srgb,var(--bad) 28%,var(--line));
+  border-radius:9px;padding:15px 17px;margin:16px 0}
+.warnbox b{color:var(--bad)}
+.warnbox ul{margin:8px 0 0;font-size:13.5px}
+
+.bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden;margin-top:5px;
+  border:1px solid var(--line)}
+.bar i{display:block;height:100%;border-radius:3px}
+
+.foot{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--tx3);line-height:1.6}
+@media(max-width:640px){.wrap{padding:30px 15px 60px}h1{font-size:25px}h2{font-size:17.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="sub" style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase">Árkos · árkos.com · 4 agosto 2026</p>
+<h1>Plan para ser #1 orgánico en<br>“desarrollo de software Lima”</h1>
+<p class="sub">Auditoría del sitio · análisis de 6 competidores sobre HTML servido · arquitectura nacional · roadmap 12 meses</p>
+<div class="rule"></div>
+
+<div class="verdict">
+<p><strong>Hoy no estás lejos del #1 — estás a distancia infinita</strong>, porque no existe ninguna página en árkos.com que compita por esa consulta. Verificado: <code>/lima</code> → 404, <code>/desarrollo-de-software-lima</code> → 404, y ni un solo H1, title o meta description del sitio contiene “Lima”.</p>
+<p><strong>Pero la competencia es objetivamente débil.</strong> El que rankea con el slug exact-match tiene 166 palabras y cero prueba social. El que tiene autoridad la esconde fuera de su página de dinero. Uno tiene el H1 diciendo “Estados Unidos” en una página titulada “en Perú”. Otro no tiene ninguna etiqueta <code>&lt;h1&gt;</code>.</p>
+<p><strong>Y ya tienes tres armas que ninguno tiene:</strong> precios públicos en soles, el ángulo SUNAT, y dos clientes limeños reales con testimonio firmado y métrica. Están enterrados.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi bad"><div class="v">0</div><div class="l">páginas orientadas a Lima</div></div>
+  <div class="kpi bad"><div class="v">63:17</div><div class="l">menciones Trujillo vs Lima<br><span class="dim">y las de Lima describen clientes</span></div></div>
+  <div class="kpi bad"><div class="v">12/100</div><div class="l">autoridad de marca<br><span class="dim">tu propia auditoría GEO</span></div></div>
+  <div class="kpi warn"><div class="v">131</div><div class="l">palabras reales de servicio en <code>/services</code></div></div>
+  <div class="kpi good"><div class="v">0 / 6</div><div class="l">competidores con LocalBusiness de Lima</div></div>
+  <div class="kpi good"><div class="v">0 / 6</div><div class="l">competidores que publican precios</div></div>
+</div>
+
+<!-- 1 -->
+<h2><span class="n">01</span> La trampa de esta keyword</h2>
+<p>Antes de invertir 9 meses, mira lo que revela la propia SERP que me pasaste. Junto a las agencias aparecen <strong>Certus, Cibertec, New Horizons, LinkedIn Empleos e Indeed</strong>. Y las 8 búsquedas relacionadas que muestra Google son:</p>
+<p style="font-family:var(--mono);font-size:12px;color:var(--tx3);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:13px 15px;line-height:1.9">
+SENATI precio · SENATI desarrollo de software · desarrollo de software carrera · IDAT · curso · Tecsup · dónde estudiar en Perú · CIBERTEC
+</p>
+<p><strong>8 de 8 son educativas.</strong> Eso no es ruido: es Google declarando que la intención dominante del string exacto es “dónde estudio esto”. Ser #1 ahí trae volumen, no clientes.</p>
+<p>No abandones la keyword — es el término cabeza y da autoridad temática. Pero el #1 que factura es otro:</p>
+
+<div class="scroll"><table>
+<thead><tr><th style="width:34%">Keyword</th><th>Intención</th><th>Por qué</th></tr></thead>
+<tbody>
+<tr><td>empresa de desarrollo de software lima</td><td class="y">Comercial pura</td><td>Quien escribe “empresa” está contratando, no estudiando</td></tr>
+<tr><td>desarrollo de software a medida lima</td><td class="y">Comercial pura</td><td>“a medida” filtra estudiantes por completo</td></tr>
+<tr><td>desarrollo de software lima</td><td style="color:var(--warn);font-weight:640">Mixta</td><td>El término cabeza. Se gana de rebote con los anteriores</td></tr>
+<tr><td>cuánto cuesta desarrollar software en perú</td><td class="y">Transaccional alta</td><td><strong>Ya tienes <code>/precios</code>.</strong> Nadie más publica cifras</td></tr>
+<tr><td>sistema facturación electrónica SUNAT</td><td class="y">Comercial + moat</td><td><strong>Ya tienes <code>/cumplimiento-sunat</code>.</strong> Cero competencia</td></tr>
+</tbody></table></div>
+<p class="sub" style="margin-top:10px">Una sola página bien construida rankea para las cinco. El <code>&lt;h1&gt;</code> lleva el modificador comercial; el <code>&lt;title&gt;</code> cubre ambos.</p>
+
+<!-- 2 -->
+<h2><span class="n">02</span> El campo de batalla</h2>
+<p>Los 6 competidores, rastreados sobre el HTML servido — no estimaciones de herramientas.</p>
+
+<div class="scroll"><table>
+<thead><tr>
+<th style="width:16%"></th><th>Tinq</th><th>Glajumedia</th><th>Monstruo C.</th><th>TIPSE</th><th>SB Perú</th><th>Vex</th>
+</tr></thead>
+<tbody>
+<tr><td>“lima” en slug</td><td class="y">Sí</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td></tr>
+<tr><td>“Lima” en H1</td><td class="y">Sí</td><td class="n">No</td><td class="n">Dice <b>EEUU</b></td><td class="n">No</td><td class="n">Sin&nbsp;&lt;h1&gt;</td><td class="dim">n/v</td></tr>
+<tr><td>Palabras</td><td class="n">166</td><td>868</td><td>5.534 <span class="dim">relleno</span></td><td>832</td><td>1.149</td><td class="dim">n/v</td></tr>
+<tr><td>Precios</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td></tr>
+<tr><td>LocalBusiness</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td class="dim">n/v</td></tr>
+<tr><td>Casos en la página</td><td class="n">No</td><td class="n">En el home</td><td class="y">5 c/ video</td><td class="y">4 anónimos</td><td class="n">Aparte</td><td class="dim">n/v</td></tr>
+<tr><td>Prueba social</td><td class="n">Cero</td><td class="y">500+ proy · Clutch 4.7 · Osiptel, PromPerú, TV Perú</td><td>“+7 años”<br><span class="dim">home dice 8</span></td><td>“+12 años”</td><td class="y">Pacífico, Roche, Volcán</td><td class="y">Google 4.9/110<br><span class="dim">Trustpilot 3.2</span></td></tr>
+<tr><td>Dirección Lima</td><td class="n">Ninguna</td><td>Surco</td><td>Miraflores</td><td class="n">“Lima, Perú”</td><td class="y">Lince + fijo</td><td>Miraflores</td></tr>
+<tr><td>Blog</td><td class="n">sitemap 1&nbsp;URL</td><td class="n">no existe</td><td class="dim">403</td><td>22 posts</td><td class="n">71, sobre CTS/AFP</td><td>autor “redactor&nbsp;ai”</td></tr>
+</tbody></table></div>
+
+<h3>Lectura rápida</h3>
+<ul>
+<li><strong>Tinq</strong> — el que probablemente rankea arriba, y el más frágil. 166 palabras, cero prueba social, sin dirección, sin formulario, sin blog. Su sitemap tiene 1 URL y la página que rankea <em>no está en él</em>. Su <code>FAQPage</code> está en schema pero las preguntas no son visibles: incumple las guidelines de Google. Rankea solo por optimización on-page exacta.</li>
+<li><strong>Glajumedia</strong> — el rival serio, mal ejecutado. Tiene 500+ proyectos, Clutch 4.7 y casos con entidades públicas… <em>todo en el home, no en la página que rankea</em>. Su landing llega desnuda: 868 palabras, H1 sin “Lima”, FAQ visible sin marcar FAQPage, <code>areaServed: Country</code>, y sin blog. Todo el clúster informacional está libre.</li>
+<li><strong>Monstruo Creativo</strong> — conflicto geográfico fatal: title “en Perú”, H1 “Estados Unidos”, 20+ H3 de ciudades gringas, y “Lima” aparece <strong>una sola vez, en el footer</strong>. Relleno programático detectable (“desarrollo de desarrollo”, “cuidades”). En el fondo es una agencia de marketing.</li>
+<li><strong>SB Perú</strong> — 20 años y las mejores marcas del grupo, tirados por la borda: <strong>su página de dinero no tiene ninguna etiqueta <code>&lt;h1&gt;</code></strong>, su blog trata de CTS y planillas, y no marca <code>Organization</code> pese a tener dirección real en Lince.</li>
+<li><strong>Vex</strong> — domina el <em>pack local</em> por su ficha (4.9/110 reseñas), no por on-page. Trustpilot le da 3.2, su Clutch está sin reclamar, y bloquea bots con Cloudflare 403 → <strong>invisible para AI Overviews, Perplexity y ChatGPT Search</strong>, un frente donde tú ya vas ganando.</li>
+</ul>
+
+<!-- 3 -->
+<h2><span class="n">03</span> Los 6 huecos que nadie llenó</h2>
+<p>Verificado en los seis sitios. Esto es el mapa de tu ventaja.</p>
+<div class="gaps">
+<div class="gap"><b>Nadie publica precios</b><span>Los seis esquivan el costo con la misma frase: “depende de la complejidad y el alcance”.</span><div class="tag">YA TIENES /precios</div></div>
+<div class="gap"><b>Cero contenido peruano</b><span>Nadie menciona SUNAT, facturación electrónica, PLE, Ley 29733, ni Yape / Plin / Niubiz / Culqi.</span><div class="tag">YA TIENES /cumplimiento-sunat</div></div>
+<div class="gap"><b>Prueba social lejos de la página</b><span>Es sistemático: la página que compite por la keyword es siempre la más pobre en credibilidad.</span><div class="tag">3 TESTIMONIOS CON MÉTRICA</div></div>
+<div class="gap"><b>Ningún cliente limeño demostrable</b><span>Ninguno muestra un cliente de Lima nombrado, con cifra y testimonio firmado.</span><div class="tag">SOLUTEC DHA · CASAROMA</div></div>
+<div class="gap"><b>Cero LocalBusiness de Lima</b><span>Ni uno de los seis. El único que lo tiene apunta a Medellín, Colombia.</span><div class="tag">areaServed: City Lima</div></div>
+<div class="gap"><b>Cero embudo diferenciado</b><span>Todos terminan en un WhatsApp genérico. Ninguno ofrece un diagnóstico previo.</span><div class="tag">YA TIENES /diagnostico</div></div>
+</div>
+
+<!-- 4 -->
+<h2><span class="n">04</span> Trujillo → nacional, sin mentir</h2>
+<p>Reposicionarte como nacional y rankear en Lima tiran en direcciones opuestas: el marcado <code>LocalBusiness</code> con ciudad es justo lo que hace competitivas las búsquedas geo. La solución no es inventar una dirección en Lima — eso es motivo de suspensión de GBP y te deja peor que ahora.</p>
+<ul>
+<li><strong>La entidad se vuelve nacional</strong> — <code>Organization</code> sin <code>addressLocality</code> en la raíz, <code>areaServed</code> con <code>City: Lima</code>, <code>City: Trujillo</code>, <code>Country: Perú</code>.</li>
+<li><strong>LocalBusiness con dirección solo donde hay dirección real</strong> — en <code>/desarrollo-de-software-trujillo</code>. Eso libera al home de ser “la página de Trujillo”.</li>
+<li><strong>La página de Lima usa <code>Service</code> + <code>areaServed: City Lima</code></strong>, sin <code>PostalAddress</code> falso. Honesto y suficiente para el orgánico.</li>
+<li><strong>Y conviertes la objeción en argumento</strong> con una sección propia: mismo huso horario, visitas presenciales agendadas, sin el sobrecosto de una oficina en San Isidro, equipo senior directo sin capas de cuenta.</li>
+</ul>
+<p class="sub">El pack local de Lima queda fuera de alcance sin dirección verificable allí. Lo asumimos: el objetivo acordado es el <strong>#1 orgánico</strong>.</p>
+
+<!-- 5 -->
+<h2><span class="n">05</span> Arquitectura propuesta</h2>
+<p style="font-family:var(--mono);font-size:12px;color:var(--tx2);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:16px 18px;line-height:1.85;white-space:pre;overflow-x:auto">/                                    <span style="color:var(--tx3)">Agencia nacional (entidad Árkos)</span>
+├─ <span style="color:var(--acc)">/desarrollo-de-software-lima      ★ PÁGINA DE DINERO · 2.000–2.500 palabras</span>
+├─ /desarrollo-de-software-trujillo  <span style="color:var(--tx3)">sede real · LocalBusiness · GBP</span>
+├─ /services                         <span style="color:var(--tx3)">hub: de 131 → 800+ palabras</span>
+│   └─ /services/{6 servicios}       <span style="color:var(--tx3)">arregla los 6 botones muertos</span>
+├─ /precios                          <span style="color:var(--good)">ARMA · enlazar desde Lima</span>
+├─ /cumplimiento-sunat               <span style="color:var(--good)">EL MOAT · expandir a 1.200+</span>
+├─ /diagnostico                      <span style="color:var(--good)">CTA principal</span>
+├─ /soluciones/{clínicas|restaurantes|hoteles}   <span style="color:var(--tx3)">fase 3</span>
+├─ /portfolio                        <span style="color:var(--tx3)">canónica única (301 desde /projects)</span>
+│   └─ /portfolio/{id}               <span style="color:var(--tx3)">24 fichas → AL SITEMAP · 404 real</span>
+└─ /blog                             <span style="color:var(--tx3)">clúster de contenido</span></p>
+
+<h3>La página de Lima, en secciones</h3>
+<ol>
+<li><strong>Hero</strong> — H1 exact-match, 3 cifras de confianza, nombres de clientes limeños, CTA doble (diagnóstico + WhatsApp precargado).</li>
+<li><strong>Qué construimos para empresas de Lima</strong> — 6 bloques con enlace real a <code>/services/{slug}</code>.</li>
+<li><strong>Casos reales con empresas de Lima</strong> ← <em>el diferenciador nº1.</em> Solutec DHA (2.500 clientes en Lima, +40% consultas, testimonio firmado de la fundadora) y Casaroma Hostels. <strong>Ninguno de los 6 competidores puede replicar esto mañana.</strong></li>
+<li><strong>Cuánto cuesta un software a medida en Lima</strong> — rangos en S/ + qué mueve el precio + modelos de pago. Cero competidores lo hacen.</li>
+<li><strong>Cumplimiento peruano</strong> — SUNAT, OSE/PSE, PLE, Ley 29733, Yape/Plin/Niubiz/Culqi. El moat: solo lo escribe quien de verdad construye software en Perú.</li>
+<li><strong>Sectores en Lima</strong> — cada uno anclado a un proyecto real (ATELIER, RestHUB, VR PMS, Maré…).</li>
+<li><strong>Cómo trabajamos con empresas de Lima</strong> — proceso en 5 pasos anclado en <code>/diagnostico</code>.</li>
+<li><strong>¿Por qué una agencia con sede en Trujillo?</strong> — la objeción, respondida de frente.</li>
+<li><strong>FAQ visible</strong> 8–10 preguntas + <code>FAQPage</code> schema (visible <em>y</em> marcado). Incluye <em>“¿Trabajan con proyectos de tesis o académicos?” → “No.”</em> como filtro de leads.</li>
+</ol>
+
+<!-- 6 -->
+<h2><span class="n">06</span> Roadmap</h2>
+
+<div class="phase">
+<div class="hd"><b>Fase 0 · Higiene</b><span class="pill">Semana 1</span><span class="pill lo">Esfuerzo bajo</span><span class="pill md">Impacto medio</span></div>
+<ul>
+<li><strong>301 entre <code>/portfolio</code> y <code>/projects</code></strong> — son <strong>98,73% idénticos</strong> (medido con difflib), ambos self-canonical, ambos en el sitemap con prioridad 0.8. En un sitio de 18 URLs gastas 2 de las 3 ranuras top en la misma página.</li>
+<li><strong>Soft 404:</strong> <code>/portfolio/100</code> devuelve <strong>HTTP 200</strong> con cuerpo vacío → espacio de URLs infinito indexable. Debe ser <code>notFound()</code>.</li>
+<li>Añadir las 24 fichas <code>/portfolio/{id}</code> al sitemap — son las páginas más transaccionales del sitio y están fuera.</li>
+<li>Quitar <code>visibility:hidden</code> del H1 servido · <code>og:title</code> propio por página · meta descriptions de <code>/blog</code> (52 car.) y <code>/portfolio</code> (43 car.) · eliminar <code>meta keywords</code> · arreglar saltos H1→H3.</li>
+</ul>
+</div>
+
+<div class="phase">
+<div class="hd"><b>Fase 1 · La página de Lima</b><span class="pill">Semanas 2–4</span><span class="pill hi">Esfuerzo alto</span><span class="pill hi">Impacto máximo</span></div>
+<ul>
+<li>Construir <code>/desarrollo-de-software-lima</code> completa, 2.000–2.500 palabras reales.</li>
+<li>Schema <code>Service</code> + <code>FAQPage</code> + <code>BreadcrumbList</code> con <code>areaServed: City Lima</code>.</li>
+<li>7 enlaces internos apuntando a ella (home, services, precios, sunat, post pilar, fichas de Solutec y Casaroma, footer).</li>
+<li>Sitemap con prioridad 0.9 · Search Console → solicitar indexación · ping a IndexNow (la key ya está en <code>public/</code>).</li>
+<li>Actualizar <code>llms.txt</code> y <code>llms-full.txt</code> con la cobertura Lima.</li>
+</ul>
+</div>
+
+<div class="phase">
+<div class="hd"><b>Fase 2 · Profundidad y arquitectura</b><span class="pill">Semanas 4–10</span><span class="pill hi">Esfuerzo alto</span><span class="pill hi">Impacto alto</span></div>
+<ul>
+<li><code>/services</code> de 131 a 800+ palabras · crear las 6 subpáginas y arreglar los 6 <code>&lt;button&gt;</code> sin <code>href</code>.</li>
+<li>Crear <code>/desarrollo-de-software-trujillo</code> con <code>LocalBusiness</code> completo → migrar la entidad raíz a nacional.</li>
+<li>Expandir <code>/cumplimiento-sunat</code> a 1.200+ palabras — es tu contenido más defendible.</li>
+<li>Fijar métricas agregadas de agencia (proyectos, años, retención) <strong>consistentes en todo el sitio</strong>.</li>
+<li>Reescribir el H1 del home: <em>“Mejoramos tus procesos”</em> no le dice nada a Google.</li>
+</ul>
+</div>
+
+<div class="phase">
+<div class="hd"><b>Fase 3 · Contenido y clústeres</b><span class="pill">Meses 3–6</span><span class="pill md">Esfuerzo medio-alto</span><span class="pill hi">Impacto alto</span></div>
+<ul>
+<li>8–12 posts atacando el clúster que <strong>Glajumedia dejó vacío</strong> (no tienen blog): cuánto cuesta un ERP en Perú · software a medida vs ERP enlatado · cómo elegir empresa de desarrollo en Lima · integrar facturación electrónica SUNAT paso a paso · Yape y Plin en tu sistema.</li>
+<li>Landings por sector: clínicas, restaurantes, hoteles — ya tienes los casos que las respaldan.</li>
+<li>Hoy solo 3 de 24 proyectos tienen voz del cliente. Conseguir testimonio del resto.</li>
+</ul>
+</div>
+
+<div class="phase">
+<div class="hd"><b>Fase 4 · Autoridad</b><span class="pill">Meses 1–12 · empezar YA</span><span class="pill md">Esfuerzo medio</span><span class="pill hi">EL CUELLO DE BOTELLA</span></div>
+<p style="margin:6px 0 0;font-size:13.5px">Tu propia auditoría GEO se puso <strong>12/100</strong> aquí. Es lo que decide entre el #5 y el #1.</p>
+<ul>
+<li><strong>Listicle de Togrow</strong> — enlaces <strong>dofollow</strong> (solo <code>rel="noopener"</code>), <strong>sin criterios de inclusión declarados</strong>, <strong>22 meses sin actualizar</strong>, y se auto-colocaron en el #1 siendo una agencia de Medellín <em>sin oficina en Perú</em>. Ángulo: “su ranking de 2024 está desactualizado”.</li>
+<li><strong>Clutch</strong> — tu perfil ya existe. Pide reseñas a Clínica Juan Pablo II, Solutec DHA y UNTELS. <em>Vex tiene su perfil sin reclamar con 0 reseñas</em> — hueco directo.</li>
+<li><strong>Enlaces de clientes</strong> — <code>freedysotelov.com</code> (Dr. Ing. Freedy Sotelo, ex Decano UNTELS) ya te da testimonio; pídele el enlace. Son los backlinks más fáciles y más relevantes que vas a conseguir.</li>
+<li><strong>Limpiar el rastro “Bytecore”</strong> — GitHub y perfiles cacheados siguen inyectando <em>“Árkos (formerly Bytecore)”</em> en resúmenes de IA. El repo aún se llama <code>PortafolioBytecore</code>.</li>
+<li>Directorios (Sortlist, GoodFirms, DesignRush) · Wikidata cuando haya 2+ referencias externas · Bing Webmaster vía import de GSC.</li>
+</ul>
+</div>
+
+<!-- 7 -->
+<h2><span class="n">07</span> Plazos y métricas</h2>
+<div class="scroll"><table>
+<thead><tr><th style="width:34%">Métrica</th><th>Hoy</th><th>3 meses</th><th>6 meses</th><th>12 meses</th></tr></thead>
+<tbody>
+<tr><td>“desarrollo de software lima”</td><td class="n">sin página</td><td>top 30</td><td>top 10</td><td class="y">top 3</td></tr>
+<tr><td>“empresa de desarrollo de software lima”</td><td class="n">sin página</td><td>top 20</td><td>top 5</td><td class="y">#1</td></tr>
+<tr><td>“cuánto cuesta desarrollar software perú”</td><td class="dim">?</td><td>top 10</td><td>top 3</td><td class="y">#1</td></tr>
+<tr><td>Dominios de referencia</td><td class="n">~0</td><td>8–12</td><td>20–30</td><td class="y">40+</td></tr>
+<tr><td>Reseñas en Clutch</td><td class="n">0</td><td>3</td><td>6</td><td class="y">10</td></tr>
+<tr><td>Páginas indexadas</td><td>~18</td><td>35</td><td>55</td><td class="y">70+</td></tr>
+</tbody></table></div>
+<p style="margin-top:14px"><strong>Plazo realista al #1:</strong> 9–12 meses, y condicionado a construir backlinks. El contenido lo sabes producir — lo demostraste con el post pilar de 2.094 palabras. Los enlaces no los tienes.</p>
+<div class="bar" style="max-width:420px"><i style="width:8%;background:var(--bad)"></i></div>
+<p class="sub" style="margin-top:5px">Autoridad de marca actual: 12/100 — el techo de todo lo demás.</p>
+
+<!-- 8 -->
+<h2><span class="n">08</span> Qué NO hacer</h2>
+<div class="warnbox">
+<ul>
+<li><b>No inventes una dirección en Lima</b> para abrir un GBP. Es motivo de suspensión y te deja peor que ahora.</li>
+<li><b>No borres Trujillo del sitio.</b> El instinto al “reposicionar como nacional” es eliminar la ciudad — eso destruye la única señal local que tienes sin ganar la de Lima. La jugada es <em>añadir</em> Lima y <em>reubicar</em> Trujillo en su propia página.</li>
+<li><b>No copies a Monstruo Creativo</b> (páginas programáticas con 40 ciudades). Genera exactamente el conflicto que les rompe la página, y es vulnerable a las actualizaciones de contenido útil.</li>
+<li><b>No pongas FAQPage sin el FAQ visible.</b> Es lo que hace Tinq y es incumplimiento de las guidelines de Google.</li>
+<li><b>No declares cifras contradictorias entre páginas.</b> SB Perú dice 18 años en una plantilla y 20 en otra; Monstruo Creativo dice 7 y 8. Fija tus números una vez.</li>
+<li><b>Si necesitas leads en 60 días, Google Ads es el puente</b> — la landing de Lima le sirve de destino y le sube el Quality Score. Complementario, no alternativo.</li>
+</ul>
+</div>
+
+<!-- 9 -->
+<h2><span class="n">09</span> Si solo hicieras tres cosas</h2>
+<ol style="font-size:15px">
+<li><strong>Construir <code>/desarrollo-de-software-lima</code></strong> con el blueprint de §05. Sin esto nada más importa: Google no puede rankear una página que no existe.</li>
+<li><strong>Poner Solutec DHA y Casaroma Hostels arriba del fold</strong>, con métrica y testimonio firmado. Es el único activo que ninguno de los 6 competidores puede replicar mañana.</li>
+<li><strong>Conseguir 3 reseñas en Clutch y 3 enlaces de clientes</strong>, empezando por <code>freedysotelov.com</code>. Es el 12/100 que te tiene con techo.</li>
+</ol>
+
+<div class="foot">
+Auditoría ejecutada sobre el HTML servido de árkos.com (23 URLs) y de los 6 competidores, 4 de agosto de 2026. Los datos no verificables están marcados como tales. <strong>No verificado:</strong> indexación actual, perfil de backlinks, Core Web Vitals de campo, existencia del Google Business Profile de Árkos, y el on-page de Vex Soluciones (Cloudflare devuelve 403 a todo método de rastreo).
+</div>
+
+</div>
+</body>
+</html>

@@ -68,12 +68,24 @@ const nextConfig = {
       },
     ]
   },
-  // Redirect 301: el piloto "Megalodon" se consolidó en el producto RestHUB.
   async redirects() {
     return [
+      // Redirect 301: el piloto "Megalodon" se consolidó en el producto RestHUB.
       {
         source: '/blog/megalodon-pro-erp-restaurantes-nextjs',
         destination: '/portfolio/19',
+        permanent: true,
+      },
+      // /projects y /portfolio eran 98,7% idénticas: misma data de `projects`,
+      // ambas self-canonical y ambas en el sitemap con prioridad 0.8. Eso partía
+      // las señales entre dos URLs por el mismo contenido.
+      // Se consolida en /portfolio porque es el padre de las 24 fichas
+      // /portfolio/[slug]; así la jerarquía y los breadcrumbs quedan coherentes.
+      // Los redirects se evalúan antes del routing, así que esto gana sobre
+      // app/projects/ aunque la carpeta siga existiendo (puede borrarse luego).
+      {
+        source: '/projects',
+        destination: '/portfolio',
         permanent: true,
       },
     ]

@@ -22,47 +22,47 @@ export default function PrivacyPolicyPage() {
         <div>
           
           <div className="prose prose-slate prose-headings:text-foreground prose-a:text-brand hover:prose-a:text-brand/80 prose-p:leading-relaxed prose-li:marker:text-brand max-w-none relative z-10">
-          <h3 className="text-2xl font-semibold mb-4">1. Información Recopilada</h3>
+          <h2 className="text-2xl font-semibold mb-4">1. Información Recopilada</h2>
           <p>
             Recopilamos información personal que nos proporcionas al interactuar con nuestros servicios, como nombre, dirección de correo electrónico, información de contacto y datos de pago. También podemos recopilar información técnica de tu dispositivo, como la dirección IP y la actividad de navegación.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">2. Uso de la Información</h3>
+          <h2 className="text-2xl font-semibold mb-4">2. Uso de la Información</h2>
           <p>
             Utilizamos tu información para proporcionarte nuestros servicios, personalizar tu experiencia, mejorar nuestros productos, y mantenerte informado sobre actualizaciones y promociones. También podemos utilizar la información para fines de análisis y estadísticas.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">3. Seguridad de los Datos</h3>
+          <h2 className="text-2xl font-semibold mb-4">3. Seguridad de los Datos</h2>
           <p>
             Tomamos medidas de seguridad razonables para proteger tu información personal contra accesos no autorizados, alteraciones o divulgaciones. Sin embargo, no podemos garantizar la seguridad absoluta de la información transmitida a través de internet.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">4. Compartir Información con Terceros</h3>
+          <h2 className="text-2xl font-semibold mb-4">4. Compartir Información con Terceros</h2>
           <p>
             No compartimos tu información personal con terceros, excepto cuando sea necesario para proporcionar nuestros servicios (por ejemplo, procesadores de pago) o cuando lo exija la ley.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">5. Cookies</h3>
+          <h2 className="text-2xl font-semibold mb-4">5. Cookies</h2>
           <p>
             Utilizamos cookies y tecnologías similares para mejorar la funcionalidad del sitio web y hacer que tu experiencia sea más eficiente. Puedes controlar el uso de cookies desde tu navegador.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">6. Enlaces Externos</h3>
+          <h2 className="text-2xl font-semibold mb-4">6. Enlaces Externos</h2>
           <p>
             Nuestro sitio web puede contener enlaces a otros sitios web. No somos responsables de las políticas de privacidad de esos sitios y te recomendamos revisar sus políticas antes de proporcionarles tu información.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">7. Modificación de la Política</h3>
+          <h2 className="text-2xl font-semibold mb-4">7. Modificación de la Política</h2>
           <p>
             Árkos puede actualizar esta política de privacidad en cualquier momento. Las modificaciones se publicarán en esta página, y estarán en vigor tan pronto como se publiquen.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">8. Derechos del Usuario</h3>
+          <h2 className="text-2xl font-semibold mb-4">8. Derechos del Usuario</h2>
           <p>
             Tienes derecho a acceder, corregir o eliminar tu información personal. Si deseas ejercer cualquiera de estos derechos, por favor contacta con nosotros a través de nuestro formulario de contacto o enviando un correo electrónico a <strong>privacidad@arkos.com</strong>.
           </p>
 
-          <h3 className="text-2xl font-semibold mb-4">9. Contacto</h3>
+          <h2 className="text-2xl font-semibold mb-4">9. Contacto</h2>
           <p>
             Si tienes preguntas sobre nuestra política de privacidad o cómo tratamos tus datos, por favor contáctanos a través de nuestro correo electrónico: <strong>privacidad@arkos.com</strong>.
           </p>

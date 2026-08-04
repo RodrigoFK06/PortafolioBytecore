@@ -7,6 +7,7 @@ import Markdown from "react-markdown"
 import Link from "next/link"
 import Image from "next/image"
 import type { Metadata } from "next"
+import { alternates } from "@/lib/seo"
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog")
 const baseUrl = "https://xn--rkos-4na.com"
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${data.title} | Blog Árkos`,
     description: data.description,
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: alternates(`/blog/${slug}`),
     openGraph: {
       title: data.title,
       description: data.description,

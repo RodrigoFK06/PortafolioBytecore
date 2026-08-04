@@ -30,7 +30,7 @@ export function AboutSection() {
       itemType="https://schema.org/Organization"
     >
       <meta itemProp="name" content="Árkos" />
-      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Trujillo, Perú." />
+      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Lima, Perú." />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-24">

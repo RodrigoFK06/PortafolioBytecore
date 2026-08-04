@@ -15,9 +15,11 @@ interface ServiceCardProps {
   title: string
   description: string
   detailedDescription?: string
+  /** Subpágina real del servicio. El home era la única entrada a /services. */
+  href: string
 }
 
-function ServiceCard({ icon: Icon, index, title, description, detailedDescription }: ServiceCardProps) {
+function ServiceCard({ icon: Icon, index, title, description, detailedDescription, href }: ServiceCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
@@ -40,14 +42,22 @@ function ServiceCard({ icon: Icon, index, title, description, detailedDescriptio
           {description}
         </p>
 
-        <button
-          type="button"
-          onClick={() => setIsModalOpen(true)}
-          className="group/btn mt-auto inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-brand transition-colors self-start"
-        >
-          Saber más
-          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" aria-hidden="true" />
-        </button>
+        <div className="mt-auto flex flex-col items-start gap-2">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="group/btn inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-brand transition-colors"
+          >
+            Saber más
+            <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" aria-hidden="true" />
+          </button>
+          <Link
+            href={href}
+            className="text-sm font-medium text-brand hover:underline"
+          >
+            Ver el servicio completo →
+          </Link>
+        </div>
       </div>
 
       <ServiceModal
@@ -91,6 +101,7 @@ export function ServicesSection() {
           <ServiceCard
             icon={Layout}
             index={1}
+            href="/services/desarrollo-web"
             title="Desarrollo Web"
             description="Sitios y plataformas que cargan rápido, se ven impecables en celular y traen clientes reales. Tu equipo puede actualizarlos sin pedirle ayuda a nadie."
             detailedDescription="Construimos landing pages, sitios corporativos y plataformas SaaS con Next.js y React. Listos para que Google los encuentre, rápidos en cualquier conexión, y pensados para conseguir agendamientos, ventas o consultas según tu negocio."
@@ -98,6 +109,7 @@ export function ServicesSection() {
           <ServiceCard
             icon={Palette}
             index={2}
+            href="/services/diseno-ux-ui"
             title="Diseño UI/UX"
             description="Interfaces claras donde tu cliente sabe en tres segundos qué tiene que hacer. Diseño que vende sin perder la identidad de tu marca."
             detailedDescription="Diseñamos en Figma con foco en conversión: jerarquía visual clara, flujos cortos, animaciones que guían en lugar de distraer. Investigamos cómo se mueve tu cliente real antes de dibujar un solo botón."
@@ -105,6 +117,7 @@ export function ServicesSection() {
           <ServiceCard
             icon={Monitor}
             index={3}
+            href="/services/ecommerce"
             title="E-Commerce"
             description="Tiendas online listas para vender desde el día uno. Pasarelas en soles, factura electrónica, control de stock e integración con tu courier."
             detailedDescription="Tiendas con Izipay, Culqi, MercadoPago y Stripe integradas. Catálogo administrable, carrito que no se cae, integración con tu sistema contable y métricas de venta en tiempo real."
@@ -112,13 +125,34 @@ export function ServicesSection() {
           <ServiceCard
             icon={Boxes}
             index={4}
+            href="/services/software-a-medida"
             title="Software a Medida"
             description="Sistemas, ERPs y dashboards hechos para tu operación: agendamiento de citas, gestión hotelera, restaurantes, talleres, clínicas. Lo que un Excel ya no resuelve."
             detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Con cumplimiento SUNAT de fábrica — facturación electrónica, PLE/SIRE y validación RENIEC integrados. Pensados desde la operación real de tu equipo, con módulos que crecen contigo."
           />
         </StaggerGroup>
 
-        <div className="mt-16 md:mt-24 text-center md:text-right">
+        {/* Enlazado interno: el home era la única página que Google rastreaba,
+            así que es la mejor rampa hacia el hub y hacia la página de Lima. */}
+        <div className="mt-14 max-w-2xl">
+          <Reveal effect="fade">
+            <p className="text-muted-foreground leading-relaxed">
+              Cada servicio tiene su página con el detalle, el precio «desde» y los proyectos donde
+              ya lo hicimos:{" "}
+              <Link href="/services" className="text-brand font-medium hover:underline">
+                ver los seis servicios
+              </Link>
+              . Si tu empresa está en la capital, empieza por{" "}
+              <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">
+                desarrollo de software a medida en Lima
+              </Link>
+              : ahí están los casos limeños, los rangos de precio en soles y el detalle de
+              cumplimiento SUNAT.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mt-12 md:mt-16 text-center md:text-right">
           <Reveal effect="fade">
             <Link
               href="#contact"

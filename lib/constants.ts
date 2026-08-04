@@ -15,7 +15,7 @@ export const SITE_CONFIG = {
     email: "gerencia@árkos.com",
     phone: "+51 961 869 348",
     whatsapp: "51961869348",
-    address: "Trujillo, Perú",
+    address: "Lima, Perú",
   },
 
   // Redes sociales

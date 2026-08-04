@@ -5,6 +5,7 @@ import { KineticText } from "@/components/motion/kinetic-text"
 import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 import { SITE_CONFIG } from "@/lib/constants"
+import { alternates } from "@/lib/seo"
 
 // ── Oferta de entrada productizada ──────────────────────────────
 // Dos niveles: llamada gratis (punto de entrada) + diagnóstico
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   title: "Diagnóstico de sistemas para tu negocio | Árkos",
   description:
     `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 minutos o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto) con auditoría de operación, cumplimiento SUNAT y roadmap con costos.`,
-  alternates: { canonical: "/diagnostico" },
+  alternates: alternates("/diagnostico"),
   openGraph: {
     title: "Diagnóstico de sistemas para tu negocio | Árkos",
     description:
@@ -72,8 +73,8 @@ const FAQS = [
     a: "Te lo decimos tal cual, por escrito, con lo que sí deberías hacer (ordenar tu Excel, definir un proceso, esperar más volumen). Te habrás ahorrado varios miles de soles en software que no necesitabas.",
   },
   {
-    q: "¿Funciona si estoy fuera de Trujillo o de Perú?",
-    a: "Sí. Las entrevistas y la sesión de cierre son por videollamada; la revisión de herramientas es remota. Trabajamos con clientes en varias ciudades y países.",
+    q: "¿Funciona si estoy fuera de Lima o de Perú?",
+    a: "Sí. Las entrevistas y la sesión de cierre son por videollamada; la revisión de herramientas es remota. Operamos desde Lima —donde también hacemos reuniones presenciales agendadas— y trabajamos con clientes de todo el Perú y de otros países.",
   },
   {
     q: "¿En qué se diferencia de la llamada gratis?",

@@ -111,30 +111,48 @@ export function Footer() {
 
           <div>
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Servicios</h3>
+            {/* Cada enlace apunta a su subpágina real. Antes los cuatro
+                apuntaban a /services: cuatro enlaces, un solo destino. */}
             <ul className="space-y-4">
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services/desarrollo-web" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Desarrollo Web
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services/diseno-ux-ui" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Diseño UI/UX
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services/ecommerce" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   E-Commerce
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                <Link href="/services/software-a-medida" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Software a Medida
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Ver todos los servicios
                 </Link>
               </li>
             </ul>
 
-            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 mt-8 text-foreground">Contacto</h3>
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 mt-8 text-foreground">Cobertura</h3>
+            {/* Google reportaba "página de referencia: no se ha detectado
+                ninguna" en varias URLs. Un enlace global desde el footer es la
+                forma más barata de que la página de Lima tenga referencias. */}
+            <p className="text-sm text-foreground/70 leading-relaxed mb-6">
+              <Link href="/desarrollo-de-software-lima" className="text-foreground hover:text-brand transition-colors font-medium">
+                Lima
+              </Link>
+              {" · Trujillo · Todo el Perú"}
+            </p>
+
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 text-foreground">Contacto</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2 text-foreground/70">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-brand" aria-hidden="true" />

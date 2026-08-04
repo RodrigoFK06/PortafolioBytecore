@@ -1,10 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { ArrowLeft, ExternalLink, Quote } from "lucide-react"
 import type { Metadata } from "next"
 
 import { Button } from "@/components/ui/button"
 import { projects, getCategoryLabel } from "@/data/projects"
+import { alternates } from "@/lib/seo"
 
 const baseUrl = "https://xn--rkos-4na.com"
 
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: alternates(canonical),
     openGraph: project
       ? {
           title,
@@ -39,20 +41,11 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const { slug } = await params
   const project = projects.find((p) => String(p.id) === slug)
 
+  // Un id inexistente debe devolver 404 real (no una página vacía con HTTP 200).
+  // Devolver 200 aquí genera un espacio de URLs infinito indexable — /portfolio/100,
+  // /portfolio/101… — que desperdicia crawl budget y ensucia el índice.
   if (!project) {
-    return (
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-muted-foreground mb-6">Proyecto no encontrado.</p>
-          <Button asChild variant="ghost" className="pl-0 hover:bg-transparent">
-            <Link href="/portfolio" className="flex items-center text-muted-foreground hover:text-foreground">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Volver al Portfolio
-            </Link>
-          </Button>
-        </div>
-      </main>
-    )
+    notFound()
   }
 
   const cs = project.caseStudy
@@ -279,6 +272,21 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                 </div>
               ))}
             </div>
+          </section>
+        ) : null}
+
+        {/* Enlace contextual para los casos de Lima. Google reportaba "página
+            de referencia: no se ha detectado ninguna" en varias URLs; las
+            fichas de clientes limeños son la referencia más natural hacia la
+            página de Lima. */}
+        {project.location?.includes("Lima") ? (
+          <section className="mt-16 max-w-2xl mx-auto rounded-2xl border border-border p-6">
+            <p className={bodyText}>
+              {project.title} es uno de nuestros clientes en Lima.{" "}
+              <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">
+                Ver todos nuestros proyectos y servicios para empresas de Lima →
+              </Link>
+            </p>
           </section>
         ) : null}
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { alternates } from "@/lib/seo"
 import Link from "next/link"
 import SunatTest from "@/components/SunatTest"
 import { KineticText } from "@/components/motion/kinetic-text"
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   title: "Assessment: ¿Cómo está tu cumplimiento SUNAT? | Árkos",
   description:
     "8 preguntas para medir la fricción y el riesgo de tu operación frente a SUNAT: facturación electrónica, PLE/SIRE, validación de datos y cierre de mes. Resultado al instante, sin registro.",
-  alternates: { canonical: "/cumplimiento-sunat" },
+  alternates: alternates("/cumplimiento-sunat"),
   openGraph: {
     title: "Assessment: ¿Cómo está tu cumplimiento SUNAT?",
     description:
@@ -164,7 +165,12 @@ export default function CumplimientoSunatPage() {
           <Link href="/necesitas-un-sistema" className="text-brand hover:underline">
             este test de 10 preguntas
           </Link>{" "}
-          evalúa toda tu operación.
+          evalúa toda tu operación. Y si tu empresa está en la capital, en{" "}
+          <Link href="/desarrollo-de-software-lima" className="text-brand hover:underline">
+            desarrollo de software a medida en Lima
+          </Link>{" "}
+          está el detalle de cómo integramos CPE, PLE/SIRE y pagos locales dentro del sistema, con
+          casos de clientes limeños y precios en soles.
         </p>
       </div>
     </main>

@@ -7,8 +7,9 @@ import { Footer } from "@/components/footer"
 import { LenisProvider } from "@/components/motion/lenis-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
+import { alternates, BASE_URL } from "@/lib/seo"
 
-const baseUrl = "https://xn--rkos-4na.com"
+const baseUrl = BASE_URL
 
 export const metadata: Metadata = {
   title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
@@ -33,10 +34,14 @@ export const metadata: Metadata = {
     "msapplication-TileColor": "#000000",
     "msapplication-config": "/browserconfig.xml",
   },
-  alternates: {
-    canonical: "/",
-    languages: { "es-PE": "/", "x-default": "/" },
-  },
+  // Canonical del home sin barra final — la forma que Next emite — y el
+  // sitemap declara esa misma forma. Antes el sitemap la llevaba y el canonical
+  // no: dos formas de la misma URL. El helper garantiza además que
+  // `es-PE` y `x-default` apunten a la URL propia de cada página — antes, las
+  // páginas que declaraban su propia `alternates` perdían el hreflang por el
+  // shallow-merge de la metadata de Next, y las que no lo hacían apuntaban
+  // todas al home.
+  alternates: alternates("/"),
   icons: {
     icon: [
       {
@@ -51,18 +56,10 @@ export const metadata: Metadata = {
       },
     ],
   },
-  keywords: [
-    "Árkos",
-    "agencia de software Perú",
-    "agencia de desarrollo de software Trujillo",
-    "desarrollo de software a medida Perú",
-    "desarrollo web Next.js Perú",
-    "aplicaciones web React",
-    "diseño UX/UI Perú",
-    "software SaaS a medida",
-    "agencia digital Lima",
-    "integración de IA y chatbots",
-  ],
+  // `keywords` se retiró a propósito: Google la ignora desde 2009 y aquí solo
+  // documentaba una estrategia que no estaba ejecutada — declaraba "agencia
+  // digital Lima" sin que existiera una sola página orientada a Lima.
+  // Las keywords se ganan con páginas, no con meta tags.
   authors: [{ name: "Árkos" }],
   creator: "Árkos",
   openGraph: {
@@ -116,27 +113,36 @@ export default function RootLayout({
               name: "Árkos",
               alternateName: ["Arkos"],
               description:
-                "Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial.",
+                "Árkos es una agencia de desarrollo de software con base en Lima, Perú, especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial. Atiende a empresas de todo el Perú.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               image: `${baseUrl}/og-image.png`,
               telephone: "+51 961 869 348",
               email: "gerencia@árkos.com",
               priceRange: "$$",
+              // Sin `streetAddress`: la dirección exacta no es pública y no se
+              // inventa. `addressLocality` sí, porque es desde donde se opera
+              // (Lima) y es la señal que resuelve la entidad — hoy Clutch decía
+              // Trujillo, Facebook decía Lima y el schema decía Trujillo.
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "PE",
-                addressLocality: "Trujillo",
-                addressRegion: "La Libertad",
+                addressLocality: "Lima",
+                addressRegion: "Lima",
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: "-8.1116",
-                longitude: "-79.0288",
+                latitude: "-12.0464",
+                longitude: "-77.0428",
               },
               foundingDate: "2020",
               founder: { "@id": `${baseUrl}/#rodrigo-torres` },
+              // Lima primero: es la ciudad que se reclama. Trujillo se mantiene
+              // porque hay casos reales allí y borrarla destruiría una señal
+              // local ya indexada sin ganar nada.
               areaServed: [
+                { "@type": "City", name: "Lima" },
+                { "@type": "City", name: "Trujillo" },
                 { "@type": "Country", name: "Peru" },
                 { "@type": "Place", name: "Latinoamérica" },
               ],
@@ -265,7 +271,7 @@ export default function RootLayout({
         {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
-           <p>Árkos es una agencia de desarrollo de software en Trujillo, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Ayudamos a empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales — a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+           <p>Árkos es una agencia de desarrollo de software en Lima, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Opera desde Lima y atiende a empresas de todo el Perú —Lima, Callao, Trujillo, Arequipa y provincias— además de clientes en el resto de Latinoamérica, de forma remota y con visitas presenciales agendadas. Ayudamos a clínicas, hoteles, restaurantes, comercios y profesionales a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
          </div>
 
         <LenisProvider>

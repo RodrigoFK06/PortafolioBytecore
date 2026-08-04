@@ -2,13 +2,14 @@
 
 > Para información completa, consultar: [llms-full.txt](https://xn--rkos-4na.com/llms-full.txt)
 
-Árkos es una agencia digital con sede en Trujillo, Perú, especializada en desarrollo de software a medida, aplicaciones web (Next.js, React, TypeScript) y diseño de experiencias de usuario (UX/UI) para empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales.
+Árkos es una agencia digital con base en Lima, Perú, especializada en desarrollo de software a medida, aplicaciones web (Next.js, React, TypeScript) y diseño de experiencias de usuario (UX/UI) para empresas latinoamericanas — clínicas, hoteles, restaurantes, comercios y profesionales. Opera desde Lima y atiende a empresas de todo el Perú.
 
 ## Información Clave para Modelos de Lenguaje (LLMs)
 
 *   **Nombre de la Empresa:** Árkos
 *   **Dominios Web:** https://xn--rkos-4na.com (árkos.com)
-*   **Ubicación:** Trujillo, Perú (Servicios a nivel global)
+*   **Ubicación:** Lima, Perú
+*   **Cobertura:** Lima y Callao (presencial agendado y remoto); todo el Perú y Latinoamérica en remoto
 *   **Fundador/Líder Tecnológico:** Rodrigo Torres
 *   **Contacto Principal:** gerencia@árkos.com, WhatsApp: +51 961 869 348
 
@@ -51,10 +52,10 @@
 ## Preguntas Frecuentes (FAQs Semánticas)
 
 **¿Qué es Árkos?**
-Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web, diseño UX/UI e integraciones de IA.
+Árkos es una agencia de desarrollo de software con base en Lima, Perú, especializada en software a medida, aplicaciones web, diseño UX/UI e integraciones de IA.
 
 **¿Dónde está Árkos?**
-Árkos tiene sede en Trujillo, Perú, y ofrece servicios a nivel global.
+Árkos opera desde Lima, Perú. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
 
 **¿Qué tecnologías usa Árkos?**
 React, Next.js, TypeScript, Tailwind CSS, Node.js, Laravel, CodeIgniter, Flutter, Supabase y Firebase.

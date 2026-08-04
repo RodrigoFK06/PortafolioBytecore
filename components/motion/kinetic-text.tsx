@@ -58,7 +58,7 @@ export function KineticText({
       if (!el) return
 
       if (prefersReducedMotion()) {
-        gsap.set(el, { visibility: "visible" })
+        gsap.set(el, { opacity: 1 })
         return
       }
 
@@ -80,7 +80,7 @@ export function KineticText({
           by === "chars" ? split.chars : by === "lines" ? split.lines : split.words
 
         if (!units.length) {
-          gsap.set(el, { visibility: "visible" })
+          gsap.set(el, { opacity: 1 })
           return
         }
 
@@ -97,7 +97,7 @@ export function KineticText({
           gsap.set(units, { yPercent: 110, autoAlpha: 0 })
         }
 
-        gsap.set(el, { visibility: "visible" })
+        gsap.set(el, { opacity: 1 })
 
         gsap.to(units, {
           x: 0,
@@ -144,9 +144,14 @@ export function KineticText({
   return (
     <TagName
       ref={ref as React.Ref<any>}
-      className={className}
+      className={`kinetic-text ${className}`.trim()}
       aria-label={ariaLabel}
-      style={{ visibility: "hidden" }}
+      // `opacity`, no `visibility`: el elemento sigue siendo visible para el
+      // layout y para los parsers, y `.kinetic-text` trae una animación de
+      // seguridad que lo revela a los 1.6 s aunque el JS nunca corra
+      // (ver app/globals.css). Antes, un fallo de JS dejaba el único H1 del
+      // home oculto.
+      style={{ opacity: 0 }}
       suppressHydrationWarning
     >
       {children}

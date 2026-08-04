@@ -343,6 +343,7 @@ export const projects: Project[] = [
     imageSrc: "/casaromahotel.webp",
     link: "https://casaromahostels.com/",
     category: "paginas-web",
+    location: "Lima, Perú",
   },
   {
     id: 9,

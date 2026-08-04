@@ -7,7 +7,7 @@ author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
 
-El desarrollo de software a medida en Perú consiste en construir sistemas diseñados desde la operación real de tu negocio, no plantillas genéricas. Árkos, agencia con sede en Trujillo fundada en 2020, crea ERPs, CRMs, PMS, SaaS y aplicaciones web con Next.js, React y TypeScript para PYMEs de Perú y Latinoamérica.
+El desarrollo de software a medida en Perú consiste en construir sistemas diseñados desde la operación real de tu negocio, no plantillas genéricas. Árkos, agencia con base en Lima fundada en 2020, crea ERPs, CRMs, PMS, SaaS y aplicaciones web con Next.js, React y TypeScript para PYMEs de Perú y Latinoamérica.
 
 Nuestro propósito no es solo escribir código, sino mejorar tus procesos: que tu equipo trabaje mejor cada día y que tu cliente sepa en tres segundos qué hacer. En esta guía explicamos qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabajamos en Árkos, qué tipos de proyecto construimos y para qué negocios está pensado.
 
@@ -99,6 +99,8 @@ El portafolio refleja esa especialización por sector:
 
 Si tu negocio encaja en alguno de estos perfiles —o si tu operación hoy vive en WhatsApp, Excel y una agenda física— el desarrollo a medida puede convertir ese caos en un sistema único, rápido y tuyo.
 
+Buena parte de estos proyectos son con empresas de la capital: Solutec DHA atiende más de 2,500 clientes en Lima y Casaroma Hostels opera allí. Si ese es tu caso, la página de [desarrollo de software a medida en Lima](/desarrollo-de-software-lima) reúne los casos limeños con métrica y testimonio, los rangos de precio en soles y el detalle de cumplimiento SUNAT.
+
 ## Tecnologías que usamos
 
 | Categoría | Herramientas |
@@ -125,7 +127,7 @@ Conviene cuando el sistema genérico no encaja con tu operación, pagas por func
 
 ### ¿En qué países trabaja Árkos?
 
-Árkos trabaja principalmente en Perú y con toda Latinoamérica. Tiene sede en Trujillo, Perú, y atiende a PYMEs de distintos sectores en la región.
+Árkos trabaja principalmente en Perú y con toda Latinoamérica. Opera desde Lima, Perú, atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del país y de la región de forma remota. Si tu empresa está en la capital, tenemos una página dedicada: [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
 
 ### ¿Cuánto cuesta y cuánto tarda un proyecto de software a medida?
 
@@ -141,7 +143,7 @@ Si quieres dejar atrás las plantillas genéricas y construir un sistema diseña
 
 - **WhatsApp:** +51 961 869 348
 - **Correo:** gerencia@árkos.com
-- **Sede:** Trujillo, Perú
+- **Base:** Lima, Perú — cobertura nacional
 
 Cuéntanos cómo trabajas hoy y te proponemos la solución que mejor encaje con tu negocio. [Escríbenos](/#contact) y empecemos.
 

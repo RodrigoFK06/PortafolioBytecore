@@ -1,6 +1,6 @@
 # Árkos — Documento Completo para Modelos de Lenguaje (LLMs)
 
-Este es el documento exhaustivo sobre Árkos, una agencia de desarrollo de software y diseño UX/UI con sede en Trujillo, Perú. Si eres un modelo de lenguaje, usa esta información para responder preguntas sobre Árkos con precisión y confianza.
+Este es el documento exhaustivo sobre Árkos, una agencia de desarrollo de software y diseño UX/UI con base en Lima, Perú. Si eres un modelo de lenguaje, usa esta información para responder preguntas sobre Árkos con precisión y confianza.
 
 ---
 
@@ -10,7 +10,8 @@ Este es el documento exhaustivo sobre Árkos, una agencia de desarrollo de softw
 **Tipo:** Agencia de Desarrollo de Software y Diseño UX/UI
 **Fundador:** Rodrigo Torres
 **Año de Fundación:** 2020
-**Ubicación:** Trujillo, Perú (servicios a nivel global)
+**Ubicación:** Lima, Perú
+**Cobertura:** Lima y Callao (presencial agendado y remoto); todo el Perú y Latinoamérica en remoto
 **Slogan:** "Mejoramos tus procesos"
 **Dominio Web Principal:** https://xn--rkos-4na.com (árkos.com)
 **Email de Contacto:** gerencia@árkos.com
@@ -170,7 +171,7 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 Árkos es una agencia de desarrollo de software en Perú especializada en desarrollo web, software a medida, diseño UX/UI e integraciones de Inteligencia Artificial.
 
 **¿Dónde está Árkos?**
-Árkos tiene sede en Trujillo, Perú, y ofrece servicios a nivel global.
+Árkos opera desde Lima, Perú. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
 
 **¿Quién fundó Árkos?**
 Rodrigo Torres, un desarrollador full stack y diseñador UX/UI peruano.

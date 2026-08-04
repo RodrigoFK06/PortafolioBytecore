@@ -1,10 +1,23 @@
-const baseUrl = "https://xn--rkos-4na.com"
+import Link from "next/link"
+import { alternates, absUrl, BASE_URL } from "@/lib/seo"
+
+const baseUrl = BASE_URL
 
 export const metadata = {
   title: "¿Cuánto cuesta desarrollar software a medida en Perú? | Precios Árkos",
   description:
     "Precios de desarrollo de software a medida, web apps, e-commerce y sistemas (ERP, CRM, PMS, SaaS) en Perú. Rangos 'desde' en soles (S/) y dólares (USD), factores de precio y modelos de pago.",
-  alternates: { canonical: "/precios" },
+  alternates: alternates("/precios"),
+  openGraph: {
+    type: "website",
+    locale: "es_PE",
+    url: absUrl("/precios"),
+    siteName: "Árkos",
+    title: "¿Cuánto cuesta desarrollar software a medida en Perú? | Precios Árkos",
+    description:
+      "Rangos 'desde' en soles y dólares para landings, webs, e-commerce, apps y sistemas a medida (ERP, CRM, PMS, SaaS) en Perú.",
+    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Precios de Árkos" }],
+  },
 }
 
 type Tier = {
@@ -128,6 +141,19 @@ export default function PreciosPage() {
         <p className="max-w-4xl mx-auto mb-16 text-xs text-muted-foreground text-center">
           Precios “desde”, referenciales a 2026. Tipo de cambio aproximado S/ 3.75 = USD 1. Los sistemas a medida y apps móviles se cotizan por alcance.
         </p>
+
+        <section className="max-w-3xl mx-auto mb-16">
+          <h2 className="text-2xl font-bold mb-6 tracking-tight">Precios para proyectos en Lima</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Estos rangos son los mismos para todo el Perú: no cobramos distinto por ciudad. Si tu
+            empresa está en Lima o Callao, en{" "}
+            <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">
+              desarrollo de software a medida en Lima
+            </Link>{" "}
+            encontrarás además los casos con clientes limeños, el detalle de cumplimiento SUNAT y
+            cómo funcionan las reuniones presenciales agendadas.
+          </p>
+        </section>
 
         <section className="max-w-3xl mx-auto mb-16">
           <h2 className="text-2xl font-bold mb-6 tracking-tight">Qué afecta el precio</h2>

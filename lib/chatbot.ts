@@ -34,7 +34,7 @@ const SYSTEM_PROMPTS = {
 
 🏢 INFORMACIÓN DE LA EMPRESA:
 - Nombre: Árkos - "Mejoramos tus procesos"
-- Ubicación: Trujillo, Perú (atendemos clientes locales e internacionales, 100% remotos)
+- Ubicación: Lima, Perú (atendemos Lima y Callao presencial agendado, y todo el Perú y Latinoamérica en remoto)
 - Email: gerencia@árkos.com
 - WhatsApp: +51 961 869 348
 - Sitio web: https://xn--rkos-4na.com/
