@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { alternates, absUrl, BASE_URL } from "@/lib/seo"
+import { PRICE_TIERS, PRICE_FOOTNOTE } from "@/data/pricing"
 
 const baseUrl = BASE_URL
 
@@ -20,24 +21,9 @@ export const metadata = {
   },
 }
 
-type Tier = {
-  name: string
-  usd: number
-  usdLabel: string
-  penLabel: string
-  note: string
-  quote?: boolean
-}
-
-const tiers: Tier[] = [
-  { name: "Landing de alta conversión", usd: 300, usdLabel: "300", penLabel: "1,100", note: "Una sola página, pensada para captar leads y convertir." },
-  { name: "Web corporativa", usd: 600, usdLabel: "600", penLabel: "2,250", note: "Sitio institucional hiper-optimizado para SEO y rendimiento." },
-  { name: "E-commerce", usd: 900, usdLabel: "900", penLabel: "3,400", note: "Tienda con pasarela de pago en soles, control de stock y panel admin." },
-  { name: "Web App / MVP a medida", usd: 1200, usdLabel: "1,200", penLabel: "4,500", note: "Aplicación web full-stack con Next.js, React y TypeScript." },
-  { name: "Sistema a medida — CRM, ERP, PMS, SaaS", usd: 3500, usdLabel: "3,500", penLabel: "13,000", note: "Cotización personalizada según módulos y alcance. Cumplimiento SUNAT (facturación electrónica, PLE/SIRE) incluido de fábrica.", quote: true },
-  { name: "App móvil (iOS + Android)", usd: 2500, usdLabel: "2,500", penLabel: "9,400", note: "Flutter, publicada en App Store y Google Play. Cotización según alcance.", quote: true },
-  { name: "Integración de IA y automatización", usd: 500, usdLabel: "500", penLabel: "1,900", note: "Chatbots, agentes de ventas y automatizaciones con n8n / Make." },
-]
+// El tarifario vive en data/pricing.ts — misma fuente que la página de Lima y
+// el brochure corporativo, para que no puedan contradecirse entre sí.
+const tiers = PRICE_TIERS
 
 const faqs = [
   {
@@ -139,7 +125,7 @@ export default function PreciosPage() {
           </table>
         </div>
         <p className="max-w-4xl mx-auto mb-16 text-xs text-muted-foreground text-center">
-          Precios “desde”, referenciales a 2026. Tipo de cambio aproximado S/ 3.75 = USD 1. Los sistemas a medida y apps móviles se cotizan por alcance.
+          {PRICE_FOOTNOTE}
         </p>
 
         <section className="max-w-3xl mx-auto mb-16">

@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { ArrowRight, Check, Quote } from "lucide-react"
 
 import { SERVICES } from "@/data/services"
+import { PRICE_TIERS, PRICE_FOOTNOTE } from "@/data/pricing"
 import { alternates, absUrl, BASE_URL } from "@/lib/seo"
 
 // ── /desarrollo-de-software-lima ────────────────────────────────────────
@@ -148,14 +149,9 @@ const SECTORES = [
   },
 ]
 
-const PRECIOS = [
-  { tipo: "Landing de alta conversión", pen: "1,100", usd: "300" },
-  { tipo: "Web corporativa", pen: "2,250", usd: "600" },
-  { tipo: "E-commerce", pen: "3,400", usd: "900" },
-  { tipo: "Web App / MVP a medida", pen: "4,500", usd: "1,200" },
-  { tipo: "App móvil (iOS + Android)", pen: "9,400", usd: "2,500" },
-  { tipo: "Sistema a medida — ERP, CRM, PMS, SaaS", pen: "13,000", usd: "3,500" },
-]
+// Los rangos salen de data/pricing.ts, la misma fuente que /precios y el
+// brochure: si aquí se copiaran a mano acabarían divergiendo.
+const PRECIOS = PRICE_TIERS
 
 const PROCESO = [
   {
@@ -479,8 +475,7 @@ export default function DesarrolloDeSoftwareLimaPage() {
             <p className="text-muted-foreground leading-relaxed mb-6">
               Ninguna de las empresas de software que compiten por esta búsqueda en Lima publica un
               precio: todas responden «depende de la complejidad y el alcance». Depende, sí — pero
-              eso no impide dar un punto de partida. Estos son los rangos «desde», en soles y
-              referenciales a 2026, con tipo de cambio aproximado de S/ 3.75 por dólar.
+              eso no impide dar un punto de partida. {PRICE_FOOTNOTE}
             </p>
 
             <div className="overflow-x-auto rounded-2xl border border-border mb-4">
@@ -494,10 +489,10 @@ export default function DesarrolloDeSoftwareLimaPage() {
                 </thead>
                 <tbody>
                   {PRECIOS.map((p) => (
-                    <tr key={p.tipo} className="border-t border-border">
-                      <td className="p-4 font-medium">{p.tipo}</td>
-                      <td className="p-4 text-right font-semibold whitespace-nowrap">S/ {p.pen}</td>
-                      <td className="p-4 text-right whitespace-nowrap text-muted-foreground">$ {p.usd}</td>
+                    <tr key={p.name} className="border-t border-border">
+                      <td className="p-4 font-medium">{p.name}</td>
+                      <td className="p-4 text-right font-semibold whitespace-nowrap">S/ {p.penLabel}</td>
+                      <td className="p-4 text-right whitespace-nowrap text-muted-foreground">$ {p.usdLabel}</td>
                     </tr>
                   ))}
                 </tbody>

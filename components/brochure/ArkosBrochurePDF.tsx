@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font, Svg, Path } from '@react-pdf/renderer';
 import { theme } from './theme';
+import { PRICE_TIERS, PRICE_FOOTNOTE, CREATIVE_SERVICES } from '@/data/pricing';
 
 // Fuente de marca self-hosteada (TTF — react-pdf no soporta woff2).
 // Switzer se usa en cuerpo Y display: la estática de Cabinet Grotesk de
@@ -189,6 +190,16 @@ const s = StyleSheet.create({
   // Badge de resultado en casos de éxito (turquesa, no verde)
   statBadge: { borderWidth: 1, borderColor: theme.accent, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3 },
   statBadgeTxt: { fontSize: 8, fontWeight: 'bold' as const, color: theme.accent },
+  // ── Tabla de inversión ──
+  priceHead: { flexDirection: 'row' as const, backgroundColor: theme.surface, borderRadius: 6, paddingVertical: 9, paddingHorizontal: 12, marginBottom: 4 },
+  priceHeadTxt: { fontSize: 9, fontWeight: 'bold' as const, color: theme.text, letterSpacing: 0.4 },
+  priceRow: { flexDirection: 'row' as const, borderBottom: `1px solid ${theme.border}`, paddingVertical: 10, paddingHorizontal: 12, alignItems: 'flex-start' as const },
+  priceName: { flex: 1, paddingRight: 10 },
+  // alignItems, no textAlign: en react-pdf `textAlign` solo aplica a <Text>,
+  // en una <View> se ignora silenciosamente y las columnas quedan a la izquierda.
+  priceCol: { width: 74, alignItems: 'flex-end' as const },
+  pricePen: { fontSize: 12, fontWeight: 'bold' as const, color: theme.text },
+  priceUsd: { fontSize: 10, color: theme.muted },
 });
 
 export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
@@ -234,13 +245,13 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
         <Text style={[s.h1, { color: theme.accent, marginBottom: 40 }]}>Contenido</Text>
         <View style={s.row}>
           <View style={[s.w50, { paddingRight: 20 }]}>
-            {['Quiénes Somos','Nuestra Filosofía','Servicios a Medida','Datos & Automatización','Optimización & Tecnología'].map((t, i) => (
+            {['Quiénes Somos','Nuestra Filosofía','Servicios a Medida','Datos & Automatización','Optimización & Tecnología','Diseño, Contenido y Producción'].map((t, i) => (
               <View key={i} style={s.tocRow}><Text style={s.tocNum}>{String(i+1).padStart(2,'0')}</Text><Text style={s.tocTitle}>{t}</Text></View>
             ))}
           </View>
           <View style={[s.w50, { paddingLeft: 20 }]}>
-            {['Stack Tecnológico','Casos de Éxito','Garantías','Contacto'].map((t, i) => (
-              <View key={i} style={s.tocRow}><Text style={s.tocNum}>{String(i+6).padStart(2,'0')}</Text><Text style={s.tocTitle}>{t}</Text></View>
+            {['Stack Tecnológico','Inversión','Casos de Éxito','Garantías','Contacto'].map((t, i) => (
+              <View key={i} style={s.tocRow}><Text style={s.tocNum}>{String(i+7).padStart(2,'0')}</Text><Text style={s.tocTitle}>{t}</Text></View>
             ))}
           </View>
         </View>
@@ -259,13 +270,17 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
         <View style={[s.pill, { marginBottom: 15 }]}><Text style={s.pillTxt}>QUIÉNES SOMOS</Text></View>
         <Text style={[s.h2, { fontSize: 24 }]}>Árkos — Agencia de Desarrollo de Software</Text>
         <Text style={[s.body, { color: theme.muted, marginBottom: 15 }]}>
-          Somos una agencia digital con sede en Perú dedicada a transformar ideas en productos digitales reales. Combinamos diseño de alto nivel con ingeniería de software robusta para entregar soluciones que generan impacto comercial medible.
+          Somos una agencia digital que opera desde Lima, Perú, dedicada a transformar ideas en productos digitales reales. Atendemos Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota. Combinamos diseño de alto nivel con ingeniería de software robusta para entregar soluciones que generan impacto comercial medible.
         </Text>
         <Text style={[s.body, { color: theme.muted, marginBottom: 25 }]}>
           Trabajamos con startups, PYMEs y corporativos que buscan modernizar operaciones, automatizar procesos y escalar con tecnología de vanguardia.
         </Text>
+        {/* Las tres cifras son LAS MISMAS del sitio (hero del home y página de
+            Lima). Antes decían 40+ proyectos, 99% de satisfacción y soporte
+            24/7: el sitio dice +50 y las otras dos no salen de ningún dato
+            verificable. Un brochure que contradice a la web mata credibilidad. */}
         <View style={s.row}>
-          {[{n:'40+',l:'Proyectos Entregados'},{n:'99%',l:'Satisfacción de Cliente'},{n:'24/7',l:'Soporte Activo'}].map((x,i) => (
+          {[{n:'+50',l:'Proyectos Desplegados'},{n:'24',l:'Casos Publicados'},{n:'2020',l:'Operando Desde'}].map((x,i) => (
             <View key={i} style={{ flex: 1, borderTop: `3px solid ${theme.accent}`, paddingTop: 10, marginRight: 10 }}>
               <Text style={[s.statNum, { fontSize: 26 }]}>{x.n}</Text>
               <Text style={{ fontSize: 9, color: theme.muted, marginTop: 3 }}>{x.l}</Text>
@@ -321,7 +336,7 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
           </View>
           <View style={[s.w50, { paddingLeft: 7 }]}>
             <SvcCard num="03" title="Aplicaciones Web" desc="Full-stack con React, Next.js y Node.js. Apps web progresivas (PWA) con rendimiento cercano a nativo y experiencia de usuario impecable." />
-            <SvcCard num="04" title="E-Commerce" desc="Tiendas online personalizadas con pasarelas de pago (Stripe, Paddle), gestión de inventario y UX de compra optimizada." />
+            <SvcCard num="04" title="E-Commerce" desc="Tiendas online personalizadas con pasarelas de pago en soles (Izipay, Culqi, MercadoPago) y Stripe para cobros internacionales, factura electrónica, control de stock y UX de compra optimizada." />
           </View>
         </View>
       </View>
@@ -373,7 +388,45 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
       <Footer p={7} />
     </Page>
 
-    {/* P8: TECH STACK */}
+    {/* P8: DISEÑO, CONTENIDO Y PRODUCCIÓN
+        Servicios creativos. Sin precio publicado: se cotizan por alcance.
+        NO incluye pauta publicitaria (Meta / Facebook Ads) — todavía no es un
+        servicio de Árkos y no se anuncia lo que no se presta. */}
+    <Page size="A4" style={s.page}>
+      <IconWatermark b={b} />
+      <View style={s.pad}>
+        <SectionHeader b={b} />
+        <Text style={[s.h1, { marginBottom: 5, fontSize: 36 }]}>Diseño, Contenido</Text>
+        <Text style={[s.h1, { color: theme.accent, marginBottom: 12, fontSize: 36 }]}>y Producción</Text>
+        <Text style={[s.body, { color: theme.muted, marginBottom: 22, maxWidth: 430 }]}>
+          Un sistema bien construido también necesita verse bien y comunicarse. Cubrimos la pieza
+          gráfica y audiovisual con el mismo criterio que el software: coherencia con tu marca y
+          entrega lista para usar en cada canal.
+        </Text>
+        <View style={s.row}>
+          <View style={[s.w50, { paddingRight: 7 }]}>
+            {CREATIVE_SERVICES.slice(0, 2).map((c) => (
+              <SvcCard key={c.num} num={c.num} title={c.title} desc={c.desc} />
+            ))}
+          </View>
+          <View style={[s.w50, { paddingLeft: 7 }]}>
+            {CREATIVE_SERVICES.slice(2).map((c) => (
+              <SvcCard key={c.num} num={c.num} title={c.title} desc={c.desc} />
+            ))}
+          </View>
+        </View>
+        <Card style={{ padding: 14, marginBottom: 0, marginTop: 4 }}>
+          <Text style={{ fontSize: 10, color: theme.muted, lineHeight: 1.6 }}>
+            Los servicios de diseño, audiovisual y producción se cotizan según alcance: volumen de
+            piezas, formatos de entrega y si hay grabación de por medio. Cuéntanos qué necesitas y
+            te pasamos una propuesta cerrada.
+          </Text>
+        </Card>
+      </View>
+      <Footer p={8} />
+    </Page>
+
+    {/* P9: TECH STACK */}
     <Page size="A4" style={s.page}>
       <IconWatermark b={b} />
       <View style={s.pad}>
@@ -405,7 +458,7 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
               { t: 'Diseño', v: 'Figma — Adobe XD' },
               { t: 'Automatización', v: 'n8n — Make — Zapier' },
               { t: 'Control', v: 'Git — GitHub — Jira' },
-              { t: 'Pagos', v: 'Stripe — Paddle' },
+              { t: 'Pagos', v: 'Izipay — Culqi — MercadoPago — Stripe' },
             ].map((x, i) => (
               <View key={i} style={{ flex: 1, paddingHorizontal: 6 }}>
                 <Text style={{ fontSize: 10, fontWeight: 'bold', color: theme.text, marginBottom: 4 }}>{x.t}</Text>
@@ -415,21 +468,89 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
           </View>
         </Card>
       </View>
-      <Footer p={8} />
+      <Footer p={9} />
     </Page>
 
-    {/* P9: CASE STUDIES */}
+    {/* P10: INVERSIÓN — los precios REALES, los mismos de árkos.com/precios.
+        Salen de data/pricing.ts, la fuente única que comparten el sitio y este
+        documento: no pueden divergir. */}
+    <Page size="A4" style={s.page}>
+      <IconWatermark b={b} />
+      <View style={s.pad}>
+        <SectionHeader b={b} />
+        <Text style={[s.h1, { marginBottom: 5 }]}>Inversión</Text>
+        <Text style={[s.h1, { color: theme.accent, marginBottom: 14 }]}>en tu proyecto</Text>
+        <Text style={[s.body, { color: theme.muted, marginBottom: 20, maxWidth: 440 }]}>
+          Publicamos nuestros rangos en lugar de responder «depende del alcance». Depende, sí —
+          pero eso no impide darte un punto de partida antes de la primera reunión. Estos son los
+          mismos precios que están publicados en árkos.com/precios.
+        </Text>
+
+        <View style={s.priceHead}>
+          <View style={s.priceName}><Text style={s.priceHeadTxt}>TIPO DE PROYECTO</Text></View>
+          <View style={s.priceCol}><Text style={s.priceHeadTxt}>DESDE (S/)</Text></View>
+          <View style={s.priceCol}><Text style={s.priceHeadTxt}>DESDE (USD)</Text></View>
+        </View>
+
+        {PRICE_TIERS.map((t) => (
+          <View key={t.name} style={s.priceRow}>
+            <View style={s.priceName}>
+              <Text style={{ fontSize: 11, fontWeight: 'bold', color: theme.text }}>
+                {t.name}{t.quote ? '  ·  cotización' : ''}
+              </Text>
+              <Text style={{ fontSize: 9, color: theme.muted, lineHeight: 1.5, marginTop: 2 }}>{t.note}</Text>
+            </View>
+            <View style={s.priceCol}><Text style={s.pricePen}>S/ {t.penLabel}</Text></View>
+            <View style={s.priceCol}><Text style={s.priceUsd}>$ {t.usdLabel}</Text></View>
+          </View>
+        ))}
+
+        <Text style={{ fontSize: 8, color: theme.muted, marginTop: 10, lineHeight: 1.5 }}>
+          {PRICE_FOOTNOTE}
+        </Text>
+
+        <View style={[s.row, { marginTop: 18 }]}>
+          <View style={[s.w50, { paddingRight: 7 }]}>
+            <Card style={{ marginBottom: 0 }}>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', color: theme.text, marginBottom: 6 }}>Qué mueve el precio</Text>
+              <Text style={{ fontSize: 9.5, color: theme.muted, lineHeight: 1.6 }}>
+                El número de módulos, pantallas y roles de usuario. Las integraciones: pasarelas en
+                soles, factura electrónica, courier, APIs externas. El diseño a medida frente a
+                plantilla. Y la migración de datos cuando hay que reemplazar un sistema antiguo.
+              </Text>
+            </Card>
+          </View>
+          <View style={[s.w50, { paddingLeft: 7 }]}>
+            <Card style={{ marginBottom: 0 }}>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', color: theme.text, marginBottom: 6 }}>Cómo se paga</Text>
+              <Text style={{ fontSize: 9.5, color: theme.muted, lineHeight: 1.6 }}>
+                Pago por etapas contra hitos de entrega, o mensualidades, con descuentos por
+                contratación múltiple. Un proyecto web típico toma de 3 a 8 semanas según el
+                alcance; un sistema a medida toma más, en función de su complejidad.
+              </Text>
+            </Card>
+          </View>
+        </View>
+      </View>
+      <Footer p={10} />
+    </Page>
+
+    {/* P11: CASE STUDIES */}
     <Page size="A4" style={s.page}>
       <IconWatermark b={b} />
       <View style={[s.pad, { paddingBottom: 40 }]}>
         <SectionHeader b={b} />
         <Text style={[s.h1, { marginBottom: 5, fontSize: 36 }]}>Casos de</Text>
         <Text style={[s.h1, { color: theme.accent, marginBottom: 20, fontSize: 36 }]}>Éxito</Text>
+        {/* Cada `stat` sale de un dato real del sitio (testimonio firmado o
+            ficha de /portfolio). Antes había métricas que no existían en
+            ninguna parte —"5x conversión", "60% menos tiempo"— y una de ellas
+            contradecía el 78% que declara el testimonio de la Clínica. */}
         {[
-          { client: 'Kinetic Black', type: 'Landing Page Premium', desc: 'Landing de alto impacto para marca de suplementación de élite. Diseño oscuro premium con animaciones y CTA de alta conversión.', tags: 'Next.js / React / TailwindCSS', stat: '5x conversión' },
           { client: 'Solutec DHA', type: 'Landing + CRM/ERP', desc: 'Landing premium y sistema interno de gestión para servicio técnico a domicilio de reparación de electrodomésticos en Lima. La web captura leads desde WhatsApp y el CRM los gestiona end-to-end.', tags: 'React / Material UI / Next.js', stat: '+40% consultas' },
-          { client: 'Clínica Juan Pablo II', type: 'Gestión Clínica', desc: 'Plataforma con módulos de historias clínicas, gestión de citas, facturación electrónica y reportes médicos automatizados.', tags: 'React / PostgreSQL / Node.js', stat: '60% menos tiempo' },
-          { client: 'RestHUB', type: 'ERP Restaurantes', desc: 'ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, con una landing premium pensada para Latinoamérica.', tags: 'Next.js / React / TypeScript / ERP', stat: 'Operación unificada' },
+          { client: 'Clínica Juan Pablo II', type: 'Gestión Clínica', desc: 'Plataforma de gestión hospitalaria y agendamiento de citas para una clínica que opera emergencias 24 horas y coordina con varias aseguradoras a la vez. Antes cada cita era una llamada, un cuaderno y una hoja de cálculo distinta.', tags: 'React / PostgreSQL / Node.js', stat: '78% de citas digitales' },
+          { client: 'RestHUB', type: 'ERP Restaurantes', desc: 'ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, con una landing premium pensada para Latinoamérica.', tags: 'Next.js / React / TypeScript / ERP', stat: 'Cierre de caja: 45 → 5 min' },
+          { client: 'Encrypted Escape Room', type: 'Plataforma Web Interactiva', desc: 'Experiencia de escape room en línea con enigmas y códigos a resolver contra reloj, con varias salas temáticas y niveles de dificultad. Lógica de juego, control de tiempo y progresión por sala.', tags: 'React / Next.js / CodeIgniter / MySQL', stat: 'Salas temáticas' },
         ].map((c, i) => (
           <Card key={i} style={{ padding: 14, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
@@ -446,10 +567,10 @@ export const ArkosBrochurePDF = ({ baseUrl = '' }: { baseUrl?: string }) => {
           </Card>
         ))}
       </View>
-      <Footer p={9} />
+      <Footer p={11} />
     </Page>
 
-    {/* P10: GUARANTEES + CONTACT */}
+    {/* P12: GUARANTEES + CONTACT */}
     <Page size="A4" style={s.page}>
       <IconWatermark b={b} />
       <View style={[s.pad, { justifyContent: 'center', alignItems: 'center' }]}>
