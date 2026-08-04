@@ -69,22 +69,28 @@ página: un fallo de JS lo dejaba invisible.
   entrada real ya terminó, de modo que no pelean.
 - Verificado en el HTML servido: `<h1 class="kinetic-text …" style="opacity:0">`, sin `visibility`.
 
-**Texto — decisión tomada: opción A.** El H1 es ahora
-**`Mejoramos tus procesos con software a medida`**.
+**Texto — decisión final: el H1 se queda como estaba, `Mejoramos tus procesos`.**
+
+Se probó la opción A (añadir `con software a medida` como segunda línea dentro del `<h1>`) y se
+**revirtió**: rompía la escala tipográfica del hero. La categoría y la geografía viven ahora en el
+eyebrow, que ya existía en el diseño y ya era visible — `FIG. 01 — Software a medida · Lima, Perú`.
+
+Se descartó explícitamente meterlas con `sr-only`: texto oculto con keywords dentro de un H1 es
+justo lo que Google penaliza, y sería incoherente hacerlo en el mismo trabajo en el que dejamos
+de servir ese H1 con `visibility:hidden`. La categoría, además, ya aparece visible en el párrafo
+inmediatamente debajo del H1 ("…en software a medida: sistemas web, ERPs y apps"), en el `<title>`
+y en la meta description.
 
 Las tres opciones que había sobre la mesa y por qué gana A:
 
 | # | Propuesta | Veredicto |
 |---|---|---|
-| **A** ✅ | **Mejoramos tus procesos con software a medida** | **Elegida.** Conserva el eslogan íntegro —vive también en `SITE_CONFIG.title`, en el brochure, en el bloque `llm-context` y en `llms.txt`— y le añade la categoría que le faltaba. Cero contradicciones con el resto del sitio. |
+| **A** | Mejoramos tus procesos con software a medida | Probada y revertida: en el hero, a `lg:text-[8.5rem]`, la segunda línea rompe la composición. La idea era buena en el papel y mala en pantalla. |
 | **B** | Software a medida que mejora tus procesos | Pone la keyword al inicio, que pesa más, pero degrada el eslogan a subordinada y obliga a revisar cuatro soportes más. El beneficio marginal no paga ese coste. |
 | **C** | Mejoramos tus procesos. Software a medida en Lima. | Descartada: `/desarrollo-de-software-lima` ya lleva ese H1 casi exacto. Dos páginas peleando por la misma consulta es canibalización, y la que perdería sería la que sí tiene 2,355 palabras de contenido local. |
 
-Implementación: la categoría entra como una **segunda línea dentro del mismo `<h1>`**, a
-`text-xl → lg:text-5xl` sobre el bloque grande, para no romper la escala tipográfica del hero.
-El `aria-label` se actualizó a la frase completa y el logo inline (`kinetic-ignore`) que sustituye
-la "o" de "procesos" sigue intacto. Verificado en el HTML servido: un solo `<h1>`,
-`aria-label="Mejoramos tus procesos con software a medida"`, `style="opacity:0"`.
+Verificado en el HTML servido: un solo `<h1>`, `aria-label="Mejoramos tus procesos"`,
+`style="opacity:0"` (ya no `visibility:hidden`) y el eyebrow con la categoría y la ciudad.
 
 ---
 
@@ -262,7 +268,7 @@ Ejecútalo **después** de desplegar: hoy lee el sitemap en vivo, que todavía t
 
 | Punto | Decisión | Criterio |
 |---|---|---|
-| H1 del home | **Opción A**: `Mejoramos tus procesos con software a medida` | Es la única que añade la categoría sin contradecir el eslogan que ya vive en otros cuatro soportes, y sin canibalizar la página de Lima. |
+| H1 del home | **Sin cambios**: `Mejoramos tus procesos`. La categoría va al eyebrow: `FIG. 01 — Software a medida · Lima, Perú` | La opción A se probó y rompía el hero. El eyebrow ya era visible y estaba diseñado para ese texto. No se usa `sr-only`: keywords ocultas son penalizables. |
 | Cifras del hero de Lima | **+50 proyectos · 24 casos publicados · desde 2020** | Los tres son verificables por el visitante y ya están declarados en otra parte del sitio. El % de retención no existe en el repo y no se inventa. |
 | `apps-moviles` → mantenimiento | **"Plan de mantenimiento opcional, definido al cierre del proyecto"** | No inventa una política nueva: es literalmente lo que ya dicen el paso 05 del proceso en `/services` y la FAQ de mantenimiento de la página de Lima. |
 | `diseno-ux-ui` → identidad de marca | **No entra en el alcance**, y se dice de frente: se diseña sobre la identidad existente; si no la hay, se resuelve antes de dibujar pantallas | El portafolio no tiene un solo proyecto de identidad de marca. Prometerlo sería vender algo que no hay evidencia de que se haga. |
