@@ -361,7 +361,7 @@ export const SERVICES: ServiceContent[] = [
       },
       {
         q: "¿Incluye el diseño del logo y la identidad de marca?",
-        a: "No. Diseñamos interfaces partiendo de la identidad que tu marca ya tiene: logo, colores y tipografía. Si aún no la tienes o necesitas rehacerla, te lo decimos en el diagnóstico y lo resolvemos antes de diseñar pantallas — construir una interfaz sobre una identidad que va a cambiar es trabajo que se tira dos veces.",
+        a: "Se cotiza aparte, pero sí lo hacemos: logotipo, paleta, tipografía y aplicaciones básicas de marca. Si tu proyecto es digital y todavía no tienes identidad definida, la resolvemos antes de diseñar pantallas — construir una interfaz sobre una marca que va a cambiar es trabajo que se hace dos veces. También producimos las piezas gráficas del día a día: flyers, contenido para redes, catálogos y material audiovisual.",
       },
     ],
   },
