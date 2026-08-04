@@ -107,6 +107,34 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
+
+            {/* Search Console reporta 0 enlaces internos y los 34 externos
+                apuntan todos al home: es la única puerta que Google usa. Todo
+                lo que importe tiene que estar a UN clic de aquí, y el footer
+                es lo único que sale en todas las páginas. */}
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 mt-8 text-foreground">Herramientas</h3>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/necesitas-un-sistema" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  ¿Necesitas un sistema?
+                </Link>
+              </li>
+              <li>
+                <Link href="/costo-del-excel" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Calculadora: el costo del Excel
+                </Link>
+              </li>
+              <li>
+                <Link href="/cumplimiento-sunat" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Assessment SUNAT
+                </Link>
+              </li>
+              <li>
+                <Link href="/precios" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Precios
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div>
@@ -132,6 +160,16 @@ export function Footer() {
               <li>
                 <Link href="/services/software-a-medida" className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Software a Medida
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/apps-moviles" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Apps Móviles
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/integracion-ia" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Integración de IA
                 </Link>
               </li>
               <li>

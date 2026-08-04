@@ -127,8 +127,13 @@ body {
    pase lo que pase — las declaraciones de @keyframes ganan sobre el estilo
    inline, así que revela incluso si GSAP nunca corrió. Para entonces la
    entrada real ya terminó, de modo que no pelea con la animación. */
+/* Duración real (no 0s): una animación de duración cero no la puede componer
+   el compositor y Lighthouse la marca como "animación no compuesta con
+   parámetros de temporización no compatibles" en los 23 KineticText de la
+   página. Con 240 ms es un fundido de `opacity` normal, compositable, y el
+   resultado es el mismo. */
 .kinetic-text {
-  animation: kinetic-failsafe 0s linear 1.6s forwards;
+  animation: kinetic-failsafe 240ms linear 1.6s forwards;
 }
 
 @keyframes kinetic-failsafe {
