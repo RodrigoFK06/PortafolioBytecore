@@ -442,6 +442,76 @@ export const projects: Project[] = [
     link: "https://colibri-beta.vercel.app/",
     category: "paginas-web",
   },
+  {
+    id: 26,
+    title: "Meridiano",
+    description:
+      "Sitio corporativo completo para un operador logístico integral: carga aérea y marítima, aduanas, almacenaje y transporte terrestre. Globo 3D en WebGL con la red de corredores, secuencias atadas al scroll, calculadora de huella de carbono, rastreo y tienda corporativa. Pieza propia de Árkos con marca ficticia: marca, contenido, ilustración, 3D y código son originales.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Three.js", "Lenis"],
+    imageSrc: "/meridiano.webp",
+    link: "https://meridiano-arkos.vercel.app/",
+    category: "paginas-web",
+    year: "2026",
+    location: "Perú",
+    services: [
+      "Sitio corporativo",
+      "Identidad y dirección de arte",
+      "WebGL y motion design",
+      "Accesibilidad WCAG AA",
+    ],
+    caseStudy: {
+      context:
+        "Pieza propia del estudio, sin cliente: «Meridiano» es una marca ficticia y el sitio lo declara en el pie y en la pantalla de gracias. La construimos para tener en producción una demostración completa del rubro logístico —un sector que en Perú se resuelve casi siempre con plantillas y fotos de stock— y para poder enseñarla, no describirla.",
+      problem:
+        "Un operador logístico vende algo invisible: nadie ve el contenedor. Los sitios del rubro terminan en un catálogo de servicios plano y en un formulario, y el visitante no puede distinguir a un operador integral de un intermediario. El problema de negocio es de credibilidad, no de contenido.",
+      decision:
+        "Decidí que la red se viera, no se contara. El globo del hero es una malla de meridianos con las oficinas y corredores reales del contenido, y de ahí salen también los mapas planos y los listados: un solo archivo (contenido/red.ts) alimenta las tres cosas, así que la red nunca se contradice consigo misma. Y me impuse dos reglas que suelen romperse en piezas así: que nada dependiera de una foto de stock —el 3D, los SVG y los lienzos son dibujados— y que el sitio pasara accesibilidad de verdad, no de discurso.",
+      built:
+        "48 páginas estáticas sobre Next.js 16 —servicios, industrias, panorama editorial, carreras, legales, herramientas—, globo y mar en three.js, escenas coreografiadas con GSAP + ScrollTrigger sobre Lenis, calculadora de huella de carbono, rastreo y una tienda corporativa que envía solicitudes en vez de cobrar. Los formularios salen por SMTP con validación compartida entre cliente y servidor.",
+      result:
+        "El sitio pasa WCAG AA en sus 16 rutas —verificado con una auditoría de contraste repetible que resuelve el fondo efectivo de cada nodo con texto—, no tiene servidor ni CMS que mantener, y funciona sin animación: con prefers-reduced-motion las escenas no se acortan, no se montan, y cada sección queda en su estado final legible. Lo demostrativo está declarado en pantalla: el rastreo devuelve un embarque de ejemplo y la tienda no cobra.",
+      proof: {
+        liveUrl: "https://meridiano-arkos.vercel.app/",
+        images: ["/meridiano.webp"],
+      },
+      cta: "¿Tu empresa vende algo que el cliente no puede ver? Conversemos sobre cómo mostrarlo.",
+    },
+  },
+  {
+    id: 27,
+    title: "Trama",
+    description:
+      "Sitio de un estudio digital de ciclo completo: manifiesto, capacidades, proceso arrastrable, parrilla de proyectos y descarga de dossier. Sistema visual generativo —el logotipo, el fondo del hero y la portada de cada proyecto son el mismo tejido de arcos a distintas escalas— sobre una rejilla que cambia de número de columnas por tramo. Pieza propia de Árkos con marca ficticia.",
+    tags: ["Next.js", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Lenis"],
+    imageSrc: "/trama.webp",
+    link: "https://trama-estudio-one.vercel.app/",
+    category: "paginas-web",
+    year: "2026",
+    location: "Perú",
+    services: [
+      "Sitio de estudio",
+      "Identidad y sistema visual",
+      "Diseño UX/UI",
+      "Desarrollo web",
+    ],
+    caseStudy: {
+      context:
+        "Pieza propia, sin cliente. «Trama» es una marca inventada —un placeholder para construir sin esperar la decisión de naming— y todo lo renombrable vive en un solo archivo: nombre, dominio, claim, contacto, cifras, datos estructurados, sitemap y hasta las etiquetas de los formularios salen de ahí.",
+      problem:
+        "Los sitios de estudios y agencias se parecen entre sí porque resuelven la identidad con una tipografía y un color, y el resto lo llenan con capturas de clientes. El resultado es una parrilla que se ve prestada: la marca del estudio desaparece detrás del trabajo que muestra.",
+      decision:
+        "Hice que el nombre y el sistema visual fueran la misma cosa. El logotipo es literalmente una celda del tejido de arcos que el sitio genera por todas partes; el fondo del hero y la portada de cualquier proyecto sin captura son ese mismo dibujo a otra escala. Un proyecto nuevo sin imagen no queda vacío ni finge una captura: dibuja el tejido con el color de la marca del cliente. Y el acento es violeta por descarte, no por gusto — los proyectos de la parrilla traen verde, rojo, amarillo, naranja y azul de sus propias marcas, y un acento del estudio que choca con la captura de al lado es un acento mal elegido.",
+      built:
+        "Portada de ocho secciones sobre Next.js 16 y React 19, con rejilla de 4/8/16 columnas según el tramo, tono claro u oscuro declarado por sección, tejido generativo en SVG, proceso arrastrable con Pointer Events y dos formularios (dossier y contacto) que salen por Resend con campo trampa y limitador por IP.",
+      result:
+        "La parrilla es honesta por diseño: cada caso declara su estado —entregado, propuesta, pieza de estudio o relleno— y ese estado se imprime en la ficha, así que el sitio no puede presentar una propuesta como un encargo firmado. Los formularios tampoco fingen: sin credenciales configuradas responden 503 y muestran el correo directo en vez de un «¡Gracias!» que no envió nada. Todo el tejido es un solo path de SVG —la primera versión emitía 5 029 nodos y bloqueaba el navegador.",
+      proof: {
+        liveUrl: "https://trama-estudio-one.vercel.app/",
+        images: ["/trama.webp"],
+      },
+      cta: "¿Tu marca desaparece detrás del trabajo que muestras? Conversemos.",
+    },
+  },
 ];
 
 // Funciones de utilidad para filtrar proyectos
@@ -458,7 +528,7 @@ export const getProjectById = (id: number) => projects.find(project => project.i
 // una categoría con 3-4 cards deja la cuadrícula vacía.
 export const HOME_PROJECT_IDS = [
   19, 21, 22, 23, 2, 1, 8, 6, 11, // núcleo B2B + destacados
-  20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
+  26, 27, 20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
 ]
 export const getHomeProjects = (): Project[] =>
   HOME_PROJECT_IDS
