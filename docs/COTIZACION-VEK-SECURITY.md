@@ -19,7 +19,7 @@ Seguridad y vigilancia privada · 80 agentes · 30 unidades en Lima
 
 ## Tu operación completa en un solo sistema
 
-Una app en el celular de cada agente y un panel donde ves las 30 unidades al mismo tiempo. Sabes quién está en su puesto **ahora**, te enteras cuando alguien se retira antes de que te llame el cliente, y el tareo le llega a tu contadora ya sumado. Aquí está todo lo que incluye y cuánto cuesta.
+Una app en el celular de cada agente, un portal donde cada trabajador entra con su usuario, y un panel donde ves las 30 unidades al mismo tiempo. Sabes quién está en su puesto **ahora**, te enteras cuando alguien se retira antes de que te llame el cliente, y el tareo le llega a tu contadora ya sumado. Aquí está todo lo que incluye y cuánto cuesta.
 
 ---
 
@@ -36,16 +36,25 @@ El registro debe estar **protegido contra adulteración** y **conservarse 5 año
 
 No tenerlo es **infracción grave**. Con la UIT de 2026 en S/ 5,500, la multa de SUNAFIL va de **S/ 8,635 a S/ 143,660** en régimen general, y hasta **S/ 24,750** en pequeña empresa. El monto sube según cuántos trabajadores estén afectados, y las infracciones se acumulan.
 
-Con 80 agentes en 30 unidades, una sola inspección cuesta más que cualquiera de las tres opciones de abajo.
+Con 80 agentes en 30 unidades, una sola inspección cuesta más que cualquiera de las dos opciones de abajo.
 
 ---
 
-## Tus tres opciones
+## Tus dos opciones
 
 ### Opción 1 · Esencial — **S/ 8,000**
-*El control de asistencia resuelto · entrega aproximada: 1 de septiembre*
+*Asistencia, alertas y portal del trabajador · entrega aproximada: 1 de septiembre*
 
-✓ App Android para el agente: marca entrada y salida con **código QR del puesto, ubicación y foto**. Nadie marca por otro.
+**Para el agente**
+✓ App Android: marca entrada y salida con **código QR del puesto, ubicación y foto**. Nadie marca por otro.
+✓ Funciona sin señal: el marcado se guarda y se sincroniza solo cuando vuelve la conexión.
+
+**Portal del trabajador**
+✓ Cada uno de los **80 agentes entra con su propio usuario** desde el celular.
+✓ Ve su tareo, sus horas acumuladas, sus tardanzas y su historial del periodo.
+✓ Deja de preguntar en oficina cuántas horas lleva o si le marcaron el turno.
+
+**Para ti**
 ✓ Los 30 puestos cargados con su ubicación y su radio.
 ✓ **Tablero de cobertura en vivo**: qué unidades están cubiertas en este momento y cuáles no.
 ✓ **Alerta por geocerca**: si un agente sale del radio de su puesto durante el turno, te llega el aviso al momento — no al día siguiente.
@@ -59,36 +68,33 @@ Con 80 agentes en 30 unidades, una sola inspección cuesta más que cualquiera d
 
 ---
 
-### ★ Opción 2 · Integral — **S/ 11,500** · Recomendado
-*Todo lo anterior + las horas y los reportes se hacen solos · entrega aproximada: 15 de septiembre*
+### ★ Opción 2 · Integral — **S/ 11,300** · Recomendado
+*Todo lo anterior + boletas firmadas y las cuentas hechas solas · entrega aproximada: 15 de septiembre*
 
 ✓ **Todo lo de la opción Esencial.**
+
+**Boletas de pago**
+✓ **Carga de boletas** desde el panel, en lote o una por una.
+✓ Cada agente la recibe en su portal y **deja constancia de recepción** con su usuario, fecha y hora — la trazabilidad que exige el **D.L. 1310** para entregar boletas por medios electrónicos.
+✓ Historial de documentos por trabajador, siempre disponible.
+✓ Se acabó imprimir, perseguir firmas y archivar papel.
+
+**Horas y cierre de periodo**
 ✓ **Descuento de horas automático**: tardanzas, faltas y horas extras calculadas según tus reglas, sin sacar cuentas a mano.
 ✓ **Resumen de a quién pagarle**: cierre de periodo por agente, listo para planilla.
 ✓ **Panel para tu contadora** con su propio acceso. Se acabó mandarle el tareo uno por uno.
+
+**Tus clientes**
 ✓ **Reporte de asistencia por cliente**, con la marca de VEK, para entregárselo a las empresas que te lo piden.
 ✓ Ubicación del agente durante el turno, con historial consultable.
+✓ Registro de incidencias por unidad.
 
 **Tiempo de entrega: 6 semanas hábiles**
 
 ---
 
-### Opción 3 · Completa — **S/ 15,500**
-*Todo lo anterior + tus 80 agentes reciben y firman sus boletas · entrega aproximada: 1 de octubre*
-
-✓ **Todo lo de la opción Integral.**
-✓ **Portal del trabajador**: cada uno de los 80 agentes entra con su usuario y ve su tareo, sus horas y sus documentos.
-✓ **Carga de boletas de pago** desde el panel, en lote o una por una.
-✓ **Constancia de recepción** de cada boleta con usuario, fecha y hora — la trazabilidad que exige el D.L. 1310 para entregar boletas por medios electrónicos.
-✓ Historial de documentos por trabajador.
-✓ Registro de incidencias por unidad.
-
-**Tiempo de entrega: 8 semanas hábiles**
-
----
-
-> **Las tres opciones te resuelven el problema urgente.**
-> Desde la Esencial ya sabes quién está en su puesto, te enteras cuando alguien se retira y tu contadora recibe las horas sumadas. La Integral hace que el cálculo de horas y los reportes para tus clientes salgan solos. Y la Completa cierra el círculo con las boletas firmadas por cada agente. Puedes empezar por la Esencial y sumar el resto después sin rehacer nada.
+> **Las dos opciones te resuelven el problema urgente.**
+> Desde la Esencial ya sabes quién está en su puesto, te enteras cuando alguien se retira, tu contadora recibe las horas sumadas y cada agente ve su tareo desde su celular. La Integral suma las boletas firmadas en el portal, el cálculo automático de horas y los reportes para tus clientes. Puedes empezar por la Esencial y sumar el resto después sin rehacer nada.
 
 ---
 
@@ -106,6 +112,9 @@ Si el que entra no ha marcado, te avisa faltando 15 minutos. Ahí todavía puede
 **Nadie marca por otro**
 El QR de cada unidad cambia todos los días y el marcado guarda ubicación y foto. Solo puede marcar quien está físicamente ahí.
 
+**Cada agente se atiende solo**
+Entra con su usuario, ve su tareo y sus horas. Dejan de ir a oficina a preguntar y de reclamar sobre lo que no pueden comprobar.
+
 **Tu contadora deja de perseguirte**
 Entra con su acceso y descarga el tareo del periodo, ya sumado. Se acabó el ir mandando planillas firmadas una por una.
 
@@ -119,7 +128,7 @@ Registro inalterable, con fecha, hora y minutos, conservado cinco años, exporta
 
 ## Cómo te acompañamos
 
-Esto va incluido en cualquiera de las tres opciones.
+Esto va incluido en las dos opciones.
 
 **Acompañamiento durante todo el proyecto**
 Revisamos los avances juntos cada semana y resolvemos dudas directo por WhatsApp. No desaparecemos hasta la entrega.
@@ -141,7 +150,7 @@ Para que quede claro desde el inicio:
 
 × **Cálculo de planilla**: sueldos, AFP/ONP, EsSalud, quinta categoría, CTS y gratificaciones. El sistema entrega las horas listas; el cálculo lo sigue haciendo tu contadora o tu software de planilla.
 × **Envío a T-Registro, PLAME o cualquier declaración a SUNAT.**
-× **Firma digital certificada** de boletas. Lo que incluye la Opción 3 es constancia de recepción con trazabilidad (usuario, fecha y hora), que es lo que exige el D.L. 1310. Una firma digital con certificado de entidad acreditada por INDECOPI se integra aparte y se cotiza por separado.
+× **Firma digital certificada** de boletas. Lo que incluye la Opción 2 es constancia de recepción con trazabilidad (usuario, fecha y hora), que es lo que exige el D.L. 1310. Una firma digital con certificado de entidad acreditada por INDECOPI se integra aparte y se cotiza por separado.
 × **Integración con el software contable actual**, si lo hubiera. Se cotiza según el sistema.
 × **App para iOS.** El desarrollo es Android, tal como opera VEK hoy.
 × **Los equipos celulares** ni sus planes de datos.
@@ -155,7 +164,7 @@ Para que quede claro desde el inicio:
 ## Infraestructura y mantenimiento
 
 **Infraestructura — incluida el primer año**
-Servidor, base de datos y respaldos van por nuestra cuenta los primeros 12 meses. Después, desde S/ 90 al mes a tu nombre.
+Servidor, base de datos y respaldos van por nuestra cuenta los primeros 12 meses. Después, desde S/ 90 al mes.
 
 **Distribución de la app — sin costo**
 Como los equipos son de la empresa, la app se instala directamente en los teléfonos. No hay que publicarla en Play Store, no hay revisión de Google, no hay espera. Las actualizaciones se envían sin que nadie tenga que hacer nada.
@@ -167,34 +176,30 @@ Soporte, respaldos, monitoreo y ajustes menores. **Los primeros 60 días van inc
 
 ## Resumen
 
-| Opción | Asistencia y alertas | Horas y reportes | Boletas y portal | Entrega | Total |
-|---|:---:|:---:|:---:|---|---|
-| **1 · Esencial** | ✓ | — | — | 4 semanas | **S/ 8,000** |
-| **2 · Integral** ★ | ✓ | ✓ | — | 6 semanas | **S/ 11,500** |
-| **3 · Completa** | ✓ | ✓ | ✓ | 8 semanas | **S/ 15,500** |
+| Opción | Asistencia, alertas y portal | Boletas, horas y reportes | Entrega | Total |
+|---|:---:|:---:|---|---|
+| **1 · Esencial** | ✓ | — | 4 semanas | **S/ 8,000** |
+| **2 · Integral** ★ | ✓ | ✓ | 6 semanas | **S/ 11,300** |
 
 Precios en soles. No incluyen IGV.
 
 ### Forma de pago
 
-- **Esencial:** 50% para arrancar y 50% a la entrega.
-- **Integral:** cuatro pagos de 25% — arranque, app funcionando, panel completo y entrega final.
-- **Completa:** cuatro pagos de 25% — arranque, app funcionando, panel completo y entrega final.
+En cualquiera de las dos opciones eliges cómo pagar:
+
+- **Inicial del 50%** — 50% para arrancar y 50% a la entrega.
+- **Inicial del 25%** — cuatro pagos de 25%: arranque, app funcionando, panel completo y entrega final.
 
 ### Garantía
 
 **60 días** después de la entrega para corregir cualquier detalle sin costo.
-
-### El sistema es tuyo
-
-Al terminar recibes el código fuente, la base de datos y todos los accesos. No quedas amarrado a nosotros.
 
 ---
 
 ## Cómo trabajamos
 
 **Paso 1 · Confirmamos**
-Eliges la opción y levantamos juntos las 30 unidades, sus direcciones y tus reglas de turno y de tolerancia.
+Eliges la opción y definimos juntos tus reglas de turno, tolerancia y descuentos.
 
 **Paso 2 · Armamos el sistema**
 Trabajamos por partes y te mostramos el avance cada semana para que lo revises.
@@ -209,23 +214,18 @@ Instalamos en todos los equipos, capacitamos a tu equipo y acompañamos las prim
 
 ## Qué necesito de ti para arrancar
 
-Mientras más completo me lo pases, más rápido sale.
+Poco. Las unidades, los agentes y los turnos los cargas tú mismo desde el panel — para eso está.
 
-- Lista de las 30 unidades con dirección exacta y a qué cliente corresponde.
-- Lista de los 80 agentes con nombre, DNI y unidad asignada.
-- Los turnos: horarios, duración, cómo funcionan los relevos y los descansos.
-- Tus reglas de tolerancia: desde qué minuto cuenta tardanza, cómo se descuenta, cómo se pagan las horas extras.
-- Qué necesita ver tu contadora y en qué formato lo recibe hoy.
-- Qué clientes piden reporte de asistencia y qué información les exigen.
-- RUC y razón social para el registro.
-- Logo y colores de VEK.
+- **Tus reglas de tolerancia**: desde qué minuto cuenta tardanza, cómo se descuenta, cómo se pagan las horas extras.
+- **Cómo funcionan tus turnos y relevos**: duración, cambios y descansos, en líneas generales.
+- **Qué necesita ver tu contadora** y en qué formato lo recibe hoy.
+- **Qué clientes piden reporte de asistencia** y qué información les exigen.
+- **RUC y razón social** para el registro.
+- **Logo y colores de VEK.**
 
 ---
 
 ## Preguntas frecuentes
-
-**¿El sistema es mío?**
-Sí. Al terminar te entregamos el código fuente, la base de datos y todos los accesos.
 
 **¿Mis agentes van a poder usarlo?**
 Es una sola pantalla: abrir, escanear el QR, listo. Menos pasos que mandar un WhatsApp.
@@ -241,6 +241,9 @@ Sí. El registro cumple el contenido que exige el D.S. 004-2006-TR, es inalterab
 
 **¿Puedo empezar con la Esencial y crecer después?**
 Sí. Está construido por partes; sumar lo demás no implica rehacer nada.
+
+**¿Qué pasa si crecemos a más unidades o más agentes?**
+El sistema no tiene tope. Agregas unidades y personal desde el panel cuando los necesites, sin costo adicional de desarrollo.
 
 **¿Qué pasa si necesito cambios después de la entrega?**
 Los primeros 60 días, cualquier corrección va sin costo. Después entran en el plan de mantenimiento o se cotizan aparte según el tamaño.
