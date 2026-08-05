@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cotización Árkos · Tienda web de bolsas al vacío · Inversiones CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    // docx no publica UMD; cargamos vía esm.sh y exponemos como global
+    import * as docx from 'https://esm.sh/docx@9.5.1';
+    window.docx = docx;
+    window.dispatchEvent(new Event('docx-ready'));
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+      .print-only { display: block !important; }
+      .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
+      .pricing-card { break-inside: avoid; page-break-inside: avoid; }
+      .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+      .logo-screen { display: none !important; }
+      .logo-print { display: inline-block !important; }
+    }
+    .print-only { display: none; }
+    .logo-screen { display: inline-block; }
+    .logo-print { display: none; }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2">
+          <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-10 w-auto" />
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-10 w-auto" />
+          <span class="sr-only">Árkos</span>
+        </a>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Tienda Web · Bolsas al Vacío</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          PDF
+        </button>
+        <button id="btnWord" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#1D4E6A] text-white hover:bg-[#15394f]">
+          Word
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+
+        <!-- Encabezado de marca (visible en PDF) -->
+        <div class="print-only mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
+          <div class="flex items-center gap-3">
+            <div class="text-right text-xs text-neutral-600">
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p>gerencia@árkos.com · +51 961 869 348</p>
+              <p>Lima, Perú · árkos.com</p>
+            </div>
+            <img src="/logo_ico/final - LOGO 2-07.png" alt="" aria-hidden="true" class="h-10 w-10 opacity-80" />
+          </div>
+        </div>
+
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Cotización</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 5 Ago 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días calendario</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Tienda web de bolsas al vacío</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Una web para vender bolsas con la misma lógica y el mismo tipo de interfaz que el sitio de referencia: simple, clara, que el cliente entre y entienda qué compra sin dar vueltas. Partimos del catálogo bien resuelto y sumamos el resto después.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2 flex-wrap">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Dos opciones</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Precio A pactado</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">Christian — Inversiones CSS</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">Venta de bolsas al vacío, rollos gofrados y selladoras</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-CSS-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- CONTEXTO Y REFERENCIA                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8 grid gap-5 md:grid-cols-2">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card avoid-break">
+            <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Contexto</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Christian necesita una web para vender bolsas, con la misma lógica y el mismo tipo de interfaz que bolsasalvacio.com.pe. La idea es partir con ese núcleo — el catálogo de bolsas bien resuelto — y sumar más cosas después.</p>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Sobre esa base armamos dos opciones. La <strong class="text-neutral-900 dark:text-white">Opción A</strong> es el trato que ya teníamos conversado y se mantiene al precio pactado. La <strong class="text-neutral-900 dark:text-white">Opción B</strong> es la tienda completa, con carrito y cobro en línea, para cuando quieras dar ese paso.</p>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card avoid-break">
+            <h2 class="text-lg font-semibold mb-1"><span class="shiny-text">Qué tiene el sitio de referencia</span></h2>
+            <a href="https://bolsasalvacio.com.pe/" target="_blank" rel="noopener" class="text-xs text-[#328298] hover:underline font-medium">bolsasalvacio.com.pe</a>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Catálogo por categorías (bolsas lisas de 70 y 90 micras, bolsas gofradas, rollos gofrados, selladoras domésticas y semiprofesionales, sous vide), fichas de producto con variantes de tamaño y presentación, carrito con totales en soles, cuenta de usuario con login, seguimiento de pedidos vía Enviame.io, blog, formulario de suscripción para precios mayoristas, botones de WhatsApp y las páginas legales que exige el mercado peruano: términos y condiciones, preguntas frecuentes y libro de reclamaciones.</p>
+            <p class="mt-3 text-sm font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Ese es el techo. Las dos opciones dicen exactamente qué parte cubre cada una.</p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 2 Opciones                                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Tus dos opciones</span></h2>
+          <div class="grid gap-5 md:grid-cols-2">
+
+            <!-- Opción A -->
+            <div class="pricing-card rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Precio pactado</div>
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold mt-2">Opción A</p>
+              <h3 class="mt-2 text-base font-bold">Catálogo comercial con pedidos por WhatsApp</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 300</p>
+              <p class="text-xs text-neutral-500 mt-1">Precio pactado previamente, se respeta sin variación.</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Es la web que ya conversamos: mismo <em>look and feel</em> del sitio de referencia, el cliente navega el catálogo, ve precios y presentaciones, y cierra el pedido por WhatsApp con el producto ya cargado en el mensaje. Sin carrito ni pasarela.</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Diseño a medida inspirado en la interfaz de bolsasalvacio.com.pe, adaptado a la marca de Inversiones CSS.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Home comercial: portada, categorías destacadas, productos destacados, bloque de confianza y llamados a la acción.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Catálogo navegable por categorías, hasta <strong>20 productos</strong> con sus variantes de tamaño y presentación.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Ficha de producto: fotos, descripción, especificaciones (micras, medidas, unidades por paquete) y precio.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Botón <strong>"Pedir por WhatsApp"</strong> en cada ficha, que abre el chat con el producto y la variante ya escritos en el mensaje.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Páginas Nosotros, Contacto y Preguntas Frecuentes.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Formulario de contacto para consultas mayoristas, con los envíos llegando a tu correo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Diseño responsive: se ve bien en celular, tablet y escritorio. La mayoría de tus compradores va a entrar desde el celular.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Plazo: 7 a 10 días hábiles desde la entrega del material</p>
+            </div>
+
+            <!-- Opción B -->
+            <div class="pricing-card rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Precio preferencial</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Opción B</p>
+              <h3 class="mt-2 text-base font-bold">Tienda online completa</h3>
+              <div class="mt-3 flex items-baseline gap-3 flex-wrap">
+                <p class="text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 1,500</p>
+                <p class="text-sm text-neutral-400 line-through">S/ 3,400</p>
+              </div>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">Nuestro precio de lista para e-commerce parte en S/ 3,400.</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Es el sitio de referencia completo: el cliente compra y paga en la web, tú administras todo desde un panel sin depender de nosotros.</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo de la Opción A</strong>, más:</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Carrito de compras con cálculo de totales en soles y manejo de variantes.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Pasarela de pago en soles</strong>: Izipay, Culqi o MercadoPago, según cuál te dé mejor comisión. Acepta tarjeta, Yape y Plin.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Panel administrativo propio</strong>: creas, editas y das de baja productos, cambias precios, subes fotos y revisas pedidos sin tocar código.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Control de stock con alerta de bajo inventario.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Cuentas de usuario: registro, login e historial de pedidos.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Cálculo de envío por zona (Lima, provincia) y opción de recojo en tienda.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Correos automáticos de confirmación de compra y cambio de estado del pedido.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Cupones de descuento y precios por volumen para mayoristas.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Blog / Publicaciones, para posicionar en Google con contenido tipo "cómo conservar alimentos al vacío".</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Páginas legales listas para el mercado peruano: términos y condiciones, políticas de privacidad, cambios y devoluciones, y <strong>Libro de Reclamaciones digital</strong> conforme a Indecopi.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Catálogo hasta <strong>60 productos</strong> con variantes.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>SEO base</strong>: títulos, descripciones, URLs limpias, sitemap y datos estructurados de producto para que Google muestre bien tus bolsas.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Google Analytics y Meta Pixel conectados, para que puedas medir y luego pautar.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Certificado SSL y despliegue en producción.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Capacitación de 1 hora por videollamada para que puedas actualizar precios y productos.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Plazo: 3 a 4 semanas desde la entrega del material y las credenciales de la pasarela</p>
+            </div>
+
+          </div>
+
+          <!-- Lo que NO incluye la Opción A -->
+          <div class="mt-5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card avoid-break">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye la Opción A</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Está en la Opción B o se cotiza aparte</p>
+            <div class="grid gap-2 sm:grid-cols-2">
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Carrito de compras</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Pago en línea</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Cuentas de usuario</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Control de stock</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Panel administrativo</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Blog</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Integración con courier</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Sesión de fotos</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Redacción de fichas desde cero</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> SEO base y datos estructurados de producto</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Google Analytics y Meta Pixel</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Certificado SSL y despliegue en producción</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Capacitación por videollamada</p>
+            </div>
+          </div>
+
+          <!-- Nota: empezar por A y crecer -->
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4 avoid-break">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">★</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">Empezar por A y crecer después</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">La Opción A se construye sobre la misma base técnica de la Opción B. Si arrancas con A y más adelante quieres la tienda completa, el diseño y el catálogo no se rehacen — se amplía lo que ya está. La migración de A a B tiene un costo de <strong>S/ 1,350</strong>, y el plazo baja a 2 o 3 semanas porque la mitad del trabajo ya está hecha.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- COMPARACIÓN RÁPIDA                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Comparación rápida</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Lo mismo de arriba, lado a lado.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">&nbsp;</th>
+                    <th class="py-3 px-4 text-center">Opción A — S/ 300</th>
+                    <th class="py-3 px-4 text-center">Opción B — S/ 1,500</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Diseño a medida y responsive</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Catálogo con variantes</td>
+                    <td class="py-3 px-4 text-center">Hasta 20 productos</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Hasta 60 productos</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Pedidos</td>
+                    <td class="py-3 px-4 text-center">Por WhatsApp</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Carrito + pago en línea</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Pasarela en soles (tarjeta, Yape, Plin)</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Panel administrativo</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Control de stock</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Cuentas de usuario e historial</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Cálculo de envío y correos automáticos</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Blog / Publicaciones</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Libro de Reclamaciones digital</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">SEO base, Analytics y Pixel</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">SSL, despliegue en producción y capacitación</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">Plazo</td>
+                    <td class="py-3 px-4 text-center font-semibold">7 a 10 días hábiles</td>
+                    <td class="py-3 px-4 text-center font-semibold">3 a 4 semanas</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- MÓDULOS ADICIONALES                                         -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Módulos adicionales</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Se pueden sumar a cualquiera de las dos opciones, ahora o después.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Módulo</th>
+                    <th class="py-3 px-4 text-right">Precio</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4">Integración con courier (Enviame.io, Olva, Shalom) y seguimiento de pedido</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 450</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Facturación electrónica SUNAT (boleta y factura automáticas)</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 700</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4">Chatbot de ventas con IA, atención 24/7 en la web y WhatsApp</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 600</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Sesión de fotos de producto (hasta 20 productos, fondo blanco, en Lima)</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 400</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4">Redacción de fichas de producto optimizadas para SEO (hasta 20 fichas)</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 300</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Identidad de marca: logo, paleta y aplicaciones básicas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 500</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4">Productos adicionales sobre el tope incluido</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 8 c/u</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Mantenimiento mensual: respaldos, actualizaciones, soporte y cambios menores</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 150 / mes</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- COSTOS DE TERCEROS                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Costos de terceros</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Estos no son nuestros: van directo al proveedor y quedan a nombre de Inversiones CSS. Los dejamos escritos para que no aparezcan como sorpresa.</p>
+            <div class="grid gap-5 md:grid-cols-3">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Dominio .com.pe</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">≈ S/ 120 / año</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">A nombre de Inversiones CSS. Si ya lo compraste, solo necesitamos los accesos.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Hosting y despliegue</h3>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Sin costo inicial</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">Sin costo hasta un volumen alto de tráfico en la infraestructura que usamos. Si el sitio crece, entre S/ 70 y S/ 90 al mes.</p>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card flex flex-col">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <h3 class="font-bold text-sm text-neutral-900 dark:text-white">Pasarela de pago</h3>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Solo Opción B</span>
+                </div>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">Sin costo de afiliación en la mayoría de casos. Comisión de entre 3.5% y 4.5% por transacción según el proveedor que elijas.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- RESUMEN DE INVERSIÓN                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Resumen</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Elige la opción y arrancamos.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Opción</th>
+                    <th class="py-3 px-4 text-center">Catálogo y WhatsApp</th>
+                    <th class="py-3 px-4 text-center">Carrito, pago y panel</th>
+                    <th class="py-3 px-4 text-center">Plazo</th>
+                    <th class="py-3 px-4 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">A · Catálogo comercial <span class="text-[10px] uppercase tracking-wide text-neutral-500 font-bold">(Precio pactado)</span></td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">7 a 10 días</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">S/ 300</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">B · Tienda online completa</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">3 a 4 semanas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#1D4E6A] dark:text-white">S/ 1,500</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-semibold text-neutral-600 dark:text-neutral-400">Migración de A a B, más adelante</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">2 a 3 semanas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">S/ 1,350</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-xs text-neutral-500">Precios en soles peruanos. Cotización válida por 15 días calendario desde la fecha de emisión.</p>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Forma de pago</h4>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">50% al inicio</strong> para arrancar y <strong class="text-neutral-900 dark:text-white">50% contra entrega</strong>, antes de la publicación.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Para la <strong class="text-neutral-900 dark:text-white">Opción B</strong> se puede partir en tres hitos si lo prefieres.</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Garantías Árkos</h4>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Revisiones de diseño ilimitadas durante el desarrollo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> 60 días de garantía post-entrega sobre errores de funcionamiento, sin costo.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tiempo de respuesta de 24 horas ante cualquier consulta.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El código y el sitio quedan a nombre de Inversiones CSS. No hay dependencia con nosotros para operar la web.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- DETALLE                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Qué necesitamos de tu lado</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Para arrancar y no frenarnos a mitad de camino.</p>
+        <div class="grid gap-5 md:grid-cols-2">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Para cualquiera de las dos opciones</h4>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Logo en buena resolución. Si no lo tienes, lo vemos con el módulo de identidad.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Fotos de los productos.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Lista de productos con sus variantes, medidas, micras y precios.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Textos o datos de la empresa para la sección Nosotros.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Número de WhatsApp de ventas.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Accesos al dominio, si ya lo compraste.</li>
+            </ul>
+          </div>
+          <div class="rounded-xl border-2 border-[#328298]/40 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Además, para la Opción B</h4>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> RUC y datos de la empresa para las páginas legales.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Credenciales de la pasarela de pago, una vez afiliada.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Las zonas y tarifas de envío.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Plazos, pago y garantías</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Las condiciones, en una sola pantalla.</p>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Plazo de la Opción A</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">7 a 10 días hábiles desde la entrega del material: logo, fotos, lista de productos y precios.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Plazo de la Opción B</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">3 a 4 semanas desde la entrega del material y las credenciales de la pasarela.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Forma de pago</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">50% al inicio para arrancar y 50% contra entrega, antes de la publicación. Para la Opción B se puede partir en tres hitos si lo prefieres.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Revisiones de diseño</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Ilimitadas durante el desarrollo. Ajustamos hasta que la web se vea como la quieres.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Garantía post-entrega</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">60 días sobre errores de funcionamiento, sin costo. Tiempo de respuesta de 24 horas ante cualquier consulta.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Propiedad del trabajo</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">El código y el sitio quedan a nombre de Inversiones CSS. No hay dependencia con nosotros para operar la web.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Costos de terceros</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">No son nuestros: van directo al proveedor y quedan a nombre de Inversiones CSS.</p>
+        <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong>Dominio .com.pe:</strong> aproximadamente S/ 120 al año.</span></li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong>Hosting y despliegue:</strong> sin costo hasta un volumen alto de tráfico en la infraestructura que usamos; si el sitio crece, entre S/ 70 y S/ 90 al mes.</span></li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong>Pasarela de pago (solo Opción B):</strong> sin costo de afiliación en la mayoría de casos, comisión de entre 3.5% y 4.5% por transacción según el proveedor que elijas.</span></li>
+        </ul>
+      </div>
+
+    </section>
+
+    <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-12 w-auto" />
+              <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-12 w-auto" />
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Agencia de desarrollo de software en Lima, Perú. Sistemas a medida, aplicaciones web y móviles, diseño UX/UI e integración de IA.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.3 7 12 8 12s8-6.7 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              Lima, Perú
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Contacto</h4>
+            <a href="mailto:gerencia@xn--rkos-4na.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              gerencia@árkos.com
+            </a>
+            <a href="mailto:rodrigoan.torresp@gmail.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              rodrigoan.torresp@gmail.com
+            </a>
+            <a href="tel:+51961869348" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3Z"/></svg>
+              +51 961 869 348
+            </a>
+            <a href="https://wa.me/51961869348" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              WhatsApp directo
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Árkos en línea</h4>
+            <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm6.9 9h-3a15.6 15.6 0 0 0-1-5.1A8 8 0 0 1 18.9 11ZM12 4c.9 0 2.2 2.5 2.6 7H9.4C9.8 6.5 11.1 4 12 4ZM4 12c0-.3 0-.7.1-1H8c0 .7-.1 1.3-.1 2s0 1.3.1 2H4.1c-.1-.3-.1-.7-.1-1Zm1.1 5h2.9a15 15 0 0 0 1 4.1A8 8 0 0 1 5.1 17ZM8 7H5.1A8 8 0 0 1 9 2.9 15 15 0 0 0 8 7Zm4 13c-.9 0-2.2-2.5-2.6-7h5.2c-.4 4.5-1.7 7-2.6 7Zm3-9H9c0-.7-.1-1.3-.1-2s0-1.3.1-2h6c0 .7.1 1.3.1 2s0 1.3-.1 2Zm.1 9.1a15 15 0 0 0 1-4.1h2.8a8 8 0 0 1-3.8 4.1ZM16 13c0-.7.1-1.3.1-2s0-1.3-.1-2h3.9c.1.3.1.7.1 1s0 .7-.1 1H16Z"/></svg>
+              árkos.com
+            </a>
+            <a href="https://xn--rkos-4na.com/#projects" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M4 4h7l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>
+              Proyectos anteriores
+            </a>
+            <div class="flex flex-wrap items-center gap-2 mt-1">
+              <a href="https://linkedin.com/company/arkos" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3v10ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.3c0-1.3-.5-2-1.5-2-1.1 0-1.8.8-1.8 2V19h-3V9h2.9v1.3c.5-.8 1.5-1.6 3.1-1.6 2.2 0 3.3 1.3 3.3 4V19Z"/></svg>
+              </a>
+              <a href="https://wa.me/51961869348" target="_blank" rel="noopener" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              </a>
+              <a href="mailto:gerencia@xn--rkos-4na.com" aria-label="Email" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-2">Respondemos en menos de 24 h hábiles.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
+          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>Cotización ARK-CSS-2026-001 · Emitida 5 Ago 2026 · Validez 15 días calendario</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#1D4E6A', '#328298', '#5ec8d8'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+
+    // ═══════════════════════════════════════════════════════════
+    // DESCARGA WORD (.docx) — documento nativo construido con `docx`
+    // ═══════════════════════════════════════════════════════════
+    const btnWord = document.getElementById('btnWord');
+
+    function waitForDocx(timeoutMs = 15000) {
+      if (window.docx) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          window.removeEventListener('docx-ready', onReady);
+          reject(new Error('La librería docx tardó demasiado en cargar. Revisa tu conexión a internet.'));
+        }, timeoutMs);
+        const onReady = () => { clearTimeout(timer); resolve(); };
+        window.addEventListener('docx-ready', onReady, { once: true });
+      });
+    }
+
+    btnWord.addEventListener('click', async () => {
+      const originalLabel = btnWord.innerHTML;
+      btnWord.disabled = true;
+      btnWord.innerHTML = 'Generando…';
+      try {
+        await waitForDocx();
+        await generateArkosWordDoc();
+      } catch (err) {
+        console.error(err);
+        alert('Error generando Word: ' + (err?.message || err));
+      } finally {
+        btnWord.disabled = false;
+        btnWord.innerHTML = originalLabel;
+      }
+    });
+
+    async function generateArkosWordDoc() {
+      const D = window.docx;
+      const {
+        Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+        Table, TableRow, TableCell, ImageRun, WidthType, BorderStyle,
+        Header, Footer, PageNumber, VerticalAlign
+      } = D;
+
+      // Paleta Árkos
+      const C = {
+        deep:    '1D4E6A',
+        brand:   '328298',
+        tint:    'D6EFF2',
+        ink:     '1F2937',
+        body:    '404040',
+        soft:    '737373',
+        rule:    'E5E7EB',
+        bgSoft:  'F8FAFC',
+        red:     'B91C1C',
+        amber:   'B45309',
+        green:   '15803D'
+      };
+
+      const fetchBuf = async (path) => {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error('No se pudo cargar ' + path);
+        return await r.arrayBuffer();
+      };
+      const [logoBuf, isoBuf] = await Promise.all([
+        fetchBuf('/logo_ico/final - LOGO 2-01.png'),
+        fetchBuf('/logo_ico/final - LOGO 2-07.png')
+      ]);
+
+      // ─── Helpers tipográficos ──────────────────────────────────
+      const t = (text, opts = {}) => new TextRun({ text, font: 'Calibri', ...opts });
+
+      const p = (runs, opts = {}) => new Paragraph({
+        children: Array.isArray(runs) ? runs : [runs],
+        spacing: { after: 120, line: 300, ...opts.spacing },
+        alignment: opts.alignment,
+        indent: opts.indent,
+        pageBreakBefore: opts.pageBreakBefore,
+        border: opts.border
+      });
+
+      const blank = (after = 200) => new Paragraph({ children: [], spacing: { after } });
+
+      const eyebrow = (s) => p([t(s, { bold: true, size: 16, color: C.brand, characterSpacing: 30, allCaps: true })], { spacing: { after: 80 } });
+
+      const title = (s) => p([t(s, { bold: true, size: 48, color: C.deep })], { spacing: { before: 0, after: 200, line: 400 } });
+
+      const h1 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 36, color: C.deep })],
+        heading: HeadingLevel.HEADING_1,
+        spacing: { before: 360, after: 200, line: 340 },
+        border: { bottom: { color: C.brand, size: 12, space: 8, style: BorderStyle.SINGLE } }
+      });
+
+      const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
+
+      const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
+
+      const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
+        const runs = [t(icon + '  ', { bold: true, color: iconColor, size: 22 })];
+        if (label) runs.push(t(label + ': ', { bold: true, color: C.deep, size: 22 }));
+        runs.push(t(txt, { size: 22, color: C.body }));
+        return new Paragraph({
+          children: runs,
+          spacing: { after: 90, line: 300 },
+          indent: { left: 240, hanging: 240 }
+        });
+      };
+
+      const negBullet = (s) => bullet(s, null, '×', C.red);
+
+      // ─── Helpers de tabla ─────────────────────────────────────
+      const cell = (children, opts = {}) => new TableCell({
+        children: Array.isArray(children) ? children : [children],
+        margins: { top: 140, bottom: 140, left: 180, right: 180 },
+        shading: opts.shading,
+        width: opts.width,
+        columnSpan: opts.columnSpan,
+        verticalAlign: opts.verticalAlign || VerticalAlign.CENTER
+      });
+
+      const headerCell = (s) => cell([new Paragraph({
+        children: [t(s, { bold: true, color: 'FFFFFF', size: 18, allCaps: true, characterSpacing: 30 })],
+        alignment: AlignmentType.CENTER
+      })], { shading: { fill: C.deep } });
+
+      const dataCell = (s, opts = {}) => cell([new Paragraph({
+        children: [t(s, { size: 22, color: opts.brand ? C.brand : C.body, bold: opts.bold })],
+        alignment: opts.align || AlignmentType.CENTER
+      })], { shading: opts.shading });
+
+      const stdBorders = {
+        top:    { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+        bottom: { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+        left:   { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+        right:  { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+        insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+        insideVertical:   { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+      };
+
+      // ─── Tarjeta de precio ─────────────────────────────────────
+      const pricingCard = (badge, titulo, precio, sub, intro, items, popular = false) => {
+        const fill = popular ? C.tint : 'FFFFFF';
+        const borderSize = popular ? 16 : 6;
+        const borderColor = popular ? C.brand : C.rule;
+        return new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            bottom: { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            left:   { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            right:  { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [cell([
+            p([t(badge, { bold: true, size: 16, color: popular ? C.brand : C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+            p([t(titulo, { bold: true, size: 28, color: C.deep })], { spacing: { after: 120, line: 320 } }),
+            p([t(precio, { bold: true, size: 56, color: C.brand })], { spacing: { after: 40, line: 480 } }),
+            p([t(sub, { italic: true, size: 18, color: C.soft })], { spacing: { after: 180 } }),
+            body(intro),
+            blank(60),
+            ...items.map(i => bullet(i, null, '✓', C.brand))
+          ], { shading: { fill }, verticalAlign: VerticalAlign.TOP })]})]
+        });
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // PORTADA
+      // ═══════════════════════════════════════════════════════════
+      const cover = [
+        new Paragraph({
+          children: [new ImageRun({ type: 'png', data: logoBuf, transformation: { width: 200, height: 67 } })],
+          spacing: { after: 480 }
+        }),
+        eyebrow('Cotización   ·   ARK-CSS-2026-001'),
+        title('Tienda web de bolsas al vacío'),
+        body('Una web para vender bolsas con la misma lógica y el mismo tipo de interfaz que el sitio de referencia: simple, clara, que el cliente entre y entienda qué compra sin dar vueltas. Partimos del catálogo bien resuelto y sumamos el resto después.'),
+        blank(320),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            bottom: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            left: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+            insideVertical: { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+          },
+          rows: [
+            new TableRow({ children: [
+              cell([
+                p([t('Cliente', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Christian — Inversiones CSS', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Venta de bolsas al vacío, rollos gofrados y selladoras', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
+              cell([
+                p([t('Proyecto', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Tienda web', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Referencia visual acordada: bolsasalvacio.com.pe', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
+            ]}),
+            new TableRow({ children: [
+              cell([
+                p([t('Emisión', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('5 de agosto de 2026', { size: 22, color: C.body })])
+              ]),
+              cell([
+                p([t('Validez', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('15 días calendario desde la emisión', { size: 22, color: C.body })])
+              ])
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // CONTEXTO Y REFERENCIA
+      // ═══════════════════════════════════════════════════════════
+      const contexto = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Contexto'),
+        body('Christian necesita una web para vender bolsas, con la misma lógica y el mismo tipo de interfaz que bolsasalvacio.com.pe: simple, clara, que el cliente entre y entienda qué compra sin dar vueltas. La idea es partir con ese núcleo — el catálogo de bolsas bien resuelto — y sumar más cosas después.'),
+        body('Sobre esa base armamos dos opciones. La Opción A es el trato que ya teníamos conversado y se mantiene al precio pactado. La Opción B es la tienda completa, con carrito y cobro en línea, para cuando quieras dar ese paso.'),
+        blank(160),
+        h1('Qué tiene el sitio de referencia'),
+        body('Antes de fijar alcance, esto es lo que hoy vive en bolsasalvacio.com.pe:'),
+        body('Catálogo por categorías (bolsas lisas de 70 y 90 micras, bolsas gofradas, rollos gofrados, selladoras domésticas y semiprofesionales, sous vide), fichas de producto con variantes de tamaño y presentación, carrito de compras con totales en soles, cuenta de usuario con login, seguimiento de pedidos vía Enviame.io, blog de publicaciones, formulario de suscripción para precios mayoristas, botones de WhatsApp, y las páginas legales que exige el mercado peruano: términos y condiciones, preguntas frecuentes y libro de reclamaciones.'),
+        p([t('Ese es el techo. Las dos opciones de abajo dicen exactamente qué parte de ese techo cubre cada una.', { bold: true, size: 22, color: C.deep })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // OPCIONES
+      // ═══════════════════════════════════════════════════════════
+      const opciones = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Opción A — Catálogo comercial con pedidos por WhatsApp'),
+        blank(120),
+        pricingCard(
+          'Opción A  ·  Precio pactado',
+          'Catálogo comercial con pedidos por WhatsApp',
+          'S/ 300',
+          'Precio pactado previamente, se respeta sin variación.',
+          'Es la web que ya conversamos: mismo look and feel del sitio de referencia, el cliente navega el catálogo, ve precios y presentaciones, y cierra el pedido por WhatsApp con el producto ya cargado en el mensaje. Sin carrito ni pasarela.',
+          [
+            'Diseño a medida inspirado en la interfaz de bolsasalvacio.com.pe, adaptado a la marca de Inversiones CSS.',
+            'Home comercial: portada, categorías destacadas, productos destacados, bloque de confianza y llamados a la acción.',
+            'Catálogo navegable por categorías, hasta 20 productos con sus variantes de tamaño y presentación.',
+            'Ficha de producto: fotos, descripción, especificaciones (micras, medidas, unidades por paquete) y precio.',
+            'Botón "Pedir por WhatsApp" en cada ficha, que abre el chat con el producto y la variante ya escritos en el mensaje.',
+            'Páginas Nosotros, Contacto y Preguntas Frecuentes.',
+            'Formulario de contacto para consultas mayoristas, con los envíos llegando a tu correo.',
+            'Diseño responsive: se ve bien en celular, tablet y escritorio. La mayoría de tus compradores va a entrar desde el celular.',
+            'Plazo: 7 a 10 días hábiles desde la entrega del material (logo, fotos, lista de productos y precios).'
+          ]
+        ),
+        blank(160),
+        h3('Lo que NO incluye la Opción A', C.amber),
+        body('Está en la Opción B o se cotiza aparte:'),
+        negBullet('Carrito de compras.'),
+        negBullet('Pago en línea.'),
+        negBullet('Cuentas de usuario.'),
+        negBullet('Control de stock.'),
+        negBullet('Panel administrativo.'),
+        negBullet('Blog.'),
+        negBullet('Integración con courier.'),
+        negBullet('Sesión de fotos.'),
+        negBullet('Redacción de fichas desde cero.'),
+        negBullet('SEO base y datos estructurados de producto.'),
+        negBullet('Google Analytics y Meta Pixel.'),
+        negBullet('Certificado SSL y despliegue en producción.'),
+        negBullet('Capacitación por videollamada.'),
+
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Opción B — Tienda online completa'),
+        blank(120),
+        pricingCard(
+          'Opción B  ·  Precio preferencial',
+          'Tienda online completa',
+          'S/ 1,500',
+          'Precio preferencial. Nuestro precio de lista para e-commerce parte en S/ 3,400.',
+          'Es el sitio de referencia completo: el cliente compra y paga en la web, tú administras todo desde un panel sin depender de nosotros.',
+          [
+            'Todo lo de la Opción A, más:',
+            'Carrito de compras con cálculo de totales en soles y manejo de variantes.',
+            'Pasarela de pago en soles: Izipay, Culqi o MercadoPago, según cuál te dé mejor comisión. Acepta tarjeta, Yape y Plin.',
+            'Panel administrativo propio: creas, editas y das de baja productos, cambias precios, subes fotos y revisas pedidos sin tocar código.',
+            'Control de stock con alerta de bajo inventario.',
+            'Cuentas de usuario: registro, login e historial de pedidos.',
+            'Cálculo de envío por zona (Lima, provincia) y opción de recojo en tienda.',
+            'Correos automáticos de confirmación de compra y cambio de estado del pedido.',
+            'Cupones de descuento y precios por volumen para mayoristas.',
+            'Blog / Publicaciones, para posicionar en Google con contenido tipo "cómo conservar alimentos al vacío".',
+            'Páginas legales listas para el mercado peruano: términos y condiciones, políticas de privacidad, cambios y devoluciones, y Libro de Reclamaciones digital conforme a Indecopi.',
+            'Catálogo hasta 60 productos con variantes.',
+            'SEO base: títulos, descripciones, URLs limpias, sitemap y datos estructurados de producto para que Google muestre bien tus bolsas.',
+            'Google Analytics y Meta Pixel conectados, para que puedas medir y luego pautar.',
+            'Certificado SSL y despliegue en producción.',
+            'Capacitación de 1 hora por videollamada para que puedas actualizar precios y productos.',
+            'Plazo: 3 a 4 semanas desde la entrega del material y las credenciales de la pasarela.'
+          ],
+          true
+        ),
+        blank(160),
+        p([t('Sobre empezar por A y crecer después: la Opción A se construye sobre la misma base técnica de la Opción B. Si arrancas con A y más adelante quieres la tienda completa, el diseño y el catálogo no se rehacen — se amplía lo que ya está. La migración de A a B tiene un costo de S/ 1,350, y el plazo baja a 2 o 3 semanas porque la mitad del trabajo ya está hecha.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // COMPARACIÓN RÁPIDA
+      // ═══════════════════════════════════════════════════════════
+      const filaComp = (label, a, b, alt = false) => new TableRow({ children: [
+        dataCell(label, { align: AlignmentType.LEFT, bold: true, shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(a, { shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(b, { brand: b === 'Sí', bold: b === 'Sí', shading: alt ? { fill: C.bgSoft } : undefined })
+      ]});
+
+      const comparacion = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Comparación rápida'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell(' '), headerCell('Opción A — S/ 300'), headerCell('Opción B — S/ 1,500')] }),
+            filaComp('Diseño a medida y responsive', 'Sí', 'Sí'),
+            filaComp('Catálogo con variantes', 'Hasta 20 productos', 'Hasta 60 productos', true),
+            filaComp('Pedidos', 'Por WhatsApp', 'Carrito + pago en línea'),
+            filaComp('Pasarela en soles (tarjeta, Yape, Plin)', 'No', 'Sí', true),
+            filaComp('Panel administrativo', 'No', 'Sí'),
+            filaComp('Control de stock', 'No', 'Sí', true),
+            filaComp('Cuentas de usuario e historial', 'No', 'Sí'),
+            filaComp('Cálculo de envío y correos automáticos', 'No', 'Sí', true),
+            filaComp('Blog / Publicaciones', 'No', 'Sí'),
+            filaComp('Libro de Reclamaciones digital', 'No', 'Sí', true),
+            filaComp('SEO base, Analytics y Pixel', 'No', 'Sí'),
+            filaComp('SSL, despliegue en producción y capacitación', 'No', 'Sí', true),
+            new TableRow({ children: [
+              dataCell('Plazo', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+              dataCell('7 a 10 días hábiles', { bold: true, shading: { fill: C.tint } }),
+              dataCell('3 a 4 semanas', { bold: true, shading: { fill: C.tint } })
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // MÓDULOS ADICIONALES + TERCEROS
+      // ═══════════════════════════════════════════════════════════
+      const filaMod = (m, precio, alt = false) => new TableRow({ children: [
+        dataCell(m, { align: AlignmentType.LEFT, shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(precio, { brand: true, bold: true, align: AlignmentType.RIGHT, shading: alt ? { fill: C.bgSoft } : undefined })
+      ]});
+
+      const modulos = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Módulos adicionales'),
+        body('Se pueden sumar a cualquiera de las dos opciones, ahora o después.'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell('Módulo'), headerCell('Precio')] }),
+            filaMod('Integración con courier (Enviame.io, Olva, Shalom) y seguimiento de pedido', 'S/ 450'),
+            filaMod('Facturación electrónica SUNAT (boleta y factura automáticas)', 'S/ 700', true),
+            filaMod('Chatbot de ventas con IA, atención 24/7 en la web y WhatsApp', 'S/ 600'),
+            filaMod('Sesión de fotos de producto (hasta 20 productos, fondo blanco, en Lima)', 'S/ 400', true),
+            filaMod('Redacción de fichas de producto optimizadas para SEO (hasta 20 fichas)', 'S/ 300'),
+            filaMod('Identidad de marca: logo, paleta y aplicaciones básicas', 'S/ 500', true),
+            filaMod('Productos adicionales sobre el tope incluido', 'S/ 8 c/u'),
+            filaMod('Mantenimiento mensual: respaldos, actualizaciones, soporte y cambios menores', 'S/ 150 / mes', true)
+          ]
+        }),
+        blank(280),
+        h1('Costos de terceros'),
+        body('Estos no son nuestros, van directo al proveedor y quedan a nombre de Inversiones CSS. Los dejamos escritos para que no aparezcan como sorpresa:'),
+        bullet('Aproximadamente S/ 120 al año.', 'Dominio .com.pe'),
+        bullet('Sin costo hasta un volumen alto de tráfico en la infraestructura que usamos; si el sitio crece, entre S/ 70 y S/ 90 al mes.', 'Hosting y despliegue'),
+        bullet('Sin costo de afiliación en la mayoría de casos, comisión de entre 3.5% y 4.5% por transacción según el proveedor que elijas.', 'Pasarela de pago (solo Opción B)')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // RESUMEN + QUÉ NECESITAMOS + CONDICIONES
+      // ═══════════════════════════════════════════════════════════
+      const resumen = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Resumen'),
+        body('Elige la opción y arrancamos.'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell('Opción'), headerCell('Catálogo y WhatsApp'), headerCell('Carrito, pago y panel'), headerCell('Plazo'), headerCell('Total')] }),
+            new TableRow({ children: [
+              dataCell('A · Catálogo comercial (precio pactado)', { align: AlignmentType.LEFT, bold: true }),
+              dataCell('Sí'), dataCell('—'), dataCell('7 a 10 días'),
+              dataCell('S/ 300', { brand: true, bold: true })
+            ]}),
+            new TableRow({ children: [
+              dataCell('B · Tienda online completa', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+              dataCell('Sí', { shading: { fill: C.tint } }),
+              dataCell('Sí', { shading: { fill: C.tint } }),
+              dataCell('3 a 4 semanas', { shading: { fill: C.tint } }),
+              dataCell('S/ 1,500', { brand: true, bold: true, shading: { fill: C.tint } })
+            ]}),
+            new TableRow({ children: [
+              dataCell('Migración de A a B, más adelante', { align: AlignmentType.LEFT, bold: true }),
+              dataCell('—'), dataCell('Sí'), dataCell('2 a 3 semanas'),
+              dataCell('S/ 1,350', { brand: true, bold: true })
+            ]})
+          ]
+        }),
+        blank(120),
+        p([t('Precios en soles peruanos. Cotización válida por 15 días calendario desde la fecha de emisión.', { size: 18, color: C.soft, italic: true })], { spacing: { after: 200 } }),
+
+        h3('Forma de pago'),
+        bullet('50% al inicio para arrancar y 50% contra entrega, antes de la publicación.'),
+        bullet('Para la Opción B se puede partir en tres hitos si lo prefieres.'),
+        blank(120),
+        h3('Garantías Árkos'),
+        bullet('Revisiones de diseño ilimitadas durante el desarrollo.'),
+        bullet('60 días de garantía post-entrega sobre errores de funcionamiento, sin costo.'),
+        bullet('Tiempo de respuesta de 24 horas ante cualquier consulta.'),
+        bullet('El código y el sitio quedan a nombre de Inversiones CSS. No hay dependencia con nosotros para operar la web.'),
+
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Qué necesitamos de tu lado'),
+        body('Para arrancar y no frenarnos a mitad de camino:'),
+        bullet('Logo en buena resolución. Si no lo tienes, lo vemos con el módulo de identidad.'),
+        bullet('Fotos de los productos.'),
+        bullet('Lista de productos con sus variantes, medidas, micras y precios.'),
+        bullet('Textos o datos de la empresa para la sección Nosotros.'),
+        bullet('Número de WhatsApp de ventas.'),
+        bullet('Accesos al dominio, si ya lo compraste.'),
+        blank(120),
+        h3('Además, para la Opción B'),
+        bullet('RUC y datos de la empresa para las páginas legales.'),
+        bullet('Credenciales de la pasarela de pago, una vez afiliada.'),
+        bullet('Las zonas y tarifas de envío.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ACEPTACIÓN / FIRMAS
+      // ═══════════════════════════════════════════════════════════
+      const firmas = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Aceptación de la Cotización'),
+        body('La aceptación de esta cotización confirma las condiciones, el alcance y los montos descritos. La cotización tiene una validez de 15 días calendario desde su fecha de emisión.'),
+        blank(640),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            bottom: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            left:   { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right:  { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Christian', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Inversiones CSS', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ])
+          ]})]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ENCABEZADO + PIE GLOBAL
+      // ═══════════════════════════════════════════════════════════
+      const docHeader = new Header({
+        children: [new Paragraph({
+          children: [
+            new ImageRun({ type: 'png', data: isoBuf, transformation: { width: 22, height: 22 } }),
+            t('   Árkos  ·  Cotización ARK-CSS-2026-001  ·  Inversiones CSS', { size: 16, color: C.soft, characterSpacing: 10 })
+          ],
+          spacing: { after: 60 },
+          border: { bottom: { color: C.rule, size: 4, space: 4, style: BorderStyle.SINGLE } }
+        })]
+      });
+
+      const docFooter = new Footer({
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [
+            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('gerencia@árkos.com', { size: 16, color: C.brand, bold: true }),
+            t('   ·   +51 961 869 348   ·   Lima, Perú   ·   Página ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
+            t(' de ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: C.soft, font: 'Calibri' })
+          ]
+        })]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // DOCUMENTO FINAL
+      // ═══════════════════════════════════════════════════════════
+      const doc = new Document({
+        creator: 'Árkos',
+        title: 'Cotización Árkos · Tienda web de bolsas al vacío · Inversiones CSS',
+        description: 'Cotización comercial para tienda web de bolsas al vacío — Inversiones CSS',
+        styles: {
+          default: {
+            document: { run: { font: 'Calibri', size: 22, color: C.body } }
+          }
+        },
+        sections: [{
+          properties: {
+            page: { margin: { top: 1100, right: 1000, bottom: 1200, left: 1000 } }
+          },
+          headers: { default: docHeader },
+          footers: { default: docFooter },
+          children: [
+            ...cover,
+            ...contexto,
+            ...opciones,
+            ...comparacion,
+            ...modulos,
+            ...resumen,
+            ...firmas
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Cotizacion-Arkos-Inversiones-CSS.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+    }
+  </script>
+</body>
+</html>
