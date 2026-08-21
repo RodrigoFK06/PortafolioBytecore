@@ -35,3 +35,7 @@ next-env.d.ts
 /.design-sync/learnings/
 /.design-sync/node_modules
 /.design-sync/build/
+
+# --- Grafo de conocimiento (graphify) ---
+# Derivado del codigo: se regenera con `graphify . --code-only`.
+graphify-out/
