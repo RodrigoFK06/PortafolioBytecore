@@ -6,8 +6,17 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Función para formatear fechas
+/**
+ * Fecha larga en es-ES ("21 de agosto de 2026").
+ *
+ * Devuelve "" ante entrada vacia o fecha invalida en vez de tirar:
+ * Intl.DateTimeFormat lanza RangeError con un Invalid Date, y estas fechas
+ * vienen del frontmatter de los posts, donde el campo puede faltar.
+ */
 export function formatDate(date: Date | string): string {
+  if (!date) return ""
   const dateObj = typeof date === "string" ? new Date(date) : date
+  if (Number.isNaN(dateObj.getTime())) return ""
   return new Intl.DateTimeFormat("es-ES", {
     year: "numeric",
     month: "long",

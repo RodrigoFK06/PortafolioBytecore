@@ -3,6 +3,7 @@ import path from "path"
 import matter from "gray-matter"
 import Link from "next/link"
 import Image from "next/image"
+import { formatDate } from "@/lib/utils"
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog")
 
@@ -37,15 +38,6 @@ function getBlogPosts(): BlogPost[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return ""
-  const date = new Date(dateStr)
-  return date.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-}
 
 export default function BlogIndexPage() {
   const posts = getBlogPosts()

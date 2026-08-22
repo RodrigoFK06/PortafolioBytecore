@@ -8,6 +8,7 @@ import Link from "next/link"
 import Image from "next/image"
 import type { Metadata } from "next"
 import { alternates } from "@/lib/seo"
+import { formatDate } from "@/lib/utils"
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog")
 const baseUrl = "https://xn--rkos-4na.com"
@@ -41,15 +42,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return ""
-  const date = new Date(dateStr)
-  return date.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-}
 
 // Extrae pares pregunta/respuesta de la sección "## Preguntas frecuentes"
 // del markdown (formato: **¿Pregunta?** seguida de su párrafo de respuesta).
