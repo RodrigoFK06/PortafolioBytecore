@@ -105,6 +105,31 @@
       .overflow-x-auto { overflow: visible !important; }
       table { width: 100% !important; font-size: 10px !important; }
       table th, table td { padding: 5px 7px !important; }
+      thead { display: table-header-group; }
+      tr { break-inside: avoid; page-break-inside: avoid; }
+
+      /* overflow:hidden rompe la fragmentacion; en papel estorba */
+      .page { overflow: visible !important; }
+
+      /* Paginacion asignada: cada bloque arranca en su propia pagina */
+      .print-page { break-before: page; page-break-before: always; }
+      .pricing-card:not(:first-child) { break-before: page; page-break-before: always; }
+
+      /* display:block de .print-only rompia el flex del encabezado de marca */
+      .print-header { display: flex !important; }
+
+      /* Estas rejillas colapsan a una columna y estiran la pagina */
+      .ctx-grid, .footer-grid { display: grid !important; }
+      .ctx-grid { grid-template-columns: 1fr 1fr !important; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+
+      /* Los importes no se parten en dos lineas */
+      table td:last-child { white-space: nowrap; }
+
+      /* Tipografia mas compacta para que cada bloque quepa en su pagina */
+      .pricing-card { font-size: 11.5px; margin-bottom: 0; }
+      .pricing-card li { font-size: 11.5px; }
+      .pricing-card .text-3xl { font-size: 24px !important; }
     }
     .print-only { display: none; }
     .logo-screen { display: inline-block; }
@@ -154,7 +179,7 @@
       <div class="p-6 sm:p-8">
 
         <!-- Encabezado de marca (visible en PDF) -->
-        <div class="print-only mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+        <div class="print-only print-header mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
           <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
           <div class="flex items-center gap-3">
             <div class="text-right text-xs text-neutral-600">
@@ -206,7 +231,7 @@
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- CONTEXTO                                                     -->
         <!-- ═══════════════════════════════════════════════════════════ -->
-        <div class="mt-8 grid gap-5 md:grid-cols-2">
+        <div class="mt-8 ctx-grid grid gap-5 md:grid-cols-2">
           <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card avoid-break">
             <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Contexto</span></h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">El control de vencimientos se lleva hoy en una hoja de cálculo organizada por unidad, con una columna por documento y marcas de color para identificar lo próximo a vencer. El mecanismo depende de que alguien revise esa hoja de forma periódica.</p>
@@ -223,7 +248,7 @@
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- EL DATO QUE CAMBIA EL SISTEMA                               -->
         <!-- ═══════════════════════════════════════════════════════════ -->
-        <div class="mt-6 rounded-2xl border-2 border-[#1D4E6A] bg-[#D6EFF2]/25 dark:bg-[#1D4E6A]/20 p-6 shadow-sm fx-card avoid-break">
+        <div class="print-page mt-6 rounded-2xl border-2 border-[#1D4E6A] bg-[#D6EFF2]/25 dark:bg-[#1D4E6A]/20 p-6 shadow-sm fx-card avoid-break">
           <div class="flex items-center gap-3 mb-3">
             <div class="h-10 w-10 shrink-0 rounded-xl bg-[#1D4E6A] text-white flex items-center justify-center text-lg font-bold">⛓</div>
             <h2 class="text-lg font-semibold"><span class="shiny-text">Consideración técnica: la unidad opera como tres entidades</span></h2>
@@ -252,7 +277,7 @@
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- PRICING CARDS — 3 Planes                                    -->
         <!-- ═══════════════════════════════════════════════════════════ -->
-        <div class="mt-8">
+        <div class="print-page mt-8">
           <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Los tres planes</span></h2>
           <div class="pricing-grid grid gap-5 md:grid-cols-3">
 
@@ -364,7 +389,7 @@
           </div>
 
           <!-- Lo que NO incluye el Plan 1 -->
-          <div class="mt-5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card avoid-break">
+          <div class="print-page mt-5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card avoid-break">
             <div class="flex items-center gap-3 mb-3">
               <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
               <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye el Plan 1</span></h2>
@@ -396,7 +421,7 @@
           <!-- ═══════════════════════════════════════════════════════════ -->
           <!-- COMPARACIÓN RÁPIDA                                          -->
           <!-- ═══════════════════════════════════════════════════════════ -->
-          <div class="mt-6">
+          <div class="print-page mt-6">
             <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Comparativa rápida</span></h3>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Los tres planes en paralelo.</p>
             <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
@@ -490,7 +515,7 @@
           <!-- ════════════════════════════════════════════════════════════ -->
           <!-- ALCANCE DETALLADO POR PLAN                                  -->
           <!-- ════════════════════════════════════════════════════════════ -->
-          <div class="mt-8">
+          <div class="print-page mt-8">
             <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Alcance detallado por plan</span></h3>
             <p class="text-sm text-neutral-600 dark:text-neutral-400">Lo que entrega cada plan, función por función.</p>
           <div class="mt-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
@@ -531,7 +556,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/10 dark:bg-[#1D4E6A]/10 p-6 shadow-sm fx-card">
+          <div class="print-page mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/10 dark:bg-[#1D4E6A]/10 p-6 shadow-sm fx-card">
             <div class="flex flex-wrap items-baseline justify-between gap-3 pb-4 mb-5 border-b border-neutral-200 dark:border-neutral-800">
               <div>
                 <p class="text-xs uppercase tracking-wide text-[#328298] font-semibold">Plan 2 · Incluye la totalidad del Plan 1</p>
@@ -582,7 +607,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <div class="print-page mt-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
             <div class="flex flex-wrap items-baseline justify-between gap-3 pb-4 mb-5 border-b border-neutral-200 dark:border-neutral-800">
               <div>
                 <p class="text-xs uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-semibold">Plan 3 · Base incluida en los S/ 6,500</p>
@@ -617,7 +642,7 @@
           <!-- ═══════════════════════════════════════════════════════════ -->
           <!-- BLOQUES QUE SE SUMAN DESPUÉS (PLAN 3)                       -->
           <!-- ═══════════════════════════════════════════════════════════ -->
-          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <div class="print-page mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
             <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Plan 3 · Lo que se puede sumar después</span></h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">La empresa opera tres líneas de negocio y cada una tiene su propia dinámica. Estos bloques se cotizan por separado, en el momento en que la empresa decida abordarlos, y se incorporan a la plataforma sin rehacer lo ya construido.</p>
             <div class="grid gap-4 md:grid-cols-2">
@@ -651,7 +676,7 @@
           <!-- ═══════════════════════════════════════════════════════════ -->
           <!-- COMPLEMENTOS TÉCNICOS                                       -->
           <!-- ═══════════════════════════════════════════════════════════ -->
-          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <div class="print-page mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
             <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Complementos técnicos</span></h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">No son módulos de negocio, sino capacidades que atraviesan el sistema. Se cotizan por separado porque cada uno conlleva un costo de infraestructura recurrente asumido por la empresa.</p>
             <div class="grid gap-4 sm:grid-cols-2">
@@ -719,7 +744,7 @@
           <!-- ═══════════════════════════════════════════════════════════ -->
           <!-- COSTOS RECURRENTES                                          -->
           <!-- ═══════════════════════════════════════════════════════════ -->
-          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+          <div class="print-page mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
             <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Costos recurrentes e infraestructura</span></h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Estos no son nuestros: van directo al proveedor y quedan a nombre de FAMEBAC. Son estimados y se confirman al cerrar el alcance. Se detallan a continuación para su consideración presupuestal.</p>
             <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
@@ -780,7 +805,7 @@
           <!-- ═══════════════════════════════════════════════════════════ -->
           <!-- RESUMEN DE INVERSIÓN                                        -->
           <!-- ═══════════════════════════════════════════════════════════ -->
-          <div class="mt-6">
+          <div class="print-page mt-6">
             <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Resumen</span></h3>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Comparativo de inversión, cobertura y plazo por plan.</p>
             <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
@@ -974,7 +999,7 @@
 
     <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
       <div class="p-6 sm:p-8">
-        <div class="grid md:grid-cols-3 gap-8 items-start">
+        <div class="footer-grid grid md:grid-cols-3 gap-8 items-start">
 
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-2">
