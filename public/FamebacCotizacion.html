@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cotización Árkos · Control de vencimientos y operación de flota · FAMEBAC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    // docx no publica UMD; cargamos vía esm.sh y exponemos como global
+    import * as docx from 'https://esm.sh/docx@9.5.1';
+    window.docx = docx;
+    window.dispatchEvent(new Event('docx-ready'));
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light dark; }
+    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    .fx-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease; }
+    .fx-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -24px rgba(15,23,42,.45); }
+    .shiny-text {
+      display: inline-block;
+      background-image: linear-gradient(120deg, #3a3a3a 0%, #6b6b6b 35%, #b0b0b0 50%, #6b6b6b 65%, #3a3a3a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 2.4s linear infinite;
+    }
+    @media (prefers-color-scheme: dark) {
+      .shiny-text {
+        background-image: linear-gradient(120deg, #8b8b8b 0%, #c0c0c0 35%, #ffffff 50%, #c0c0c0 65%, #8b8b8b 100%);
+      }
+    }
+    @keyframes shine {
+      0% { background-position: 150% center; }
+      100% { background-position: -50% center; }
+    }
+    .color-bends {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+    }
+    .color-bends canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .pricing-popular {
+      border-color: #328298 !important;
+      box-shadow: 0 0 0 2px rgba(50,130,152,.25), 0 14px 40px -24px rgba(15,23,42,.35);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .color-bends { display: none !important; }
+      body { background: #fff !important; }
+      .page { box-shadow: none !important; border: 0 !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .shiny-text {
+        background-image: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        color: #1a1a1a !important;
+        animation: none !important;
+      }
+      .print-only { display: block !important; }
+      .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
+      .pricing-card { break-inside: avoid; page-break-inside: avoid; }
+      .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+      .logo-screen { display: none !important; }
+      .logo-print { display: inline-block !important; }
+    }
+    .print-only { display: none; }
+    .logo-screen { display: inline-block; }
+    .logo-print { display: none; }
+  </style>
+  <script>
+    tailwind.config = { theme:{ extend:{ colors:{
+      brand:{ DEFAULT:'#328298', hover:'#266F87', deep:'#1D4E6A', tint:'#D6EFF2' }
+    }}}}
+  </script>
+  </head>
+<body class="bg-gradient-to-br from-neutral-50 via-white to-[#D6EFF2]/40 text-neutral-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-[#0C2F3F]/30 dark:text-neutral-100">
+
+  <div id="colorBends" class="color-bends" aria-hidden="true"></div>
+
+  <header class="no-print sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60 shadow-sm">
+    <div class="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2">
+          <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-10 w-auto" />
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-10 w-auto" />
+          <span class="sr-only">Árkos</span>
+        </a>
+        <span class="hidden sm:inline-flex rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-medium">Flota y documentos · FAMEBAC</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button id="btnQuote" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90">
+          Cotización
+        </button>
+        <button id="btnProposal" role="tab" class="no-print inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold w-full sm:w-auto bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100 hover:opacity-90">
+          Detalle
+        </button>
+        <button onclick="window.print()" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#328298] text-white hover:bg-[#266F87]">
+          PDF
+        </button>
+        <button id="btnWord" class="no-print w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold bg-[#1D4E6A] text-white hover:bg-[#15394f]">
+          Word
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
+    <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div class="p-6 sm:p-8">
+
+        <!-- Encabezado de marca (visible en PDF) -->
+        <div class="print-only mb-5 flex items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+          <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
+          <div class="flex items-center gap-3">
+            <div class="text-right text-xs text-neutral-600">
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p>gerencia@árkos.com · +51 961 869 348</p>
+              <p>Lima, Perú · árkos.com</p>
+            </div>
+            <img src="/logo_ico/final - LOGO 2-07.png" alt="" aria-hidden="true" class="h-10 w-10 opacity-80" />
+          </div>
+        </div>
+
+        <div class="mb-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1 text-xs font-semibold">Cotización</span>
+              <span class="text-xs text-neutral-500">Versión 1.0</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Emisión: 28 Ago 2026</span>
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">Validez: 15 días calendario</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight"><span class="shiny-text">Control de vencimientos y operación de flota</span></h1>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Sistema de control de vencimientos documentarios sobre flota, personal y unidades. La propuesta contempla tres planes, desde el control documentario en producción hasta la plataforma que unifica documentos, personal, unidades y operación en un solo entorno.</p>
+          </div>
+          <div class="flex md:justify-end items-start gap-2 flex-wrap">
+            <span class="rounded-full bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200 px-3 py-1 text-xs font-semibold">Tres planes</span>
+            <span class="rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-3 py-1 text-xs font-semibold">Demo funcional presentada</span>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-950/60 p-5 shadow-sm fx-card">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-semibold text-sm text-neutral-700 dark:text-neutral-300">Dirigido a</h3>
+              <p class="text-sm mt-1 font-medium">FAMEBAC E.I.R.L. · RUC 20601116406</p>
+              <p class="text-xs mt-1 text-neutral-500 dark:text-neutral-400">Transporte de carga por carretera · Fabricación de productos metálicos de uso estructural · Manejo de residuos</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 font-medium">ID: ARK-FAM-2026-001</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- CONTEXTO                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8 grid gap-5 md:grid-cols-2">
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card avoid-break">
+            <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Contexto</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">El control de vencimientos se lleva hoy en una hoja de cálculo organizada por unidad, con una columna por documento y marcas de color para identificar lo próximo a vencer. El mecanismo depende de que alguien revise esa hoja de forma periódica.</p>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Esa dependencia ya tuvo una consecuencia operativa concreta: <strong class="text-neutral-900 dark:text-white">un vencimiento no detectado a tiempo dejó una unidad sin poder circular</strong>. El costo de una unidad inmovilizada supera al de cualquiera de los planes de esta cotización.</p>
+          </div>
+          <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-6 shadow-sm fx-card avoid-break">
+            <h2 class="text-lg font-semibold mb-3"><span class="shiny-text">Alcance de la propuesta</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Durante el levantamiento se identificaron dos alcances posibles. El primero, acotado al control documentario: que el sistema anticipe cada vencimiento. El segundo, integral: unificar asistencia, horarios, personal, documentos y operación en una sola plataforma.</p>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Ambos alcances son viables y ambos están cotizados. Por eso la propuesta presenta tres planes en un mismo documento: FAMEBAC define el nivel de cobertura y el presupuesto, sin que la decisión inicial condicione las posteriores.</p>
+            <p class="mt-3 text-sm font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Los tres planes se construyen sobre la misma base técnica. Iniciar por el primero no obliga a rehacer trabajo en una etapa posterior.</p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- EL DATO QUE CAMBIA EL SISTEMA                               -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-6 rounded-2xl border-2 border-[#1D4E6A] bg-[#D6EFF2]/25 dark:bg-[#1D4E6A]/20 p-6 shadow-sm fx-card avoid-break">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#1D4E6A] text-white flex items-center justify-center text-lg font-bold">⛓</div>
+            <h2 class="text-lg font-semibold"><span class="shiny-text">Consideración técnica: la unidad opera como tres entidades</span></h2>
+          </div>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">En la operación de FAMEBAC el <strong>tracto</strong> traslada la <strong>bombona</strong>, y esta cuenta con placa propia y documentación independiente: tarjeta de propiedad, revisión técnica, SOAT y habilitación para residuos cuando corresponde. Un sistema que registre la unidad como un solo elemento incurre en un error de modelo de datos.</p>
+          <div class="mt-4 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950 p-4">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Entidad 1</p>
+              <p class="mt-1 font-bold text-sm text-neutral-900 dark:text-white">Tracto</p>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-1">Tarjeta de propiedad, revisión técnica, SOAT, habilitación vehicular.</p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950 p-4">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Entidad 2</p>
+              <p class="mt-1 font-bold text-sm text-neutral-900 dark:text-white">Bombona (semirremolque)</p>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-1">Placa propia, sus propias fechas y su propia habilitación para residuos.</p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950 p-4">
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold">Entidad 3</p>
+              <p class="mt-1 font-bold text-sm text-neutral-900 dark:text-white">Conductor</p>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-1">Licencia A-IIIb o A-IIIc, SCTR, examen médico, inducciones.</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">La regla operativa: la unidad sale a ruta únicamente si tracto, bombona y conductor se encuentran vigentes de forma simultánea. Si el tracto está al día pero la bombona tiene la revisión técnica vencida, la unidad no circula. Los tres planes contemplan las tres entidades.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRICING CARDS — 3 Planes                                    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div class="mt-8">
+          <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Los tres planes</span></h2>
+          <div class="grid gap-5 md:grid-cols-3">
+
+            <!-- Plan 1 -->
+            <div class="pricing-card rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Demo presentada</div>
+              <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold mt-2">Plan 1</p>
+              <h3 class="mt-2 text-base font-bold">Control documentario</h3>
+              <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 1,000</p>
+              <p class="text-xs text-neutral-500 mt-1">Pago único · entrega en 5 a 7 días hábiles</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Corresponde a la demo ya presentada, desplegada en producción con los datos reales de la empresa. Cubre el requerimiento inmediato: anticipar todo vencimiento antes de que afecte la operación.</p>
+              <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Lo que hace</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Registro de <strong>tractos, bombonas y conductores</strong> con sus fechas de vencimiento.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Semáforo automático</strong>: vigente, por vencer, urgente, vencido y sin registrar.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Matriz de vencimientos de toda la flota en una sola pantalla.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Días de aviso configurables.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Generador de aviso listo para copiar y pegar en WhatsApp.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Acceso desde el celular.</li>
+                </ul>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">De la demo a producción</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Base de datos en servidor.</strong> La demo almacena la información en el navegador, lo que no constituye persistencia real.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Login con usuario y contraseña.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Bombona separada como entidad propia</strong>, con su placa y sus documentos.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Adjuntar foto o PDF de cada documento.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Historial de renovaciones.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Dominio propio y hosting incluidos el primer año.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Capacitación de 1 hora a quien vaya a mantener el sistema.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Pago único · 5 a 7 días hábiles</p>
+            </div>
+
+            <!-- Plan 2 — RECOMENDADO -->
+            <div class="pricing-card rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5 shadow-sm fx-card pricing-popular flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
+              <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Plan 2</p>
+              <h3 class="mt-2 text-base font-bold">Plataforma operativa</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 3,000</p>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">60% al inicio, 40% contra entrega · 3 a 4 semanas</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Incluye la totalidad del Plan 1 e incorpora el control de personal y unidades, con notificaciones automáticas. El sistema deja de depender de la revisión manual.</p>
+              <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo del Plan 1.</strong></li>
+                </ul>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Documentos y vencimientos</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Avisos automáticos por correo</strong> a los 90, 60, 30, 15 y 7 días.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Responsable de renovación por documento: el aviso le llega a esa persona.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Resumen diario de lo que vence, ordenado por urgencia.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Bloqueo por vencimiento</strong>: el sistema no deja asignar una unidad o un conductor no habilitado.</li>
+                </ul>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Personal</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Aviso de contrato por vencer.</li>
+                </ul>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Unidades y bombonas</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Estado: operativa, en taller o de baja.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Vínculo tracto y bombona</strong>, con validación conjunta antes de asignar.</li>
+                </ul>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Reportes y usuarios</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Vencimientos entre dos fechas cualesquiera.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Exportación a Excel y PDF.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Roles: administrador, administración, jefe de flota y solo lectura.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Bitácora de cambios.</li>
+                </ul>
+              </div>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">60% al inicio, 40% contra entrega · 3 a 4 semanas</p>
+            </div>
+
+            <!-- Plan 3 -->
+            <div class="pricing-card rounded-2xl border border-[#1D4E6A]/40 dark:border-[#1D4E6A] bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D4E6A] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Alcance completo</div>
+              <p class="text-xs uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-semibold mt-2">Plan 3</p>
+              <h3 class="mt-2 text-base font-bold">Plataforma integral</h3>
+              <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">Desde S/ 6,500</p>
+              <p class="text-xs text-neutral-500 mt-1">40% inicio, 30% a mitad, 30% contra entrega · 10 a 16 semanas</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Unifica la operación completa en un solo sistema: alrededor de <strong>119 funciones distribuidas en 11 módulos</strong>. Dado que no todas corresponden al mismo presupuesto ni al mismo plazo, se cotiza por bloques y se implementa por fases.</p>
+              <div class="mt-4 border-t border-[#1D4E6A]/20 pt-4 flex-1">
+                <p class="text-[11px] uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-bold mb-2">Base incluida en los S/ 6,500</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Núcleo de plataforma</strong>: multiusuario, permisos por módulo, bitácora, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Documentos y vencimientos</strong> sobre las tres entidades: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Unidades, equipos y herramientas</strong>: ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Personal</strong>: ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Reportes base</strong>: tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Notificaciones</strong>: correo automático y WhatsApp por plantilla, con plazos configurables.</li>
+                </ul>
+                <p class="mt-4 text-xs text-neutral-500 leading-relaxed">Constituye la base obligatoria: ninguno de estos bloques puede excluirse, dado que el resto de la plataforma se apoya en ellos. Los módulos de asistencia, vacaciones, viajes, fabricación, residuos y reportes gerenciales se incorporan posteriormente, cotizados en su oportunidad.</p>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Fases 1 y 2 cubiertas por los S/ 6,500</p>
+            </div>
+
+          </div>
+
+          <!-- Lo que NO incluye el Plan 1 -->
+          <div class="mt-5 rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card avoid-break">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 text-lg font-bold">⚠</div>
+              <h2 class="text-lg font-semibold"><span class="shiny-text">Lo que NO incluye el Plan 1</span></h2>
+            </div>
+            <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">Corresponde al Plan 2, al Plan 3 o se cotiza por separado. En el Plan 1 el aviso se genera dentro del sistema y su envío es manual.</p>
+            <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Correos automáticos</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Mensajes automáticos por WhatsApp</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Asistencia y marcado</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Personal y planilla</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Viajes y rentabilidad</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Manejo de residuos</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Taller y órdenes de trabajo</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Reportes gerenciales</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Multiusuario y roles</p>
+            </div>
+            <p class="mt-5 text-sm text-amber-900/80 dark:text-amber-200/80 font-medium">El Plan 2 tampoco incluye asistencia y marcado, vacaciones y permisos, viajes y rentabilidad, taller y órdenes de trabajo, manifiestos de residuos, GPS, OCR ni app móvil nativa. Estos módulos corresponden al Plan 3.</p>
+          </div>
+
+          <!-- Nota: empezar por el 1 y crecer -->
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/20 px-5 py-5 flex items-start gap-4 avoid-break">
+            <div class="h-10 w-10 shrink-0 rounded-xl bg-[#328298] text-white flex items-center justify-center text-lg font-bold">★</div>
+            <div class="text-sm">
+              <p class="font-bold text-[#1D4E6A] dark:text-[#D6EFF2] mb-2 text-base">Los tres planes comparten la misma base técnica</p>
+              <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">No se trata de tres productos distintos, sino de una misma base técnica, un mismo modelo de datos y una misma interfaz, con módulos adicionales según el plan. Si FAMEBAC inicia con el Plan 1 y posteriormente decide escalar al Plan 2 o al Plan 3, lo construido no se rehace: se amplía, y el monto ya pagado se descuenta de la ampliación. La diferencia entre planes está en la cobertura y en el plazo.</p>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- COMPARACIÓN RÁPIDA                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Comparativa rápida</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Los tres planes en paralelo.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">&nbsp;</th>
+                    <th class="py-3 px-4 text-center">Plan 1</th>
+                    <th class="py-3 px-4 text-center">Plan 2</th>
+                    <th class="py-3 px-4 text-center">Plan 3</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Inversión</td>
+                    <td class="py-3 px-4 text-center font-bold text-[#328298]">S/ 1,000</td>
+                    <td class="py-3 px-4 text-center font-bold text-[#1D4E6A] dark:text-white">S/ 3,000</td>
+                    <td class="py-3 px-4 text-center font-bold text-[#1D4E6A] dark:text-white">Desde S/ 6,500</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Plazo</td>
+                    <td class="py-3 px-4 text-center">5 a 7 días</td>
+                    <td class="py-3 px-4 text-center">3 a 4 semanas</td>
+                    <td class="py-3 px-4 text-center">10 a 16 semanas</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Tracto, bombona y conductor</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Avisos automáticos</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center">Correo</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Correo y WhatsApp</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Adjuntar documentos e historial</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center">Sí, con OCR opcional</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Bloqueo por vencimiento</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Personal</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center">Ficha y documentos</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Completo</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Asistencia y horarios</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Viajes, taller y residuos</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4 font-medium">Multiusuario y roles</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">Sí</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Sí, por módulo</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-medium">Reportes gerenciales</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">No</td>
+                    <td class="py-3 px-4 text-center">Básicos</td>
+                    <td class="py-3 px-4 text-center font-semibold text-[#1D4E6A] dark:text-[#D6EFF2]">Completos</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">Costo recurrente</td>
+                    <td class="py-3 px-4 text-center font-semibold">Incluido el primer año</td>
+                    <td class="py-3 px-4 text-center font-semibold">Bajo</td>
+                    <td class="py-3 px-4 text-center font-semibold">Según complementos</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- BLOQUES QUE SE SUMAN DESPUÉS (PLAN 3)                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Plan 3 · Lo que se puede sumar después</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">La empresa opera tres líneas de negocio y cada una tiene su propia dinámica. Estos bloques se cotizan por separado, en el momento en que la empresa decida abordarlos, y se incorporan a la plataforma sin rehacer lo ya construido.</p>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Asistencia y accesos</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Marcado por DNI, fotocheck o celular. Registro permanente exigible ante una fiscalización, horarios por área, tardanzas, faltas, horas extras por tramo de recargo, conductores en ruta, asistencia en obra y validación al ingresar a planta del cliente.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Vacaciones, permisos y descansos</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Récord vacacional, saldo de días, solicitud y aprobación, calendario anual, descanso médico y licencias de ley, todo reflejado en asistencia.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Transporte de material</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Registro del viaje, asignación validada de tracto, bombona y conductor, cantidad transportada, tarifas, guía de remisión, combustible y kilometraje, programación semanal y rentabilidad por unidad.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Fabricación para obra</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Cotización, orden de trabajo, partidas, materiales, etapas de habilitado a despacho, horas cargadas desde asistencia, control de calidad y costo real contra cotizado.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Manejo de residuos</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Cliente generador, servicio de recojo, manifiesto numerado y correlativo, destino final, certificado de disposición, vehículos y conductores habilitados, y consolidado para la declaración anual.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">Reportes gerenciales</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Costo de planilla por línea de negocio, producción del taller, viajes y toneladas por cliente, y horas por persona y por obra.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- COMPLEMENTOS TÉCNICOS                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Complementos técnicos</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">No son módulos de negocio, sino capacidades que atraviesan el sistema. Se cotizan por separado porque cada uno conlleva un costo de infraestructura recurrente asumido por la empresa.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">OCR de documentos</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Se sube la foto del SOAT o del certificado y el sistema lee número y fechas, y llena la ficha solo. Elimina el ingreso manual de datos, principal origen de los errores que derivan en vencimientos no detectados.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">GPS y mapas en tiempo real</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Posición del tracto y la bombona en mapa, recorrido histórico, geocercas de planta y aviso de llegada y salida. Se integra con el proveedor de GPS que ya tenga la empresa; no incluye compra de equipos.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">WhatsApp automático</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Avisos de vencimiento enviados solos por WhatsApp Business API, con plantillas aprobadas.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">App móvil de campo</h4>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">Marcado offline del capataz en obra, checklist del vehículo antes de salir y firma de conformidad del cliente.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- FASES                                                       -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Plan 3 · Fases sugeridas</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Cada fase se entrega operativa y en producción. El proyecto puede detenerse al cierre de cualquier fase sin pérdida de lo construido.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Fase</th>
+                    <th class="py-3 px-4 text-left">Contenido</th>
+                    <th class="py-3 px-4 text-center">Duración</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold whitespace-nowrap">Fase 1</td>
+                    <td class="py-3 px-4">Levantamiento formal, modelo de datos y migración del Excel actual</td>
+                    <td class="py-3 px-4 text-center whitespace-nowrap">1 semana</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold whitespace-nowrap">Fase 2</td>
+                    <td class="py-3 px-4">Núcleo, documentos, unidades y bombonas, personal y notificaciones</td>
+                    <td class="py-3 px-4 text-center whitespace-nowrap">4 semanas</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-semibold whitespace-nowrap">Fase 3</td>
+                    <td class="py-3 px-4">Asistencia y accesos, vacaciones y permisos</td>
+                    <td class="py-3 px-4 text-center whitespace-nowrap">4 semanas</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-semibold whitespace-nowrap">Fase 4 en adelante</td>
+                    <td class="py-3 px-4">Bloques adicionales según lo que la empresa decida abordar, cotizados en su momento</td>
+                    <td class="py-3 px-4 text-center whitespace-nowrap">Por definir</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-xs text-neutral-500">Las fases 1 y 2, resaltadas, corresponden a los S/ 6,500. A partir de la fase 3, cada bloque se cotiza por separado.</p>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- COSTOS RECURRENTES                                          -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Costos recurrentes e infraestructura</span></h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Estos no son nuestros: van directo al proveedor y quedan a nombre de FAMEBAC. Son estimados y se confirman al cerrar el alcance. Se detallan a continuación para su consideración presupuestal.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Concepto</th>
+                    <th class="py-3 px-4 text-right">Estimado mensual</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4">Servidor, base de datos y almacenamiento de archivos</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 90 a S/ 350</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Correo transaccional</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 0 a S/ 70</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4">WhatsApp Business API</td>
+                    <td class="py-3 px-4 text-right font-medium text-neutral-600 dark:text-neutral-400">Por conversación iniciada</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">OCR</td>
+                    <td class="py-3 px-4 text-right font-medium text-neutral-600 dark:text-neutral-400">Por página procesada</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4">Mapas y geocercas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">S/ 60 a S/ 180</td>
+                  </tr>
+                  <tr class="bg-neutral-50/60 dark:bg-neutral-950/40">
+                    <td class="py-3 px-4">Dominio</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298] whitespace-nowrap">≈ S/ 60 al año</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-xs text-neutral-500">El almacenamiento sube según el volumen de documentos adjuntos. El costo de WhatsApp resulta reducido cuando el canal se destina únicamente a avisos de vencimiento.</p>
+            <div class="mt-5 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Mantenimiento y soporte</h4>
+                  <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Opcional</span>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">12% anual sobre el valor del proyecto, o S/ 250 mensuales. Cubre correcciones, respaldo monitoreado, actualización de dependencias y hasta 4 horas de soporte al mes.</p>
+              </div>
+              <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <h4 class="font-bold text-sm text-neutral-900 dark:text-white">Garantía</h4>
+                  <span class="inline-flex items-center rounded-full bg-[#D6EFF2] text-[#1D4E6A] dark:bg-[#1D4E6A]/40 dark:text-[#D6EFF2] px-2 py-0.5 text-[10px] font-bold whitespace-nowrap">Incluida</span>
+                </div>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">El primer año de garantía sobre errores va incluido sin costo, sin necesidad de contratar el mantenimiento.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <!-- RESUMEN DE INVERSIÓN                                        -->
+          <!-- ═══════════════════════════════════════════════════════════ -->
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Resumen</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Comparativo de inversión, cobertura y plazo por plan.</p>
+            <div class="overflow-x-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-neutral-100 dark:bg-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+                    <th class="py-3 px-4 text-left">Plan</th>
+                    <th class="py-3 px-4 text-center">Documentos</th>
+                    <th class="py-3 px-4 text-center">Personal y unidades</th>
+                    <th class="py-3 px-4 text-center">Operación completa</th>
+                    <th class="py-3 px-4 text-center">Plazo</th>
+                    <th class="py-3 px-4 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">1 · Control documentario</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">5 a 7 días</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#328298]">S/ 1,000</td>
+                  </tr>
+                  <tr class="bg-[#D6EFF2]/30 dark:bg-[#1D4E6A]/15">
+                    <td class="py-3 px-4 font-semibold">2 · Plataforma operativa <span class="text-[10px] uppercase tracking-wide text-[#328298] font-bold">(Recomendado)</span></td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-400">—</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">3 a 4 semanas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#1D4E6A] dark:text-white">S/ 3,000</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-semibold">3 · Plataforma integral</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-[#328298] font-bold">✓</td>
+                    <td class="py-3 px-4 text-center text-neutral-600 dark:text-neutral-400">10 a 16 semanas</td>
+                    <td class="py-3 px-4 text-right font-bold text-[#1D4E6A] dark:text-white">Desde S/ 6,500</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-xs text-neutral-500">Precios en soles peruanos. Cotización válida por 15 días calendario desde la fecha de emisión.</p>
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Forma de pago</h4>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Plan 1:</strong> pago único contra entrega.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Plan 2:</strong> 60% al inicio y 40% contra entrega.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span><strong class="text-neutral-900 dark:text-white">Plan 3:</strong> 40% al inicio, 30% a mitad de la fase 2 y 30% contra entrega.</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
+                <h4 class="font-semibold text-sm mb-2">Garantías Árkos</h4>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Primer año de garantía sobre errores de funcionamiento, sin costo adicional.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cada fase se entrega operativa y en producción.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tiempo de respuesta de 24 horas ante cualquier consulta.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El sistema y los datos quedan a nombre de FAMEBAC. No existe dependencia con Árkos para su operación.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- DETALLE                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <section id="proposal" class="hidden p-6 sm:p-8 space-y-10">
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-xl font-bold text-center mb-2 uppercase tracking-wide"><span class="shiny-text">Cómo trabajamos</span></h2>
+        <p class="text-center text-xs text-neutral-500 dark:text-neutral-400 mb-8">De la aprobación al arranque</p>
+        <div class="grid gap-4 md:grid-cols-4 text-sm">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 1</p>
+            <p class="mt-2 font-semibold">Confirmamos</p>
+            <p class="text-xs text-neutral-500 mt-1">FAMEBAC define el plan y se establecen en conjunto los días de aviso, los responsables por documento y los perfiles de acceso.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 2</p>
+            <p class="mt-2 font-semibold">Migramos el Excel</p>
+            <p class="text-xs text-neutral-500 mt-1">Se carga la hoja en su formato actual, sin requerir reordenamiento, y se validan las fechas con la contraparte designada.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 3</p>
+            <p class="mt-2 font-semibold">Armamos el sistema</p>
+            <p class="text-xs text-neutral-500 mt-1">El desarrollo avanza por entregas parciales, sometidas a revisión antes de continuar.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5 shadow-sm fx-card">
+            <p class="text-xs uppercase tracking-wide text-[#328298] font-bold">Paso 4</p>
+            <p class="mt-2 font-semibold">Arrancamos</p>
+            <p class="text-xs text-neutral-500 mt-1">Se despliega el sistema en producción, se capacita al personal responsable y se brinda acompañamiento durante las primeras semanas de operación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Requerimientos para el inicio</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">Insumos necesarios para iniciar el proyecto sin interrupciones.</p>
+        <div class="grid gap-5 md:grid-cols-2">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Para cualquiera de los tres planes</h4>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El <strong>Excel actual completo</strong>, con la lista real de tractos, bombonas y conductores.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Una contraparte designada por la empresa para resolver consultas y aprobar entregas.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los correos de los responsables de cada aviso y el documento asignado a cada uno.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los días de anticipación con que debe notificarse cada tipo de documento.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> RUC, razón social y logo de FAMEBAC.</li>
+            </ul>
+          </div>
+          <div class="rounded-xl border-2 border-[#328298]/40 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Por confirmar antes de cerrar alcance</h4>
+            <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cantidad actual de tractos, bombonas y conductores.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cantidad total de trabajadores entre las tres líneas de negocio.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Si la empresa cuenta con GPS y con qué proveedor.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Modalidad prevista para el marcado de asistencia: huella, fotocheck o celular.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Si los manifiestos de residuos se emiten actualmente en papel.</li>
+            </ul>
+            <p class="mt-3 text-xs text-neutral-500">Esta información no condiciona el inicio del Plan 1, pero determina el precio final del Plan 3.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Supuestos</span></h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">La cotización se elabora sobre las siguientes condiciones. Cualquier variación se evalúa de forma conjunta antes de que incida en plazo o precio.</p>
+        <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> FAMEBAC entrega el Excel actual completo y la lista real de tractos, bombonas y personal en la fase de levantamiento.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Hay una persona de la empresa designada como contraparte para resolver dudas y aprobar entregas.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los datos que existen hoy están razonablemente correctos. La limpieza mayor de datos se cotiza aparte.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Para GPS, la empresa ya cuenta con proveedor y este expone una API o servicio de consulta.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border-2 border-amber-400 dark:border-amber-600 bg-amber-50/40 dark:bg-amber-950/15 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Exclusiones</span></h2>
+        <p class="text-sm text-amber-900/80 dark:text-amber-200/80 mb-5 font-medium">No forma parte de ninguno de los tres planes. Todo lo detallado a continuación puede cotizarse como ampliación.</p>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Cálculo de planilla, boletas y envío a SUNAT o PLAME</p>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Facturación electrónica y emisión de comprobantes ante SUNAT</p>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Compra de hardware: lectores de huella, fotochecks, impresoras, equipos GPS</p>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Contabilidad, tesorería e inventario de almacén</p>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 flex items-start gap-2"><span class="text-amber-600 mt-0.5">×</span> Migración de sistemas de terceros distintos al Excel actual</p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+        <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Preguntas frecuentes</span></h2>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Es necesario abandonar el Excel de inmediato?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">No. La hoja actual se carga en su formato original y permanece disponible durante el periodo de adaptación. El objetivo es que deje de utilizarse por resultar innecesaria, no por retiro forzado.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Es posible iniciar con el Plan 1 y escalar posteriormente?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí, y es la ruta recomendada cuando el presupuesto es la restricción principal. El sistema está construido por módulos: incorporar el Plan 2 o el Plan 3 no implica rehacer lo existente, y el monto ya pagado se descuenta.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Qué ocurre si la flota o el personal crecen?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">El sistema no tiene límite de registros. Los tractos, bombonas, conductores y personal se incorporan desde el mismo sistema cuando se requiera, sin costo adicional de desarrollo.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">En el Plan 1, ¿el aviso se envía de forma automática?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">No. El sistema genera el mensaje listo para su envío por WhatsApp, pero el envío es manual. La notificación automática por correo se incorpora desde el Plan 2, y por WhatsApp en el Plan 3.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Por qué separar la bombona del tracto?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Porque cuenta con placa y documentación propias, y su vencimiento inmoviliza la unidad de igual forma. Si el sistema los registra como un solo elemento, eventualmente autorizará la salida de una unidad que no estaba habilitada para circular.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Quién asume los costos recurrentes?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">La empresa, y quedan a su nombre. En el Plan 1 el dominio y el hosting están incluidos el primer año. Los demás conceptos solo aplican si se activa el módulo correspondiente.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿Qué ocurre ante requerimientos posteriores a la entrega?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Durante el primer año, la corrección de errores no tiene costo. Los cambios de alcance se atienden dentro del plan de mantenimiento o se cotizan por separado según su magnitud.</p>
+          </div>
+          <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4">
+            <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-1">¿La propiedad del sistema y los datos corresponde a FAMEBAC?</h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Sí. El sistema y la base de datos quedan a nombre de FAMEBAC, exportables en cualquier momento. No existe dependencia con Árkos para su operación.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="arkos-footer mt-10 rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <img src="/logo_ico/final - LOGO 2-02.png" alt="Árkos" class="logo-screen h-12 w-auto" />
+              <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="logo-print h-12 w-auto" />
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Agencia de desarrollo de software en Lima, Perú. Sistemas a medida, aplicaciones web y móviles, diseño UX/UI e integración de IA.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-neutral-500 mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.3 7 12 8 12s8-6.7 8-12c0-4.4-3.6-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              Lima, Perú
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Contacto</h4>
+            <a href="mailto:gerencia@xn--rkos-4na.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              gerencia@árkos.com
+            </a>
+            <a href="mailto:rodrigoan.torresp@gmail.com" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              rodrigoan.torresp@gmail.com
+            </a>
+            <a href="tel:+51961869348" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3Z"/></svg>
+              +51 961 869 348
+            </a>
+            <a href="https://wa.me/51961869348" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              WhatsApp directo
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h4 class="text-xs uppercase tracking-wide font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Árkos en línea</h4>
+            <a href="https://xn--rkos-4na.com" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm6.9 9h-3a15.6 15.6 0 0 0-1-5.1A8 8 0 0 1 18.9 11ZM12 4c.9 0 2.2 2.5 2.6 7H9.4C9.8 6.5 11.1 4 12 4ZM4 12c0-.3 0-.7.1-1H8c0 .7-.1 1.3-.1 2s0 1.3.1 2H4.1c-.1-.3-.1-.7-.1-1Zm1.1 5h2.9a15 15 0 0 0 1 4.1A8 8 0 0 1 5.1 17ZM8 7H5.1A8 8 0 0 1 9 2.9 15 15 0 0 0 8 7Zm4 13c-.9 0-2.2-2.5-2.6-7h5.2c-.4 4.5-1.7 7-2.6 7Zm3-9H9c0-.7-.1-1.3-.1-2s0-1.3.1-2h6c0 .7.1 1.3.1 2s0 1.3-.1 2Zm.1 9.1a15 15 0 0 0 1-4.1h2.8a8 8 0 0 1-3.8 4.1ZM16 13c0-.7.1-1.3.1-2s0-1.3-.1-2h3.9c.1.3.1.7.1 1s0 .7-.1 1H16Z"/></svg>
+              árkos.com
+            </a>
+            <a href="https://xn--rkos-4na.com/#projects" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-[#328298]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M4 4h7l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>
+              Proyectos anteriores
+            </a>
+            <div class="flex flex-wrap items-center gap-2 mt-1">
+              <a href="https://linkedin.com/company/arkos" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3v10ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.3c0-1.3-.5-2-1.5-2-1.1 0-1.8.8-1.8 2V19h-3V9h2.9v1.3c.5-.8 1.5-1.6 3.1-1.6 2.2 0 3.3 1.3 3.3 4V19Z"/></svg>
+              </a>
+              <a href="https://wa.me/51961869348" target="_blank" rel="noopener" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm0 18.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.3 8.3 0 1 1 6.8 3.7Z"/></svg>
+              </a>
+              <a href="mailto:gerencia@xn--rkos-4na.com" aria-label="Email" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[#1D4E6A] dark:text-[#D6EFF2] hover:bg-[#328298] hover:text-white hover:border-[#328298] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-500 mt-2">Respondemos en menos de 24 h hábiles.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
+          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>Cotización ARK-FAM-2026-001 · Emitida 28 Ago 2026 · Validez 15 días calendario</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+
+    const MAX_COLORS = 8;
+    const frag = `
+    #define MAX_COLORS ${MAX_COLORS}
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    varying vec2 vUv;
+
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      vec2 toward = (uPointer - rp);
+      q += toward * uMouseInfluence * 0.2;
+
+      vec3 col = vec3(0.0);
+      float a = 1.0;
+
+      if (uColorCount > 0) {
+        vec2 s = q;
+        vec3 sumCol = vec3(0.0);
+        float cover = 0.0;
+        for (int i = 0; i < MAX_COLORS; ++i) {
+          if (i >= uColorCount) break;
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+          sumCol += uColors[i] * w;
+          cover = max(cover, w);
+        }
+        col = clamp(sumCol, 0.0, 1.0);
+        a = uTransparent > 0 ? cover : 1.0;
+      } else {
+        vec2 s = q;
+        for (int k = 0; k < 3; ++k) {
+          s -= 0.01;
+          vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+          float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+          float kMix = pow(kBelow, 0.3);
+          float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+          vec2 disp = (r - s) * kBelow;
+          vec2 warped = s + disp * gain;
+          float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(k)) / 4.0);
+          float m = mix(m0, m1, kMix);
+          col[k] = 1.0 - exp(-6.0 / exp(6.0 * m));
+        }
+        a = uTransparent > 0 ? max(max(col.r, col.g), col.b) : 1.0;
+      }
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      vec3 rgb = (uTransparent > 0) ? col * a : col;
+      gl_FragColor = vec4(rgb, a);
+    }
+    `;
+
+    const vert = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+    `;
+
+    const container = document.getElementById('colorBends');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const uColorsArray = Array.from({ length: MAX_COLORS }, () => new THREE.Vector3(0, 0, 0));
+      const material = new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms: {
+          uCanvas: { value: new THREE.Vector2(1, 1) },
+          uTime: { value: 0 },
+          uSpeed: { value: 0.18 },
+          uRot: { value: new THREE.Vector2(1, 0) },
+          uColorCount: { value: 0 },
+          uColors: { value: uColorsArray },
+          uTransparent: { value: 1 },
+          uScale: { value: 1 },
+          uFrequency: { value: 1 },
+          uWarpStrength: { value: 1 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uMouseInfluence: { value: 0.6 },
+          uParallax: { value: 0.4 },
+          uNoise: { value: 0.08 }
+        },
+        premultipliedAlpha: true,
+        transparent: true
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      renderer.domElement.style.display = 'block';
+      container.appendChild(renderer.domElement);
+
+      const clock = new THREE.Clock();
+      const pointerTarget = new THREE.Vector2(0, 0);
+      const pointerCurrent = new THREE.Vector2(0, 0);
+
+      const toVec3 = hex => {
+        const h = hex.replace('#', '').trim();
+        const v =
+          h.length === 3
+            ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+            : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
+      };
+
+      const colors = ['#1D4E6A', '#328298', '#5ec8d8'];
+      const arr = colors.map(toVec3).slice(0, MAX_COLORS);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        const vec = material.uniforms.uColors.value[i];
+        if (i < arr.length) vec.copy(arr[i]);
+        else vec.set(0, 0, 0);
+      }
+      material.uniforms.uColorCount.value = arr.length;
+
+      const handleResize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        material.uniforms.uCanvas.value.set(w, h);
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+
+      const handlePointerMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / (rect.height || 1)) * 2 - 1);
+        pointerTarget.set(x, y);
+      };
+      window.addEventListener('pointermove', handlePointerMove);
+
+      const loop = () => {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        material.uniforms.uTime.value = elapsed;
+        const deg = elapsed * 6;
+        const rad = (deg * Math.PI) / 180;
+        material.uniforms.uRot.value.set(Math.cos(rad), Math.sin(rad));
+        pointerCurrent.lerp(pointerTarget, Math.min(1, dt * 8));
+        material.uniforms.uPointer.value.copy(pointerCurrent);
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  </script>
+  <script>
+    const btnQuote = document.getElementById('btnQuote');
+    const btnProposal = document.getElementById('btnProposal');
+    const quote = document.getElementById('quote');
+    const proposal = document.getElementById('proposal');
+
+    const SELECTED = ['bg-[#328298]','text-white'];
+    const UNSELECTED = ['bg-neutral-200','text-neutral-900'];
+    const SELECTED_DARK = ['dark:bg-[#D6EFF2]','dark:text-[#0C2F3F]'];
+    const UNSELECTED_DARK = ['dark:bg-neutral-800','dark:text-neutral-100'];
+
+    function applyActive(btn, active) {
+      if (active) {
+        btn.classList.add(...SELECTED, ...SELECTED_DARK);
+        btn.classList.remove(...UNSELECTED, ...UNSELECTED_DARK);
+      } else {
+        btn.classList.add(...UNSELECTED, ...UNSELECTED_DARK);
+        btn.classList.remove(...SELECTED, ...SELECTED_DARK);
+      }
+    }
+
+    function setActive(which) {
+      if (which === 'quote') {
+        quote.classList.remove('hidden');
+        proposal.classList.add('hidden');
+        applyActive(btnQuote, true);
+        applyActive(btnProposal, false);
+      } else {
+        quote.classList.add('hidden');
+        proposal.classList.remove('hidden');
+        applyActive(btnQuote, false);
+        applyActive(btnProposal, true);
+      }
+    }
+
+    applyActive(btnQuote, true);
+    applyActive(btnProposal, false);
+
+    btnQuote.addEventListener('click', () => setActive('quote'));
+    btnProposal.addEventListener('click', () => setActive('proposal'));
+
+    // ═══════════════════════════════════════════════════════════
+    // DESCARGA WORD (.docx) — documento nativo construido con `docx`
+    // ═══════════════════════════════════════════════════════════
+    const btnWord = document.getElementById('btnWord');
+
+    function waitForDocx(timeoutMs = 15000) {
+      if (window.docx) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          window.removeEventListener('docx-ready', onReady);
+          reject(new Error('La librería docx tardó demasiado en cargar. Revisa tu conexión a internet.'));
+        }, timeoutMs);
+        const onReady = () => { clearTimeout(timer); resolve(); };
+        window.addEventListener('docx-ready', onReady, { once: true });
+      });
+    }
+
+    btnWord.addEventListener('click', async () => {
+      const originalLabel = btnWord.innerHTML;
+      btnWord.disabled = true;
+      btnWord.innerHTML = 'Generando…';
+      try {
+        await waitForDocx();
+        await generateArkosWordDoc();
+      } catch (err) {
+        console.error(err);
+        alert('Error generando Word: ' + (err?.message || err));
+      } finally {
+        btnWord.disabled = false;
+        btnWord.innerHTML = originalLabel;
+      }
+    });
+
+    async function generateArkosWordDoc() {
+      const D = window.docx;
+      const {
+        Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+        Table, TableRow, TableCell, ImageRun, WidthType, BorderStyle,
+        Header, Footer, PageNumber, VerticalAlign
+      } = D;
+
+      // Paleta Árkos
+      const C = {
+        deep:    '1D4E6A',
+        brand:   '328298',
+        tint:    'D6EFF2',
+        ink:     '1F2937',
+        body:    '404040',
+        soft:    '737373',
+        rule:    'E5E7EB',
+        bgSoft:  'F8FAFC',
+        red:     'B91C1C',
+        amber:   'B45309',
+        green:   '15803D'
+      };
+
+      const fetchBuf = async (path) => {
+        const r = await fetch(path);
+        if (!r.ok) throw new Error('No se pudo cargar ' + path);
+        return await r.arrayBuffer();
+      };
+      const [logoBuf, isoBuf] = await Promise.all([
+        fetchBuf('/logo_ico/final - LOGO 2-01.png'),
+        fetchBuf('/logo_ico/final - LOGO 2-07.png')
+      ]);
+
+      // ─── Helpers tipográficos ──────────────────────────────────
+      const t = (text, opts = {}) => new TextRun({ text, font: 'Calibri', ...opts });
+
+      const p = (runs, opts = {}) => new Paragraph({
+        children: Array.isArray(runs) ? runs : [runs],
+        spacing: { after: 120, line: 300, ...opts.spacing },
+        alignment: opts.alignment,
+        indent: opts.indent,
+        pageBreakBefore: opts.pageBreakBefore,
+        border: opts.border
+      });
+
+      const blank = (after = 200) => new Paragraph({ children: [], spacing: { after } });
+
+      const eyebrow = (s) => p([t(s, { bold: true, size: 16, color: C.brand, characterSpacing: 30, allCaps: true })], { spacing: { after: 80 } });
+
+      const title = (s) => p([t(s, { bold: true, size: 48, color: C.deep })], { spacing: { before: 0, after: 200, line: 400 } });
+
+      const h1 = (s) => new Paragraph({
+        children: [t(s, { bold: true, size: 36, color: C.deep })],
+        heading: HeadingLevel.HEADING_1,
+        spacing: { before: 360, after: 200, line: 340 },
+        border: { bottom: { color: C.brand, size: 12, space: 8, style: BorderStyle.SINGLE } }
+      });
+
+      const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
+
+      const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
+
+      const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
+        const runs = [t(icon + '  ', { bold: true, color: iconColor, size: 22 })];
+        if (label) runs.push(t(label + ': ', { bold: true, color: C.deep, size: 22 }));
+        runs.push(t(txt, { size: 22, color: C.body }));
+        return new Paragraph({
+          children: runs,
+          spacing: { after: 90, line: 300 },
+          indent: { left: 240, hanging: 240 }
+        });
+      };
+
+      const negBullet = (s) => bullet(s, null, '×', C.red);
+
+      // ─── Helpers de tabla ─────────────────────────────────────
+      const cell = (children, opts = {}) => new TableCell({
+        children: Array.isArray(children) ? children : [children],
+        margins: { top: 140, bottom: 140, left: 180, right: 180 },
+        shading: opts.shading,
+        width: opts.width,
+        columnSpan: opts.columnSpan,
+        verticalAlign: opts.verticalAlign || VerticalAlign.CENTER
+      });
+
+      const headerCell = (s) => cell([new Paragraph({
+        children: [t(s, { bold: true, color: 'FFFFFF', size: 18, allCaps: true, characterSpacing: 30 })],
+        alignment: AlignmentType.CENTER
+      })], { shading: { fill: C.deep } });
+
+      const dataCell = (s, opts = {}) => cell([new Paragraph({
+        children: [t(s, { size: 22, color: opts.brand ? C.brand : C.body, bold: opts.bold })],
+        alignment: opts.align || AlignmentType.CENTER
+      })], { shading: opts.shading });
+
+      const stdBorders = {
+        top:    { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+        bottom: { style: BorderStyle.SINGLE, size: 8, color: C.deep },
+        left:   { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+        right:  { style: BorderStyle.SINGLE, size: 4, color: C.deep },
+        insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+        insideVertical:   { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+      };
+
+      // ─── Tarjeta de precio ─────────────────────────────────────
+      // Un item que empieza con '#' se renderiza como subtítulo de grupo.
+      const pricingCard = (badge, titulo, precio, sub, intro, items, popular = false) => {
+        const fill = popular ? C.tint : 'FFFFFF';
+        const borderSize = popular ? 16 : 6;
+        const borderColor = popular ? C.brand : C.rule;
+        const renderItem = (i) => i.startsWith('#')
+          ? p([t(i.slice(1).trim(), { bold: true, size: 18, color: C.brand, allCaps: true, characterSpacing: 20 })], { spacing: { before: 160, after: 80 } })
+          : bullet(i, null, '✓', C.brand);
+        return new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            bottom: { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            left:   { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            right:  { style: BorderStyle.SINGLE, size: borderSize, color: borderColor },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [cell([
+            p([t(badge, { bold: true, size: 16, color: popular ? C.brand : C.soft, allCaps: true, characterSpacing: 30 })], { spacing: { after: 80 } }),
+            p([t(titulo, { bold: true, size: 28, color: C.deep })], { spacing: { after: 120, line: 320 } }),
+            p([t(precio, { bold: true, size: 56, color: C.brand })], { spacing: { after: 40, line: 480 } }),
+            p([t(sub, { italic: true, size: 18, color: C.soft })], { spacing: { after: 180 } }),
+            body(intro),
+            blank(60),
+            ...items.map(renderItem)
+          ], { shading: { fill }, verticalAlign: VerticalAlign.TOP })]})]
+        });
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // PORTADA
+      // ═══════════════════════════════════════════════════════════
+      const cover = [
+        new Paragraph({
+          children: [new ImageRun({ type: 'png', data: logoBuf, transformation: { width: 200, height: 67 } })],
+          spacing: { after: 480 }
+        }),
+        eyebrow('Cotización   ·   ARK-FAM-2026-001'),
+        title('Control de vencimientos y operación de flota'),
+        body('Sistema de control de vencimientos documentarios sobre flota, personal y unidades. La propuesta contempla tres planes, desde el control documentario en producción hasta la plataforma que unifica documentos, personal, unidades y operación en un solo entorno.'),
+        blank(320),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            bottom: { style: BorderStyle.SINGLE, size: 8, color: C.brand },
+            left: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: C.rule },
+            insideVertical: { style: BorderStyle.SINGLE, size: 2, color: C.rule }
+          },
+          rows: [
+            new TableRow({ children: [
+              cell([
+                p([t('Cliente', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('FAMEBAC E.I.R.L.', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('RUC 20601116406 · Transporte de carga, fabricación metálica estructural y manejo de residuos', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } }),
+              cell([
+                p([t('Proyecto', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('Sistema de gestión de flota', { bold: true, size: 24, color: C.deep })], { spacing: { after: 40 } }),
+                p([t('Tres planes · demo de control documentario presentada', { size: 20, color: C.soft })])
+              ], { shading: { fill: C.bgSoft }, width: { size: 50, type: WidthType.PERCENTAGE } })
+            ]}),
+            new TableRow({ children: [
+              cell([
+                p([t('Emisión', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('28 de agosto de 2026', { size: 22, color: C.body })])
+              ]),
+              cell([
+                p([t('Validez', { bold: true, color: C.brand, size: 16, allCaps: true, characterSpacing: 30 })], { spacing: { after: 60 } }),
+                p([t('15 días calendario desde la emisión', { size: 22, color: C.body })])
+              ])
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // CONTEXTO
+      // ═══════════════════════════════════════════════════════════
+      const contexto = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Contexto'),
+        body('El control de vencimientos se lleva hoy en una hoja de cálculo organizada por unidad, con una columna por documento y marcas de color para identificar lo próximo a vencer. El mecanismo depende de que alguien revise esa hoja de forma periódica.'),
+        body('Esa dependencia ya tuvo una consecuencia operativa concreta: un vencimiento no detectado a tiempo dejó una unidad sin poder circular. El costo de una unidad inmovilizada supera al de cualquiera de los planes de esta cotización.'),
+        blank(160),
+        h1('Alcance de la propuesta'),
+        body('Durante el levantamiento se identificaron dos alcances posibles. El primero, acotado al control documentario: que el sistema anticipe cada vencimiento. El segundo, integral: unificar asistencia, horarios, personal, documentos y operación en una sola plataforma.'),
+        body('Ambos alcances son viables y ambos están cotizados. Por eso la propuesta presenta tres planes en un mismo documento: FAMEBAC define el nivel de cobertura y el presupuesto, sin que la decisión inicial condicione las posteriores.'),
+        p([t('Los tres planes se construyen sobre la misma base técnica. Iniciar por el primero no obliga a rehacer trabajo en una etapa posterior.', { bold: true, size: 22, color: C.deep })], { spacing: { after: 200, line: 320 } }),
+        blank(160),
+
+        h1('Consideración técnica: la unidad opera como tres entidades'),
+        body('En la operación de FAMEBAC el tracto traslada la bombona, y esta cuenta con placa propia y documentación independiente: tarjeta de propiedad, revisión técnica, SOAT y habilitación para residuos cuando corresponde. Un sistema que registre la unidad como un solo elemento incurre en un error de modelo de datos.'),
+        bullet('Tarjeta de propiedad, revisión técnica, SOAT y habilitación vehicular.', 'Tracto'),
+        bullet('Placa propia, sus propias fechas y su propia habilitación para residuos.', 'Bombona (semirremolque)'),
+        bullet('Licencia A-IIIb o A-IIIc, SCTR, examen médico e inducciones.', 'Conductor'),
+        blank(80),
+        p([t('La regla operativa: la unidad sale a ruta únicamente si tracto, bombona y conductor se encuentran vigentes de forma simultánea. Si el tracto está al día pero la bombona tiene la revisión técnica vencida, la unidad no circula. Los tres planes contemplan las tres entidades.', { bold: true, size: 22, color: C.deep })], { spacing: { after: 200, line: 320 } })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // PLANES
+      // ═══════════════════════════════════════════════════════════
+      const planes = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Plan 1 — Control documentario'),
+        blank(120),
+        pricingCard(
+          'Plan 1  ·  Demo presentada',
+          'Control documentario',
+          'S/ 1,000',
+          'Pago único · entrega en 5 a 7 días hábiles.',
+          'Corresponde a la demo ya presentada, desplegada en producción con los datos reales de la empresa. Cubre el requerimiento inmediato: anticipar todo vencimiento antes de que afecte la operación.',
+          [
+            '# Lo que hace',
+            'Registro de tractos, bombonas y conductores con sus fechas de vencimiento.',
+            'Semáforo automático: vigente, por vencer, urgente, vencido y sin registrar.',
+            'Matriz de vencimientos de toda la flota en una sola pantalla.',
+            'Días de aviso configurables.',
+            'Generador de aviso listo para copiar y pegar en WhatsApp.',
+            'Acceso desde el celular.',
+            '# De la demo a producción',
+            'Base de datos en servidor. La demo almacena la información en el navegador, lo que no constituye persistencia real.',
+            'Login con usuario y contraseña.',
+            'Bombona separada como entidad propia, con su placa y sus documentos.',
+            'Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.',
+            'Adjuntar foto o PDF de cada documento.',
+            'Historial de renovaciones.',
+            'Dominio propio y hosting incluidos el primer año.',
+            'Capacitación de 1 hora a quien vaya a mantener el sistema.'
+          ]
+        ),
+        blank(160),
+        h3('Lo que NO incluye el Plan 1', C.amber),
+        body('Corresponde al Plan 2, al Plan 3 o se cotiza por separado. En el Plan 1 el aviso se genera dentro del sistema y su envío es manual.'),
+        negBullet('Correos automáticos.'),
+        negBullet('Mensajes automáticos por WhatsApp.'),
+        negBullet('Asistencia y marcado.'),
+        negBullet('Personal y planilla.'),
+        negBullet('Viajes y rentabilidad.'),
+        negBullet('Manejo de residuos.'),
+        negBullet('Taller y órdenes de trabajo.'),
+        negBullet('Reportes gerenciales.'),
+        negBullet('Multiusuario y roles.'),
+
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Plan 2 — Plataforma operativa'),
+        blank(120),
+        pricingCard(
+          'Plan 2  ·  Recomendado',
+          'Plataforma operativa',
+          'S/ 3,000',
+          '60% al inicio, 40% contra entrega · 3 a 4 semanas.',
+          'Incluye la totalidad del Plan 1 e incorpora el control de personal y unidades, con notificaciones automáticas. El sistema deja de depender de la revisión manual.',
+          [
+            'Todo lo del Plan 1.',
+            '# Documentos y vencimientos',
+            'Avisos automáticos por correo a los 90, 60, 30, 15 y 7 días.',
+            'Responsable de renovación por documento: el aviso le llega a esa persona.',
+            'Resumen diario de lo que vence, ordenado por urgencia.',
+            'Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.',
+            'Bloqueo por vencimiento: el sistema no deja asignar una unidad o un conductor no habilitado.',
+            '# Personal',
+            'Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.',
+            'Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.',
+            'Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.',
+            'Aviso de contrato por vencer.',
+            '# Unidades y bombonas',
+            'Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.',
+            'Estado: operativa, en taller o de baja.',
+            'Vínculo tracto y bombona, con validación conjunta antes de asignar.',
+            '# Reportes',
+            'Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.',
+            'Vencimientos entre dos fechas cualesquiera.',
+            'Exportación a Excel y PDF.',
+            '# Usuarios',
+            'Roles: administrador, administración, jefe de flota y solo lectura.',
+            'Bitácora de cambios.'
+          ],
+          true
+        ),
+        blank(160),
+        h3('Lo que NO incluye el Plan 2', C.amber),
+        body('Estos módulos corresponden al Plan 3:'),
+        negBullet('Asistencia y marcado.'),
+        negBullet('Vacaciones y permisos.'),
+        negBullet('Viajes y rentabilidad.'),
+        negBullet('Taller y órdenes de trabajo.'),
+        negBullet('Manifiestos de residuos.'),
+        negBullet('GPS, OCR y app móvil nativa.'),
+
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Plan 3 — Plataforma integral'),
+        blank(120),
+        pricingCard(
+          'Plan 3  ·  Alcance completo, por fases',
+          'Plataforma integral',
+          'Desde S/ 6,500',
+          '40% al inicio, 30% a mitad de la fase 2, 30% contra entrega · 10 a 16 semanas.',
+          'Unifica la operación completa en un solo sistema: alrededor de 119 funciones distribuidas en 11 módulos. Dado que no todas corresponden al mismo presupuesto ni al mismo plazo, se cotiza por bloques y se implementa por fases. El precio final depende de los módulos que la empresa active.',
+          [
+            '# Base incluida en los S/ 6,500',
+            'Núcleo de plataforma: multiusuario, roles y permisos por módulo, bitácora de cambios, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.',
+            'Documentos y vencimientos sobre las tres entidades — tracto, bombona y persona: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.',
+            'Unidades, equipos y herramientas: ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.',
+            'Personal: ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.',
+            'Reportes base: tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.',
+            'Notificaciones: correo automático y WhatsApp por plantilla, con plazos configurables.'
+          ]
+        ),
+        blank(120),
+        p([t('Esa base es obligatoria: ninguno de esos bloques puede excluirse, dado que el resto de la plataforma se apoya en ellos.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } }),
+
+        h1('Plan 3 — Lo que se puede sumar después'),
+        body('La empresa opera tres líneas de negocio y cada una tiene su propia dinámica. Estos bloques se cotizan por separado, en el momento en que la empresa decida abordarlos, y se incorporan a la plataforma sin rehacer lo ya construido.'),
+        bullet('Marcado por DNI, fotocheck o celular. Registro permanente exigible ante una fiscalización, horarios por área, tardanzas, faltas, horas extras por tramo de recargo, conductores en ruta, asistencia en obra y validación al ingresar a planta del cliente.', 'Asistencia y accesos'),
+        bullet('Récord vacacional, saldo de días, solicitud y aprobación, calendario anual, descanso médico y licencias de ley, reflejados en asistencia.', 'Vacaciones, permisos y descansos'),
+        bullet('Registro del viaje, asignación validada de tracto, bombona y conductor, cantidad transportada, tarifas, guía de remisión, combustible y kilometraje, programación semanal y rentabilidad por unidad.', 'Transporte de material'),
+        bullet('Cotización, orden de trabajo, partidas, materiales, etapas de habilitado a despacho, horas cargadas desde asistencia, control de calidad y costo real contra cotizado.', 'Fabricación para obra'),
+        bullet('Cliente generador, servicio de recojo, manifiesto numerado y correlativo, destino final, certificado de disposición, vehículos y conductores habilitados y consolidado para la declaración anual.', 'Manejo de residuos'),
+        bullet('Costo de planilla por línea de negocio, producción del taller, viajes y toneladas por cliente, y horas por persona y por obra.', 'Reportes gerenciales'),
+        blank(160),
+
+        h1('Complementos técnicos'),
+        body('No son módulos de negocio, sino capacidades que atraviesan el sistema. Se cotizan por separado porque cada uno conlleva un costo de infraestructura recurrente asumido por la empresa.'),
+        bullet('Se sube la foto del SOAT o del certificado y el sistema lee número y fechas, y llena la ficha solo. Elimina el ingreso manual de datos, principal origen de los errores que derivan en vencimientos no detectados.', 'OCR de documentos'),
+        bullet('Posición del tracto y la bombona en mapa, recorrido histórico, geocercas de planta y aviso de llegada y salida. Se integra con el proveedor de GPS que ya tenga la empresa, no incluye compra de equipos.', 'GPS y mapas en tiempo real'),
+        bullet('Avisos de vencimiento enviados solos por WhatsApp Business API con plantillas aprobadas.', 'WhatsApp automático'),
+        bullet('Marcado offline del capataz en obra, checklist del vehículo antes de salir y firma de conformidad del cliente.', 'App móvil de campo')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // COMPARATIVA
+      // ═══════════════════════════════════════════════════════════
+      const filaComp = (label, a, b, c, alt = false) => new TableRow({ children: [
+        dataCell(label, { align: AlignmentType.LEFT, bold: true, shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(a, { brand: a === 'Sí', bold: a === 'Sí', shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(b, { brand: b === 'Sí', bold: b === 'Sí', shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(c, { brand: c === 'Sí', bold: c === 'Sí', shading: alt ? { fill: C.bgSoft } : undefined })
+      ]});
+
+      const comparacion = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Comparativa rápida'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell(' '), headerCell('Plan 1'), headerCell('Plan 2'), headerCell('Plan 3')] }),
+            new TableRow({ children: [
+              dataCell('Inversión', { align: AlignmentType.LEFT, bold: true }),
+              dataCell('S/ 1,000', { brand: true, bold: true }),
+              dataCell('S/ 3,000', { brand: true, bold: true }),
+              dataCell('Desde S/ 6,500', { brand: true, bold: true })
+            ]}),
+            filaComp('Plazo', '5 a 7 días', '3 a 4 semanas', '10 a 16 semanas', true),
+            filaComp('Tracto, bombona y conductor', 'Sí', 'Sí', 'Sí'),
+            filaComp('Avisos automáticos', 'No', 'Correo', 'Correo y WhatsApp', true),
+            filaComp('Adjuntar documentos e historial', 'Sí', 'Sí', 'Sí, con OCR opcional'),
+            filaComp('Bloqueo por vencimiento', 'No', 'Sí', 'Sí', true),
+            filaComp('Personal', 'No', 'Ficha y documentos', 'Completo'),
+            filaComp('Asistencia y horarios', 'No', 'No', 'Sí', true),
+            filaComp('Viajes, taller y residuos', 'No', 'No', 'Sí'),
+            filaComp('Multiusuario y roles', 'No', 'Sí', 'Sí, por módulo', true),
+            filaComp('Reportes gerenciales', 'No', 'Básicos', 'Completos'),
+            new TableRow({ children: [
+              dataCell('Costo recurrente', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+              dataCell('Incluido el primer año', { bold: true, shading: { fill: C.tint } }),
+              dataCell('Bajo', { bold: true, shading: { fill: C.tint } }),
+              dataCell('Según complementos', { bold: true, shading: { fill: C.tint } })
+            ]})
+          ]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // FASES + COSTOS RECURRENTES
+      // ═══════════════════════════════════════════════════════════
+      const filaFase = (fase, contenido, dur, destacada = false) => new TableRow({ children: [
+        dataCell(fase, { align: AlignmentType.LEFT, bold: true, shading: destacada ? { fill: C.tint } : undefined }),
+        dataCell(contenido, { align: AlignmentType.LEFT, shading: destacada ? { fill: C.tint } : undefined }),
+        dataCell(dur, { shading: destacada ? { fill: C.tint } : undefined })
+      ]});
+
+      const filaCosto = (concepto, monto, alt = false) => new TableRow({ children: [
+        dataCell(concepto, { align: AlignmentType.LEFT, shading: alt ? { fill: C.bgSoft } : undefined }),
+        dataCell(monto, { brand: true, bold: true, align: AlignmentType.RIGHT, shading: alt ? { fill: C.bgSoft } : undefined })
+      ]});
+
+      const fasesYCostos = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Plan 3 — Fases sugeridas'),
+        body('Cada fase se entrega operativa y en producción. El proyecto puede detenerse al cierre de cualquier fase sin pérdida de lo construido.'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell('Fase'), headerCell('Contenido'), headerCell('Duración')] }),
+            filaFase('Fase 1', 'Levantamiento formal, modelo de datos y migración del Excel actual', '1 semana', true),
+            filaFase('Fase 2', 'Núcleo, documentos, unidades y bombonas, personal y notificaciones', '4 semanas', true),
+            filaFase('Fase 3', 'Asistencia y accesos, vacaciones y permisos', '4 semanas'),
+            filaFase('Fase 4 en adelante', 'Bloques adicionales según lo que la empresa decida abordar, cotizados en su momento', 'Por definir')
+          ]
+        }),
+        blank(120),
+        p([t('Las fases 1 y 2, resaltadas, corresponden a los S/ 6,500. A partir de la fase 3, cada bloque se cotiza por separado.', { size: 18, color: C.soft, italic: true })], { spacing: { after: 200 } }),
+
+        blank(280),
+        h1('Costos recurrentes e infraestructura'),
+        body('Estos no son nuestros: van directo al proveedor y quedan a nombre de FAMEBAC. Son estimados y se confirman al cerrar el alcance. Se detallan a continuación para su consideración presupuestal.'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell('Concepto'), headerCell('Estimado mensual')] }),
+            filaCosto('Servidor, base de datos y almacenamiento de archivos', 'S/ 90 a S/ 350'),
+            filaCosto('Correo transaccional', 'S/ 0 a S/ 70', true),
+            filaCosto('WhatsApp Business API', 'Por conversación iniciada'),
+            filaCosto('OCR', 'Por página procesada', true),
+            filaCosto('Mapas y geocercas', 'S/ 60 a S/ 180'),
+            filaCosto('Dominio', '≈ S/ 60 al año', true)
+          ]
+        }),
+        blank(120),
+        p([t('El almacenamiento sube según el volumen de documentos adjuntos. El costo de WhatsApp resulta reducido cuando el canal se destina únicamente a avisos de vencimiento.', { size: 18, color: C.soft, italic: true })], { spacing: { after: 200 } }),
+        h3('Mantenimiento y soporte'),
+        bullet('12% anual sobre el valor del proyecto, o S/ 250 mensuales. Cubre correcciones, respaldo monitoreado, actualización de dependencias y hasta 4 horas de soporte al mes.'),
+        bullet('El primer año de garantía sobre errores va incluido sin costo, sin necesidad de contratar el mantenimiento.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // RESUMEN + CONDICIONES
+      // ═══════════════════════════════════════════════════════════
+      const resumen = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Resumen'),
+        body('Comparativo de inversión, cobertura y plazo por plan.'),
+        blank(160),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: stdBorders,
+          rows: [
+            new TableRow({ tableHeader: true, children: [headerCell('Plan'), headerCell('Documentos'), headerCell('Personal y unidades'), headerCell('Operación completa'), headerCell('Plazo'), headerCell('Total')] }),
+            new TableRow({ children: [
+              dataCell('1 · Control documentario', { align: AlignmentType.LEFT, bold: true }),
+              dataCell('Sí'), dataCell('—'), dataCell('—'), dataCell('5 a 7 días'),
+              dataCell('S/ 1,000', { brand: true, bold: true })
+            ]}),
+            new TableRow({ children: [
+              dataCell('2 · Plataforma operativa (recomendado)', { align: AlignmentType.LEFT, bold: true, shading: { fill: C.tint } }),
+              dataCell('Sí', { shading: { fill: C.tint } }),
+              dataCell('Sí', { shading: { fill: C.tint } }),
+              dataCell('—', { shading: { fill: C.tint } }),
+              dataCell('3 a 4 semanas', { shading: { fill: C.tint } }),
+              dataCell('S/ 3,000', { brand: true, bold: true, shading: { fill: C.tint } })
+            ]}),
+            new TableRow({ children: [
+              dataCell('3 · Plataforma integral', { align: AlignmentType.LEFT, bold: true }),
+              dataCell('Sí'), dataCell('Sí'), dataCell('Sí'), dataCell('10 a 16 semanas'),
+              dataCell('Desde S/ 6,500', { brand: true, bold: true })
+            ]})
+          ]
+        }),
+        blank(120),
+        p([t('Precios en soles peruanos. Cotización válida por 15 días calendario desde la fecha de emisión.', { size: 18, color: C.soft, italic: true })], { spacing: { after: 200 } }),
+
+        h3('Forma de pago'),
+        bullet('Pago único contra entrega.', 'Plan 1'),
+        bullet('60% al inicio y 40% contra entrega.', 'Plan 2'),
+        bullet('40% al inicio, 30% a mitad de la fase 2 y 30% contra entrega.', 'Plan 3'),
+        blank(120),
+        h3('Garantías Árkos'),
+        bullet('Primer año de garantía sobre errores de funcionamiento, sin costo adicional.'),
+        bullet('Cada fase se entrega operativa y en producción.'),
+        bullet('Tiempo de respuesta de 24 horas ante cualquier consulta.'),
+        bullet('El sistema y los datos quedan a nombre de FAMEBAC. No existe dependencia con Árkos para su operación.'),
+
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Requerimientos para el inicio'),
+        body('Insumos necesarios para iniciar el proyecto sin interrupciones:'),
+        bullet('El Excel actual completo, con la lista real de tractos, bombonas y conductores.'),
+        bullet('Una contraparte designada por la empresa para resolver consultas y aprobar entregas.'),
+        bullet('Los correos de los responsables de cada aviso y el documento asignado a cada uno.'),
+        bullet('Los días de anticipación con que debe notificarse cada tipo de documento.'),
+        bullet('RUC, razón social y logo de FAMEBAC.'),
+        blank(120),
+        h3('Por confirmar antes de cerrar alcance'),
+        bullet('Cantidad actual de tractos, bombonas y conductores.'),
+        bullet('Cantidad total de trabajadores entre las tres líneas de negocio.'),
+        bullet('Si la empresa cuenta con GPS y con qué proveedor.'),
+        bullet('Modalidad prevista para el marcado de asistencia: huella, fotocheck o celular.'),
+        bullet('Si los manifiestos de residuos se emiten actualmente en papel.'),
+        blank(60),
+        p([t('Esta información no condiciona el inicio del Plan 1, pero determina el precio final del Plan 3.', { italic: true, size: 21, color: C.brand })], { spacing: { after: 200, line: 320 } }),
+
+        blank(200),
+        h1('Supuestos y exclusiones'),
+        h3('Supuestos'),
+        bullet('FAMEBAC entrega el Excel actual completo y la lista real de tractos, bombonas y personal en la fase de levantamiento.'),
+        bullet('Hay una persona de la empresa designada como contraparte para resolver dudas y aprobar entregas.'),
+        bullet('Los datos que existen hoy están razonablemente correctos. La limpieza mayor de datos se cotiza aparte.'),
+        bullet('Para GPS, la empresa ya cuenta con proveedor y este expone una API o servicio de consulta.'),
+        blank(120),
+        h3('Exclusiones', C.amber),
+        body('No forma parte de ninguno de los tres planes. Todo lo detallado a continuación puede cotizarse como ampliación:'),
+        negBullet('Cálculo de planilla, boletas y envío a SUNAT o PLAME.'),
+        negBullet('Facturación electrónica y emisión de comprobantes ante SUNAT.'),
+        negBullet('Compra de hardware: lectores de huella, fotochecks, impresoras, equipos GPS.'),
+        negBullet('Contabilidad, tesorería e inventario de almacén.'),
+        negBullet('Migración de sistemas de terceros distintos al Excel actual.')
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ACEPTACIÓN / FIRMAS
+      // ═══════════════════════════════════════════════════════════
+      const firmas = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Aceptación de la Cotización'),
+        body('La aceptación de esta cotización confirma las condiciones, el alcance y los montos descritos. La cotización tiene una validez de 15 días calendario desde su fecha de emisión.'),
+        blank(640),
+
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: {
+            top:    { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            bottom: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            left:   { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            right:  { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideHorizontal: { style: BorderStyle.NONE, size: 0, color: 'auto' },
+            insideVertical:   { style: BorderStyle.NONE, size: 0, color: 'auto' }
+          },
+          rows: [new TableRow({ children: [
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('FAMEBAC E.I.R.L.', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('RUC 20601116406', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ])
+          ]})]
+        })
+      ];
+
+      // ═══════════════════════════════════════════════════════════
+      // ENCABEZADO + PIE GLOBAL
+      // ═══════════════════════════════════════════════════════════
+      const docHeader = new Header({
+        children: [new Paragraph({
+          children: [
+            new ImageRun({ type: 'png', data: isoBuf, transformation: { width: 22, height: 22 } }),
+            t('   Árkos  ·  Cotización ARK-FAM-2026-001  ·  FAMEBAC E.I.R.L.', { size: 16, color: C.soft, characterSpacing: 10 })
+          ],
+          spacing: { after: 60 },
+          border: { bottom: { color: C.rule, size: 4, space: 4, style: BorderStyle.SINGLE } }
+        })]
+      });
+
+      const docFooter = new Footer({
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [
+            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('gerencia@árkos.com', { size: 16, color: C.brand, bold: true }),
+            t('   ·   +51 961 869 348   ·   Lima, Perú   ·   Página ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
+            t(' de ', { size: 16, color: C.soft }),
+            new TextRun({ children: [PageNumber.TOTAL_PAGES], size: 16, color: C.soft, font: 'Calibri' })
+          ]
+        })]
+      });
+
+      // ═══════════════════════════════════════════════════════════
+      // DOCUMENTO FINAL
+      // ═══════════════════════════════════════════════════════════
+      const doc = new Document({
+        creator: 'Árkos',
+        title: 'Cotización Árkos · Control de vencimientos y operación de flota · FAMEBAC',
+        description: 'Cotización comercial para sistema de control de vencimientos y gestión de flota — FAMEBAC E.I.R.L.',
+        styles: {
+          default: {
+            document: { run: { font: 'Calibri', size: 22, color: C.body } }
+          }
+        },
+        sections: [{
+          properties: {
+            page: { margin: { top: 1100, right: 1000, bottom: 1200, left: 1000 } }
+          },
+          headers: { default: docHeader },
+          footers: { default: docFooter },
+          children: [
+            ...cover,
+            ...contexto,
+            ...planes,
+            ...comparacion,
+            ...fasesYCostos,
+            ...resumen,
+            ...firmas
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Cotizacion-Arkos-FAMEBAC.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+    }
+  </script>
+</body>
+</html>
