@@ -69,10 +69,42 @@
       }
       .print-only { display: block !important; }
       .arkos-footer { break-inside: avoid; page-break-inside: avoid; }
-      .pricing-card { break-inside: avoid; page-break-inside: avoid; }
       .avoid-break { break-inside: avoid; page-break-inside: avoid; }
       .logo-screen { display: none !important; }
       .logo-print { display: inline-block !important; }
+
+      /* Adornos de fondo: no aportan nada en papel */
+      .deco { display: none !important; }
+
+      /* El badge flotante se salia de la caja y se partia en el corte de pagina */
+      .plan-badge {
+        position: static !important;
+        transform: none !important;
+        display: inline-block !important;
+        top: auto !important;
+        left: auto !important;
+        margin: 0 0 .5rem 0 !important;
+      }
+
+      /* Las tarjetas son mas altas que una pagina: que fluyan en vez de saltar */
+      .pricing-grid { display: block !important; }
+      .pricing-card {
+        position: static !important;
+        break-inside: auto;
+        page-break-inside: auto;
+        margin-bottom: 1.25rem;
+      }
+      /* Badge, titulo y precio no se separan entre si */
+      .card-head { break-inside: avoid; page-break-inside: avoid; }
+
+      /* Ningun titulo se queda solo al pie de pagina */
+      h1, h2, h3, h4 { break-after: avoid-page; page-break-after: avoid; }
+      p, li { break-inside: avoid; page-break-inside: avoid; }
+
+      /* Tablas completas: sin scroll horizontal ni columnas recortadas */
+      .overflow-x-auto { overflow: visible !important; }
+      table { width: 100% !important; font-size: 10px !important; }
+      table th, table td { padding: 5px 7px !important; }
     }
     .print-only { display: none; }
     .logo-screen { display: inline-block; }
@@ -117,8 +149,8 @@
 
   <main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10">
     <section id="quote" class="page relative overflow-hidden rounded-3xl border border-neutral-200/60 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg">
-      <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
-      <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="deco pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#D6EFF2] blur-3xl opacity-60 dark:opacity-20"></div>
+      <div aria-hidden="true" class="deco pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#328298]/20 blur-3xl opacity-60 dark:opacity-20"></div>
       <div class="p-6 sm:p-8">
 
         <!-- Encabezado de marca (visible en PDF) -->
@@ -222,105 +254,109 @@
         <!-- ═══════════════════════════════════════════════════════════ -->
         <div class="mt-8">
           <h2 class="text-lg font-semibold mb-5"><span class="shiny-text">Los tres planes</span></h2>
-          <div class="grid gap-5 md:grid-cols-3">
+          <div class="pricing-grid grid gap-5 md:grid-cols-3">
 
             <!-- Plan 1 -->
             <div class="pricing-card rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col relative">
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Demo presentada</div>
+              <div class="card-head flex flex-col">
+              <div class="plan-badge absolute -top-3 left-1/2 -translate-x-1/2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Demo presentada</div>
               <p class="text-xs uppercase tracking-wide text-neutral-500 font-semibold mt-2">Plan 1</p>
               <h3 class="mt-2 text-base font-bold">Control documentario</h3>
               <p class="mt-3 text-3xl font-bold text-[#328298]">S/ 1,000</p>
-              <p class="text-xs text-neutral-500 mt-1">Pago único · entrega en 5 a 7 días hábiles</p>
-              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Corresponde a la demo ya presentada, desplegada en producción con los datos reales de la empresa. Cubre el requerimiento inmediato: anticipar todo vencimiento antes de que afecte la operación.</p>
+              <p class="text-xs text-neutral-500 mt-1">Pago único · 5 a 7 días hábiles</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">La demo ya presentada, desplegada en producción con datos reales. Cubre el requerimiento inmediato: anticipar todo vencimiento.</p>
+              </div>
               <div class="mt-4 border-t border-neutral-200 dark:border-neutral-800 pt-4 flex-1">
                 <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Lo que hace</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Registro de <strong>tractos, bombonas y conductores</strong> con sus fechas de vencimiento.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Semáforo automático</strong>: vigente, por vencer, urgente, vencido y sin registrar.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Matriz de vencimientos de toda la flota en una sola pantalla.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Días de aviso configurables.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Generador de aviso listo para copiar y pegar en WhatsApp.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Acceso desde el celular.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Tractos, bombonas y conductores con sus vencimientos</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Semáforo automático de cinco estados</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Matriz de vencimientos de toda la flota</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Días de aviso configurables</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Aviso listo para enviar por WhatsApp</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Acceso desde el celular</span></li>
                 </ul>
                 <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">De la demo a producción</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Base de datos en servidor.</strong> La demo almacena la información en el navegador, lo que no constituye persistencia real.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Login con usuario y contraseña.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Bombona separada como entidad propia</strong>, con su placa y sus documentos.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Adjuntar foto o PDF de cada documento.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Historial de renovaciones.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Dominio propio y hosting incluidos el primer año.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Capacitación de 1 hora a quien vaya a mantener el sistema.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Base de datos en servidor</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Login con usuario y contraseña</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bombona como entidad propia, con su placa</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Carga del Excel actual, sin reordenarlo</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Foto o PDF de cada documento</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Historial de renovaciones</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Dominio y hosting el primer año</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Capacitación de 1 hora</span></li>
                 </ul>
               </div>
-              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Pago único · 5 a 7 días hábiles</p>
+              <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Detalle completo más abajo</p>
             </div>
 
-            <!-- Plan 2 — RECOMENDADO -->
+            <!-- Plan 2 -->
             <div class="pricing-card rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5 shadow-sm fx-card pricing-popular flex flex-col relative">
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
+              <div class="card-head flex flex-col">
+              <div class="plan-badge absolute -top-3 left-1/2 -translate-x-1/2 bg-[#328298] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Recomendado</div>
               <p class="text-xs uppercase tracking-wide text-[#328298] dark:text-[#D6EFF2] font-semibold mt-2">Plan 2</p>
               <h3 class="mt-2 text-base font-bold">Plataforma operativa</h3>
               <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">S/ 3,000</p>
-              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">60% al inicio, 40% contra entrega · 3 a 4 semanas</p>
-              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Incluye la totalidad del Plan 1 e incorpora el control de personal y unidades, con notificaciones automáticas. El sistema deja de depender de la revisión manual.</p>
+              <p class="text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 mt-1">60% inicio, 40% entrega · 3 a 4 semanas</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">Todo el Plan 1, más personal y unidades. El sistema deja de depender de la revisión manual.</p>
+              </div>
               <div class="mt-4 border-t border-[#328298]/20 pt-4 flex-1">
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Todo lo del Plan 1.</strong></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span><strong>Todo lo del Plan 1</strong></span></li>
                 </ul>
-                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Documentos y vencimientos</p>
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Documentos</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Avisos automáticos por correo</strong> a los 90, 60, 30, 15 y 7 días.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Responsable de renovación por documento: el aviso le llega a esa persona.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Resumen diario de lo que vence, ordenado por urgencia.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Bloqueo por vencimiento</strong>: el sistema no deja asignar una unidad o un conductor no habilitado.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Avisos automáticos por correo, en cinco plazos</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Responsable de renovación por documento</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Resumen diario ordenado por urgencia</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Documentos de la empresa</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bloqueo por vencimiento antes de asignar</span></li>
                 </ul>
                 <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Personal</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Aviso de contrato por vencer.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Ficha del trabajador y datos laborales</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Documentos del trabajador con semáforo</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Aviso de contrato por vencer</span></li>
                 </ul>
                 <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Unidades y bombonas</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Estado: operativa, en taller o de baja.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> <strong>Vínculo tracto y bombona</strong>, con validación conjunta antes de asignar.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Ficha completa y estado operativo</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Vínculo tracto–bombona con validación conjunta</span></li>
                 </ul>
                 <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mt-4 mb-2">Reportes y usuarios</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Vencimientos entre dos fechas cualesquiera.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Exportación a Excel y PDF.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Roles: administrador, administración, jefe de flota y solo lectura.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">✓</span> Bitácora de cambios.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Tablero de inicio</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Vencimientos por rango de fechas</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Exportación a Excel y PDF</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Cuatro roles de acceso</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bitácora de cambios</span></li>
                 </ul>
               </div>
-              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">60% al inicio, 40% contra entrega · 3 a 4 semanas</p>
+              <p class="mt-4 text-xs text-[#1D4E6A]/70 dark:text-[#D6EFF2]/80 text-center font-medium">Detalle completo más abajo</p>
             </div>
 
             <!-- Plan 3 -->
             <div class="pricing-card rounded-2xl border border-[#1D4E6A]/40 dark:border-[#1D4E6A] bg-white/80 dark:bg-neutral-900/80 p-5 shadow-sm fx-card flex flex-col relative">
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D4E6A] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Alcance completo</div>
+              <div class="card-head flex flex-col">
+              <div class="plan-badge absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D4E6A] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow">Alcance completo</div>
               <p class="text-xs uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-semibold mt-2">Plan 3</p>
               <h3 class="mt-2 text-base font-bold">Plataforma integral</h3>
               <p class="mt-3 text-3xl font-bold text-[#1D4E6A] dark:text-white">Desde S/ 6,500</p>
-              <p class="text-xs text-neutral-500 mt-1">40% inicio, 30% a mitad, 30% contra entrega · 10 a 16 semanas</p>
-              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">Unifica la operación completa en un solo sistema: alrededor de <strong>119 funciones distribuidas en 11 módulos</strong>. Dado que no todas corresponden al mismo presupuesto ni al mismo plazo, se cotiza por bloques y se implementa por fases.</p>
+              <p class="text-xs text-neutral-500 mt-1">40 / 30 / 30 · 10 a 16 semanas</p>
+              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">La operación completa en un solo sistema: 119 funciones en 11 módulos, cotizadas por bloques e implementadas por fases.</p>
+              </div>
               <div class="mt-4 border-t border-[#1D4E6A]/20 pt-4 flex-1">
                 <p class="text-[11px] uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-bold mb-2">Base incluida en los S/ 6,500</p>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Núcleo de plataforma</strong>: multiusuario, permisos por módulo, bitácora, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Documentos y vencimientos</strong> sobre las tres entidades: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Unidades, equipos y herramientas</strong>: ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Personal</strong>: ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Reportes base</strong>: tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5">✓</span> <strong>Notificaciones</strong>: correo automático y WhatsApp por plantilla, con plazos configurables.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Núcleo de plataforma y permisos por módulo</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Documentos y vencimientos sobre las tres entidades</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Unidades, equipos y herramientas</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Personal completo, con EPP y organigrama</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Reportes base y exportación</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span>Notificaciones por correo y WhatsApp</span></li>
                 </ul>
-                <p class="mt-4 text-xs text-neutral-500 leading-relaxed">Constituye la base obligatoria: ninguno de estos bloques puede excluirse, dado que el resto de la plataforma se apoya en ellos. Los módulos de asistencia, vacaciones, viajes, fabricación, residuos y reportes gerenciales se incorporan posteriormente, cotizados en su oportunidad.</p>
+                <p class="mt-4 text-xs text-neutral-500 leading-relaxed">Base obligatoria: el resto de la plataforma se apoya en ella. Asistencia, vacaciones, viajes, fabricación, residuos y reportes gerenciales se incorporan después.</p>
               </div>
               <p class="mt-4 text-xs text-neutral-500 text-center font-medium">Fases 1 y 2 cubiertas por los S/ 6,500</p>
             </div>
@@ -449,6 +485,133 @@
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <!-- ════════════════════════════════════════════════════════════ -->
+          <!-- ALCANCE DETALLADO POR PLAN                                  -->
+          <!-- ════════════════════════════════════════════════════════════ -->
+          <div class="mt-8">
+            <h3 class="text-lg font-semibold mb-2"><span class="shiny-text">Alcance detallado por plan</span></h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Lo que entrega cada plan, función por función.</p>
+          <div class="mt-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <div class="flex flex-wrap items-baseline justify-between gap-3 pb-4 mb-5 border-b border-neutral-200 dark:border-neutral-800">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-semibold">Plan 1</p>
+                <h3 class="mt-1 text-lg font-bold">Control documentario</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-xl font-bold text-[#328298]">S/ 1,000</p>
+                <p class="text-xs text-neutral-500 mt-0.5">Pago único · 5 a 7 días hábiles</p>
+              </div>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Control de vencimientos</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Registro de tractos, bombonas y conductores con sus fechas de vencimiento.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Semáforo automático: vigente, por vencer, urgente, vencido y sin registrar.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Matriz de vencimientos de toda la flota en una sola pantalla.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Días de aviso configurables.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Generador de aviso listo para copiar y pegar en WhatsApp.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Acceso desde el celular.</span></li>
+                </ul>
+              </div>
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">De la demo a producción</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span><strong>Base de datos en servidor.</strong> La demo almacena la información en el navegador, lo que no constituye persistencia real.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Login con usuario y contraseña.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bombona separada como entidad propia, con su placa y sus documentos.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Adjuntar foto o PDF de cada documento.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Historial de renovaciones.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Dominio propio y hosting incluidos el primer año.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Capacitación de 1 hora a quien vaya a mantener el sistema.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 rounded-2xl border-2 border-[#328298] bg-[#D6EFF2]/10 dark:bg-[#1D4E6A]/10 p-6 shadow-sm fx-card">
+            <div class="flex flex-wrap items-baseline justify-between gap-3 pb-4 mb-5 border-b border-neutral-200 dark:border-neutral-800">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-[#328298] font-semibold">Plan 2 · Incluye la totalidad del Plan 1</p>
+                <h3 class="mt-1 text-lg font-bold">Plataforma operativa</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-xl font-bold text-[#328298]">S/ 3,000</p>
+                <p class="text-xs text-neutral-500 mt-0.5">60% inicio, 40% entrega · 3 a 4 semanas</p>
+              </div>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Documentos y vencimientos</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Avisos automáticos por correo a los 90, 60, 30, 15 y 7 días.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Responsable de renovación por documento: el aviso le llega a esa persona.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Resumen diario de lo que vence, ordenado por urgencia.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bloqueo por vencimiento: el sistema no deja asignar una unidad o un conductor no habilitado.</span></li>
+                </ul>
+              </div>
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Personal</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Aviso de contrato por vencer.</span></li>
+                </ul>
+              </div>
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Unidades y bombonas</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Estado: operativa, en taller o de baja.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Vínculo tracto y bombona, con validación conjunta antes de asignar.</span></li>
+                </ul>
+              </div>
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#328298] font-bold mb-2">Reportes y usuarios</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Vencimientos entre dos fechas cualesquiera.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Exportación a Excel y PDF.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Roles: administrador, administración, jefe de flota y solo lectura.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5 shrink-0">✓</span> <span>Bitácora de cambios.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-6 shadow-sm fx-card">
+            <div class="flex flex-wrap items-baseline justify-between gap-3 pb-4 mb-5 border-b border-neutral-200 dark:border-neutral-800">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-semibold">Plan 3 · Base incluida en los S/ 6,500</p>
+                <h3 class="mt-1 text-lg font-bold">Plataforma integral</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-xl font-bold text-[#1D4E6A] dark:text-[#D6EFF2]">Desde S/ 6,500</p>
+                <p class="text-xs text-neutral-500 mt-0.5">40 / 30 / 30 · 10 a 16 semanas</p>
+              </div>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-bold mb-2">Núcleo y documentos</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Núcleo de plataforma:</strong> multiusuario, roles y permisos por módulo, bitácora de cambios, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Documentos y vencimientos</strong> sobre las tres entidades — tracto, bombona y persona: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Notificaciones:</strong> correo automático y WhatsApp por plantilla, con plazos configurables.</span></li>
+                </ul>
+              </div>
+              <div class="avoid-break">
+                <p class="text-[11px] uppercase tracking-wide text-[#1D4E6A] dark:text-[#D6EFF2] font-bold mb-2">Unidades, personal y reportes</p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Unidades, equipos y herramientas:</strong> ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Personal:</strong> ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#1D4E6A] dark:text-[#D6EFF2] mt-0.5 shrink-0">✓</span> <span><strong>Reportes base:</strong> tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
           </div>
 
           <!-- ═══════════════════════════════════════════════════════════ -->
@@ -673,10 +836,10 @@
               <div class="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/80 p-5 shadow-sm fx-card">
                 <h4 class="font-semibold text-sm mb-2">Garantías Árkos</h4>
                 <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Primer año de garantía sobre errores de funcionamiento, sin costo adicional.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cada fase se entrega operativa y en producción.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Tiempo de respuesta de 24 horas ante cualquier consulta.</li>
-                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El sistema y los datos quedan a nombre de FAMEBAC. No existe dependencia con Árkos para su operación.</li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Primer año de garantía sobre errores de funcionamiento, sin costo adicional.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Cada fase se entrega operativa y en producción.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Tiempo de respuesta de 24 horas ante cualquier consulta.</span></li>
+                  <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>El sistema y los datos quedan a nombre de FAMEBAC. No existe dependencia con Árkos para su operación.</span></li>
                 </ul>
               </div>
             </div>
@@ -725,21 +888,21 @@
           <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-5">
             <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Para cualquiera de los tres planes</h4>
             <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> El <strong>Excel actual completo</strong>, con la lista real de tractos, bombonas y conductores.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Una contraparte designada por la empresa para resolver consultas y aprobar entregas.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los correos de los responsables de cada aviso y el documento asignado a cada uno.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los días de anticipación con que debe notificarse cada tipo de documento.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> RUC, razón social y logo de FAMEBAC.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>El <strong>Excel actual completo</strong>, con la lista real de tractos, bombonas y conductores.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Una contraparte designada por la empresa para resolver consultas y aprobar entregas.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Los correos de los responsables de cada aviso y el documento asignado a cada uno.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Los días de anticipación con que debe notificarse cada tipo de documento.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>RUC, razón social y logo de FAMEBAC.</span></li>
             </ul>
           </div>
           <div class="rounded-xl border-2 border-[#328298]/40 bg-[#D6EFF2]/20 dark:bg-[#1D4E6A]/15 p-5">
             <h4 class="font-bold text-sm text-neutral-900 dark:text-white mb-3">Por confirmar antes de cerrar alcance</h4>
             <ul class="text-sm text-neutral-600 dark:text-neutral-400 space-y-2">
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cantidad actual de tractos, bombonas y conductores.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Cantidad total de trabajadores entre las tres líneas de negocio.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Si la empresa cuenta con GPS y con qué proveedor.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Modalidad prevista para el marcado de asistencia: huella, fotocheck o celular.</li>
-              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Si los manifiestos de residuos se emiten actualmente en papel.</li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Cantidad actual de tractos, bombonas y conductores.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Cantidad total de trabajadores entre las tres líneas de negocio.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Si la empresa cuenta con GPS y con qué proveedor.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Modalidad prevista para el marcado de asistencia: huella, fotocheck o celular.</span></li>
+              <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Si los manifiestos de residuos se emiten actualmente en papel.</span></li>
             </ul>
             <p class="mt-3 text-xs text-neutral-500">Esta información no condiciona el inicio del Plan 1, pero determina el precio final del Plan 3.</p>
           </div>
@@ -750,10 +913,10 @@
         <h2 class="text-lg font-semibold mb-2"><span class="shiny-text">Supuestos</span></h2>
         <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-5">La cotización se elabora sobre las siguientes condiciones. Cualquier variación se evalúa de forma conjunta antes de que incida en plazo o precio.</p>
         <ul class="text-sm text-neutral-700 dark:text-neutral-300 space-y-2">
-          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> FAMEBAC entrega el Excel actual completo y la lista real de tractos, bombonas y personal en la fase de levantamiento.</li>
-          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Hay una persona de la empresa designada como contraparte para resolver dudas y aprobar entregas.</li>
-          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Los datos que existen hoy están razonablemente correctos. La limpieza mayor de datos se cotiza aparte.</li>
-          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> Para GPS, la empresa ya cuenta con proveedor y este expone una API o servicio de consulta.</li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>FAMEBAC entrega el Excel actual completo y la lista real de tractos, bombonas y personal en la fase de levantamiento.</span></li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Hay una persona de la empresa designada como contraparte para resolver dudas y aprobar entregas.</span></li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Los datos que existen hoy están razonablemente correctos. La limpieza mayor de datos se cotiza aparte.</span></li>
+          <li class="flex items-start gap-2"><span class="text-[#328298] mt-0.5">•</span> <span>Para GPS, la empresa ya cuenta con proveedor y este expone una API o servicio de consulta.</span></li>
         </ul>
       </div>
 
@@ -1205,6 +1368,8 @@
 
       const h3 = (s, color = C.brand) => p([t(s, { bold: true, size: 22, color, allCaps: true, characterSpacing: 20 })], { spacing: { before: 200, after: 100 } });
 
+      const sub = (s) => p([t(s, { bold: true, size: 20, color: C.deep })], { spacing: { before: 220, after: 60 } });
+
       const body = (s, opts = {}) => p([t(s, { size: 22, color: C.body, ...opts })], { spacing: { after: 140, line: 320 } });
 
       const bullet = (txt, label = null, icon = '•', iconColor = C.brand) => {
@@ -1369,21 +1534,21 @@
           'Corresponde a la demo ya presentada, desplegada en producción con los datos reales de la empresa. Cubre el requerimiento inmediato: anticipar todo vencimiento antes de que afecte la operación.',
           [
             '# Lo que hace',
-            'Registro de tractos, bombonas y conductores con sus fechas de vencimiento.',
-            'Semáforo automático: vigente, por vencer, urgente, vencido y sin registrar.',
-            'Matriz de vencimientos de toda la flota en una sola pantalla.',
+            'Tractos, bombonas y conductores con sus vencimientos.',
+            'Semáforo automático de cinco estados.',
+            'Matriz de vencimientos de toda la flota.',
             'Días de aviso configurables.',
-            'Generador de aviso listo para copiar y pegar en WhatsApp.',
+            'Aviso listo para enviar por WhatsApp.',
             'Acceso desde el celular.',
             '# De la demo a producción',
-            'Base de datos en servidor. La demo almacena la información en el navegador, lo que no constituye persistencia real.',
+            'Base de datos en servidor.',
             'Login con usuario y contraseña.',
-            'Bombona separada como entidad propia, con su placa y sus documentos.',
-            'Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.',
-            'Adjuntar foto o PDF de cada documento.',
+            'Bombona como entidad propia, con su placa.',
+            'Carga del Excel actual, sin reordenarlo.',
+            'Foto o PDF de cada documento.',
             'Historial de renovaciones.',
-            'Dominio propio y hosting incluidos el primer año.',
-            'Capacitación de 1 hora a quien vaya a mantener el sistema.'
+            'Dominio y hosting el primer año.',
+            'Capacitación de 1 hora.'
           ]
         ),
         blank(160),
@@ -1410,27 +1575,24 @@
           'Incluye la totalidad del Plan 1 e incorpora el control de personal y unidades, con notificaciones automáticas. El sistema deja de depender de la revisión manual.',
           [
             'Todo lo del Plan 1.',
-            '# Documentos y vencimientos',
-            'Avisos automáticos por correo a los 90, 60, 30, 15 y 7 días.',
-            'Responsable de renovación por documento: el aviso le llega a esa persona.',
-            'Resumen diario de lo que vence, ordenado por urgencia.',
-            'Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.',
-            'Bloqueo por vencimiento: el sistema no deja asignar una unidad o un conductor no habilitado.',
+            '# Documentos',
+            'Avisos automáticos por correo, en cinco plazos.',
+            'Responsable de renovación por documento.',
+            'Resumen diario ordenado por urgencia.',
+            'Documentos de la empresa.',
+            'Bloqueo por vencimiento antes de asignar.',
             '# Personal',
-            'Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.',
-            'Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.',
-            'Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.',
+            'Ficha del trabajador y datos laborales.',
+            'Documentos del trabajador con semáforo.',
             'Aviso de contrato por vencer.',
             '# Unidades y bombonas',
-            'Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.',
-            'Estado: operativa, en taller o de baja.',
-            'Vínculo tracto y bombona, con validación conjunta antes de asignar.',
-            '# Reportes',
-            'Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.',
-            'Vencimientos entre dos fechas cualesquiera.',
+            'Ficha completa y estado operativo.',
+            'Vínculo tracto-bombona con validación conjunta.',
+            '# Reportes y usuarios',
+            'Tablero de inicio.',
+            'Vencimientos por rango de fechas.',
             'Exportación a Excel y PDF.',
-            '# Usuarios',
-            'Roles: administrador, administración, jefe de flota y solo lectura.',
+            'Cuatro roles de acceso.',
             'Bitácora de cambios.'
           ],
           true
@@ -1456,12 +1618,12 @@
           'Unifica la operación completa en un solo sistema: alrededor de 119 funciones distribuidas en 11 módulos. Dado que no todas corresponden al mismo presupuesto ni al mismo plazo, se cotiza por bloques y se implementa por fases. El precio final depende de los módulos que la empresa active.',
           [
             '# Base incluida en los S/ 6,500',
-            'Núcleo de plataforma: multiusuario, roles y permisos por módulo, bitácora de cambios, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.',
-            'Documentos y vencimientos sobre las tres entidades — tracto, bombona y persona: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.',
-            'Unidades, equipos y herramientas: ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.',
-            'Personal: ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.',
-            'Reportes base: tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.',
-            'Notificaciones: correo automático y WhatsApp por plantilla, con plazos configurables.'
+            'Núcleo de plataforma y permisos por módulo.',
+            'Documentos y vencimientos sobre las tres entidades.',
+            'Unidades, equipos y herramientas.',
+            'Personal completo, con EPP y organigrama.',
+            'Reportes base y exportación.',
+            'Notificaciones por correo y WhatsApp.'
           ]
         ),
         blank(120),
@@ -1528,6 +1690,66 @@
             ]})
           ]
         })
+      ];
+
+      // ════════════════════════════════════════════════════════════
+      // ALCANCE DETALLADO POR PLAN
+      // ════════════════════════════════════════════════════════════
+      const alcanceDetallado = [
+        new Paragraph({ children: [], pageBreakBefore: true }),
+        h1('Alcance detallado por plan'),
+        body('Lo que entrega cada plan, función por función.'),
+
+        h3('Plan 1 · Control documentario — S/ 1,000'),
+        sub('Control de vencimientos'),
+        bullet('Registro de tractos, bombonas y conductores con sus fechas de vencimiento.'),
+        bullet('Semáforo automático: vigente, por vencer, urgente, vencido y sin registrar.'),
+        bullet('Matriz de vencimientos de toda la flota en una sola pantalla.'),
+        bullet('Días de aviso configurables.'),
+        bullet('Generador de aviso listo para copiar y pegar en WhatsApp.'),
+        bullet('Acceso desde el celular.'),
+        sub('De la demo a producción'),
+        bullet('La demo almacena la información en el navegador, lo que no constituye persistencia real.', 'Base de datos en servidor'),
+        bullet('Login con usuario y contraseña.'),
+        bullet('Bombona separada como entidad propia, con su placa y sus documentos.'),
+        bullet('Carga inicial del Excel real de FAMEBAC, sin reordenar la hoja.'),
+        bullet('Adjuntar foto o PDF de cada documento.'),
+        bullet('Historial de renovaciones.'),
+        bullet('Dominio propio y hosting incluidos el primer año.'),
+        bullet('Capacitación de 1 hora a quien vaya a mantener el sistema.'),
+
+        h3('Plan 2 · Plataforma operativa — S/ 3,000'),
+        body('Incluye la totalidad del Plan 1 y agrega:'),
+        sub('Documentos y vencimientos'),
+        bullet('Avisos automáticos por correo a los 90, 60, 30, 15 y 7 días.'),
+        bullet('Responsable de renovación por documento: el aviso le llega a esa persona.'),
+        bullet('Resumen diario de lo que vence, ordenado por urgencia.'),
+        bullet('Documentos de la empresa: licencia de funcionamiento, ITSE, registro de residuos y pólizas.'),
+        bullet('Bloqueo por vencimiento: el sistema no deja asignar una unidad o un conductor no habilitado.'),
+        sub('Personal'),
+        bullet('Ficha del trabajador: datos personales, contacto de emergencia, tallas de EPP, foto.'),
+        bullet('Datos laborales: cargo, área, fecha de ingreso, tipo de contrato.'),
+        bullet('Documentos del trabajador con su semáforo: SCTR, examen médico, licencia A-IIIb o A-IIIc, inducciones.'),
+        bullet('Aviso de contrato por vencer.'),
+        sub('Unidades y bombonas'),
+        bullet('Ficha completa: placa, tipo, marca, modelo, año, serie, carga útil, propietario.'),
+        bullet('Estado: operativa, en taller o de baja.'),
+        bullet('Vínculo tracto y bombona, con validación conjunta antes de asignar.'),
+        sub('Reportes y usuarios'),
+        bullet('Tablero de inicio con vencimientos, personal no habilitado y unidades paradas.'),
+        bullet('Vencimientos entre dos fechas cualesquiera.'),
+        bullet('Exportación a Excel y PDF.'),
+        bullet('Roles: administrador, administración, jefe de flota y solo lectura.'),
+        bullet('Bitácora de cambios.'),
+
+        h3('Plan 3 · Plataforma integral — desde S/ 6,500'),
+        body('Base incluida en los S/ 6,500:'),
+        bullet('Multiusuario, roles y permisos por módulo, bitácora de cambios, respaldo automático diario con recuperación, acceso desde celular, operación con internet lento y protección de datos personales según la Ley 29733.', 'Núcleo de plataforma'),
+        bullet('Sobre las tres entidades — tracto, bombona y persona: ficha, adjuntos, semáforo, avisos escalonados, responsable, resumen diario, historial, bloqueo, documentos de empresa, carga desde Excel y costo de renovaciones.', 'Documentos y vencimientos'),
+        bullet('Ficha, estado, documentos, kilometraje y horómetro, mantenimiento preventivo y correctivo, neumáticos, equipos de taller, herramientas asignadas y costo acumulado por unidad.', 'Unidades, equipos y herramientas'),
+        bullet('Ficha, datos de pago, datos laborales, línea de negocio, permanente o temporal, contratos, documentos con semáforo, entrega de EPP, cese, historial y organigrama.', 'Personal'),
+        bullet('Tablero de inicio, vencimientos por rango, personal habilitado y no habilitado, exportación a Excel y PDF.', 'Reportes base'),
+        bullet('Correo automático y WhatsApp por plantilla, con plazos configurables.', 'Notificaciones'),
       ];
 
       // ═══════════════════════════════════════════════════════════
@@ -1754,6 +1976,7 @@
             ...contexto,
             ...planes,
             ...comparacion,
+            ...alcanceDetallado,
             ...fasesYCostos,
             ...resumen,
             ...firmas
