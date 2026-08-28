@@ -183,7 +183,7 @@
           <img src="/logo_ico/final - LOGO 2-01.png" alt="Árkos" class="h-12 w-auto" />
           <div class="flex items-center gap-3">
             <div class="text-right text-xs text-neutral-600">
-              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres</p>
+              <p class="font-semibold text-neutral-900">Árkos · Rodrigo Torres y Emilio Orbegozo</p>
               <p>gerencia@árkos.com · +51 961 869 348</p>
               <p>Lima, Perú · árkos.com</p>
             </div>
@@ -1062,7 +1062,7 @@
         </div>
 
         <div class="mt-8 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
-          <p>&copy; 2026 Árkos · Rodrigo Torres · DNI 75893674. Todos los derechos reservados.</p>
+          <p>&copy; 2026 Árkos · Rodrigo Torres y Emilio Orbegozo. Todos los derechos reservados.</p>
           <p>Cotización ARK-FAM-2026-001 · Emitida 28 Ago 2026 · Validez 15 días calendario</p>
         </div>
       </div>
@@ -1937,14 +1937,19 @@
           },
           rows: [new TableRow({ children: [
             cell([
-              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
-              p([t('FAMEBAC E.I.R.L.', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              new Paragraph({ children: [t('____________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('FAMEBAC E.I.R.L.', { bold: true, size: 22, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
               p([t('RUC 20601116406', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
             ]),
             cell([
-              new Paragraph({ children: [t('________________________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
-              p([t('Árkos · Rodrigo Torres', { bold: true, size: 24, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
-              p([t('DNI: 75893674', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+              new Paragraph({ children: [t('____________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Rodrigo Torres', { bold: true, size: 22, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Árkos', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
+            ]),
+            cell([
+              new Paragraph({ children: [t('____________________', { color: C.soft, size: 22 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              p([t('Emilio Orbegozo', { bold: true, size: 22, color: C.deep })], { alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+              p([t('Árkos', { size: 18, color: C.soft, italic: true })], { alignment: AlignmentType.CENTER })
             ])
           ]})]
         })
@@ -1968,7 +1973,7 @@
         children: [new Paragraph({
           alignment: AlignmentType.CENTER,
           children: [
-            t('Árkos · Rodrigo Torres · DNI 75893674   ·   ', { size: 16, color: C.soft }),
+            t('Árkos · Rodrigo Torres y Emilio Orbegozo   ·   ', { size: 16, color: C.soft }),
             t('gerencia@árkos.com', { size: 16, color: C.brand, bold: true }),
             t('   ·   +51 961 869 348   ·   Lima, Perú   ·   Página ', { size: 16, color: C.soft }),
             new TextRun({ children: [PageNumber.CURRENT], size: 16, color: C.soft, font: 'Calibri' }),
