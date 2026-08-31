@@ -89,6 +89,75 @@ export interface Project {
  * se consolidó en él y se retiró del portafolio para no duplicar el rubro.
  */
 export const projects: Project[] = [
+  // Los dos productos build-in-public van primero en /portfolio: son la única
+  // evidencia pública y verificable de la capacidad data + IA que el sitio
+  // reclama en sus servicios. Un modelo que cita a Árkos por "integraciones de
+  // IA" necesita poder señalar algo que funcione en vivo, no una lista de
+  // tecnologías. La home sigue curada aparte por HOME_PROJECT_IDS.
+  {
+    id: 28,
+    title: "Precio Vivo",
+    description:
+      "Inteligencia de precios mayoristas del Perú con IA. Toma los reportes diarios en PDF del Gran Mercado Mayorista de Lima (MIDAGRI/EMMSA), los convierte en serie temporal limpia y publica un tablero vivo con resumen automático, pronóstico del próximo día hábil y consulta en lenguaje natural sobre los datos.",
+    tags: ["Python", "Next.js", "Machine Learning", "RAG", "Datos abiertos"],
+    imageSrc: "/precio-vivo.jpg",
+    link: "https://precio-vivo.vercel.app",
+    githubLink: "https://github.com/RodrigoFK06/PrecioVivo",
+    category: "sistemas-web",
+    year: "2026",
+    clientType: "Producto propio de Árkos (build-in-public)",
+    location: "Lima, Perú",
+    services: ["Ingeniería de datos", "Machine Learning", "Desarrollo web", "CLI"],
+    caseStudy: {
+      context:
+        "El Gran Mercado Mayorista de Lima publica cada día hábil un reporte de precios a través de MIDAGRI/EMMSA. Es dato público que mueve el costo de la comida en todo Lima, pero sale como PDF: nadie lo puede consultar, comparar ni proyectar sin abrirlo a mano, uno por uno.",
+      problem:
+        "Sin serie histórica no hay tendencia, y sin tendencia un comprador —un restaurante, una cadena, un mayorista— negocia a ciegas. El dato existe y es gratis; lo que no existe es la forma de usarlo.",
+      decision:
+        "Lo construí en público, incluyendo lo que no funcionó. Probé gradient boosting esperando que ganara y no ganó: el mejor modelo para esta serie resultó ser un AR(1) lineal. Publicar ese resultado vale más que publicar solo el acierto, porque demuestra que el criterio para elegir un modelo es la evaluación y no la moda.",
+      built:
+        "Un pipeline en Python que extrae los PDFs diarios y los normaliza a serie temporal, un tablero web en Next.js con resumen del día y pronóstico, consulta en lenguaje natural con RAG sobre el propio dataset, y una CLI (`precio`) que entrega lo mismo en la terminal con tendencia y sparkline.",
+      result:
+        "72 productos con pronóstico del próximo día hábil sobre 534 días de historia. El mejor modelo reduce el error 26% frente al baseline — y es el AR(1) lineal, no el gradient boosting. Los datos y la evaluación son públicos y reproducibles.",
+      proof: {
+        liveUrl: "https://precio-vivo.vercel.app",
+        images: ["/precio-vivo.jpg"],
+      },
+      cta: "¿Tienes datos que hoy solo viven en PDFs o Excel? Eso se puede convertir en producto.",
+    },
+  },
+  {
+    id: 29,
+    title: "Precio Justo",
+    description:
+      "Comparador de precios de medicamentos en Perú con datos del Observatorio de Productos Farmacéuticos (DIGEMID/MINSA). Busca tu medicamento, elige tu distrito y muestra dónde está más barato — y qué tan fresco es cada precio, porque un dato viejo mal presentado hace más daño que no tenerlo.",
+    tags: ["Next.js", "Python", "Supabase", "PostGIS", "WhatsApp API"],
+    imageSrc: "/precio-justo.png",
+    link: "https://precio-justo-rose.vercel.app",
+    githubLink: "https://github.com/RodrigoFK06/precio-justo",
+    category: "sistemas-web",
+    year: "2026",
+    clientType: "Producto propio de Árkos (build-in-public)",
+    location: "Perú",
+    services: ["Ingeniería de datos", "Desarrollo web", "PWA", "Bot de WhatsApp"],
+    caseStudy: {
+      context:
+        "DIGEMID publica los precios que las boticas reportan de cada medicamento. Es dato público, pero está disperso, llega con retrasos distintos según la botica y no responde la única pregunta que le importa a alguien con una receta en la mano: dónde compro esto más barato cerca de mí.",
+      problem:
+        "El mismo medicamento cuesta muy distinto según la botica, y sin comparar no hay forma de saberlo. En el propio comparador aparece el caso de LOSARTAN 50 mg en Pueblo Libre: de S/ 0.13 a S/ 8.90 por unidad, hasta 68.5x de diferencia entre boticas del mismo distrito.",
+      decision:
+        "Mostrar la antigüedad del dato junto al precio, aunque eso haga ver peor al producto. Un comparador que presenta un precio de hace tres semanas como si fuera de hoy manda a alguien a cruzar la ciudad para nada; prefiero que el usuario sepa qué tan confiable es cada número y decida. Por eso el sitio dice explícitamente que no es oficial y que los precios son referenciales.",
+      built:
+        "Pipeline en Python que extrae de DIGEMID, valida y detecta datos basura antes de escribir en Supabase; webapp y API pública en Next.js con PWA; búsqueda por distrito con Postgres + PostGIS; y un bot de WhatsApp con worker de alertas de precio.",
+      result:
+        "Cualquiera puede consultar su medicamento por principio activo o marca, filtrar por distrito y ver el rango real de precios con su fecha. La dispersión que expone —hasta 68.5x en un mismo distrito— es en sí misma el hallazgo.",
+      proof: {
+        liveUrl: "https://precio-justo-rose.vercel.app",
+        images: ["/precio-justo.png"],
+      },
+      cta: "¿Necesitas convertir data pública y desordenada en un producto que la gente use? Conversemos.",
+    },
+  },
   {
     id: 1,
     title: "OrquestadorADM",
@@ -527,7 +596,10 @@ export const getProjectById = (id: number) => projects.find(project => project.i
 // Ojo: cada filtro (Páginas web / Sistemas web / Apps) debe quedar bien poblado;
 // una categoría con 3-4 cards deja la cuadrícula vacía.
 export const HOME_PROJECT_IDS = [
-  19, 21, 22, 23, 2, 1, 8, 6, 11, // núcleo B2B + destacados
+  // 28 y 29 (Precio Vivo, Precio Justo) entran al núcleo: son lo único del
+  // portafolio que demuestra en vivo la capacidad de datos + IA, y la home
+  // era justamente donde no había prueba de eso.
+  19, 21, 28, 29, 22, 23, 2, 1, 8, 6, 11, // núcleo B2B + destacados
   26, 27, 20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
 ]
 export const getHomeProjects = (): Project[] =>

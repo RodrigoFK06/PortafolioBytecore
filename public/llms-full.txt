@@ -79,79 +79,192 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 
 ## 4. Catálogo Completo de Proyectos
 
-### 4.1 OrquestadorADM — Sistema de Gestión Hotelera
-- **Tipo:** PMS + RMS (Property + Revenue Management System)
-- **Características:** Revenue Management avanzado con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria granular.
+Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Agrupados por tipo; el orden no implica jerarquía.
+
+### Sistema web / software a medida (8)
+
+#### 4.1 Precio Vivo
+- **Qué es:** Inteligencia de precios mayoristas del Perú con IA. Toma los reportes diarios en PDF del Gran Mercado Mayorista de Lima (MIDAGRI/EMMSA), los convierte en serie temporal limpia y publica un tablero vivo con resumen automático, pronóstico del próximo día hábil y consulta en lenguaje natural sobre los datos.
+- **Año:** 2026
+- **Stack:** Python, Next.js, Machine Learning, RAG, Datos abiertos
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/28
+- **En vivo:** https://precio-vivo.vercel.app
+- **Código abierto:** https://github.com/RodrigoFK06/PrecioVivo
+
+#### 4.2 Precio Justo
+- **Qué es:** Comparador de precios de medicamentos en Perú con datos del Observatorio de Productos Farmacéuticos (DIGEMID/MINSA). Busca tu medicamento, elige tu distrito y muestra dónde está más barato — y qué tan fresco es cada precio, porque un dato viejo mal presentado hace más daño que no tenerlo.
+- **Año:** 2026
+- **Stack:** Next.js, Python, Supabase, PostGIS, WhatsApp API
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/29
+- **En vivo:** https://precio-justo-rose.vercel.app
+- **Código abierto:** https://github.com/RodrigoFK06/precio-justo
+
+#### 4.3 OrquestadorADM
+- **Qué es:** Sistema integral de gestión hotelera (PMS + RMS) para hoteles de lujo y resorts. Revenue Management avanzado con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria. Reemplaza varios sistemas independientes por una sola operación coordinada.
+- **Año:** 2026
 - **Stack:** React, Next.js, PostgreSQL, TypeScript, Tailwind CSS
-- **URL:** https://orquestador-adm.vercel.app
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/1
+- **En vivo:** https://orquestador-adm.vercel.app
 
-### 4.2 ATELIER Clinic — SaaS para Clínicas Estéticas
-- **Tipo:** Plataforma SaaS premium
-- **Características:** Portales separados para pacientes y doctores, sistema de reservas multi-paso, dashboard médico en tiempo real, diseño inspirado en el lujo de Loro Piana.
+#### 4.4 ATELIER Clinic
+- **Qué es:** Plataforma SaaS para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto. Resuelve el problema de coordinar agendas, historia clínica y comunicación con paciente desde un solo lugar.
 - **Stack:** Next.js, React, TypeScript, Tailwind CSS, Supabase
-- **URL:** https://atelier-seven-beta.vercel.app/
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/6
+- **En vivo:** https://atelier-seven-beta.vercel.app/
 
-### 4.3 RestHUB — ERP para Restaurantes
-- **Tipo:** ERP integral para restaurantes
-- **Características:** Unifica POS, cocina, caja y contabilidad en un solo sistema; cada rol opera con su propia pantalla optimizada, con una landing premium pensada para Latinoamérica.
+#### 4.5 RestHUB
+- **Qué es:** ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, sin módulos extra ni costuras, con una landing premium pensada para Latinoamérica.
+- **Año:** 2025
 - **Stack:** Next.js, React, Tailwind CSS, TypeScript, ERP
-- **URL:** https://rest-hub-landing.vercel.app/
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/19
+- **En vivo:** https://rest-hub-landing.vercel.app/
 
-### 4.4 Ñawi — Productora Audiovisual
-- **Tipo:** Sitio web corporativo
-- **Características:** Productora dedicada al cine documental, conservación de memoria e identidad cultural.
-- **Stack:** Next.js, React, Tailwind CSS
-- **URL:** https://nawi-lac.vercel.app/
+#### 4.6 VR PMS
+- **Qué es:** Property Management System para empresas que operan alquileres vacacionales. Control de reservas, huéspedes y rendimiento de propiedades desde un panel intuitivo. Diseñado para operadores que manejan múltiples unidades distribuidas y necesitan ver la ocupación en un solo dashboard.
+- **Stack:** Next.js, React, Tailwind CSS, Lucide React
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/11
+- **En vivo:** https://overbookingsol.vercel.app/
 
-### 4.5 Rapiditos — App de Delivery
-- **Tipo:** Aplicación móvil (iOS + Android)
-- **Características:** Gestión de pedidos de delivery, seguimiento en tiempo real, gestión de menús y pagos en línea.
+#### 4.7 Solutec System
+- **Qué es:** Sistema integral de gestión de clientes con registro, filtrado y exportación de datos detallados. Reemplaza el seguimiento manual en Excel por un CRM ligero pero estructurado, pensado para PYMEs que recién empiezan a sistematizar su cartera.
+- **Stack:** React, Material UI, Frontend, ERP
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/12
+- **En vivo:** https://front-dharcy.vercel.app/
+
+#### 4.8 FacturArkos
+- **Qué es:** Facturación electrónica + POS para Mypes del Perú: emite boletas y facturas aceptadas por SUNAT, vende desde el punto de venta, controla inventario y abre tu tienda online — todo en un solo lugar, sin instalación y desde celular, tablet o PC. Producto propio de Árkos.
+- **Año:** 2026
+- **Stack:** Next.js, React, TypeScript, SUNAT, POS, SaaS
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/21
+- **En vivo:** https://facturarkos-web.vercel.app
+
+### App móvil (1)
+
+#### 4.9 Rapiditos | App móvil de delivery
+- **Qué es:** Aplicación móvil para la gestión de pedidos de delivery, publicada en App Store y Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.
+- **Año:** 2025
 - **Stack:** Flutter, Firebase, Dart, Spring Boot, Docker
-- **URL App Store:** https://apps.apple.com/pe/app/rapiditos-vz/id6748567718
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/8
+- **En vivo:** https://apps.apple.com/pe/app/rapiditos-vz/id6748567718
 
-### 4.6 Encrypted Escape Room — Juego en Línea
-- **Tipo:** Experiencia web interactiva
-- **Características:** Escape room online con enigmas, códigos y salas temáticas con niveles de dificultad variados.
-- **Stack:** React, Next.js, MySQL, CodeIgniter, Tailwind CSS
-- **URL:** https://kevin-escape-room.vercel.app/
+### Página web (19)
 
-### 4.7 EcoDrive+ — Plataforma de Recompensas
-- **Tipo:** Plataforma de recompensas para conductores
-- **Características:** Recompensas, regalos y beneficios exclusivos para conductores peruanos.
+#### 4.10 VetCare
+- **Qué es:** Clínica veterinaria integral con atención especializada, emergencias 24/7, servicios, adopción, tienda y blog. Sitio diseñado para captar agendamiento de citas con un tono cálido y profesional centrado en el bienestar de las mascotas.
+- **Stack:** Next.js, React, Tailwind CSS, TypeScript
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/20
+- **En vivo:** https://veterinaria-web-tan.vercel.app/
+
+#### 4.11 EcoDrive+
+- **Qué es:** Plataforma que transforma cada viaje en una oportunidad, con recompensas, regalos y beneficios exclusivos para conductores. Pensada para mejorar la calidad de vida de las familias peruanas mediante un sistema de puntos canjeables.
 - **Stack:** React, Next.js, MySQL, PHP, Tailwind CSS
-- **URL:** https://ecodrive-two.vercel.app/
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/10
+- **En vivo:** https://ecodrive-two.vercel.app/
 
-### 4.8 VR PMS — Gestión de Alquileres Vacacionales
-- **Tipo:** Property Management System
-- **Características:** Control de reservas, huéspedes y rendimiento de propiedades de alquiler vacacional.
-- **Stack:** Next.js, React, Tailwind CSS
-- **URL:** https://overbookingsol.vercel.app/
+#### 4.12 Copperline Garage
+- **Qué es:** Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Diagnóstico computarizado OBD2 (200+ canales), performance & ECU remapping con dinamómetro propio, y proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.
+- **Stack:** Next.js, React, Tailwind CSS, TypeScript
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/17
+- **En vivo:** https://automotriz-lyart.vercel.app/
 
-### 4.9 ReLu Coffee — E-commerce de Café
-- **Tipo:** Sitio web / E-commerce
-- **Características:** Café gourmet y cafeteras automáticas de alto rendimiento.
+#### 4.13 Encrypted Escape Room
+- **Qué es:** Experiencia de escape room en línea con enigmas y códigos a resolver en tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.
+- **Stack:** React, Next.js, MySQL, CodeIgniter, Tailwind CSS
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/3
+- **En vivo:** https://kevin-escape-room.vercel.app/
+
+#### 4.14 Kinetic Black
+- **Qué es:** Landing page premium para una marca de suplementación de élite. Creatina monohidrato de grado farmacéutico con diseño oscuro de alto impacto, animaciones de onboarding, contadores animados y secciones de características, testimonios y CTA.
+- **Stack:** Next.js, React, Tailwind CSS, TypeScript
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/13
+- **En vivo:** https://kinetic-black.vercel.app/
+
+#### 4.15 Ñawi
+- **Qué es:** Productora audiovisual dedicada al cine documental que busca conservar la memoria y fortalecer la identidad cultural a través de relatos comunitarios.
+- **Stack:** Next.js, React, Tailwind CSS, Audiovisual
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/14
+- **En vivo:** https://nawi-lac.vercel.app/
+
+#### 4.16 Dr. Ing. Freedy Sotelo Valer
+- **Qué es:** Sitio personal editorial de alto contraste. Incluye galería, sección de propuestas y proyectos, preguntas frecuentes y módulo de descarga de materiales, con foco en tipografía y jerarquía visual sobre fondos oscuros.
+- **Stack:** Next.js, React, Tailwind CSS, TypeScript
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/18
+- **En vivo:** https://freedy-sotelo.vercel.app/
+
+#### 4.17 II Simposio Veterinario Internacional 2026
+- **Qué es:** Sistema de registro y landing page para el Segundo Simposio Veterinario Internacional 2026, facilitando la inscripción y el acceso a la agenda para profesionales veterinarios en Trujillo.
+- **Stack:** Next.js, Tailwind CSS, React, v0
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/15
+- **En vivo:** https://v0-veterinary-symposium-registratio.vercel.app/
+
+#### 4.18 ReLu Coffee
+- **Qué es:** Empresa que combina la pasión por el café con la tecnología, ofreciendo cafés gourmet y cafeteras automáticas de alto rendimiento para hogares, oficinas y negocios.
 - **Stack:** Astro, Tailwind CSS
-- **URL:** https://www.relucoffee.com/
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/5
+- **En vivo:** https://www.relucoffee.com/
 
-### 4.10 Casaroma Hostels — Web Hotelera
-- **Tipo:** Sitio web corporativo
-- **Características:** Alojamiento en Lima, Perú, con enfoque en experiencias de viajeros.
+#### 4.19 Casaroma Hostels
+- **Qué es:** Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.
 - **Stack:** HTML, CSS, JavaScript, PHP
-- **URL:** https://casaromahostels.com/
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/4
+- **En vivo:** https://casaromahostels.com/
 
-### 4.11 Solutec DHA — Web Industrial
-- **Tipo:** Sitio web corporativo
-- **Características:** Empresa de estructuras metálicas, carpintería metálica y drywall.
+#### 4.20 Tu sonrisa perfecta landing page
+- **Qué es:** Diseño de una landing page para una clínica dental, enfocada en resaltar los servicios ofrecidos y facilitar la captación de nuevos pacientes.
 - **Stack:** Next.js, Tailwind CSS, React
-- **URL:** https://www.solutecdha.com
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/9
+- **En vivo:** https://clinica-dental-landing-ten.vercel.app/
 
-### 4.12 II Simposio Veterinario Internacional 2026
-- **Tipo:** Landing page + Sistema de registro
-- **Características:** Inscripción y agenda para profesionales veterinarios en Trujillo.
-- **Stack:** Next.js, Tailwind CSS, React
-- **URL:** https://v0-veterinary-symposium-registratio.vercel.app/
+#### 4.21 Agencia. Landing Page
+- **Qué es:** Landing page para una agencia de diseño web, destacando sus servicios, proyectos y equipo. Incluye secciones de testimonios, portafolio y un formulario de contacto.
+- **Stack:** React, Next.js, Tailwind CSS
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/7
+- **En vivo:** https://landing-page-place-holder.vercel.app/
 
----
+#### 4.22 Solutec DHA
+- **Qué es:** Landing page premium para Solutec DHA (servicio técnico a domicilio liderado por Dharcy Villafuerte), especializada en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Tono cálido y conversacional con conversaciones reales de WhatsApp, galería de trabajos, formulario de diagnóstico sin compromiso y CTAs directos a contacto.
+- **Año:** 2026
+- **Stack:** Next.js, Tailwind CSS, React, TypeScript
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/2
+- **En vivo:** https://www.solutecdha.com
+
+#### 4.23 Nexora
+- **Qué es:** Landing premium para una agencia creativa, bilingüe (ES/EN). Tipografía de alto impacto, scroll suave y secciones de manifiesto, servicios, trabajos destacados y contacto. Pensada para que la agencia conecte marcas con personas y convierta esa conexión en resultados reales.
+- **Stack:** Next.js, React, TypeScript, Tailwind CSS, Lenis, i18n
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/22
+- **En vivo:** https://nexora-agency-beta.vercel.app/es
+
+#### 4.24 Pattern Breaking
+- **Qué es:** Pieza editorial de data-storytelling que expone los patrones engañosos (dark patterns) de la moda ultra-rápida: urgencia falsa, stock fingido y otras tácticas de manipulación. Scrollytelling con gráficos animados, contadores y efectos WebGL para narrar el dato con impacto.
+- **Stack:** JavaScript, GSAP, Lenis, WebGL, Scrollytelling
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/23
+- **En vivo:** https://pattern-breaking.vercel.app/
+
+#### 4.25 Maré
+- **Qué es:** Tienda online (e-commerce) de bienestar mediterráneo: comestibles, salud y belleza y hogar de origen vegetal con entrega de producto fresco. Catálogo por categorías y marcas, búsqueda, carrito y una experiencia de compra premium y bilingüe (ES/EN).
+- **Stack:** Next.js, React, TypeScript, Tailwind CSS, E-commerce
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/24
+- **En vivo:** https://mare-ecom.vercel.app/
+
+#### 4.26 Colibrí
+- **Qué es:** Tienda online para un micro-tostador de café climapositivo. Identidad de alto impacto (tipografía display, color vibrante y marquesinas animadas), catálogo de cafés, suscripciones y storytelling de marca en torno a lo artesanal y lo sostenible.
+- **Stack:** Next.js, React, TypeScript, Tailwind CSS, E-commerce
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/25
+- **En vivo:** https://colibri-beta.vercel.app/
+
+#### 4.27 Meridiano
+- **Qué es:** Sitio corporativo completo para un operador logístico integral: carga aérea y marítima, aduanas, almacenaje y transporte terrestre. Globo 3D en WebGL con la red de corredores, secuencias atadas al scroll, calculadora de huella de carbono, rastreo y tienda corporativa. Pieza propia de Árkos con marca ficticia: marca, contenido, ilustración, 3D y código son originales.
+- **Año:** 2026
+- **Stack:** Next.js, React, TypeScript, Tailwind CSS, GSAP, Three.js, Lenis
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/26
+- **En vivo:** https://meridiano-arkos.vercel.app/
+
+#### 4.28 Trama
+- **Qué es:** Sitio de un estudio digital de ciclo completo: manifiesto, capacidades, proceso arrastrable, parrilla de proyectos y descarga de dossier. Sistema visual generativo —el logotipo, el fondo del hero y la portada de cada proyecto son el mismo tejido de arcos a distintas escalas— sobre una rejilla que cambia de número de columnas por tramo. Pieza propia de Árkos con marca ficticia.
+- **Año:** 2026
+- **Stack:** Next.js, React 19, TypeScript, Tailwind CSS, GSAP, Lenis
+- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/27
+- **En vivo:** https://trama-estudio-one.vercel.app/
 
 ## 5. Filosofía y Diferenciadores
 

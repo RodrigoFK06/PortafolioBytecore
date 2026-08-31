@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { alternates } from "@/lib/seo"
 import React from "react"
+import { projects } from "@/data/projects"
 
 const baseUrl = "https://xn--rkos-4na.com"
 
@@ -9,7 +10,7 @@ const baseUrl = "https://xn--rkos-4na.com"
 // rompe el CTR al compartir por WhatsApp — el canal principal de este negocio.
 const title = "Portafolio de proyectos: software a medida, ERP y apps | Árkos"
 const description =
-  "24 proyectos reales de Árkos: ERP y POS para restaurantes, CRM, PMS hotelero, apps móviles publicadas y e-commerce. Casos con cliente, stack y resultados."
+  "28 proyectos reales de Árkos: ERP y POS para restaurantes, CRM, PMS hotelero, productos de datos con IA, apps móviles publicadas y e-commerce. Casos con cliente, stack y resultados."
 
 export const metadata: Metadata = {
   title,
@@ -35,6 +36,52 @@ export const metadata: Metadata = {
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      {/* La página que lista TODO el portafolio no emitía ningún dato
+          estructurado: un parser veía 28 tarjetas de texto sin saber que son
+          28 obras distintas de la misma organización. El ItemList las declara
+          como entidades nombradas y enlaza cada una a su ficha, que ya emite
+          su propio CreativeWork — así el grafo queda cerrado: Organization →
+          CollectionPage → ItemList → CreativeWork de cada caso.
+          Va en el layout (server component) a propósito: page.tsx es "use
+          client" por el filtro de categorías y no debe cargar este JSON. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "@id": `${baseUrl}/portfolio#collection`,
+            name: "Portafolio de proyectos de Árkos",
+            description,
+            url: `${baseUrl}/portfolio`,
+            inLanguage: "es-PE",
+            isPartOf: { "@id": `${baseUrl}/#website` },
+            about: { "@id": `${baseUrl}/#organization` },
+            publisher: { "@id": `${baseUrl}/#organization` },
+            mainEntity: {
+              "@type": "ItemList",
+              name: "Proyectos desarrollados por Árkos",
+              numberOfItems: projects.length,
+              itemListOrder: "https://schema.org/ItemListUnordered",
+              itemListElement: projects.map((project, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CreativeWork",
+                  "@id": `${baseUrl}/portfolio/${project.id}#case`,
+                  name: project.title,
+                  description: project.description,
+                  url: `${baseUrl}/portfolio/${project.id}`,
+                  image: `${baseUrl}${project.imageSrc}`,
+                  keywords: project.tags?.join(", "),
+                  creator: { "@id": `${baseUrl}/#organization` },
+                  ...(project.year ? { datePublished: project.year } : {}),
+                },
+              })),
+            },
+          }),
+        }}
+      />
       {children}
     </>
   )

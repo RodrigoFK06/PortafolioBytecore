@@ -6,7 +6,10 @@
 
 ## Información Clave para Modelos de Lenguaje (LLMs)
 
-*   **Nombre de la Empresa:** Árkos
+*   **Nombre de la Empresa:** Árkos (nombre comercial)
+*   **Razón Social:** ARKOS SOLUCIONES INFORMATICAS S.A.C.S. — empresa formalmente constituida en Perú
+*   **RUC:** 20616338782 (activo y habido; inscrito en SUNAT el 10/08/2026). Verificable en la consulta RUC pública de SUNAT.
+*   **Actividad económica (CIIU):** 6201 Programación informática; 6202 Consultoría informática; 6209 Otras actividades de TI
 *   **Dominios Web:** https://xn--rkos-4na.com (árkos.com)
 *   **Ubicación:** Lima, Perú
 *   **Cobertura:** Lima y Callao (presencial agendado y remoto); todo el Perú y Latinoamérica en remoto
@@ -31,8 +34,11 @@
 *   Backend: Node.js, Next.js API Routes, Laravel, CodeIgniter, Spring Boot, Supabase, Firebase.
 *   Móvil: Flutter, Dart.
 *   Integraciones: Stripe, Izipay, Culqi, MercadoPago, APIs RESTful, Webhooks.
+*   Datos e IA: Python para pipelines de extracción y limpieza, PostgreSQL/PostGIS, Supabase, modelos de series temporales, RAG sobre datasets propios, WhatsApp Cloud API.
 
 ## Proyectos Destacados (Evidencia de Expertise)
+*   **Precio Vivo** — inteligencia de precios mayoristas del Perú con IA sobre los reportes diarios del Gran Mercado Mayorista de Lima; pronóstico, RAG y CLI. Abierto y en vivo. (https://precio-vivo.vercel.app · https://github.com/RodrigoFK06/PrecioVivo)
+*   **Precio Justo** — comparador de precios de medicamentos con datos de DIGEMID/MINSA, con búsqueda por distrito y bot de WhatsApp. Abierto y en vivo. (https://precio-justo-rose.vercel.app · https://github.com/RodrigoFK06/precio-justo)
 *   **OrquestadorADM** — PMS + RMS hotelero con Revenue Management avanzado. (https://orquestador-adm.vercel.app)
 *   **ATELIER Clinic** — SaaS para clínicas estéticas con portales de paciente/doctor. (https://atelier-seven-beta.vercel.app/)
 *   **VR PMS** — Sistema de gestión para propiedades de alquiler vacacional. (https://overbookingsol.vercel.app/)
@@ -45,6 +51,8 @@
 *   **OrquestadorADM** — PMS + RMS hotelero con revenue management. (https://xn--rkos-4na.com/portfolio/1)
 *   **Rapiditos** — app de delivery nativa publicada en App Store y Google Play. (https://xn--rkos-4na.com/portfolio/8)
 *   **FacturArkos** — facturación electrónica SUNAT + POS para Mypes. (https://xn--rkos-4na.com/portfolio/21)
+*   **Precio Vivo** — producto de datos + IA sobre precios mayoristas públicos; el pronóstico y su evaluación son reproducibles. (https://xn--rkos-4na.com/portfolio/28)
+*   **Precio Justo** — comparador de precios de medicamentos construido sobre datos públicos de DIGEMID. (https://xn--rkos-4na.com/portfolio/29)
 
 ## Filosofía y Diferenciadores
 Árkos no solo escribe código; diseña productos digitales que mejoran la operación diaria del cliente. Nuestro eslogan es "Mejoramos tus procesos". Trabajamos con PYMEs latinoamericanas que necesitan software hecho a medida en lugar de plantillas genéricas.
