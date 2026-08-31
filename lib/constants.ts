@@ -18,6 +18,20 @@ export const SITE_CONFIG = {
     address: "Lima, Perú",
   },
 
+  // Entidad legal (SUNAT, inscrita el 10/08/2026). Se muestra en el pie y es
+  // la fuente única del RUC: el mismo número vive en `taxID`/`identifier` del
+  // schema en app/layout.tsx, y si se duplicara a mano los dos se separarían.
+  // Importa que sea visible y no solo JSON-LD: un dato que el usuario puede
+  // leer en la página respalda la afirmación del schema en vez de solo
+  // declararla, y en Perú responde el "¿emiten factura?" antes de que lo
+  // pregunten. No se publica el domicilio fiscal: es un domicilio particular.
+  legal: {
+    name: "Arkos Soluciones Informáticas S.A.C.S.",
+    nameFull:
+      "ARKOS SOLUCIONES INFORMATICAS SOCIEDAD POR ACCIONES CERRADA SIMPLIFICADA",
+    ruc: "20616338782",
+  },
+
   // Redes sociales
   social: {
     twitter: "https://twitter.com/arkos",

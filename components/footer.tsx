@@ -210,17 +210,28 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-foreground/50 text-sm font-medium">
-            &copy; {currentYear} Árkos. Todos los derechos reservados.{" "}
-            <a
-              href="https://xn--rkos-4na.com"
-              target="_blank"
-              rel="noopener"
-              className="hover:text-brand transition-colors"
-            >
-              Desarrollado por Árkos
-            </a>
-          </p>
+          <div className="text-center md:text-left">
+            <p className="text-foreground/50 text-sm font-medium">
+              &copy; {currentYear} Árkos. Todos los derechos reservados.{" "}
+              <a
+                href="https://xn--rkos-4na.com"
+                target="_blank"
+                rel="noopener"
+                className="hover:text-brand transition-colors"
+              >
+                Desarrollado por Árkos
+              </a>
+            </p>
+            {/* Razón social y RUC visibles: respaldan el `taxID` del schema con
+                texto real de la página y acreditan a Árkos como empresa formal
+                ante un cliente peruano que necesita facturar. El RUC va en mono
+                porque es un identificador, no prosa — misma lógica que los
+                encabezados del pie. */}
+            <p className="text-foreground/40 text-xs mt-2">
+              {SITE_CONFIG.legal.name} &middot;{" "}
+              <span className="font-mono tracking-wide">RUC {SITE_CONFIG.legal.ruc}</span>
+            </p>
+          </div>
           <div className="flex space-x-6 mt-4 md:mt-0 mr-12 md:mr-24 lg:mr-28">
             <Link href="/politicadeprivacidad" className="text-foreground/50 hover:text-brand transition-colors text-sm font-medium">
               Privacidad

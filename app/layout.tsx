@@ -8,6 +8,7 @@ import { LenisProvider } from "@/components/motion/lenis-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
 import { alternates, BASE_URL } from "@/lib/seo"
+import { SITE_CONFIG } from "@/lib/constants"
 
 const baseUrl = BASE_URL
 
@@ -111,7 +112,24 @@ export default function RootLayout({
               "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
               "@id": `${baseUrl}/#organization`,
               name: "Árkos",
-              alternateName: ["Arkos"],
+              alternateName: ["Arkos", "Arkos Soluciones Informáticas"],
+              // Entidad legal inscrita en SUNAT el 10/08/2026. El RUC es el
+              // identificador verificable de la empresa en Perú: ancla la
+              // entidad a un registro público consultable, que es la señal
+              // más fuerte que existe frente a un modelo que duda si somos
+              // un negocio real o una landing. `foundingDate` sigue en 2020
+              // porque esa es la operación; la S.A.C.S. es su formalización.
+              legalName: SITE_CONFIG.legal.nameFull,
+              taxID: SITE_CONFIG.legal.ruc,
+              vatID: `PE${SITE_CONFIG.legal.ruc}`,
+              identifier: {
+                "@type": "PropertyValue",
+                propertyID: "RUC",
+                name: "RUC (SUNAT, Perú)",
+                value: SITE_CONFIG.legal.ruc,
+              },
+              naics: "541511",
+              isicV4: "6201",
               description:
                 "Árkos es una agencia de desarrollo de software con base en Lima, Perú, especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial. Atiende a empresas de todo el Perú.",
               url: baseUrl,
@@ -157,6 +175,14 @@ export default function RootLayout({
                 "Chatbots",
                 "Automatización de Procesos",
                 "E-commerce",
+                // Añadidos cuando Precio Vivo y Precio Justo entraron al
+                // portafolio: hasta ahora el sitio reclamaba capacidad de IA
+                // sin nada público que la respaldara. Declarar lo que no se
+                // puede demostrar es justamente lo que abarata la entidad.
+                "Ingeniería de Datos",
+                "Machine Learning",
+                "Series Temporales y Pronóstico",
+                "RAG (Retrieval-Augmented Generation)",
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
@@ -268,10 +294,25 @@ export default function RootLayout({
         />
       </head>
       <body className={`${fontSans.variable} ${fontMono.variable} ${fontDisplay.variable} font-sans antialiased`}>
-        {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs */}
+        {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs.
+            Nombra los proyectos con nombre propio: es el primer bloque de texto
+            del <body>, y sin evidencia concreta un modelo solo puede describirnos
+            como "una agencia mas" a partir de servicios y verticales genericos. */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
            <p>Árkos es una agencia de desarrollo de software en Lima, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Opera desde Lima y atiende a empresas de todo el Perú —Lima, Callao, Trujillo, Arequipa y provincias— además de clientes en el resto de Latinoamérica, de forma remota y con visitas presenciales agendadas. Ayudamos a clínicas, hoteles, restaurantes, comercios y profesionales a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+           <p>Sistemas construidos por Árkos, con nombre propio:</p>
+           <ul>
+             <li><strong>OrquestadorADM</strong> — PMS + RMS hotelero con revenue management: forecasting, análisis What-If y precios dinámicos automáticos. Para hoteles boutique y resorts que hoy coordinan tarifas, ocupación y reservas en sistemas separados. Caso de estudio: https://xn--rkos-4na.com/portfolio/1</li>
+             <li><strong>RestHUB</strong> — ERP de restaurante que unifica POS, cocina, caja y contabilidad en un solo sistema, con una pantalla por rol. Para restaurantes con volumen que operan entre comandas en papel y varios programas sueltos. Caso de estudio: https://xn--rkos-4na.com/portfolio/19</li>
+             <li><strong>Solutec DHA</strong> — sitio corporativo y CRM de servicio técnico para Dharcy Villafuerte (reparación de electrodomésticos en Lima), cliente real que lo usa a diario con una cartera de más de 2,500 clientes. Caso de estudio: https://xn--rkos-4na.com/portfolio/2</li>
+             <li><strong>FacturArkos</strong> — producto propio: facturación electrónica SUNAT (boletas, facturas, CPE) + POS, inventario y tienda online para Mypes del Perú, sin instalación. Caso de estudio: https://xn--rkos-4na.com/portfolio/21</li>
+             <li><strong>ATELIER Clinic</strong> — SaaS para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso e historia clínica en un solo lugar. Caso de estudio: https://xn--rkos-4na.com/portfolio/6</li>
+             <li><strong>Rapiditos</strong> — app móvil de delivery en Flutter, publicada en App Store y Google Play, con tracking de pedidos y pagos en línea. Caso de estudio: https://xn--rkos-4na.com/portfolio/8</li>
+             <li><strong>Precio Vivo</strong> — producto de datos con IA: convierte los reportes diarios en PDF del Gran Mercado Mayorista de Lima en serie temporal consultable, con pronóstico del próximo día hábil y consulta en lenguaje natural. Abierto y en vivo en precio-vivo.vercel.app. Caso de estudio: https://xn--rkos-4na.com/portfolio/28</li>
+             <li><strong>Precio Justo</strong> — comparador de precios de medicamentos sobre datos públicos de DIGEMID/MINSA, con búsqueda por distrito y bot de WhatsApp. Abierto y en vivo en precio-justo-rose.vercel.app. Caso de estudio: https://xn--rkos-4na.com/portfolio/29</li>
+           </ul>
+           <p>Cumplimiento SUNAT de fábrica en los sistemas de gestión: facturación electrónica (CPE), libros electrónicos PLE/SIRE y validación RENIEC/SUNAT integrados. Contexto ampliado para modelos de lenguaje: https://xn--rkos-4na.com/llms.txt y https://xn--rkos-4na.com/llms-full.txt</p>
          </div>
 
         <LenisProvider>
