@@ -65,7 +65,7 @@ export function HeroSection() {
                 geografía viven aquí, en un slot que el diseño ya tenía: sale
                 visible, no rompe la escala tipográfica del hero, y no hay texto
                 escondido — que es justo lo que Google penaliza. */}
-            FIG. 01 — Software a medida · Lima, Perú
+            FIG. 01 — Software a medida · Adopción de IA · Lima, Perú
           </p>
 
           {/* Headline — kinetic type que se ordena */}

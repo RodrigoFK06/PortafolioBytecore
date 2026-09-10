@@ -169,7 +169,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services/integracion-ia" className="text-foreground/70 hover:text-brand transition-colors font-medium">
-                  Integración de IA
+                  IA aplicada y adopción
                 </Link>
               </li>
               <li>

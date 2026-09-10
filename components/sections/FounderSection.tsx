@@ -17,8 +17,9 @@ const RODRIGO_GITHUB = "https://github.com/RodrigoFK06"
 
 const LO_QUE_HAGO = [
   "ERPs de restaurante y PMS hoteleros con revenue management.",
-  "Un CRM que una clienta real usa todos los días para operar su negocio.",
+  "El sistema de servicio técnico que una clienta real opera a diario: 650 órdenes al mes, 15 usuarios y cierre de orden 45% más rápido.",
   "Una app de delivery nativa, publicada en App Store y Google Play.",
+  "Asistentes de IA sobre bases de conocimiento propias, conectados al CRM o ERP que el equipo ya usa, con formación al personal por perfil.",
 ]
 
 export default function FounderSection() {
@@ -59,7 +60,7 @@ export default function FounderSection() {
             </div>
             <p className="text-2xl font-bold text-foreground">Rodrigo Torres</p>
             <p className="spec-label mt-1.5">
-              Fundador de Árkos
+              Fundador y Gerente General de Árkos
             </p>
             <div className="flex gap-3 mt-5">
               <a
@@ -87,7 +88,9 @@ export default function FounderSection() {
           <div className="lg:col-span-2">
             <p className="text-xl md:text-2xl text-foreground leading-relaxed font-light max-w-3xl">
               Construyo software vertical para pymes de Latinoamérica. No vendo "Next.js":
-              resuelvo operaciones que ya no entran en un Excel.
+              resuelvo operaciones que ya no entran en un Excel. Y me quedo hasta que el equipo
+              lo usa de verdad: onboarding, formación y adopción de IA en el trabajo diario,
+              medidos antes y después.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-6 max-w-xl">En los últimos años puse en producción cosas como:</p>
             <ul className="mt-4 space-y-2 max-w-xl">

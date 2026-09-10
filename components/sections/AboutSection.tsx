@@ -8,11 +8,14 @@ import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 import { TabularCounter } from "@/components/motion/tabular-counter"
 
+// Cifras reales (Rodrigo, sept. 2026). "Entregados" y "en producción" van
+// siempre juntos: son dos números distintos y separarlos confunde.
 const STATS = [
   { label: "Años de experiencia", value: 6, prefix: "" },
-  { label: "Proyectos completados", value: 50, prefix: "+" },
-  { label: "Clientes satisfechos", value: 45, prefix: "+" },
-  { label: "Industrias atendidas", value: 8, prefix: "+" },
+  { label: "Proyectos entregados", value: 50, prefix: "+" },
+  { label: "Sistemas en producción hoy", value: 20, prefix: "+" },
+  { label: "Clientes desde 2020", value: 45, prefix: "+" },
+  { label: "Personas en el equipo", value: 9, prefix: "" },
 ]
 
 const SOCIAL = [
@@ -30,7 +33,7 @@ export function AboutSection() {
       itemType="https://schema.org/Organization"
     >
       <meta itemProp="name" content="Árkos" />
-      <meta itemProp="description" content="Agencia digital especialista en desarrollo web y diseño UX/UI en Lima, Perú." />
+      <meta itemProp="description" content="Empresa de software en Lima, Perú: sistemas a medida con cumplimiento SUNAT de fábrica, y adopción de IA con formación a los equipos que la usan." />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-24">
@@ -62,14 +65,18 @@ export function AboutSection() {
               <div className="p-8 rounded-lg bg-card shadow-hairline">
                 <h3 className="font-display text-2xl font-bold mb-5 text-foreground">Nuestra historia</h3>
                 <p className="text-muted-foreground mb-5 leading-relaxed">
-                  Fundada con la visión de transformar el panorama digital, Árkos ha evolucionado hasta convertirse
-                  en una agencia destacada en desarrollo web y diseño UI/UX. Nuestro equipo multidisciplinario combina
-                  experiencia técnica con creatividad para ofrecer soluciones digitales que destacan en el mercado.
+                  Árkos empezó en 2020 como un equipo pequeño construyendo software a medida para pymes peruanas
+                  que se habían quedado cortas con Excel. Desde 2022 somos nueve personas y en 2026 nos constituimos
+                  como Árkos Soluciones Informáticas S.A.C.S. En el camino entregamos más de 50 proyectos para más de
+                  45 clientes en Perú, Latinoamérica, Estados Unidos y Europa; más de 20 de esos sistemas siguen en
+                  producción hoy.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Nos apasiona crear experiencias digitales accesibles, intuitivas y visualmente atractivas que conectan
-                  marcas con sus audiencias. Nuestro enfoque colaborativo nos permite entender profundamente las
-                  necesidades de cada cliente para desarrollar soluciones personalizadas que generan resultados tangibles.
+                  No somos una fábrica de software. El onboarding de cada cliente lo hace Rodrigo de punta a punta,
+                  con equipos de 5 a más de 200 usuarios, y desde hace dos años acompañamos a empresas de salud,
+                  banca, transporte, logística, comercio y sector naval a incorporar IA a su trabajo diario:
+                  asistentes con bases de conocimiento propias, conectados a los CRM y ERP que ya operan. Medimos
+                  antes y después de intervenir, y solo reportamos lo que podemos verificar.
                 </p>
               </div>
             </Reveal>

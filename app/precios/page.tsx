@@ -124,8 +124,17 @@ export default function PreciosPage() {
             </tbody>
           </table>
         </div>
-        <p className="max-w-4xl mx-auto mb-16 text-xs text-muted-foreground text-center">
+        <p className="max-w-4xl mx-auto mb-3 text-xs text-muted-foreground text-center">
           {PRICE_FOOTNOTE}
+        </p>
+        {/* Versión en texto plano del mismo tarifario, para agentes y asistentes
+            de IA que comparan proveedores sin renderizar JavaScript. Misma
+            fuente (data/pricing.ts): no es una copia que pueda desincronizarse. */}
+        <p className="max-w-4xl mx-auto mb-16 text-xs text-muted-foreground text-center font-mono tracking-wide">
+          Versión en texto plano para asistentes de IA:{" "}
+          <a href="/pricing.md" className="text-brand hover:underline">
+            árkos.com/pricing.md
+          </a>
         </p>
 
         <section className="max-w-3xl mx-auto mb-16">

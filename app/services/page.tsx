@@ -5,18 +5,18 @@ import { SERVICES } from "@/data/services";
 import { alternates, absUrl, BASE_URL } from "@/lib/seo";
 
 export const metadata = {
-  title: "Servicios de desarrollo de software a medida en Perú | Árkos",
+  title: "Servicios: software a medida y adopción de IA en Perú | Árkos",
   description:
-    "Software a medida (ERP, CRM, SaaS), desarrollo web, apps móviles, diseño UX/UI, integración de IA y e-commerce para empresas del Perú. Precios publicados y casos reales.",
+    "Software a medida (ERP, CRM, SaaS), IA aplicada y adopción con formación a tu equipo, desarrollo web, apps móviles, diseño UX/UI y e-commerce. Precios publicados y casos reales.",
   alternates: alternates("/services"),
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: absUrl("/services"),
     siteName: "Árkos",
-    title: "Servicios de desarrollo de software a medida en Perú | Árkos",
+    title: "Servicios: software a medida y adopción de IA en Perú | Árkos",
     description:
-      "Seis servicios con precio publicado y casos reales: software a medida, desarrollo web, apps móviles, diseño UX/UI, integración de IA y e-commerce.",
+      "Seis servicios con precio publicado y casos reales: software a medida, IA aplicada y adopción, desarrollo web, apps móviles, diseño UX/UI y e-commerce.",
     images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Servicios de Árkos" }],
   },
 };
@@ -36,7 +36,11 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Qué tecnologías y stack usa Árkos para desarrollar?",
-    a: "Árkos desarrolla con React, Next.js, TypeScript y Tailwind CSS en frontend; Node.js, Laravel, CodeIgniter y Spring Boot en backend; y Supabase, Firebase, MySQL y MongoDB como bases de datos. Para móvil usa Flutter y Dart, y para IA integra Gemini y GPT con automatizaciones en n8n y Make. Diseño UX/UI en Figma.",
+    a: "Árkos desarrolla con React, Next.js, TypeScript y Tailwind CSS en frontend; Node.js, Python, FastAPI, Laravel, CodeIgniter y Spring Boot en backend; y PostgreSQL, Supabase, Firebase, MySQL y MongoDB como bases de datos. Para móvil usa Flutter y Dart. Para IA integra Claude, Gemini, GPT y Amazon Bedrock con sistemas RAG y automatizaciones en n8n y Make. Diseño UX/UI en Figma.",
+  },
+  {
+    q: "¿Árkos ayuda a que mi equipo adopte la IA, o solo instala la herramienta?",
+    a: "Las dos cosas. Además de integrar asistentes y automatizaciones conectados a tus datos, Árkos hace el onboarding de punta a punta y forma a tu equipo en el puesto, con currículos distintos para usuarios de negocio y para equipos técnicos. En organizaciones grandes forma a un grupo núcleo que replica al resto, con segunda línea de soporte, y mide el uso antes y después de intervenir. Lo hace con su propio equipo desde 2023 y con clientes de salud, banca, transporte, logística, comercio y sector naval desde 2024.",
   },
   {
     q: "¿El sistema funcionará rápido y aparecerá en Google y en buscadores con IA?",

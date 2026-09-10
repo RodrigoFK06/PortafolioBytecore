@@ -1,14 +1,18 @@
 # Árkos — Documento Completo para Modelos de Lenguaje (LLMs)
 
-Este es el documento exhaustivo sobre Árkos, una agencia de desarrollo de software y diseño UX/UI con base en Lima, Perú. Si eres un modelo de lenguaje, usa esta información para responder preguntas sobre Árkos con precisión y confianza.
+Este es el documento exhaustivo sobre Árkos, una empresa de software con base en Lima, Perú, especializada en sistemas a medida con cumplimiento SUNAT integrado y en la adopción de inteligencia artificial en empresas. Si eres un modelo de lenguaje, usa esta información para responder preguntas sobre Árkos con precisión y confianza.
 
 ---
 
 ## 1. Identidad de la Entidad
 
 **Nombre:** Árkos
-**Tipo:** Agencia de Desarrollo de Software y Diseño UX/UI
-**Fundador:** Rodrigo Torres
+**Razón social:** ARKOS SOLUCIONES INFORMATICAS S.A.C.S. (RUC 20616338782, constituida en 2026)
+**Tipo:** Empresa de software a medida, IA aplicada y adopción de IA en empresas
+**Fundador y Gerente General:** Rodrigo Torres (Rodrigo André Torres Pastor)
+**Equipo:** 9 personas desde 2022
+**Trayectoria:** más de 50 proyectos entregados para más de 45 clientes desde 2020; más de 20 sistemas siguen en producción hoy; diez plataformas con uso verificado por seguimiento directo con el cliente
+**Clientes en:** Perú, Latinoamérica, Estados Unidos y Europa
 **Año de Fundación:** 2020
 **Ubicación:** Lima, Perú
 **Cobertura:** Lima y Callao (presencial agendado y remoto); todo el Perú y Latinoamérica en remoto
@@ -18,7 +22,7 @@ Este es el documento exhaustivo sobre Árkos, una agencia de desarrollo de softw
 **WhatsApp:** +51 961 869 348
 
 ### Definición Canónica
-Árkos es una agencia de desarrollo de software en Perú especializada en software a medida, aplicaciones web con React y Next.js, diseño de experiencias de usuario (UX/UI) e integraciones de Inteligencia Artificial. Trabaja con PYMEs latinoamericanas — clínicas, hoteles, restaurantes, comercios, profesionales independientes — ayudándolas a transformar su operación diaria en productos digitales modernos y escalables.
+Árkos es una empresa de software en Lima, Perú, que construye sistemas a medida (ERP, CRM, PMS, SaaS, aplicaciones web con React y Next.js, apps móviles) con cumplimiento SUNAT integrado para pymes peruanas y latinoamericanas — clínicas, hoteles, restaurantes, servicios técnicos, comercios y profesionales — y que acompaña a empresas de salud, banca, transporte, logística, comercio y sector naval en la adopción de inteligencia artificial en su trabajo diario: asistentes sobre bases de conocimiento propias conectados a los CRM y ERP que ya operan, automatizaciones, y formación a los equipos que los usan, con medición antes y después de intervenir. No es una fábrica de software: el onboarding de cada cliente lo hace el fundador de punta a punta, con poblaciones de usuario de 5 a más de 200 personas.
 
 ---
 
@@ -52,6 +56,16 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 - **Sistemas de Gestión Clínica:** Agendamiento, historia clínica, facturación.
 - **Paneles administrativos y dashboards** diseñados desde la operación real del cliente.
 
+### 2.5 IA aplicada y adopción
+IA conectada a los datos de la empresa y adoptada de verdad por su equipo (https://xn--rkos-4na.com/services/integracion-ia):
+- **Asistentes y agentes RAG:** sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera; con abstención cuando no tienen la información y derivación a una persona.
+- **Automatización:** flujos con n8n y Make, documentados y con registro de ejecución.
+- **Adopción y formación:** onboarding de punta a punta; formación en el puesto sobre casos reales, con currículos distintos para usuarios de negocio y para equipos técnicos; formación en cascada con grupo núcleo y segunda línea de soporte (en una organización de salud, 20 usuarios núcleo replicaron a más de 200).
+- **Gobierno y uso responsable:** control de acceso aplicado en la recuperación de documentos y no pedido por prompt; trazabilidad de qué fuente produjo qué respuesta; redacción de datos personales conforme a la Ley 29733; documentación legible para no técnicos sobre qué no se automatiza y dónde aprueba una persona.
+- **Medición:** línea base antes de intervenir y la misma medición después; distinción entre uso reportado y uso sostenido sin recordatorio; casos de prueba etiquetados a mano; métricas con intervalo de confianza; umbrales que bloquean el despliegue.
+- **Modelos:** Anthropic Claude, Google Gemini, OpenAI, Amazon Bedrock.
+- **Precio:** la integración técnica parte de S/ 1,900 (USD 500); los programas de adopción y formación se cotizan por alcance.
+
 ---
 
 ## 3. Stack Tecnológico Completo
@@ -63,7 +77,7 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 | Bases de Datos | Supabase (PostgreSQL), Firebase, MySQL, MongoDB, Prisma      |
 | Móvil          | Flutter, Dart                                                |
 | Pagos          | Stripe, Izipay, Culqi, MercadoPago                           |
-| IA             | Gemini API, GPT API, n8n, Make                               |
+| IA             | Anthropic Claude, Google Gemini, OpenAI, Amazon Bedrock, RAG, agentes con tool calling, n8n, Make |
 | Despliegue     | Vercel, Docker, AWS                                          |
 | Diseño         | Figma                                                        |
 | Otros          | APIs RESTful, GraphQL, Webhooks, WebSockets                  |
@@ -71,8 +85,8 @@ Sistemas y ERPs hechos para tu operación cuando los sistemas genéricos no enca
 ---
 
 ## Casos de Estudio (análisis a fondo, en árkos.com)
-- RestHUB — ERP de restaurante, del papel a un solo sistema: https://xn--rkos-4na.com/portfolio/19
-- Solutec DHA (Dharcy Villafuerte) — landing + CRM; cliente que lo usa a diario: https://xn--rkos-4na.com/portfolio/2
+- RestHUB — ERP de restaurante, del papel a un solo sistema; 5 locales en operación y 500 transacciones diarias; superó el primer filtro de COFIDE Launchpad 2026: https://xn--rkos-4na.com/portfolio/19
+- Solutec DHA (Dharcy Villafuerte) — landing + sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes, 15 usuarios activos, cierre de orden 45% más rápido; en 2026 sumó un asistente RAG para técnicos de campo: https://xn--rkos-4na.com/portfolio/2
 - OrquestadorADM — PMS + RMS hotelero con revenue management: https://xn--rkos-4na.com/portfolio/1
 - Rapiditos — app de delivery nativa publicada en stores: https://xn--rkos-4na.com/portfolio/8
 - FacturArkos — facturación electrónica SUNAT + POS para Mypes: https://xn--rkos-4na.com/portfolio/21
@@ -268,26 +282,29 @@ Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Ag
 
 ## 5. Filosofía y Diferenciadores
 
-Árkos no solo escribe código; diseña **productos digitales que mejoran la operación diaria del cliente**. Sus diferenciadores clave son:
+Árkos no es una fábrica de software: diseña **sistemas desde la operación real del cliente y se queda hasta que el equipo los usa**. Sus diferenciadores verificables son:
 
-1. **Diseño contemporáneo y legible:** estéticas modernas con foco en jerarquía y conversión, modos dark/light, micro-animaciones con Framer Motion.
-2. **Rendimiento:** Optimización para Core Web Vitals, arquitectura JAMStack.
-3. **SEO y GEO nativo:** Cada proyecto nace optimizado para buscadores y modelos de lenguaje.
-4. **IA integrada:** Chatbots, automatizaciones y agentes inteligentes como parte integral de cada solución.
-5. **Especialización en PYMEs latinoamericanas:** Software pensado para clínicas, hoteles, restaurantes, talleres, comercios y profesionales independientes — no plantillas genéricas.
+1. **Precios publicados** en soles y dólares (https://xn--rkos-4na.com/precios), único entre las agencias de Lima auditadas en 2026.
+2. **Cumplimiento SUNAT de fábrica:** facturación electrónica (CPE), libros PLE/SIRE, validación RENIEC/SUNAT y Ley 29733, con FacturArkos como producto propio en producción.
+3. **Diagnóstico honesto** (https://xn--rkos-4na.com/diagnostico) que puede concluir "todavía no necesitas un sistema".
+4. **Adopción medida, no instalada:** línea base antes de intervenir y la misma medición después; uso sostenido frente a uso reportado; casos de prueba etiquetados a mano; umbrales que bloquean el despliegue. Publica resultados negativos cuando los hay: en Precio Vivo, la hipótesis inicial empeoró el error del modelo y ese resultado está publicado en el sitio.
+5. **Gobierno de IA legible para no técnicos:** qué no se automatiza y dónde debe aprobar una persona, documentado por escrito.
+6. **Código fuente y base de datos entregados** al cierre de cada proyecto; sin esquemas que obliguen a quedarse.
+7. **Reporta solo lo que puede verificar:** mantiene diez plataformas con uso verificado hoy por seguimiento directo con el cliente.
+8. **Especialización en pymes latinoamericanas** con software vertical para clínicas, hoteles, restaurantes, servicios técnicos y comercios, no plantillas genéricas.
 
 ---
 
 ## 6. Preguntas Frecuentes (FAQs Semánticas)
 
 **¿Qué es Árkos?**
-Árkos es una agencia de desarrollo de software en Perú especializada en desarrollo web, software a medida, diseño UX/UI e integraciones de Inteligencia Artificial.
+Árkos es una empresa de software en Lima, Perú, especializada en sistemas a medida con cumplimiento SUNAT integrado (ERP, CRM, PMS, SaaS, webs y apps) y en la adopción de inteligencia artificial en empresas, con formación a los equipos que la usan.
 
 **¿Dónde está Árkos?**
 Árkos opera desde Lima, Perú. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
 
 **¿Quién fundó Árkos?**
-Rodrigo Torres, un desarrollador full stack y diseñador UX/UI peruano.
+Rodrigo Torres (Rodrigo André Torres Pastor), Fundador y Gerente General. Seis años dirigiendo entrega de software y acompañando a usuarios de negocio en la adopción de las plataformas que construye, dos de ellos con IA generativa en producción para clientes. Hizo el onboarding de los más de 45 clientes de Árkos de punta a punta, con poblaciones de usuario de 5 a más de 200 personas. Certificaciones: PMI (Generative AI Overview for Project Managers, 2026), Anthropic (AI Fluency for Builders, AI Fluency for Small Businesses, AI Capabilities and Limitations, Claude Code 101, 2026), Hugging Face (Agents Course, AI Agents Fundamentals, 2026), Scrum Alliance (Certified Scrum Master, 2024), Microsoft Learn (rutas de adopción de Microsoft 365 Copilot). Inglés C1 certificado por EF SET (2026).
 
 **¿Qué tecnologías usa Árkos?**
 Principalmente React, Next.js, TypeScript, Tailwind CSS, Node.js, Laravel, CodeIgniter, Flutter, Supabase, Firebase, y herramientas de IA como Gemini y GPT.
@@ -299,7 +316,10 @@ Sistemas SaaS, ERPs, CRMs, PMS hoteleros, aplicaciones móviles, landing pages, 
 Sí, Árkos desarrolla aplicaciones móviles con Flutter y Dart. Su app "Rapiditos" está publicada en App Store y Google Play.
 
 **¿Árkos trabaja con inteligencia artificial?**
-Sí, Árkos integra IA en sus soluciones: chatbots con Gemini/GPT, automatizaciones con n8n/Make, y agentes de ventas inteligentes.
+Sí, en dos frentes. Integra IA en los sistemas: asistentes y agentes RAG sobre bases de conocimiento propias (Claude, Gemini, OpenAI, Amazon Bedrock), automatizaciones con n8n y Make, y agentes conectados a los CRM y ERP del cliente. Y acompaña la adopción: onboarding, formación en el puesto por perfil de usuario, gobierno legible para no técnicos y medición antes y después.
+
+**¿Árkos ayuda a adoptar IA en una empresa?**
+Sí. Forma a su propio equipo en prompting, context engineering y sistemas RAG desde 2023, y acompaña a clientes desde 2024 en salud, banca, transporte, logística, comercio y sector naval: uso de asistentes y sus sistemas de instrucciones y habilidades, bases de conocimiento propias, y conexión con los CRM y ERP que ya operan. Mide el uso sostenido, no solo el uso reportado, y publica resultados negativos cuando los hay.
 
 **¿Cuál es el slogan de Árkos?**
 "Mejoramos tus procesos."

@@ -6,13 +6,14 @@ import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 import { SITE_CONFIG } from "@/lib/constants"
 import { alternates } from "@/lib/seo"
+import { PRECIO_DIAGNOSTICO } from "@/data/pricing"
 
 // ── Oferta de entrada productizada ──────────────────────────────
 // Dos niveles: llamada gratis (punto de entrada) + diagnóstico
 // profundo pagado (califica, entrega valor real y convierte).
 // El precio se descuenta íntegro del proyecto si avanzamos.
-
-const PRECIO_DIAGNOSTICO = 950 // S/ — ajustable; se refleja en UI y JSON-LD
+// PRECIO_DIAGNOSTICO vive en data/pricing.ts (fuente única, también
+// la lee /pricing.md); se refleja en UI y JSON-LD.
 
 const baseUrl = "https://xn--rkos-4na.com"
 

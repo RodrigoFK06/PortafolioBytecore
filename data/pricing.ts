@@ -65,16 +65,25 @@ export const PRICE_TIERS: PriceTier[] = [
     quote: true,
   },
   {
-    name: "Integración de IA y automatización",
+    name: "Integración y adopción de IA",
     usd: 500,
     usdLabel: "500",
     penLabel: "1,900",
-    note: "Chatbots, agentes de ventas y automatizaciones con n8n / Make.",
+    note: "Asistentes con tus datos, agentes y automatizaciones con n8n / Make. Programas de adopción y formación a equipos se cotizan por alcance.",
   },
 ]
 
 export const PRICE_FOOTNOTE =
   "Precios “desde”, referenciales a 2026. Tipo de cambio aproximado S/ 3.75 = USD 1. Los sistemas a medida y apps móviles se cotizan por alcance."
+
+/**
+ * Diagnóstico profundo (oferta de entrada pagada): S/ — se descuenta íntegro
+ * del proyecto si se avanza. Vivía como constante local de /diagnostico; se
+ * movió aquí para que /pricing.md (versión legible por agentes) lea el mismo
+ * número. Si cambia, cambia AQUÍ.
+ */
+export const PRECIO_DIAGNOSTICO = 950
+export const DIAGNOSTICO_SEMANAS = 2
 
 /**
  * Servicios creativos: diseño gráfico, audiovisual y producción.

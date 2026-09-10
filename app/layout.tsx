@@ -13,9 +13,9 @@ import { SITE_CONFIG } from "@/lib/constants"
 const baseUrl = BASE_URL
 
 export const metadata: Metadata = {
-  title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
+  title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
   description:
-    "Árkos es una agencia digital en Perú especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras.",
+    "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
   metadataBase: new URL(baseUrl),
   robots: {
     index: true,
@@ -67,24 +67,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_PE",
     url: baseUrl,
-    title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
+    title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
     description:
-      "Árkos es una agencia digital en Perú especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras.",
+      "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
     siteName: "Árkos",
     images: [
       {
         url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Árkos - Agencia Digital",
+        alt: "Árkos - Software a medida y adopción de IA para empresas en Perú",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Árkos | Agencia de Desarrollo Web y Software en Perú",
+    title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
     description:
-      "Árkos es una agencia digital en Perú especializada en desarrollo de software a medida, páginas web, diseño UI/UX y soluciones tecnológicas innovadoras.",
+      "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
     site: "@ArkosPeru",
     creator: "@ArkosPeru",
     images: [`${baseUrl}/og-image.png`],
@@ -131,7 +131,7 @@ export default function RootLayout({
               naics: "541511",
               isicV4: "6201",
               description:
-                "Árkos es una agencia de desarrollo de software con base en Lima, Perú, especializada en software a medida, aplicaciones web (React/Next.js), diseño UX/UI y soluciones con Inteligencia Artificial. Atiende a empresas de todo el Perú.",
+                "Árkos es una empresa de software con base en Lima, Perú, especializada en sistemas a medida (ERP, CRM, PMS, SaaS, webs y apps) con cumplimiento SUNAT integrado, y en la adopción de inteligencia artificial en empresas: asistentes con bases de conocimiento propias, automatizaciones y formación a los equipos que los usan. Equipo de nueve personas; más de 50 proyectos entregados y más de 20 sistemas en producción desde 2020. Atiende a empresas de todo el Perú y a clientes en Latinoamérica, Estados Unidos y Europa.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               image: `${baseUrl}/og-image.png`,
@@ -155,6 +155,7 @@ export default function RootLayout({
               },
               foundingDate: "2020",
               founder: { "@id": `${baseUrl}/#rodrigo-torres` },
+              numberOfEmployees: { "@type": "QuantitativeValue", value: 9 },
               // Lima primero: es la ciudad que se reclama. Trujillo se mantiene
               // porque hay casos reales allí y borrarla destruiría una señal
               // local ya indexada sin ganar nada.
@@ -183,6 +184,14 @@ export default function RootLayout({
                 "Machine Learning",
                 "Series Temporales y Pronóstico",
                 "RAG (Retrieval-Augmented Generation)",
+                // Sept. 2026: la línea de adopción de IA pasa a ser servicio
+                // declarado, con respaldo público (Solutec RAG, Precio Vivo,
+                // formación de equipos desde 2023).
+                "Adopción de IA en empresas",
+                "Habilitación y formación de usuarios de negocio en IA",
+                "Gobierno y uso responsable de IA",
+                "Agentes de IA y tool calling",
+                "Cumplimiento SUNAT (facturación electrónica, PLE/SIRE)",
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
@@ -219,9 +228,20 @@ export default function RootLayout({
                     "@type": "Offer",
                     itemOffered: {
                       "@type": "Service",
-                      name: "Integración de Inteligencia Artificial",
+                      name: "Integración de IA y automatización",
                       description:
-                        "Chatbots, agentes de ventas automatizados y flujos de automatización con n8n/Make para optimización de procesos empresariales.",
+                        "Asistentes y agentes RAG sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera, y flujos de automatización con n8n y Make. Desde S/ 1,900.",
+                      url: `${baseUrl}/services/integracion-ia`,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Adopción de IA y formación de equipos",
+                      description:
+                        "Onboarding de punta a punta, formación en el puesto con currículos distintos para usuarios de negocio y equipos técnicos, formación en cascada con grupo núcleo y segunda línea de soporte, gobierno legible para no técnicos y medición con línea base antes y después. Se cotiza por alcance.",
+                      url: `${baseUrl}/services/integracion-ia`,
                     },
                   },
                 ],
@@ -250,7 +270,7 @@ export default function RootLayout({
               name: "Árkos",
               url: baseUrl,
               description:
-                "Sitio web oficial de Árkos, agencia de desarrollo de software y diseño UX/UI en Perú.",
+                "Sitio web oficial de Árkos, empresa de software a medida y adopción de IA para empresas en Lima, Perú.",
               inLanguage: "es-PE",
               publisher: { "@id": `${baseUrl}/#organization` },
               potentialAction: {
@@ -274,15 +294,32 @@ export default function RootLayout({
               "@id": `${baseUrl}/#rodrigo-torres`,
               name: "Rodrigo Torres",
               url: baseUrl,
-              jobTitle: "Founder & Tech Lead",
+              jobTitle: "Fundador y Gerente General",
+              description:
+                "Fundador y Gerente General de Árkos. Seis años dirigiendo entrega de software y acompañando a usuarios de negocio en la adopción de las plataformas que construye, dos de ellos con IA generativa en producción para clientes. Onboarding de más de 45 clientes de punta a punta, con poblaciones de usuario de 5 a más de 200 personas.",
               worksFor: { "@id": `${baseUrl}/#organization` },
+              knowsLanguage: ["es", "en"],
               knowsAbout: [
                 "Desarrollo de Software a Medida",
+                "Adopción de IA en empresas",
+                "Habilitación de usuarios de negocio",
+                "IA generativa aplicada (RAG, agentes, tool calling)",
+                "Gobierno y uso responsable de IA",
+                "Integración fiscal peruana (SUNAT, SIRE, PLE, facturación electrónica)",
                 "Next.js",
                 "React",
                 "TypeScript",
+                "Python",
                 "Diseño UX/UI",
-                "Inteligencia Artificial",
+              ],
+              // Certificaciones verificables (CV de Rodrigo, sept. 2026). Sin URLs de
+              // credencial hasta tenerlas: un enlace roto es peor que ninguno.
+              hasCredential: [
+                { "@type": "EducationalOccupationalCredential", name: "Generative AI Overview for Project Managers", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Project Management Institute" }, dateCreated: "2026" },
+                { "@type": "EducationalOccupationalCredential", name: "AI Fluency for Builders", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Anthropic" }, dateCreated: "2026" },
+                { "@type": "EducationalOccupationalCredential", name: "AI Fluency for Small Businesses", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Anthropic" }, dateCreated: "2026" },
+                { "@type": "EducationalOccupationalCredential", name: "Agents Course", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Hugging Face" }, dateCreated: "2026" },
+                { "@type": "EducationalOccupationalCredential", name: "Certified Scrum Master", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Scrum Alliance" }, dateCreated: "2024" },
               ],
               sameAs: [
                 "https://github.com/RodrigoFK06",
@@ -300,7 +337,7 @@ export default function RootLayout({
             como "una agencia mas" a partir de servicios y verticales genericos. */}
         <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
            <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
-           <p>Árkos es una agencia de desarrollo de software en Lima, Perú, especializada en software a medida, aplicaciones web con React y Next.js, diseño UX/UI en Figma e integraciones de Inteligencia Artificial. Opera desde Lima y atiende a empresas de todo el Perú —Lima, Callao, Trujillo, Arequipa y provincias— además de clientes en el resto de Latinoamérica, de forma remota y con visitas presenciales agendadas. Ayudamos a clínicas, hoteles, restaurantes, comercios y profesionales a transformar sus operaciones en productos digitales escalables y modernos. Fundador: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), Landing pages de alta conversión, Diseño UX/UI, Chatbots con IA, Automatizaciones con n8n. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
+           <p>Árkos es una empresa de software en Lima, Perú, especializada en sistemas a medida con cumplimiento SUNAT integrado (ERP, CRM, PMS, SaaS, aplicaciones web con React y Next.js, apps móviles) y en la adopción de inteligencia artificial en empresas: asistentes con bases de conocimiento propias conectados a los CRM y ERP que el cliente ya opera, automatizaciones, y formación a los equipos que los usan, con medición antes y después de intervenir. Equipo de nueve personas desde 2022; más de 50 proyectos entregados para más de 45 clientes y más de 20 sistemas en producción desde 2020. Opera desde Lima y atiende a empresas de todo el Perú —Lima, Callao, Trujillo, Arequipa y provincias— y a clientes en Latinoamérica, Estados Unidos y Europa, de forma remota y con visitas presenciales agendadas. Fundador y Gerente General: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), IA aplicada y adopción (asistentes RAG, automatizaciones con n8n y Make, formación por perfil), Landing pages de alta conversión, Diseño UX/UI. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
            <p>Sistemas construidos por Árkos, con nombre propio:</p>
            <ul>
              <li><strong>OrquestadorADM</strong> — PMS + RMS hotelero con revenue management: forecasting, análisis What-If y precios dinámicos automáticos. Para hoteles boutique y resorts que hoy coordinan tarifas, ocupación y reservas en sistemas separados. Caso de estudio: https://xn--rkos-4na.com/portfolio/1</li>

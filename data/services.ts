@@ -369,17 +369,17 @@ export const SERVICES: ServiceContent[] = [
   // ────────────────────────────────────────────────────────────────────
   {
     slug: "integracion-ia",
-    navTitle: "Integración de IA",
+    navTitle: "IA aplicada y adopción",
     icon: "MessageSquare",
-    h1: "Integración de inteligencia artificial y automatización de procesos",
-    metaTitle: "Integración de IA y automatización para empresas en Perú | Árkos",
+    h1: "Integración de IA, automatización y adopción por tu equipo",
+    metaTitle: "Integración y adopción de IA para empresas en Perú | Árkos",
     metaDescription:
-      "Chatbots, agentes de ventas y automatizaciones con n8n y Make conectados a tu operación real. Desde S/ 1,900. IA dentro de tu sistema, no como un agregado suelto.",
-    serviceType: "Integración de inteligencia artificial",
+      "Asistentes con tus datos, automatizaciones con n8n y Make, y formación a tu equipo para que la IA se use de verdad. Desde S/ 1,900. Medido antes y después de intervenir.",
+    serviceType: "Integración y adopción de inteligencia artificial",
     summary:
-      "Chatbots, agentes de ventas y flujos automatizados con n8n y Make, conectados a tu operación real y no como un widget suelto.",
+      "Asistentes y automatizaciones conectados a tu operación, más la formación y el gobierno para que tu equipo los use de verdad, no como un widget suelto.",
     lead:
-      "La IA solo sirve si está conectada a tus datos. Un chatbot que no sabe tus precios, tu stock ni tus horarios genera más trabajo del que ahorra. Integramos modelos como Gemini y GPT dentro de tu sistema, con acceso a tu información real, y automatizamos con n8n y Make los pasos manuales que hoy consumen el tiempo de tu equipo.",
+      "La IA solo sirve si está conectada a tus datos y si tu equipo la sigue usando después de la novedad. Un chatbot que no sabe tus precios, tu stock ni tus horarios genera más trabajo del que ahorra; una herramienta que nadie adoptó es plata perdida. Integramos modelos como Claude, Gemini y GPT dentro de tu sistema, automatizamos con n8n y Make los pasos manuales que hoy consumen el tiempo de tu equipo, y acompañamos a las personas que van a usarlo: onboarding, formación por perfil y medición de uso sostenido. Llevamos tres años haciéndolo con nuestro propio equipo y dos con clientes de salud, banca, transporte, logística, comercio y sector naval.",
     sections: [
       {
         h2: "Dónde la IA paga y dónde no",
@@ -409,10 +409,30 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
       {
-        h2: "Datos, costos y límites",
+        h2: "Adopción: que tu equipo lo use de verdad",
         paragraphs: [
-          "Definimos desde el inicio qué información puede ver el modelo y cuál no, en línea con la Ley 29733 de Protección de Datos Personales. Los datos sensibles se filtran antes de salir de tu sistema.",
+          "La mayoría de las implementaciones de IA no fallan por el modelo: fallan porque la gente vuelve a lo de antes a las dos semanas. Por eso el onboarding lo hacemos de punta a punta, desde la primera conversación hasta el uso sostenido, con currículos distintos para la gente de negocio y para los equipos técnicos. La formación es en el puesto, sobre casos reales del propio negocio, con retroalimentación después de cada uno.",
+          "En organizaciones grandes formamos en cascada: un grupo núcleo que replica al resto y una segunda línea de soporte por tickets y consultas durante la adopción. Así desplegamos en una organización de salud, con un grupo núcleo de 20 usuarios que llevó la herramienta a una población de más de 200. Y antes de automatizar identificamos las barreras de proceso: si el problema es un flujo mal definido, la IA solo lo hace fallar más rápido.",
+        ],
+        bullets: [
+          "Onboarding completo, de la primera conversación al uso sostenido.",
+          "Formación por perfil: usuarios de negocio y equipos técnicos.",
+          "Formación en cascada con grupo núcleo y segunda línea de soporte.",
+          "Descubrimiento de casos de uso con los dueños del negocio.",
+        ],
+      },
+      {
+        h2: "Gobierno, datos y costos",
+        paragraphs: [
+          "Definimos desde el inicio qué información puede ver el modelo y cuál no, en línea con la Ley 29733 de Protección de Datos Personales. El control de acceso se aplica en la recuperación de documentos, no se le pide al modelo por prompt; los datos personales se redactan antes de salir de tu sistema y cada respuesta queda trazada a la fuente que la produjo. También dejamos por escrito, en lenguaje no técnico, qué no se automatiza y dónde una persona debe aprobar.",
           "Y dejamos claro el costo recurrente: los modelos se pagan por uso, así que estimamos el consumo esperado y ponemos topes. Que un asistente funcione no debe significar una factura sorpresa a fin de mes.",
+        ],
+      },
+      {
+        h2: "Medición: línea base antes, la misma medición después",
+        paragraphs: [
+          "Levantamos una línea base antes de intervenir y repetimos la misma medición después: es la única forma de sustentar una mejora. Distinguimos el uso que la gente reporta del uso sostenido sin recordatorio, y evaluamos los asistentes con conjuntos de casos de prueba etiquetados a mano, con métricas reportadas con intervalo de confianza y umbrales que bloquean el despliegue si no se alcanzan.",
+          "Lo aplicamos también a nuestro propio trabajo. En Precio Vivo, nuestro producto abierto de precios agrícolas, la evaluación corre sobre 165 casos de prueba y el resultado negativo de nuestra hipótesis inicial está publicado dentro del sitio. En el asistente de Solutec para técnicos de campo, un glosario de oficio de nueve entradas, curado a mano con la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.",
         ],
       },
     ],
@@ -420,13 +440,17 @@ export const SERVICES: ServiceContent[] = [
       "Diagnóstico de qué procesos conviene automatizar y cuáles no",
       "Asistente o agente conectado a tus datos reales",
       "Flujos automatizados en n8n o Make, documentados",
-      "Reglas de derivación a persona y límites de respuesta",
+      "Plan de adopción: onboarding, formación por perfil y segunda línea de soporte",
+      "Reglas de derivación a persona, límites de respuesta y documento de gobierno legible",
+      "Línea base y medición posterior de uso y resultado",
       "Estimación del costo recurrente por uso del modelo",
     ],
-    stack: ["Gemini", "GPT", "n8n", "Make", "Next.js API Routes", "Webhooks"],
+    stack: ["Claude", "Gemini", "GPT", "Amazon Bedrock", "RAG", "n8n", "Make", "Next.js API Routes", "FastAPI", "Webhooks"],
     cases: [
+      { id: 12, title: "Solutec", note: "Sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes y 15 usuarios activos. En 2026 sumó un asistente RAG para técnicos de campo, con glosario de oficio curado con la dueña y abstención cuando dos técnicos se contradicen." },
+      { id: 28, title: "Precio Vivo", note: "Producto de datos con IA: pipeline diario automático en AWS, consulta en lenguaje natural y evaluación sobre 165 casos de prueba con intervalos de confianza, resultado negativo incluido." },
       { id: 21, title: "FacturArkos", note: "Producto propio donde la automatización de comprobantes y su validación con SUNAT sustituyen el trabajo manual de emisión." },
-      { id: 12, title: "Solutec System", note: "CRM que captura los contactos entrantes de WhatsApp y los administra de punta a punta, en lugar de perderlos en el chat." },
+      { id: 1, title: "OrquestadorADM", note: "Panel What-If predictivo de 17 parámetros y dashboard ejecutivo de KPIs, presentado y sustentado directamente ante el cliente." },
     ],
     priceFrom: { pen: "1,900", usd: "500", what: "una integración de IA o automatización" },
     faqs: [
@@ -445,6 +469,22 @@ export const SERVICES: ServiceContent[] = [
       {
         q: "¿Puede conectarse a WhatsApp?",
         a: "Sí, es el canal más pedido en Perú porque es donde ya están tus clientes. La integración con la API de WhatsApp Business tiene requisitos y costos propios de la plataforma que revisamos contigo antes de cotizar.",
+      },
+      {
+        q: "¿Capacitan a mi equipo o solo instalan la herramienta?",
+        a: "Las dos cosas, y la segunda no sirve sin la primera. Hacemos el onboarding de punta a punta, con formación distinta para la gente de negocio y para los equipos técnicos, en el puesto y sobre casos reales de tu operación. En organizaciones grandes formamos a un grupo núcleo que replica al resto, con una segunda línea de soporte durante la adopción.",
+      },
+      {
+        q: "¿Cómo sé si funcionó?",
+        a: "Porque medimos antes de intervenir y repetimos la misma medición después. Distinguimos el uso que la gente reporta del uso sostenido sin recordatorio, y evaluamos los asistentes con casos de prueba etiquetados a mano. Si no supera el umbral acordado, no se despliega.",
+      },
+      {
+        q: "¿Qué no automatizan?",
+        a: "Decisiones donde un error no admite revisión humana o donde la responsabilidad debe recaer en una persona. En esos puntos el sistema presenta la información y escala; no decide por su cuenta. Lo dejamos documentado por escrito para que quien no es técnico sepa dónde está esa línea.",
+      },
+      {
+        q: "¿Cuánto cuesta un programa de adopción o formación en IA?",
+        a: "Se cotiza por alcance: número de personas, perfiles a formar y sistemas a conectar. La integración técnica parte de S/ 1,900 (USD 500) y el programa de adopción se dimensiona en el diagnóstico.",
       },
     ],
   },
