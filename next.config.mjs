@@ -70,6 +70,16 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // www -> apex. El apex ya es el dominio primario en Vercel, pero www
+      // seguía respondiendo 200 como host duplicado: dos hosts sirviendo el
+      // mismo sitio, con el canonical como única señal. El único backlink
+      // externo verificado (README de PrecioVivo) apunta justamente a www.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.xn--rkos-4na.com' }],
+        destination: 'https://xn--rkos-4na.com/:path*',
+        permanent: true,
+      },
       // Redirect 301: el piloto "Megalodon" se consolidó en el producto RestHUB.
       {
         source: '/blog/megalodon-pro-erp-restaurantes-nextjs',

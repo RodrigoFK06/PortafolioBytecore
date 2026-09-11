@@ -26,8 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: "Artículo no encontrado" }
   }
   const { data } = matter(fs.readFileSync(filePath, "utf-8"))
+  // `seoTitle` opcional en el frontmatter: permite un H1 largo y descriptivo en
+  // la página con un <title> corto que no se trunque en la SERP. Si no existe,
+  // se usa el título normal.
+  const seoTitle = data.seoTitle || data.title
   return {
-    title: `${data.title} | Blog Árkos`,
+    title: `${seoTitle} | Blog Árkos`,
     description: data.description,
     alternates: alternates(`/blog/${slug}`),
     openGraph: {

@@ -7,7 +7,7 @@ const baseUrl = BASE_URL
 export const metadata = {
   title: "¿Cuánto cuesta desarrollar software a medida en Perú? | Precios Árkos",
   description:
-    "Precios de desarrollo de software a medida, web apps, e-commerce y sistemas (ERP, CRM, PMS, SaaS) en Perú. Rangos 'desde' en soles (S/) y dólares (USD), factores de precio y modelos de pago.",
+    "Precios de software a medida, web apps, e-commerce y sistemas (ERP, CRM, PMS, SaaS) en Perú. Rangos 'desde' en soles y dólares, con factores de precio y modelos de pago.",
   alternates: alternates("/precios"),
   openGraph: {
     type: "website",
@@ -58,19 +58,42 @@ export default function PreciosPage() {
     "@type": "Service",
     serviceType: "Desarrollo de software a medida",
     name: "Desarrollo de software a medida en Perú",
-    provider: { "@type": "Organization", name: "Árkos", url: baseUrl },
+    // Referencia por @id a la entidad del layout raíz en vez de recrear un nodo
+    // Organization inline: un nodo huérfano con el mismo nombre duplica la
+    // entidad para los parsers.
+    provider: { "@id": `${baseUrl}/#organization` },
     areaServed: [
+      { "@type": "City", name: "Lima" },
+      { "@type": "City", name: "Callao" },
       { "@type": "Country", name: "Peru" },
       { "@type": "Place", name: "Latinoamérica" },
     ],
     description:
       "Desarrollo de software a medida, web apps, e-commerce y sistemas empresariales (ERP, CRM, PMS, SaaS) para PYMEs de Perú y Latinoamérica.",
+    // Moneda primaria PEN: es la que se muestra en la tabla y en la que se
+    // cotiza. El USD queda como referencia secundaria en la misma oferta.
     offers: tiers.map((t) => ({
       "@type": "Offer",
       itemOffered: { "@type": "Service", name: t.name },
-      priceSpecification: { "@type": "PriceSpecification", minPrice: t.usd, priceCurrency: "USD" },
+      priceSpecification: [
+        {
+          "@type": "PriceSpecification",
+          minPrice: Number(t.penLabel.replace(/,/g, "")),
+          priceCurrency: "PEN",
+        },
+        { "@type": "PriceSpecification", minPrice: t.usd, priceCurrency: "USD" },
+      ],
       description: t.quote ? "Precio 'desde'; cotización personalizada según alcance." : "Precio 'desde'.",
     })),
+  }
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: absUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Precios", item: absUrl("/precios") },
+    ],
   }
 
   const faqLd = {
@@ -208,6 +231,7 @@ export default function PreciosPage() {
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
     </main>
   )
 }

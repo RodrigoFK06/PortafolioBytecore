@@ -9,8 +9,23 @@ import { Toaster } from "@/components/ui/toaster"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
 import { alternates, BASE_URL } from "@/lib/seo"
 import { SITE_CONFIG } from "@/lib/constants"
+import { PRICE_TIERS } from "@/data/pricing"
 
 const baseUrl = BASE_URL
+
+/**
+ * Precio "desde" de un tier del tarifario, en el formato que pide schema.org.
+ * Lee data/pricing.ts para que el OfferCatalog no sea una tercera copia de los
+ * precios: si cambian allí, cambian aquí y en /precios y /pricing.md a la vez.
+ */
+function priceSpec(tierName: string) {
+  const tier = PRICE_TIERS.find((t) => t.name === tierName)
+  if (!tier) return undefined
+  return [
+    { "@type": "PriceSpecification", minPrice: Number(tier.penLabel.replace(/,/g, "")), priceCurrency: "PEN" },
+    { "@type": "PriceSpecification", minPrice: tier.usd, priceCurrency: "USD" },
+  ]
+}
 
 export const metadata: Metadata = {
   title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
@@ -161,9 +176,27 @@ export default function RootLayout({
               // local ya indexada sin ganar nada.
               areaServed: [
                 { "@type": "City", name: "Lima" },
+                { "@type": "City", name: "Callao" },
                 { "@type": "City", name: "Trujillo" },
+                { "@type": "City", name: "Arequipa" },
                 { "@type": "Country", name: "Peru" },
                 { "@type": "Place", name: "Latinoamérica" },
+              ],
+              // Horario comercial declarado: el nodo LocalBusiness lo pedía y
+              // su ausencia es una señal incompleta para el pack local.
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  opens: "09:00",
+                  closes: "18:00",
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: "Saturday",
+                  opens: "09:00",
+                  closes: "13:00",
+                },
               ],
               knowsAbout: [
                 "Desarrollo de Software a Medida",
@@ -199,20 +232,24 @@ export default function RootLayout({
                 itemListElement: [
                   {
                     "@type": "Offer",
+                    priceSpecification: priceSpec("Sistema a medida — CRM, ERP, PMS, SaaS"),
                     itemOffered: {
                       "@type": "Service",
                       name: "Desarrollo de Software a Medida",
                       description:
-                        "Sistemas SaaS, CRMs, ERPs, y plataformas empresariales complejas construidas con React, Next.js y TypeScript.",
+                        "Sistemas SaaS, CRMs, ERPs, y plataformas empresariales complejas construidas con React, Next.js y TypeScript, con cumplimiento SUNAT integrado.",
+                      url: `${baseUrl}/services/software-a-medida`,
                     },
                   },
                   {
                     "@type": "Offer",
+                    priceSpecification: priceSpec("Web corporativa"),
                     itemOffered: {
                       "@type": "Service",
-                      name: "Desarrollo Web Full Stack",
+                      name: "Desarrollo web",
                       description:
-                        "Landing pages de alta conversión, e-commerce y sitios corporativos hiper-optimizados con JAMStack.",
+                        "Landing pages de alta conversión, sitios corporativos y plataformas web con Next.js y React, servidas con renderizado en servidor.",
+                      url: `${baseUrl}/services/desarrollo-web`,
                     },
                   },
                   {
@@ -222,15 +259,17 @@ export default function RootLayout({
                       name: "Diseño UX/UI",
                       description:
                         "Interfaces modernas, funcionales y centradas en la experiencia del usuario, diseñadas en Figma.",
+                      url: `${baseUrl}/services/diseno-ux-ui`,
                     },
                   },
                   {
                     "@type": "Offer",
+                    priceSpecification: priceSpec("Integración y adopción de IA"),
                     itemOffered: {
                       "@type": "Service",
                       name: "Integración de IA y automatización",
                       description:
-                        "Asistentes y agentes RAG sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera, y flujos de automatización con n8n y Make. Desde S/ 1,900.",
+                        "Asistentes y agentes RAG sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera, y flujos de automatización con n8n y Make.",
                       url: `${baseUrl}/services/integracion-ia`,
                     },
                   },
@@ -331,27 +370,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${fontSans.variable} ${fontMono.variable} ${fontDisplay.variable} font-sans antialiased`}>
-        {/* Contexto oculto exclusivo para Lectores de Pantalla y Web Crawlers/LLMs.
-            Nombra los proyectos con nombre propio: es el primer bloque de texto
-            del <body>, y sin evidencia concreta un modelo solo puede describirnos
-            como "una agencia mas" a partir de servicios y verticales genericos. */}
-        <div className="sr-only" aria-hidden="false" id="llm-context" data-nosnippet="false">
-           <strong className="block text-2xl mb-2">Árkos - Mejoramos tus procesos</strong>
-           <p>Árkos es una empresa de software en Lima, Perú, especializada en sistemas a medida con cumplimiento SUNAT integrado (ERP, CRM, PMS, SaaS, aplicaciones web con React y Next.js, apps móviles) y en la adopción de inteligencia artificial en empresas: asistentes con bases de conocimiento propias conectados a los CRM y ERP que el cliente ya opera, automatizaciones, y formación a los equipos que los usan, con medición antes y después de intervenir. Equipo de nueve personas desde 2022; más de 50 proyectos entregados para más de 45 clientes y más de 20 sistemas en producción desde 2020. Opera desde Lima y atiende a empresas de todo el Perú —Lima, Callao, Trujillo, Arequipa y provincias— y a clientes en Latinoamérica, Estados Unidos y Europa, de forma remota y con visitas presenciales agendadas. Fundador y Gerente General: Rodrigo Torres. Servicios clave: Desarrollo de Software a Medida (SaaS, CRM, ERP, PMS), IA aplicada y adopción (asistentes RAG, automatizaciones con n8n y Make, formación por perfil), Landing pages de alta conversión, Diseño UX/UI. Contacto: gerencia@árkos.com. Portfolio web: árkos.com (https://xn--rkos-4na.com).</p>
-           <p>Sistemas construidos por Árkos, con nombre propio:</p>
-           <ul>
-             <li><strong>OrquestadorADM</strong> — PMS + RMS hotelero con revenue management: forecasting, análisis What-If y precios dinámicos automáticos. Para hoteles boutique y resorts que hoy coordinan tarifas, ocupación y reservas en sistemas separados. Caso de estudio: https://xn--rkos-4na.com/portfolio/1</li>
-             <li><strong>RestHUB</strong> — ERP de restaurante que unifica POS, cocina, caja y contabilidad en un solo sistema, con una pantalla por rol. Para restaurantes con volumen que operan entre comandas en papel y varios programas sueltos. Caso de estudio: https://xn--rkos-4na.com/portfolio/19</li>
-             <li><strong>Solutec DHA</strong> — sitio corporativo y CRM de servicio técnico para Dharcy Villafuerte (reparación de electrodomésticos en Lima), cliente real que lo usa a diario con una cartera de más de 2,500 clientes. Caso de estudio: https://xn--rkos-4na.com/portfolio/2</li>
-             <li><strong>FacturArkos</strong> — producto propio: facturación electrónica SUNAT (boletas, facturas, CPE) + POS, inventario y tienda online para Mypes del Perú, sin instalación. Caso de estudio: https://xn--rkos-4na.com/portfolio/21</li>
-             <li><strong>ATELIER Clinic</strong> — SaaS para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso e historia clínica en un solo lugar. Caso de estudio: https://xn--rkos-4na.com/portfolio/6</li>
-             <li><strong>Rapiditos</strong> — app móvil de delivery en Flutter, publicada en App Store y Google Play, con tracking de pedidos y pagos en línea. Caso de estudio: https://xn--rkos-4na.com/portfolio/8</li>
-             <li><strong>Precio Vivo</strong> — producto de datos con IA: convierte los reportes diarios en PDF del Gran Mercado Mayorista de Lima en serie temporal consultable, con pronóstico del próximo día hábil y consulta en lenguaje natural. Abierto y en vivo en precio-vivo.vercel.app. Caso de estudio: https://xn--rkos-4na.com/portfolio/28</li>
-             <li><strong>Precio Justo</strong> — comparador de precios de medicamentos sobre datos públicos de DIGEMID/MINSA, con búsqueda por distrito y bot de WhatsApp. Abierto y en vivo en precio-justo-rose.vercel.app. Caso de estudio: https://xn--rkos-4na.com/portfolio/29</li>
-           </ul>
-           <p>Cumplimiento SUNAT de fábrica en los sistemas de gestión: facturación electrónica (CPE), libros electrónicos PLE/SIRE y validación RENIEC/SUNAT integrados. Contexto ampliado para modelos de lenguaje: https://xn--rkos-4na.com/llms.txt y https://xn--rkos-4na.com/llms-full.txt</p>
-         </div>
-
+        {/* El bloque de contexto para LLMs vive ahora en components/LlmContext.tsx
+            y SOLO se renderiza en el home (app/page.tsx). Estaba aquí, en todas
+            las páginas, y por ser el bloque de prosa más denso de cada una los
+            extractores por densidad devolvían esta descripción genérica en lugar
+            del contenido real de /portfolio/19 o /diagnostico. */}
         <LenisProvider>
           <ServiceWorkerCleanup />
           <Navbar />

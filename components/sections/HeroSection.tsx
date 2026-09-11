@@ -81,7 +81,10 @@ export function HeroSection() {
             aria-label="Mejoramos tus procesos"
             className="font-display text-[3rem] sm:text-6xl md:text-8xl lg:text-[8.5rem] font-bold tracking-tight leading-[0.95] text-foreground mb-10 md:mb-14"
           >
-            Mejoramos
+            {/* El espacio antes del <br/> es intencional: al extraer el texto
+                plano (rastreadores, lectores de IA) el salto de línea no genera
+                separación y el H1 se leía como "Mejoramostus procesos". */}
+            Mejoramos{" "}
             <br />
             <span className="ml-0 md:ml-[1.2em]">
               tus{" "}

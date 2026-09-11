@@ -20,7 +20,14 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params
   const project = projects.find((p) => String(p.id) === slug)
   const title = project ? `${project.title} — Caso de estudio | Árkos` : "Caso de estudio | Árkos"
-  const description = project?.caseStudy?.problem || project?.description || "Caso de estudio de Árkos"
+  // El `problem` de un caso de estudio es un párrafo de narrativa: en RestHUB
+  // llegaba a 317 caracteres y Google truncaba la description a la mitad de una
+  // frase. Se corta en el límite de palabra más cercano a 155.
+  const rawDescription = project?.caseStudy?.problem || project?.description || "Caso de estudio de Árkos"
+  const description =
+    rawDescription.length <= 160
+      ? rawDescription
+      : `${rawDescription.slice(0, 155).replace(/[\s,;:.]+\S*$/, "")}…`
   const canonical = `/portfolio/${slug}`
   return {
     title,

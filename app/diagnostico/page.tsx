@@ -20,7 +20,7 @@ const baseUrl = "https://xn--rkos-4na.com"
 export const metadata: Metadata = {
   title: "Diagnóstico de sistemas para tu negocio | Árkos",
   description:
-    `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 minutos o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto) con auditoría de operación, cumplimiento SUNAT y roadmap con costos.`,
+    `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 min o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto) con roadmap y costos.`,
   alternates: alternates("/diagnostico"),
   openGraph: {
     title: "Diagnóstico de sistemas para tu negocio | Árkos",
@@ -86,6 +86,21 @@ const FAQS = [
 export default function DiagnosticoPage() {
   return (
     <main className="pt-28 md:pt-36 pb-20 bg-background">
+      {/* JSON-LD: breadcrumb (la página colgaba de la raíz sin declararlo) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: baseUrl },
+              { "@type": "ListItem", position: 2, name: "Diagnóstico", item: `${baseUrl}/diagnostico` },
+            ],
+          }),
+        }}
+      />
+
       {/* JSON-LD: FAQ visible de la página (mismo array FAQS → siempre en sync) */}
       <script
         type="application/ld+json"

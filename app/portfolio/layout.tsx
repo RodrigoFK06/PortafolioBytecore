@@ -10,7 +10,7 @@ const baseUrl = "https://xn--rkos-4na.com"
 // rompe el CTR al compartir por WhatsApp — el canal principal de este negocio.
 const title = "Portafolio de proyectos: software a medida, ERP y apps | Árkos"
 const description =
-  "28 proyectos reales de Árkos: ERP y POS para restaurantes, CRM, PMS hotelero, productos de datos con IA, apps móviles publicadas y e-commerce. Casos con cliente, stack y resultados."
+  "Proyectos reales de Árkos: ERP y POS para restaurantes, CRM, PMS hotelero, productos de datos con IA, apps publicadas y e-commerce, con cliente, stack y resultados."
 
 export const metadata: Metadata = {
   title,
@@ -44,6 +44,21 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
           CollectionPage → ItemList → CreativeWork de cada caso.
           Va en el layout (server component) a propósito: page.tsx es "use
           client" por el filtro de categorías y no debe cargar este JSON. */}
+      {/* Breadcrumb: las fichas /portfolio/[slug] ya lo declaraban, pero el
+          padre de la colección no, y el grafo quedaba abierto en ese nivel. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: baseUrl },
+              { "@type": "ListItem", position: 2, name: "Portafolio", item: `${baseUrl}/portfolio` },
+            ],
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

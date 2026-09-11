@@ -26,8 +26,10 @@ export default function PortfolioPage() {
 
         {/* Las tarjetas titulan con <h3>: sin este <h2> la página saltaba de
             H1 a H3 y rompía la jerarquía de encabezados. */}
+        {/* El espacio antes del contador evita que el texto plano se extraiga
+            como "Todos los proyectos28". */}
         <h2 className="text-2xl font-bold mb-8 tracking-tight">
-          {activeFilter === "all" ? "Todos los proyectos" : "Proyectos filtrados"}
+          {activeFilter === "all" ? "Todos los proyectos" : "Proyectos filtrados"}{" "}
           <span className="ml-3 text-base font-normal text-muted-foreground tabular">
             {filteredProjects.length}
           </span>

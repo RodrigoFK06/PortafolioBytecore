@@ -1,0 +1,221 @@
+{
+  "summary": {
+    "health_score": 78,
+    "business_type": "Agencia de software a medida y adopción de IA (Lima, Perú) con señales de servicio local B2B y blog",
+    "audit_date": "2026-09-10",
+    "url": "https://xn--rkos-4na.com",
+    "top_findings": [
+      "El bloque oculto #llm-context del layout raíz contamina la extracción de texto de las páginas internas: los extractores devuelven la descripción genérica de Árkos para /portfolio/19 y /diagnostico",
+      "Sin Google Business Profile y sin reseñas (Clutch 0); el competidor que domina el pack local tiene 4.9 con ~110",
+      "LCP móvil ~4.6 s en el home por el H1 cinético oculto hasta que corre JS y cargan cuatro fuentes (cifra de julio; PageSpeed con rate limit hoy)",
+      "Desajuste de intención: /diagnostico compite contra fichas SaaS y /services/integracion-ia contra un SERP informativo",
+      "www responde 200 sin redirigir al apex; el único backlink externo verificado apunta a www"
+    ],
+    "quick_wins": [
+      "Renderizar #llm-context solo en el home",
+      "Redirección 308 www → apex en Vercel y noindex en /search",
+      "Atributo sizes correcto en las tarjetas del portafolio (hoy piden 3840 px)",
+      "priceCurrency PEN, priceSpecification en catálogos y BreadcrumbList en cuatro páginas",
+      "Recortar la meta description de /portfolio/19 (317) y el título del post de IA (100), añadiendo 'capacitar a tu equipo'"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 88,
+      "weight": 22,
+      "what_works": [
+        "robots.txt permite explícitamente a GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, anthropic-ai, PerplexityBot, Google-Extended y Bingbot",
+        "SSR total en las 12 páginas muestreadas (is_spa false)",
+        "http→https y /projects→/portfolio en 308 de un salto; canonical, robots meta y hreflang es-PE/x-default consistentes",
+        "HSTS, X-Frame-Options y X-Content-Type-Options presentes",
+        "Sitemap válido con 53 URLs en el host apex, sin duplicados ni huérfanas"
+      ],
+      "findings": [
+        {"title": "www responde 200 sin redirigir al apex", "severity": "High", "description": "https://www.xn--rkos-4na.com/ devuelve HTTP 200 sin Location; solo el canonical apunta al apex. Dos hosts servidos y el único backlink externo apunta a www.", "recommendation": "Vercel → Settings → Domains: www como redirect 308 al apex (o redirect por host en next.config.mjs)."},
+        {"title": "/search indexable, fuera del sitemap y con el título del home", "severity": "Medium", "description": "meta robots index, follow y <title> idéntico al home.", "recommendation": "robots noindex, follow en app/search."},
+        {"title": "CSP solo en Report-Only", "severity": "Medium", "description": "Content-Security-Policy-Report-Only en las 11 páginas revisadas; ninguna CSP bloqueante.", "recommendation": "Pasar a CSP bloqueante cuando se hayan revisado los reportes."},
+        {"title": "lastmod ausente en 46 de 53 URLs", "severity": "Medium", "description": "Solo los 7 posts declaran lastmod; páginas recién actualizadas (/, /precios, /diagnostico, /services/*) no señalan frescura.", "recommendation": "Mapa manual de fechas de edición real para páginas clave en app/sitemap.ts."},
+        {"title": "H1 del home se extrae sin espacio ('Mejoramostus procesos')", "severity": "Low", "description": "El <br/> no genera espacio al despojar etiquetas; el aria-label sí es correcto. El H2 de /portfolio se extrae como 'Todos los proyectos28'.", "recommendation": "Espacio antes del <br/> y contador en su propio <span> con espacio."},
+        {"title": "changefreq y priority en las 53 URLs", "severity": "Info", "description": "Google las ignora; Bing les da peso marginal.", "recommendation": "Opcional retirarlas."}
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 76,
+      "weight": 23,
+      "what_works": [
+        "Autoría en primera persona del fundador con cronología 2020–2026 y proyectos con nombre",
+        "Testimonios con nombre, cargo, empresa y enlace externo verificable",
+        "Cifras propias verificables: Solutec 650 órdenes/mes, RestHUB 45→5 min, Precio Vivo 165 casos con resultado negativo publicado",
+        "Post de adopción de IA 85/100 y /services/integracion-ia 82/100: respuesta directa, FAQ visible, coherencia de cifras con el home",
+        "RUC, razón social, precios publicados y política de privacidad como señales de confianza"
+      ],
+      "findings": [
+        {"title": "El bloque sr-only #llm-context contamina la extracción de texto en páginas internas", "severity": "Critical", "description": "render_page.py (raw y Playwright) devuelve para /portfolio/19 y /diagnostico la descripción genérica de Árkos del layout raíz, porque es el bloque de prosa más denso; el contenido real existe pero pierde por densidad.", "recommendation": "Mover el div de app/layout.tsx a app/page.tsx (solo home) y verificar con render_page.py que /portfolio/19 empieza por RestHUB."},
+        {"title": "/portfolio/19 delgado y sin prueba de cliente visible", "severity": "Medium", "description": "El caso RestHUB puntúa 66/100: poco texto propio y sin las cifras ya confirmadas (5 locales, 500 transacciones/día, COFIDE Launchpad).", "recommendation": "Ampliar el caso con las cifras confirmadas y la sección de proceso."},
+        {"title": "/diagnostico por debajo de 800 palabras", "severity": "Medium", "description": "74/100; la página de dinero de la oferta de entrada es corta para su intención.", "recommendation": "Añadir ejemplo de entregable del diagnóstico profundo y un testimonio."},
+        {"title": "Métrica '78 % de citas gestionadas digitalmente' sin periodo ni método", "severity": "Medium", "description": "El chip de dato no indica periodo de medición, en contraste con la promesa 'solo reportamos lo que podemos verificar'.", "recommendation": "Añadir el periodo de medición junto al chip, con el dato del cliente."},
+        {"title": "Byline visible en el blog no confirmado", "severity": "Low", "description": "El segundo pase no vio el author box porque el extractor devolvía el texto del home (ver hallazgo crítico); el author box existe desde julio.", "recommendation": "Verificar tras corregir el bloque #llm-context."}
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 83,
+      "weight": 20,
+      "what_works": [
+        "Títulos y descripciones únicos por página con el nuevo posicionamiento",
+        "Un H1 por página; jerarquía H2/H3 correcta",
+        "Enlazado interno completo: home, /portfolio y /blog cubren el 100 % del sitemap"
+      ],
+      "findings": [
+        {"title": "Meta description de /portfolio/19 de 317 caracteres", "severity": "Medium", "description": "Más del doble del máximo recomendado; también largas: /diagnostico 218, /precios 200, post de IA 192, /portfolio 181.", "recommendation": "Recortar a 150–160 caracteres."},
+        {"title": "Título del post de adopción de IA de 100 caracteres", "severity": "Low", "description": "Se trunca en SERP y no incluye la frase 'capacitar a tu equipo' que el SERP objetivo espera.", "recommendation": "seoTitle en frontmatter: 'Adopción de IA en empresas: cómo capacitar a tu equipo y medir el uso'."},
+        {"title": "H2 del home declarativos, no en forma de pregunta", "severity": "Medium", "description": "'Sobre Nosotros', 'Nuestros Servicios' reducen la extracción directa en AI Overviews y answer engines.", "recommendation": "Reformular 3–4 H2 como preguntas que la gente busca; H1 intacto."},
+        {"title": "Canibalización potencial entre /desarrollo-de-software-lima, /services/software-a-medida y el post de software a medida", "severity": "Medium", "description": "Las tres piezas apuntan a 'desarrollo de software a medida' sin diferenciación clara de título e intención.", "recommendation": "Landing = Lima + transaccional; servicio = alcance y precio; post = guía nacional. No fusionar."}
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 80,
+      "weight": 10,
+      "what_works": [
+        "Entidad única Organization/LocalBusiness/ProfessionalService con @id, RUC en taxID/identifier, numberOfEmployees y founder → Person con hasCredential",
+        "WebSite + SearchAction, Article + FAQPage en posts, Service + Offer con PriceSpecification en /precios, ItemList del portafolio",
+        "Todo SSR, sin tipos deprecados, sin AggregateRating inventado"
+      ],
+      "findings": [
+        {"title": "priceCurrency USD en /precios cuando el copy muestra soles", "severity": "Medium", "description": "Los 7 Offer usan USD; el precio primario visible es S/.", "recommendation": "priceCurrency PEN con penLabel; USD como segunda oferta si se desea."},
+        {"title": "Offers del catálogo (home y /services) sin priceSpecification", "severity": "Medium", "description": "El precio solo aparece como texto libre en la descripción.", "recommendation": "Añadir priceSpecification leyendo data/pricing.ts."},
+        {"title": "BreadcrumbList ausente en /precios, /diagnostico, /portfolio y /necesitas-un-sistema", "severity": "Medium", "description": "Sí existe en /services, /services/*, /desarrollo-de-software-lima y posts.", "recommendation": "Añadir BreadcrumbList con URLs absolutas."},
+        {"title": "provider inline sin @id en /precios", "severity": "Low", "description": "Recrea un nodo Organization en vez de referenciar la entidad principal.", "recommendation": "provider: {\"@id\": \"https://xn--rkos-4na.com/#organization\"}."},
+        {"title": "sameAs de Organization limitado (X y Clutch)", "severity": "Low", "description": "Falta LinkedIn de empresa y GBP; ai.txt menciona un LinkedIn de empresa que el schema no declara.", "recommendation": "Añadir cuando existan; no declarar perfiles inexistentes."},
+        {"title": "areaServed no incluye Callao ni Arequipa que sí menciona el copy", "severity": "Low", "description": "Schema: Lima, Trujillo, Perú, Latinoamérica.", "recommendation": "Alinear areaServed con el copy visible."},
+        {"title": "FAQPage sin rich result en Google desde mayo 2026", "severity": "Info", "description": "Implementado en al menos 6 páginas; no hay beneficio SERP confirmado.", "recommendation": "No quitar ni añadir por SERP; útil como estructura visible."}
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 58,
+      "weight": 10,
+      "what_works": [
+        "Cero scripts de terceros",
+        "Fuentes autoalojadas con preload (4 woff2)",
+        "TTFB ~300–350 ms; bfcache sin bloqueos",
+        "Lighthouse desktop 98 en julio"
+      ],
+      "findings": [
+        {"title": "LCP móvil ~4.6 s (Poor) en el home por el H1 oculto hasta JS + fuentes", "severity": "Critical", "description": "El H1 kinetic-text lleva style=opacity:0 hasta que corre la animación y cargan 4 woff2. Cifra de julio (móvil 68–75); hoy PageSpeed devolvió 429 en tres intentos sin API key.", "recommendation": "Decisión de diseño: H1 visible por defecto y animar solo con clase .js, o split por palabras en móvil. Medir con PSI tras obtener API key gratuita."},
+        {"title": "Sin datos de campo ni medición de hoy", "severity": "High", "description": "Sin CrUX (no hay API key) y PSI con rate limit compartido.", "recommendation": "Configurar Google API key en ~/.config/claude-seo/google-api.json."},
+        {"title": "DOM del home ~1,560 nodos", "severity": "Medium", "description": "Muy por encima de /services, /blog y /precios (340–433).", "recommendation": "Revisar tarjetas (23 proyectos) e índice de stats; lazy-render bajo el fold."},
+        {"title": "Sin fetchpriority=high ni Speculation Rules", "severity": "Low", "description": "preload_check.py: 0 en las 4 páginas. El LCP es texto, así que fetchpriority aplica poco.", "recommendation": "Speculation Rules para prerender de /diagnostico y /precios desde el home."}
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 76,
+      "weight": 10,
+      "what_works": [
+        "Crawler access 95: robots abierto a todos los bots de IA relevantes; el 'robots blocked' anterior era un falso positivo por el IDN",
+        "Archivos machine-readable 90: llms.txt, llms-full.txt, ai.txt y pricing.md con 200, content-type correcto y cifras coherentes con el schema",
+        "Entidad con RUC, credenciales del fundador y descripción canónica única"
+      ],
+      "findings": [
+        {"title": "Citabilidad parcial (55): H2 declarativos y bloque #llm-context", "severity": "Medium", "description": "Los pasajes buenos existen (precios, diagnóstico, post de IA) pero los encabezados del home no son preguntas y las páginas internas se extraen mal.", "recommendation": "Corregir #llm-context; H2 en forma de pregunta; bloques de respuesta de 40–60 palabras."},
+        {"title": "Inconsistencia de sede: Lima en schema y archivos, constitución en La Libertad", "severity": "Medium", "description": "areaServed incluye Trujillo sin explicar la relación con el domicilio legal.", "recommendation": "Una frase en llms-full.txt y ai.txt: 'constituida en La Libertad, opera desde Lima'; nunca publicar la dirección fiscal."},
+        {"title": "sameAs incompleto e inconsistente con ai.txt", "severity": "Low", "description": "Organization: X y Clutch; ai.txt menciona LinkedIn de empresa.", "recommendation": "Crear la Company Page y declararla en ambos."},
+        {"title": "Colisión de nombre con ArkOS y marcas homónimas en cola larga", "severity": "Info", "description": "'Árkos software' ya resuelve en posición ~2; variantes comparten SERP con Arkano, Arkeia, arkos-studio.", "recommendation": "Co-ocurrencia 'Árkos, empresa de software en Lima, Perú' en todo perfil externo."}
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 65,
+      "weight": 5,
+      "what_works": [
+        "Alt text descriptivo en el 100 % de las imágenes evaluadas",
+        "Lazy loading en tarjetas; srcSet y sizes presentes en 28 de 29 imágenes del home (next/image)"
+      ],
+      "findings": [
+        {"title": "Tarjetas de portafolio solicitadas a 3840 px para un slot de ~403 × 192", "severity": "High", "description": "~23 imágenes con w=3840 vía /_next/image; hallazgo repetido desde julio.", "recommendation": "sizes correcto en project-card.tsx."},
+        {"title": "Fuentes de imagen mayormente PNG/JPG", "severity": "Medium", "description": "13 PNG y 4 JPG frente a 4 WebP nativos; pasan por el optimizador pero el origen pesa.", "recommendation": "Convertir fuentes a WebP/AVIF."},
+        {"title": "Logo pedido dos veces por carga", "severity": "Low", "description": "Header y footer piden el mismo archivo con w=256.", "recommendation": "Reutilizar el mismo recurso."}
+      ]
+    },
+    {
+      "name": "Local SEO (fuera de la fórmula)",
+      "score": 33,
+      "weight": 0,
+      "what_works": [
+        "Página de dinero /desarrollo-de-software-lima con H1 geo, ~2,760 palabras y schema completo",
+        "NAP consistente (teléfono, RUC, email, Lima) entre home, página local, /services y llms.txt",
+        "Domicilio fiscal privado correctamente no publicado"
+      ],
+      "findings": [
+        {"title": "No existe Google Business Profile", "severity": "Critical", "description": "Sin GBP no hay pack local ni entrada al Knowledge Graph (Gemini 37 en julio).", "recommendation": "Crear GBP como negocio de área de servicio sin dirección pública; checklist en findings/local.md."},
+        {"title": "Reputación de reseñas nula", "severity": "Critical", "description": "Clutch 0 reseñas; competidor Vex Soluciones 4.9 con ~110.", "recommendation": "3–5 reseñas en Clutch con clientes ya públicos; luego AggregateRating real."},
+        {"title": "Cero distritos de Lima/Callao en contexto de servicio", "severity": "High", "description": "Sin San Isidro, Miraflores, Surco, San Borja, La Molina ni Callao.", "recommendation": "Sección de cobertura por distrito en la página de Lima."},
+        {"title": "Posible inconsistencia de ciudad en Clutch (Trujillo)", "severity": "High", "description": "No verificado en vivo en esta corrida.", "recommendation": "Corregir el perfil a Lima."}
+      ]
+    },
+    {
+      "name": "Backlinks (fuera de la fórmula, confianza baja)",
+      "score": 15,
+      "weight": 0,
+      "what_works": ["Un backlink verificado en vivo (README de PrecioVivo)", "Canonical consistente al apex"],
+      "findings": [
+        {"title": "Dominio no indexado en Common Crawl", "severity": "High", "description": "Ni punycode ni unicode aparecen en el Web Graph.", "recommendation": "Obtener claves gratuitas de Bing Webmaster y Moz para medir; construir enlaces desde GitHub, LinkedIn, Clutch y sitios de clientes."},
+        {"title": "Perfil de GitHub no enlaza al sitio", "severity": "High", "description": "Menciona Árkos como texto plano; el único enlace real es a LinkedIn.", "recommendation": "Campo website del perfil y READMEs con enlace al apex."},
+        {"title": "Único backlink es nofollow y apunta a www", "severity": "Medium", "description": "README de PrecioVivo → https://www.xn--rkos-4na.com/.", "recommendation": "Cambiar a apex tras la redirección."}
+      ]
+    },
+    {
+      "name": "SXO (fuera de la fórmula)",
+      "score": 55,
+      "weight": 0,
+      "what_works": ["Precios reales en soles en el mismo formato que las guías que dominan el SERP de precio", "CTA de WhatsApp prellenado", "Persona contador/SUNAT bien servida (83/100)"],
+      "findings": [
+        {"title": "/diagnostico compite contra fichas de producto SaaS", "severity": "Critical", "description": "'Necesito un sistema para mi negocio' muestra Wally, PANCA, INVY y listicles, no consultoría.", "recommendation": "Apuntar /necesitas-un-sistema a esa consulta; /diagnostico para 'diagnóstico de sistemas para pymes'."},
+        {"title": "/services/integracion-ia compite contra un SERP informativo", "severity": "Critical", "description": "'Adopción de IA en empresas Perú' e 'implementar IA en mi empresa' muestran noticias y guías.", "recommendation": "Spokes informativos del clúster de IA; el servicio para consultas comerciales."},
+        {"title": "Home contra listicles por 'empresa de software Lima'", "severity": "High", "description": "SERP dominado por 'Top 6/15 mejores empresas'.", "recommendation": "Spoke 'Cómo elegir una empresa de desarrollo de software a medida en Lima: checklist'."},
+        {"title": "Prueba social solo en el home", "severity": "Medium", "description": "/precios, /diagnostico, /services/integracion-ia y el blog no muestran testimonios con foto y métrica.", "recommendation": "Bloque de testimonio en las tres páginas de dinero."}
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {"name": "Phase 1: Critical Fixes", "timeframe": "Week 1", "items": [
+        "Renderizar #llm-context solo en el home y verificar con render_page.py",
+        "Redirección 308 www → apex en Vercel; noindex en /search",
+        "sizes correcto en tarjetas de portafolio",
+        "Schema: priceCurrency PEN, priceSpecification en catálogos, BreadcrumbList en 4 páginas, provider por @id, areaServed y openingHours",
+        "Recortar meta descriptions largas y el título del post de IA; espacio en el H1; lastmod real para páginas clave"
+      ]},
+      {"name": "Phase 2: High-Impact Improvements", "timeframe": "Weeks 2-3", "items": [
+        "Google Business Profile como negocio de área de servicio",
+        "3–5 reseñas en Clutch y corrección de ciudad",
+        "LinkedIn Company Page y sameAs",
+        "GitHub: website del perfil y READMEs con enlace al apex",
+        "API keys gratuitas: Google (PSI/CrUX), Bing Webmaster, Moz",
+        "Decisión de diseño sobre el H1 cinético y medición con PSI"
+      ]},
+      {"name": "Phase 3: Content & Authority", "timeframe": "Month 2", "items": [
+        "Guía de precios de un sistema a medida en Perú → /precios",
+        "Checklist para elegir empresa de desarrollo en Lima → /desarrollo-de-software-lima",
+        "Automatización con n8n: casos y precios → /services/integracion-ia",
+        "Facturación electrónica y SUNAT: qué exige la ley → /cumplimiento-sunat",
+        "Gobierno de IA y ENIA 2026–2030 → post de adopción",
+        "Distritos en la página de Lima; testimonios en páginas de dinero; H2 en forma de pregunta; ampliar RestHUB y diagnóstico"
+      ]},
+      {"name": "Phase 4: Monitoring & Iteration", "timeframe": "Ongoing", "items": [
+        "drift_compare mensual contra el baseline del 2026-09-10",
+        "PSI móvil/desktop con API key propia",
+        "Chequeo manual de visibilidad en IA: 10 consultas × 3 plataformas × 3–5 corridas",
+        "Re-auditoría a 30 días y comparación GEO"
+      ]}
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

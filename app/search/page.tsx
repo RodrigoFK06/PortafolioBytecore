@@ -1,4 +1,14 @@
+import type { Metadata } from "next"
 import { projects } from "@/data/projects"
+
+// Buscador interno: útil para quien ya está en el sitio, sin valor para un
+// buscador. Estaba indexable y con el mismo <title> que el home, generando
+// URLs de resultados que compiten con /portfolio por el mismo contenido.
+// `follow` se mantiene para que los enlaces a las fichas sigan contando.
+export const metadata: Metadata = {
+  title: "Buscar proyectos | Árkos",
+  robots: { index: false, follow: true },
+}
 
 export default async function SearchPage({
   searchParams,

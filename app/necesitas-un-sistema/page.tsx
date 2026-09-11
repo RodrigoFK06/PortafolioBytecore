@@ -48,6 +48,24 @@ export default function NecesitasUnSistemaPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Inicio", item: baseUrl },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "¿Necesitas un sistema?",
+                item: `${baseUrl}/necesitas-un-sistema`,
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
             "@type": "WebApplication",
             "@id": `${baseUrl}/necesitas-un-sistema#app`,
             name: "Test: ¿Tu negocio ya necesita un sistema?",

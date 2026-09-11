@@ -1,6 +1,7 @@
 ---
 title: "Adopción de IA en empresas: cómo lograr que tu equipo la use de verdad (y cómo medirlo)"
-description: "Guía práctica desde casos reales en Perú: por qué la IA se abandona a las dos semanas, cómo formar por perfil y en cascada, qué no automatizar y cómo medir el uso sostenido con una línea base."
+seoTitle: "Adopción de IA en empresas: cómo capacitar a tu equipo"
+description: "Por qué la IA se abandona a las dos semanas, cómo capacitar a tu equipo por perfil y en cascada, qué no automatizar y cómo medir el uso sostenido. Desde casos reales en Perú."
 image: "/blog-cover-adopcion-ia.png"
 date: "2026-09-10"
 author: "Rodrigo Torres"
