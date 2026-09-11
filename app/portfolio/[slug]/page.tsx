@@ -5,7 +5,7 @@ import { ArrowLeft, ExternalLink, Quote } from "lucide-react"
 import type { Metadata } from "next"
 
 import { Button } from "@/components/ui/button"
-import { projects, getCategoryLabel } from "@/data/projects"
+import { projects, getCategoryLabel, isIndexableCase } from "@/data/projects"
 import { alternates } from "@/lib/seo"
 
 const baseUrl = "https://xn--rkos-4na.com"
@@ -29,9 +29,18 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       ? rawDescription
       : `${rawDescription.slice(0, 155).replace(/[\s,;:.]+\S*$/, "")}…`
   const canonical = `/portfolio/${slug}`
+  // Solo las fichas con caso de estudio real se indexan; el resto va
+  // `noindex, follow` para que dejen de competir por rastreo sin cortar el
+  // flujo de enlaces hacia el hub y los casos que sí importan.
+  // Ver INDEXABLE_CASE_IDS en data/projects.ts.
+  // Ojo: `robots: undefined` NO hereda, borra el meta del layout raíz (y con él
+  // `max-snippet:-1`, que es justo lo que queremos en las fichas que sí valen).
+  // Con spread condicional la clave ni existe y la herencia funciona.
+  const indexable = project ? isIndexableCase(project.id) : false
   return {
     title,
     description,
+    ...(indexable ? {} : { robots: { index: false, follow: true } }),
     alternates: alternates(canonical),
     openGraph: project
       ? {

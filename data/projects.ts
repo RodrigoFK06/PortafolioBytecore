@@ -607,6 +607,40 @@ export const getHomeProjects = (): Project[] =>
     .map((id) => projects.find((p) => p.id === id))
     .filter((p): p is Project => Boolean(p))
 
+// ── Fichas indexables ───────────────────────────────────────────────────
+//
+// De las 28 fichas /portfolio/[id], solo estas se declaran en el sitemap y se
+// sirven sin `noindex`. Las otras 22 siguen existiendo, visibles y enlazadas
+// desde /portfolio, que queda como el hub indexable: lo que cambia es que
+// dejan de competir por rastreo e indexación.
+//
+// Por qué: cada ficha sin caso de estudio rinde ~204 palabras dentro de ~95 KB
+// de HTML, y son 22 páginas casi idénticas entre sí. Google las rastrea, las
+// encuentra delgadas y baja la confianza en el patrón del sitio completo.
+// Mientras tanto la home gastaba 22 de sus enlaces internos en ellas y solo 2
+// en /desarrollo-de-software-lima, que es la página que debe vender.
+//
+// El criterio es objetivo, no de gusto: tener `caseStudy` con datos REALES.
+// Por eso quedan fuera OrquestadorADM (1), Rapiditos (8) y FacturArkos (21),
+// que sí tienen `caseStudy` pero con datos marcados `⚠️ MOCK` — desindexarlas
+// saca de paso métricas inventadas del índice, que contradicen la regla de no
+// publicar cifras que no podemos sostener.
+//
+// Para sumar una ficha aquí: escribir su `caseStudy` con datos reales y añadir
+// su id. RutaPro, RIVET y SignMed son las próximas candidatas (tienen roadmap,
+// ADRs y auditoría técnica ya escritos); y las tres MOCK vuelven en cuanto se
+// reemplacen sus datos.
+export const INDEXABLE_CASE_IDS = [
+  2, // Solutec DHA — cliente real, uso diario, testimonio público
+  19, // RestHUB — producto propio, métricas del piloto
+  26, // Meridiano — pieza propia, declarada como tal
+  27, // Trama — pieza propia, declarada como tal
+  28, // Precio Vivo — abierto y en vivo, evaluación publicada
+  29, // Precio Justo — abierto y en vivo, datos públicos de DIGEMID
+]
+
+export const isIndexableCase = (id: number) => INDEXABLE_CASE_IDS.includes(id)
+
 // Categorías disponibles (fuente única de verdad para los filtros del portafolio)
 export const projectCategories = [
   { id: "all", label: "Todos" },

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import { projects } from "@/data/projects"
+import { projects, isIndexableCase } from "@/data/projects"
 import { SERVICES } from "@/data/services"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -65,14 +65,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...lastModOf(`/services/${s.slug}`),
   }))
 
-  // Las fichas de caso son las páginas más específicas y transaccionales del
-  // sitio (cliente, sector, stack, métricas) y estaban FUERA del sitemap pese
-  // a ser indexables y estar enlazadas desde el home.
-  const portfolioItems: MetadataRoute.Sitemap = projects.map((p) => ({
-    url: `${baseUrl}/portfolio/${p.id}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }))
+  // Solo las fichas con caso de estudio real. Las otras 22 se sirven con
+  // `noindex` (ver INDEXABLE_CASE_IDS en data/projects.ts) y declarar en el
+  // sitemap una URL que pide no ser indexada es una contradicción que resta
+  // confianza al sitemap completo. Siguen visibles y enlazadas desde
+  // /portfolio, que es el hub indexable.
+  const portfolioItems: MetadataRoute.Sitemap = projects
+    .filter((p) => isIndexableCase(p.id))
+    .map((p) => ({
+      url: `${baseUrl}/portfolio/${p.id}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }))
 
   const blogDir = path.join(process.cwd(), "content/blog")
   const blogItems: MetadataRoute.Sitemap = fs.existsSync(blogDir)
