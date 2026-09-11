@@ -37,7 +37,9 @@ export interface Project {
   description: string
   tags: string[]
   imageSrc: string
-  link: string
+  /** URL pública del trabajo. Opcional: hay productos propios sin deploy
+   *  abierto, y la ficha ya oculta el botón cuando no hay enlace. */
+  link?: string
   githubLink?: string
   category: string
   featured?: boolean
@@ -581,6 +583,93 @@ export const projects: Project[] = [
       cta: "¿Tu marca desaparece detrás del trabajo que muestras? Conversemos.",
     },
   },
+  // ── Productos propios en construcción ─────────────────────────────────
+  // Los tres casos siguientes están escritos desde la documentación real de
+  // sus repos (planes, ADRs, auditorías, notas de modelo), no desde memoria.
+  // Ninguno declara clientes ni métricas de negocio porque ninguno los tiene
+  // todavía: lo que demuestran es criterio de ingeniería, que es exactamente
+  // lo que un cliente quiere ver antes de contratar un sistema a medida.
+  {
+    id: 30,
+    title: "RutaPro",
+    description:
+      "TMS multi-tenant para distribuidoras B2B: importación de pedidos, planificación de rutas, prueba de entrega con foto y firma, y tracking público para el cliente final. Producto propio en construcción, con las decisiones de arquitectura cerradas y documentadas.",
+    tags: ["NestJS", "Next.js", "PostgreSQL", "PostGIS", "Prisma", "TypeScript"],
+    imageSrc: "/rutapro.png",
+    category: "sistemas-web",
+    year: "2026",
+    caseStudy: {
+      context:
+        "Una distribuidora urbana coordina su reparto entre un Excel de pedidos, llamadas al chofer y fotos de guías por WhatsApp. Los TMS del mercado resuelven eso, pero están pensados para operadores logísticos grandes y cobran como tales. RutaPro es mi respuesta a ese hueco: un TMS en la nube para distribuidoras B2B de Latinoamérica, con Perú como primer mercado.",
+      problem:
+        "El problema real no es trazar rutas, es que nadie sabe qué pasó con una entrega hasta que el chofer vuelve. Sin prueba de entrega el reclamo es palabra contra palabra; sin tracking, el cliente final llama para preguntar dónde está su pedido; y sin datos de la operación, la planificación del día siguiente se hace otra vez a mano.",
+      decision:
+        "Tomé tres decisiones y las dejé escritas como ADRs antes de programar. Primera: monolito modular en NestJS en vez de microservicios, porque un equipo pequeño paga el costo de la red distribuida sin cobrar ninguno de sus beneficios. Segunda: multi-tenancy con base de datos compartida, columna de inquilino y Row-Level Security en PostgreSQL, en vez de una base por cliente, porque el aislamiento lo garantiza el motor y no el código de la aplicación. Tercera: la app móvil del chofer queda diferida; el MVP se valida con la operación de oficina antes de abrir un segundo frente de plataforma.",
+      built:
+        "Un monorepo con API, dashboard web y workers de cola, con los tipos compartidos de punta a punta: los esquemas de validación viven en un paquete propio y los consumen tanto el servidor como el cliente, así que un cambio de contrato rompe la compilación en vez de romper producción. PostGIS para el cálculo geográfico, Redis y colas para el trabajo asíncrono, y CI que corre en cada pull request.",
+      result:
+        "Todavía no hay clientes ni métricas de operación, y no voy a inventarlas: RutaPro está en construcción. Lo que sí está cerrado es el criterio —ocho documentos de planificación, ADRs con las decisiones y sus alternativas descartadas, runbooks y CI— y ese es justamente el material que un cliente puede revisar antes de encargarme un sistema a medida.",
+      cta: "¿Tu operación de reparto vive entre Excel, llamadas y fotos de WhatsApp? Conversemos.",
+      proof: {
+        images: ["/rutapro.png"],
+      },
+    },
+  },
+  {
+    id: 31,
+    title: "RIVET",
+    description:
+      "Plataforma B2B de micro-learning para equipos de ventas y compliance: lecciones cortas en modos de lectura acelerada, quizzes y gamificación, con panel de administración y analítica. Producto propio, en vivo.",
+    tags: ["Next.js", "React", "Firebase", "TypeScript", "EdTech"],
+    imageSrc: "/rivet.png",
+    link: "https://rivet-ten.vercel.app/",
+    category: "sistemas-web",
+    year: "2026",
+    caseStudy: {
+      context:
+        "La capacitación corporativa se cae por el mismo sitio que la adopción de cualquier herramienta: la gente no tiene una hora libre para un curso. RIVET parte de la premisa contraria —sesiones de minutos, no de horas— para equipos de ventas y de cumplimiento, donde el contenido cambia seguido y hay que poder demostrar que alguien lo leyó.",
+      problem:
+        "Dos problemas distintos en la misma plataforma. El del empleado es de atención: leer una lección completa sin abandonarla a la mitad. El del área que capacita es de evidencia: saber quién avanzó de verdad, no quién marcó la casilla. Y en cuanto hay puntaje de por medio aparece el tercero, que es de integridad: si el navegador puede decir cuántos puntos ganó, el ranking no vale nada.",
+      decision:
+        "La regla que ordena todo el producto es que el servidor es la única autoridad sobre puntaje, progreso y roles. El cliente propone, el servidor decide y persiste. De ahí bajan las reglas de acceso por colección y el que las preguntas de un quiz no viajen con su respuesta correcta. La segunda decisión fue de interfaz: esto es una herramienta de trabajo, no una landing, así que la lectura manda y el movimiento solo existe cuando ayuda a la tarea.",
+      built:
+        "Lectura acelerada con presentación palabra a palabra y otros modos de foco, banco de preguntas con quizzes, progreso y gamificación, certificados de completación, panel de administración de cursos y lecciones, y analítica de avance por persona. Todo en Next.js con React y Firestore, con reglas de seguridad por colección.",
+      result:
+        "Está en vivo y se puede probar sin pedir permiso, que es la forma honesta de enseñar un producto. No publico cifras de uso porque no tengo una base instalada que las sostenga; lo que se puede evaluar hoy es el producto funcionando y las decisiones que lo sostienen.",
+      cta: "¿Tu equipo necesita capacitarse en minutos y que puedas demostrarlo? Conversemos.",
+      proof: {
+        liveUrl: "https://rivet-ten.vercel.app/",
+        images: ["/rivet.png"],
+      },
+    },
+  },
+  {
+    id: 32,
+    title: "SignMed",
+    description:
+      "Reconocimiento de lengua de señas médica en tiempo real: captura de landmarks en el navegador e inferencia con CNN+LSTM sobre FastAPI. El caso está escrito alrededor de la auditoría técnica que encontró que el modelo original se entrenaba sin ver una sola mano.",
+    tags: ["Python", "FastAPI", "TensorFlow", "MediaPipe", "MongoDB", "Next.js"],
+    imageSrc: "/signmed.png",
+    githubLink: "https://github.com/RodrigoFK06/signmed-backend",
+    category: "sistemas-web",
+    year: "2026",
+    caseStudy: {
+      context:
+        "Un paciente sordo en una consulta médica depende de que haya intérprete. SignMed ataca ese momento: el navegador captura los puntos de la mano, el cuerpo y la cara con MediaPipe, y un modelo CNN+LSTM clasifica la seña en tiempo real, con práctica guiada y exámenes para aprender el vocabulario clínico.",
+      problem:
+        "Recibí el proyecto funcionando y con una métrica que se veía bien: 0,80 de exactitud. Antes de construir encima, audité el pipeline. El vector de características se armaba con pose, cara y manos en ese orden y luego se recortaba a 150 valores; pose y cara ya sumaban 160. Las manos, que iban al final, quedaban siempre fuera del recorte. Un modelo de lengua de señas se había entrenado sin ver una sola mano.",
+      decision:
+        "Lo verifiqué antes de afirmarlo, porque una acusación así no se sostiene con una lectura del código. Comparé las coordenadas del bloque sospechoso contra las muñecas y la nariz de la pose: caían sobre la nariz. Medí cuánto se movía cada bloque a lo largo de la secuencia: el de pose siete veces más que el otro, que apenas se movía, como una cara y no como unas manos gesticulando. Recién con esa evidencia reescribí el layout de features y lo dejé en un solo archivo compartido por el grabador y el navegador, con las manos primero y con espacio garantizado.",
+      built:
+        "API en FastAPI con autenticación por roles y MongoDB, separada en endpoints que solo orquestan, servicios con la lógica y una capa de datos aislada; frontend en Next.js que captura los landmarks en el navegador; y suite de pruebas con CI en cada push. En el camino aparecieron dos fallos más: el entrenamiento no normalizaba las features pero la inferencia sí, así que el modelo veía en producción una distribución que nunca había visto; y una clase del catálogo era una errata en plural de otra, con dos muestras, que llegó al modelo publicado sin una sola muestra de prueba.",
+      result:
+        "El hallazgo incómodo es que el dataset actual no se puede arreglar reentrenando: las grabaciones nunca contuvieron las manos, la información no está ahí, y hay que volver a grabar con el grabador corregido. Así que la auditoría dice por escrito que el 0,80 publicado no mide reconocimiento de señas, y explica además por qué la partición aleatoria por fila infla ese número. El sistema queda desplegable y demostrable de punta a punta, con el pipeline corregido y el camino de reentrenamiento documentado. Publicar que la métrica de tu propio modelo no vale cuesta, pero es la única versión que sirve para decidir.",
+      cta: "¿Tienes un modelo en producción cuya métrica nadie ha auditado? Conversemos.",
+      proof: {
+        images: ["/signmed.png"],
+      },
+    },
+  },
 ];
 
 // Funciones de utilidad para filtrar proyectos
@@ -599,7 +688,9 @@ export const HOME_PROJECT_IDS = [
   // 28 y 29 (Precio Vivo, Precio Justo) entran al núcleo: son lo único del
   // portafolio que demuestra en vivo la capacidad de datos + IA, y la home
   // era justamente donde no había prueba de eso.
-  19, 21, 28, 29, 22, 23, 2, 1, 8, 6, 11, // núcleo B2B + destacados
+  // 30, 31 y 32 (RutaPro, RIVET, SignMed) entran arriba: son los casos con
+  // documentación de ingeniería real y los únicos indexables recientes.
+  19, 32, 28, 29, 30, 31, 2, 21, 22, 23, 1, 8, 6, 11, // núcleo B2B + destacados
   26, 27, 20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
 ]
 export const getHomeProjects = (): Project[] =>
@@ -637,6 +728,9 @@ export const INDEXABLE_CASE_IDS = [
   27, // Trama — pieza propia, declarada como tal
   28, // Precio Vivo — abierto y en vivo, evaluación publicada
   29, // Precio Justo — abierto y en vivo, datos públicos de DIGEMID
+  30, // RutaPro — producto en construcción; ADRs y planes como evidencia
+  31, // RIVET — producto propio en vivo
+  32, // SignMed — auditoría técnica con evidencia reproducible
 ]
 
 export const isIndexableCase = (id: number) => INDEXABLE_CASE_IDS.includes(id)

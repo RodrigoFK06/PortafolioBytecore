@@ -14,7 +14,8 @@ interface Project {
   description: string
   tags: string[]
   imageSrc: string
-  link: string
+  /** Opcional: hay productos propios sin deploy público. */
+  link?: string
   category: string
 }
 

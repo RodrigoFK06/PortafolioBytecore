@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'Cabinet'; src: url('file:///C:/Trabajo/04-Carrera/Portafolio/portafolio-bytecore/app/fonts/CabinetGrotesk-Variable.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Switzer'; src: url('file:///C:/Trabajo/04-Carrera/Portafolio/portafolio-bytecore/app/fonts/Switzer-Variable.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'JBMono'; src: url('file:///C:/Trabajo/04-Carrera/Portafolio/portafolio-bytecore/app/fonts/JetBrainsMono-Medium.woff2') format('woff2'); font-weight: 500; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1440px; height: 810px; overflow: hidden; }
+body { background: #ffffff; font-family: 'Switzer', sans-serif; color: #171717; position: relative; }
+.grid { position: absolute; inset: 0;
+  background-image: linear-gradient(to right, rgba(23,23,23,0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(23,23,23,0.055) 1px, transparent 1px);
+  background-size: 90px 90px; }
+.frame { position: absolute; inset: 34px; box-shadow: 0 0 0 1px #e6e6e6; }
+.inner { position: absolute; inset: 34px; padding: 58px 66px; display: flex; flex-direction: column; justify-content: space-between; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; }
+.spec { font-family: 'JBMono', monospace; font-size: 16px; letter-spacing: 0.15em; text-transform: uppercase; color: #616161; }
+.spec .rule { display:inline-block; width: 36px; height: 1px; background:#cccccc; vertical-align: middle; margin-right: 14px; }
+h1 { font-family: 'Cabinet', sans-serif; font-weight: 700; font-size: 92px; line-height: 1.02; letter-spacing: -0.025em; }
+.sub { font-size: 27px; line-height: 1.35; color: #4a4a4a; max-width: 940px; margin-top: 22px; font-weight: 400; }
+.brand { color: #0a33ff; }
+.layout { margin-top: 34px; display: flex; gap: 0; max-width: 1120px; border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; }
+.seg { padding: 14px 18px; font-family: 'JBMono', monospace; font-size: 14px; letter-spacing: 0.04em; border-right: 1px solid #e0e0e0; }
+.seg:last-child { border-right: 0; }
+.seg b { display: block; font-size: 12px; color: #8a8a8a; font-weight: 500; letter-spacing: 0.1em; margin-bottom: 5px; }
+.seg.hi { background: rgba(10,51,255,0.05); color: #0a33ff; }
+.seg.hi b { color: #0a33ff; opacity: 0.7; }
+.bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+.mono { font-family: 'JBMono', monospace; font-size: 17px; letter-spacing: 0.1em; text-transform: uppercase; color: #616161; }
+.mono strong { color: #171717; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="frame"></div>
+  <div class="inner">
+    <div class="top">
+      <div class="spec"><span class="rule"></span>FIG. — Sistema web · Auditoría técnica</div>
+      <div class="spec">2026</div>
+    </div>
+    <div>
+      <h1>SignMed<br><span class="brand">lengua de señas médica</span></h1>
+      <p class="sub">Reconocimiento en tiempo real con CNN+LSTM sobre keypoints de MediaPipe. La auditoría encontró que el modelo original se entrenaba sin ver una sola mano.</p>
+      <div class="layout">
+        <div class="seg hi"><b>[0:84]</b>manos · 21 + 21 landmarks</div>
+        <div class="seg"><b>[84:130]</b>pose · tren superior</div>
+        <div class="seg"><b>[130:150]</b>cara · 10 referencias</div>
+        <div class="seg"><b>Antes</b>manos recortadas fuera del vector</div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="mono"><strong>árkos.com</strong>/portfolio</div>
+      <div class="mono">FastAPI · TensorFlow · MongoDB</div>
+    </div>
+  </div>
+</body>
+</html>
