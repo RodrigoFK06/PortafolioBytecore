@@ -415,6 +415,7 @@ export default function RootLayout({
                 "https://github.com/RodrigoFK06",
                 "https://www.linkedin.com/in/rodrigo-torres-arkos",
                 "https://www.instagram.com/_rodrigofk_/",
+                "https://www.rodrigotorres.app/es",
               ],
             }),
           }}
