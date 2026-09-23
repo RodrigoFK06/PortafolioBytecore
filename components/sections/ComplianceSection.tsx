@@ -7,7 +7,7 @@ import { KineticText } from "@/components/motion/kinetic-text"
 import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 
-// ── Cumplimiento embebido — el moat de Árkos ────────────────────
+// ── Cumplimiento embebido — una capacidad de los sistemas ───────
 // En Perú el cumplimiento no es opcional; aquí no es un módulo que
 // se compra aparte: es la base sobre la que se construye el sistema.
 

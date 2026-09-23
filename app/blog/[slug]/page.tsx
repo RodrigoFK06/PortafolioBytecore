@@ -184,8 +184,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div>
             <p className="font-semibold text-foreground">Rodrigo Torres</p>
             <p className="text-sm text-muted-foreground leading-relaxed mt-1">
-              Fundador de Árkos. Construye ERPs, PMS hoteleros y apps en producción para pymes de
-              Perú y Latinoamérica — con cumplimiento SUNAT integrado de fábrica.
+              Fundador de Árkos. Mejora los procesos de pymes de Perú y Latinoamérica con
+              automatización e IA, y construye los ERPs, PMS hoteleros y apps que hacen falta.
             </p>
             <div className="flex gap-4 mt-2 text-sm">
               <a

@@ -9,7 +9,17 @@ import { Toaster } from "@/components/ui/toaster"
 import { ServiceWorkerCleanup } from "@/components/sw-cleanup"
 import { alternates, BASE_URL } from "@/lib/seo"
 import { SITE_CONFIG } from "@/lib/constants"
-import { PRICE_TIERS } from "@/data/pricing"
+import {
+  PRICE_TIERS,
+  PRECIO_TALLER,
+  TALLER_HORAS,
+  TALLER_PERSONAS_MAX,
+  PRECIO_DIAGNOSTICO,
+  DIAGNOSTICO_SEMANAS,
+  GARANTIA_MULTIPLO,
+  GARANTIA_UMBRAL_ANUAL,
+  soles,
+} from "@/data/pricing"
 
 const baseUrl = BASE_URL
 
@@ -28,9 +38,9 @@ function priceSpec(tierName: string) {
 }
 
 export const metadata: Metadata = {
-  title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
+  title: "Árkos | Mejora de procesos y adopción de IA para empresas en Perú",
   description:
-    "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
+    "Árkos, en Lima, mejora los procesos de tu empresa con automatización e IA y enseña a tu equipo a usarla. Taller, diagnóstico de procesos y software a medida.",
   metadataBase: new URL(baseUrl),
   robots: {
     index: true,
@@ -82,24 +92,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_PE",
     url: baseUrl,
-    title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
+    title: "Árkos | Mejora de procesos y adopción de IA para empresas en Perú",
     description:
-      "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
+      "Árkos, en Lima, mejora los procesos de tu empresa con automatización e IA y enseña a tu equipo a usarla. Taller, diagnóstico de procesos y software a medida.",
     siteName: "Árkos",
     images: [
       {
         url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Árkos - Software a medida y adopción de IA para empresas en Perú",
+        alt: "Árkos - Mejora de procesos y adopción de IA para empresas en Perú",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Árkos | Software a medida y adopción de IA para empresas en Perú",
+    title: "Árkos | Mejora de procesos y adopción de IA para empresas en Perú",
     description:
-      "Empresa de software en Lima: sistemas a medida con cumplimiento SUNAT de fábrica y adopción de IA con formación a tu equipo. Precios publicados y diagnóstico gratis.",
+      "Árkos, en Lima, mejora los procesos de tu empresa con automatización e IA y enseña a tu equipo a usarla. Taller, diagnóstico de procesos y software a medida.",
     site: "@ArkosPeru",
     creator: "@ArkosPeru",
     images: [`${baseUrl}/og-image.png`],
@@ -145,8 +155,13 @@ export default function RootLayout({
               },
               naics: "541511",
               isicV4: "6201",
+              // Posicionamiento del 2026-09-23: la identidad es mejora de
+              // procesos, automatización y adopción de IA; el desarrollo a
+              // medida es el medio. SUNAT pasa a ser una capacidad de los
+              // sistemas (ver la oferta de software a medida), no la
+              // definición de la empresa.
               description:
-                "Árkos es una empresa de software con base en Lima, Perú, especializada en sistemas a medida (ERP, CRM, PMS, SaaS, webs y apps) con cumplimiento SUNAT integrado, y en la adopción de inteligencia artificial en empresas: asistentes con bases de conocimiento propias, automatizaciones y formación a los equipos que los usan. Equipo de nueve personas; más de 50 proyectos entregados y más de 20 sistemas en producción desde 2020. Atiende a empresas de todo el Perú y a clientes en Latinoamérica, Estados Unidos y Europa.",
+                "Árkos es una empresa de tecnología con base en Lima, Perú, especializada en mejora de procesos, automatización y adopción de inteligencia artificial en empresas, con desarrollo de software a medida. Hace que los procesos de una empresa funcionen mejor con automatización e IA, y le enseña a su equipo a usarla. Trabaja en tres pasos: un taller de adopción de tecnología para el equipo, un diagnóstico de procesos con informe y roadmap con costos, y el desarrollo a medida de lo que haga falta (sistemas, automatizaciones, asistentes con bases de conocimiento propias, webs y apps). Equipo de nueve personas; más de 50 proyectos entregados y más de 20 sistemas en producción desde 2020. Atiende a empresas de todo el Perú y a clientes en Latinoamérica, Estados Unidos y Europa.",
               url: baseUrl,
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               image: `${baseUrl}/og-image.png`,
@@ -199,6 +214,12 @@ export default function RootLayout({
                 },
               ],
               knowsAbout: [
+                // 2026-09-23: lo que Árkos hace primero va primero. El orden
+                // no pesa en el schema, pero es lo que un modelo lee antes.
+                "Mejora de procesos en empresas",
+                "Automatización de Procesos",
+                "Adopción de tecnología en empresas",
+                "Diagnóstico de procesos",
                 "Desarrollo de Software a Medida",
                 "React",
                 "Next.js",
@@ -207,7 +228,6 @@ export default function RootLayout({
                 "Software SaaS",
                 "Inteligencia Artificial",
                 "Chatbots",
-                "Automatización de Procesos",
                 "E-commerce",
                 // Añadidos cuando Precio Vivo y Precio Justo entraron al
                 // portafolio: hasta ahora el sitio reclamaba capacidad de IA
@@ -224,12 +244,64 @@ export default function RootLayout({
                 "Habilitación y formación de usuarios de negocio en IA",
                 "Gobierno y uso responsable de IA",
                 "Agentes de IA y tool calling",
-                "Cumplimiento SUNAT (facturación electrónica, PLE/SIRE)",
+                // Capacidad dentro del software a medida, no identidad.
+                "Facturación electrónica SUNAT y libros PLE/SIRE en sistemas a medida",
               ],
+              // Orden = recorrido de la oferta (2026-09-22): taller →
+              // diagnóstico de procesos → desarrollo. Precios desde
+              // data/pricing.ts, igual que /taller y /diagnostico.
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Servicios de Árkos",
                 itemListElement: [
+                  {
+                    "@type": "Offer",
+                    price: String(PRECIO_TALLER),
+                    priceCurrency: "PEN",
+                    description: "Precio por grupo.",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Taller de adopción de tecnología e IA para equipos",
+                      description:
+                        `Paso 1. Taller de ${TALLER_HORAS} horas para hasta ${TALLER_PERSONAS_MAX} personas, con la IA como camino: criterio de uso (cada modelo tiene sus fuertes) y práctica sobre el trabajo real del equipo. El equipo se lleva un mapa de sus tareas repetidas por área. Lo da Rodrigo Torres.`,
+                      url: `${baseUrl}/taller`,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    price: String(PRECIO_DIAGNOSTICO),
+                    priceCurrency: "PEN",
+                    description:
+                      `Se descuenta íntegro del proyecto si se avanza. Garantía: si el informe no encuentra pérdidas de al menos ${GARANTIA_MULTIPLO} veces su precio al año (S/ ${soles(GARANTIA_UMBRAL_ANUAL)}), se devuelve el pago.`,
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Diagnóstico de procesos",
+                      description:
+                        `Paso 2. ${DIAGNOSTICO_SEMANAS} semanas de análisis de los procesos de la empresa: dónde se pierde tiempo, plata o clientes. Entrega un informe y un roadmap priorizado con costos.`,
+                      url: `${baseUrl}/diagnostico`,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    priceSpecification: priceSpec("Integración y adopción de IA"),
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Automatización de procesos e integración de IA",
+                      description:
+                        "Flujos de automatización con n8n y Make, y asistentes y agentes RAG sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera.",
+                      url: `${baseUrl}/services/integracion-ia`,
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Adopción de IA y formación de equipos",
+                      description:
+                        "Onboarding de punta a punta, formación en el puesto con currículos distintos para usuarios de negocio y equipos técnicos, formación en cascada con grupo núcleo y segunda línea de soporte, gobierno legible para no técnicos y medición con línea base antes y después. Se cotiza por alcance.",
+                      url: `${baseUrl}/services/integracion-ia`,
+                    },
+                  },
                   {
                     "@type": "Offer",
                     priceSpecification: priceSpec("Sistema a medida — CRM, ERP, PMS, SaaS"),
@@ -237,7 +309,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Desarrollo de Software a Medida",
                       description:
-                        "Sistemas SaaS, CRMs, ERPs, y plataformas empresariales complejas construidas con React, Next.js y TypeScript, con cumplimiento SUNAT integrado.",
+                        "Paso 3. Sistemas SaaS, CRMs, ERPs y plataformas empresariales construidas con React, Next.js y TypeScript desde los procesos reales de la empresa. Cuando la operación lo necesita, incluyen facturación electrónica SUNAT y libros PLE/SIRE.",
                       url: `${baseUrl}/services/software-a-medida`,
                     },
                   },
@@ -260,27 +332,6 @@ export default function RootLayout({
                       description:
                         "Interfaces modernas, funcionales y centradas en la experiencia del usuario, diseñadas en Figma.",
                       url: `${baseUrl}/services/diseno-ux-ui`,
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    priceSpecification: priceSpec("Integración y adopción de IA"),
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Integración de IA y automatización",
-                      description:
-                        "Asistentes y agentes RAG sobre bases de conocimiento propias, conectados a los CRM y ERP que la empresa ya opera, y flujos de automatización con n8n y Make.",
-                      url: `${baseUrl}/services/integracion-ia`,
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Adopción de IA y formación de equipos",
-                      description:
-                        "Onboarding de punta a punta, formación en el puesto con currículos distintos para usuarios de negocio y equipos técnicos, formación en cascada con grupo núcleo y segunda línea de soporte, gobierno legible para no técnicos y medición con línea base antes y después. Se cotiza por alcance.",
-                      url: `${baseUrl}/services/integracion-ia`,
                     },
                   },
                 ],
@@ -309,7 +360,7 @@ export default function RootLayout({
               name: "Árkos",
               url: baseUrl,
               description:
-                "Sitio web oficial de Árkos, empresa de software a medida y adopción de IA para empresas en Lima, Perú.",
+                "Sitio web oficial de Árkos: mejora de procesos, automatización y adopción de IA para empresas, con desarrollo a medida. Lima, Perú.",
               inLanguage: "es-PE",
               publisher: { "@id": `${baseUrl}/#organization` },
               potentialAction: {

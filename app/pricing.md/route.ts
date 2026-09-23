@@ -68,7 +68,7 @@ ${creative}
 
 ## Qué incluye todo proyecto
 - Código fuente y base de datos entregados al cierre; sin esquemas que obliguen a quedarse con Árkos.
-- En sistemas a medida, cumplimiento SUNAT integrado de fábrica: facturación electrónica (CPE), libros PLE/SIRE y validación RENIEC/SUNAT.
+- En sistemas a medida, cuando la operación lo necesita: facturación electrónica SUNAT (CPE), libros PLE/SIRE y validación RENIEC/SUNAT.
 - Proceso por hitos: brief (1–2 días), propuesta con alcance, cronograma y precio (3–5 días), sprints quincenales con demos (2–12 semanas), entrega, capacitación y acompañamiento.
 - En integraciones de IA: el costo por uso del modelo se paga al proveedor, se estima antes de empezar y se limita con topes. Para empezar por el equipo está el taller de adopción (precio cerrado, arriba); los programas de adopción más largos se cotizan por alcance.
 

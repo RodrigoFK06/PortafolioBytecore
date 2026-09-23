@@ -33,7 +33,7 @@ export function AboutSection() {
       itemType="https://schema.org/Organization"
     >
       <meta itemProp="name" content="Árkos" />
-      <meta itemProp="description" content="Empresa de software en Lima, Perú: sistemas a medida con cumplimiento SUNAT de fábrica, y adopción de IA con formación a los equipos que la usan." />
+      <meta itemProp="description" content="Empresa de tecnología en Lima, Perú: mejora los procesos de las empresas con automatización e IA, enseña a sus equipos a usarla y desarrolla el software a medida que haga falta." />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-24">

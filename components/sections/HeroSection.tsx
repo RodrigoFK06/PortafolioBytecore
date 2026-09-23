@@ -65,7 +65,7 @@ export function HeroSection() {
                 geografía viven aquí, en un slot que el diseño ya tenía: sale
                 visible, no rompe la escala tipográfica del hero, y no hay texto
                 escondido — que es justo lo que Google penaliza. */}
-            FIG. 01 — Software a medida · Adopción de IA · Lima, Perú
+            FIG. 01 — Procesos · Automatización · Adopción de IA · Lima, Perú
           </p>
 
           {/* Headline — kinetic type que se ordena */}
@@ -115,9 +115,9 @@ export function HeroSection() {
               className="max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed mb-10"
               style={{ opacity: 0 }}
             >
-              Somos <strong className="text-foreground font-semibold">Árkos</strong>. Convertimos
-              operaciones que ya no entran en un Excel en software a medida: sistemas web, ERPs
-              y apps que ordenan tu negocio.
+              Somos <strong className="text-foreground font-semibold">Árkos</strong>. Hacemos que
+              los procesos de tu empresa funcionen mejor con automatización e IA, y le enseñamos a
+              tu equipo a usarla. Cuando hace falta, construimos el software a medida.
             </p>
 
             {/* CTAs */}
