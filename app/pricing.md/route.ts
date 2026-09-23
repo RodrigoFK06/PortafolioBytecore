@@ -4,6 +4,12 @@ import {
   CREATIVE_SERVICES,
   PRECIO_DIAGNOSTICO,
   DIAGNOSTICO_SEMANAS,
+  GARANTIA_MULTIPLO,
+  GARANTIA_UMBRAL_ANUAL,
+  PRECIO_TALLER,
+  TALLER_HORAS,
+  TALLER_PERSONAS_MAX,
+  soles,
 } from "@/data/pricing"
 
 // ── /pricing.md — tarifario en texto plano para agentes y asistentes de IA ──
@@ -45,9 +51,16 @@ ${PRICE_FOOTNOTE}
 
 ${tiers}
 
-## Diagnóstico (oferta de entrada)
+## Paso 1 — Taller de adopción de tecnología (oferta de entrada)
+- Precio: S/ ${soles(PRECIO_TALLER)} por grupo, cerrado. ${TALLER_HORAS} horas, hasta ${TALLER_PERSONAS_MAX} personas.
+- Qué es: adopción de tecnología con la IA como camino; enseña criterio de uso sobre las tareas reales del equipo y deja un mapa escrito de qué tareas llevar a una herramienta. Lo dicta Rodrigo Torres, fundador de Árkos.
+- No se descuenta del diagnóstico: son servicios distintos.
+- Detalle: ${SITE}/taller
+
+## Paso 2 — Diagnóstico de procesos
 - Llamada de diagnóstico: gratis, 30 minutos. Lectura honesta de si el negocio necesita un sistema, un ajuste o nada todavía.
 - Diagnóstico profundo: S/ ${PRECIO_DIAGNOSTICO}, ${DIAGNOSTICO_SEMANAS} semanas. Auditoría de operación y cumplimiento SUNAT, informe y roadmap con costos. El precio se descuenta íntegro del proyecto si se avanza.
+- Garantía: si el informe no encuentra pérdidas de al menos ${GARANTIA_MULTIPLO} veces su precio al año (S/ ${soles(GARANTIA_UMBRAL_ANUAL)}), medidas con el método de ${SITE}/costo-del-excel, se devuelve el pago.
 - Detalle: ${SITE}/diagnostico
 
 ## Servicios creativos (sin precio publicado)
@@ -57,7 +70,7 @@ ${creative}
 - Código fuente y base de datos entregados al cierre; sin esquemas que obliguen a quedarse con Árkos.
 - En sistemas a medida, cumplimiento SUNAT integrado de fábrica: facturación electrónica (CPE), libros PLE/SIRE y validación RENIEC/SUNAT.
 - Proceso por hitos: brief (1–2 días), propuesta con alcance, cronograma y precio (3–5 días), sprints quincenales con demos (2–12 semanas), entrega, capacitación y acompañamiento.
-- En integraciones de IA: el costo por uso del modelo se paga al proveedor, se estima antes de empezar y se limita con topes. Los programas de adopción y formación a equipos se cotizan por alcance.
+- En integraciones de IA: el costo por uso del modelo se paga al proveedor, se estima antes de empezar y se limita con topes. Para empezar por el equipo está el taller de adopción (precio cerrado, arriba); los programas de adopción más largos se cotizan por alcance.
 
 ## Cobertura y contacto
 - Lima y Callao: reuniones presenciales agendadas. Resto del Perú, Latinoamérica, Estados Unidos y Europa: remoto.

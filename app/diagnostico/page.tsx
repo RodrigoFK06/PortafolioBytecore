@@ -6,12 +6,14 @@ import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 import { SITE_CONFIG } from "@/lib/constants"
 import { alternates } from "@/lib/seo"
-import { PRECIO_DIAGNOSTICO } from "@/data/pricing"
+import { PRECIO_DIAGNOSTICO, GARANTIA_MULTIPLO, GARANTIA_UMBRAL_ANUAL, soles } from "@/data/pricing"
 
-// ── Oferta de entrada productizada ──────────────────────────────
-// Dos niveles: llamada gratis (punto de entrada) + diagnóstico
-// profundo pagado (califica, entrega valor real y convierte).
-// El precio se descuenta íntegro del proyecto si avanzamos.
+// ── Diagnóstico de procesos — paso 2 de la oferta ───────────────
+// Taller (/taller) → diagnóstico → desarrollo a medida. Aquí, dos
+// niveles: llamada gratis + diagnóstico profundo pagado, que se
+// descuenta íntegro del proyecto y lleva garantía de devolución si no
+// encuentra pérdidas de GARANTIA_MULTIPLO veces su precio al año.
+// El taller NO se descuenta del diagnóstico: son productos distintos.
 // PRECIO_DIAGNOSTICO vive en data/pricing.ts (fuente única, también
 // la lee /pricing.md); se refleja en UI y JSON-LD.
 
@@ -20,7 +22,7 @@ const baseUrl = "https://xn--rkos-4na.com"
 export const metadata: Metadata = {
   title: "Diagnóstico de sistemas para tu negocio | Árkos",
   description:
-    `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 min o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto) con roadmap y costos.`,
+    `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 min o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto y con garantía de devolución) con roadmap y costos.`,
   alternates: alternates("/diagnostico"),
   openGraph: {
     title: "Diagnóstico de sistemas para tu negocio | Árkos",
@@ -68,6 +70,10 @@ const FAQS = [
   {
     q: "¿Por qué el diagnóstico profundo es pagado?",
     a: `Porque es trabajo real con un entregable real: dos semanas de análisis y un roadmap que vale por sí mismo, construyas con nosotros o no. Y porque el compromiso funciona en ambas direcciones — los S/ ${PRECIO_DIAGNOSTICO} se descuentan íntegros del proyecto si avanzamos.`,
+  },
+  {
+    q: "¿Qué garantía tiene el diagnóstico profundo?",
+    a: `Si el informe no encuentra pérdidas de al menos ${GARANTIA_MULTIPLO} veces su precio al año —S/ ${soles(GARANTIA_UMBRAL_ANUAL)}—, te devolvemos los S/ ${PRECIO_DIAGNOSTICO}. Las medimos con el mismo método de nuestra calculadora del costo del Excel, pero con tus números reales: horas de trabajo manual por su costo, más lo que te cuestan los errores. La garantía asegura que el informe encuentre las pérdidas; recuperarlas depende de lo que decidas hacer con él.`,
   },
   {
     q: "¿Qué pasa si la conclusión es que NO necesito un sistema?",
@@ -145,7 +151,7 @@ export default function DiagnosticoPage() {
                 price: String(PRECIO_DIAGNOSTICO),
                 priceCurrency: "PEN",
                 description:
-                  "Auditoría de operación y cumplimiento con informe y roadmap con costos. El precio se descuenta íntegro del proyecto si avanzamos.",
+                  `Auditoría de operación y cumplimiento con informe y roadmap con costos. El precio se descuenta íntegro del proyecto si avanzamos. Garantía: si el informe no encuentra pérdidas de al menos S/ ${soles(GARANTIA_UMBRAL_ANUAL)} al año, se devuelve el pago.`,
               },
             ],
           }),
@@ -157,7 +163,7 @@ export default function DiagnosticoPage() {
         <header className="max-w-4xl mb-14 md:mb-20">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            Diagnóstico — La puerta de entrada
+            Paso 02 — Diagnóstico de procesos
           </p>
           <KineticText
             as="h1"
@@ -210,8 +216,12 @@ export default function DiagnosticoPage() {
             <p className="font-mono tabular text-3xl font-medium text-foreground mb-1">
               S/ {PRECIO_DIAGNOSTICO} <span className="text-sm text-muted-foreground">· 2 semanas</span>
             </p>
-            <p className="text-sm text-brand font-medium mb-6">
+            <p className="text-sm text-brand font-medium mb-1">
               Se descuenta íntegro del proyecto si avanzamos.
+            </p>
+            <p className="text-sm text-muted-foreground mb-6">
+              Garantía: si no encontramos al menos S/ {soles(GARANTIA_UMBRAL_ANUAL)} al año en
+              pérdidas ({GARANTIA_MULTIPLO} veces el precio), te devolvemos el pago.
             </p>
             <ul className="space-y-2.5 mb-8 flex-grow">
               {PROFUNDO_INCLUYE.map((item) => (
@@ -288,7 +298,12 @@ export default function DiagnosticoPage() {
               <p className="spec-label text-brand mb-2">3 minutos</p>
               <p className="text-foreground text-sm md:text-base leading-relaxed max-w-xl">
                 ¿No estás seguro de si esto es para ti? Responde el test de 10 preguntas y te damos
-                una lectura inicial al instante. También tenemos un{" "}
+                una lectura inicial al instante. Si lo que falta es que tu equipo use la tecnología
+                que ya tiene, empieza por el{" "}
+                <Link href="/taller" className="text-brand hover:underline">
+                  taller de adopción
+                </Link>
+                . También tenemos un{" "}
                 <Link href="/cumplimiento-sunat" className="text-brand hover:underline">
                   assessment de cumplimiento SUNAT
                 </Link>{" "}

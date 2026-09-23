@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { ArrowRight, Check, Quote } from "lucide-react"
 
 import { SERVICES } from "@/data/services"
-import { PRICE_TIERS, PRICE_FOOTNOTE } from "@/data/pricing"
+import { PRICE_TIERS, PRICE_FOOTNOTE, PRECIO_DIAGNOSTICO } from "@/data/pricing"
 import { alternates, absUrl, BASE_URL } from "@/lib/seo"
 
 // ── /desarrollo-de-software-lima ────────────────────────────────────────
@@ -164,7 +164,7 @@ const PROCESO = [
     step: "02",
     title: "Alcance y propuesta por escrito",
     body:
-      "Definimos qué entra y qué no, con precio y plazo. Si quieres profundidad antes de comprometerte, existe el diagnóstico profundo de dos semanas (S/ 950), que se descuenta íntegro del proyecto si avanzas.",
+      `Definimos qué entra y qué no, con precio y plazo. Si quieres profundidad antes de comprometerte, existe el diagnóstico profundo de dos semanas (S/ ${PRECIO_DIAGNOSTICO}), que se descuenta íntegro del proyecto si avanzas.`,
   },
   {
     step: "03",

@@ -87,6 +87,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/taller" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Taller de adopción
+                </Link>
+              </li>
+              <li>
+                <Link href="/diagnostico" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  Diagnóstico
+                </Link>
+              </li>
+              <li>
                 <Link href={toHref("#projects")} className="text-foreground/70 hover:text-brand transition-colors font-medium">
                   Proyectos
                 </Link>

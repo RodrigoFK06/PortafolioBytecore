@@ -69,21 +69,44 @@ export const PRICE_TIERS: PriceTier[] = [
     usd: 500,
     usdLabel: "500",
     penLabel: "1,900",
-    note: "Asistentes con tus datos, agentes y automatizaciones con n8n / Make. Programas de adopción y formación a equipos se cotizan por alcance.",
+    note: "Asistentes con tus datos, agentes y automatizaciones con n8n / Make. Para empezar por el equipo está el taller de adopción (precio cerrado por grupo); los programas más largos se cotizan por alcance.",
   },
 ]
+
+/** Soles con separador de miles, igual que los penLabel: 1900 → "1,900". */
+export const soles = (n: number) => n.toLocaleString("en-US")
 
 export const PRICE_FOOTNOTE =
   "Precios “desde”, referenciales a 2026. Tipo de cambio aproximado S/ 3.75 = USD 1. Los sistemas a medida y apps móviles se cotizan por alcance."
 
 /**
- * Diagnóstico profundo (oferta de entrada pagada): S/ — se descuenta íntegro
+ * Diagnóstico profundo (paso 2, después del taller): se descuenta íntegro
  * del proyecto si se avanza. Vivía como constante local de /diagnostico; se
  * movió aquí para que /pricing.md (versión legible por agentes) lea el mismo
  * número. Si cambia, cambia AQUÍ.
  */
 export const PRECIO_DIAGNOSTICO = 950
 export const DIAGNOSTICO_SEMANAS = 2
+
+/**
+ * Garantía del diagnóstico: si el informe no encuentra pérdidas de al menos
+ * GARANTIA_MULTIPLO veces su precio al año —medidas con el mismo método de
+ * /costo-del-excel (horas manuales × costo hora + errores × costo por
+ * error)—, se devuelve el pago. Asegura que el informe encuentre las pérdidas,
+ * no que el cliente las recupere.
+ */
+export const GARANTIA_MULTIPLO = 3
+export const GARANTIA_UMBRAL_ANUAL = PRECIO_DIAGNOSTICO * GARANTIA_MULTIPLO
+
+/**
+ * Taller de adopción de tecnología (la puerta de entrada; el diagnóstico es el
+ * paso 2). Precio por grupo, no por persona: lo da siempre Rodrigo y cada
+ * taller sale de su tiempo. NO se descuenta del diagnóstico: son productos
+ * distintos (decidido el 2026-09-23).
+ */
+export const PRECIO_TALLER = 1900
+export const TALLER_HORAS = 4
+export const TALLER_PERSONAS_MAX = 20
 
 /**
  * Servicios creativos: diseño gráfico, audiovisual y producción.

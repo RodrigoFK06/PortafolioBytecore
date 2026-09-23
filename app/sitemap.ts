@@ -19,8 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "": "2026-09-10", // reposicionamiento: hero, About, fundador, timeline
     "/services": "2026-09-10",
     "/services/integracion-ia": "2026-09-10", // "IA aplicada y adopción"
-    "/precios": "2026-09-10", // enlace a /pricing.md + schema en PEN
-    "/diagnostico": "2026-09-10",
+    "/precios": "2026-09-23", // nota de IA apunta al taller
+    "/taller": "2026-09-23",
+    "/diagnostico": "2026-09-23", // paso 2 + garantía 3x
     "/desarrollo-de-software-lima": "2026-08-04",
     "/cumplimiento-sunat": "2026-07-19",
     "/costo-del-excel": "2026-07-19",
@@ -46,6 +47,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // El hub sube de 0.6 a 0.8: dejó de ser una página de 131 palabras con seis
     // botones muertos y ahora es el padre de seis subpáginas reales.
     { url: `${baseUrl}/services`, changeFrequency: "monthly", priority: 0.8, ...lastModOf("/services") },
+    // Orden de la oferta: taller (entrada) → diagnóstico → desarrollo.
+    { url: `${baseUrl}/taller`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/taller") },
     { url: `${baseUrl}/diagnostico`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/diagnostico") },
     { url: `${baseUrl}/necesitas-un-sistema`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/necesitas-un-sistema") },
     { url: `${baseUrl}/cumplimiento-sunat`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/cumplimiento-sunat") },
