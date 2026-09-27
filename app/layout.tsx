@@ -188,11 +188,15 @@ export default function RootLayout({
               numberOfEmployees: { "@type": "QuantitativeValue", value: 9 },
               // Lima primero: es la ciudad que se reclama. Trujillo se mantiene
               // porque hay casos reales allí y borrarla destruiría una señal
-              // local ya indexada sin ganar nada.
+              // local ya indexada sin ganar nada. El norte (La Libertad,
+              // Cajamarca, Chimbote) es desde donde también se trabaja (27-sep).
               areaServed: [
                 { "@type": "City", name: "Lima" },
                 { "@type": "City", name: "Callao" },
                 { "@type": "City", name: "Trujillo" },
+                { "@type": "AdministrativeArea", name: "La Libertad" },
+                { "@type": "City", name: "Cajamarca" },
+                { "@type": "City", name: "Chimbote" },
                 { "@type": "City", name: "Arequipa" },
                 { "@type": "Country", name: "Peru" },
                 { "@type": "Place", name: "Latinoamérica" },

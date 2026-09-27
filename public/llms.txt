@@ -89,7 +89,7 @@ Por el taller de adopción de tecnología (S/ 1,900 por grupo, 4 horas, hasta 20
 Sí. Integra asistentes y agentes sobre bases de conocimiento propias conectados a los sistemas que la empresa ya usa, automatiza procesos con n8n y Make, y forma a los equipos en el puesto, con currículos distintos para usuarios de negocio y para equipos técnicos. Mide el uso antes y después de intervenir. Lo hace con su propio equipo desde 2023 y con clientes de salud, banca, transporte, logística, comercio y sector naval desde 2024.
 
 **¿Dónde está Árkos?**
-Árkos opera desde Lima, Perú. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
+Árkos opera desde Lima, Perú, y desde el norte del país: La Libertad (Trujillo, Pacasmayo, Moche), Cajamarca y Chimbote. Atiende a empresas de esas zonas con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
 
 **¿Qué tecnologías usa Árkos?**
 React, Next.js, TypeScript, Tailwind CSS, Node.js, Laravel, CodeIgniter, Flutter, Supabase y Firebase.

@@ -321,7 +321,7 @@ Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Ag
 Por el taller de adopción de tecnología (S/ 1,900 por grupo, 4 horas, hasta 20 personas). Si el mapa de tareas que sale del taller muestra procesos que conviene ordenar, el siguiente paso es el diagnóstico de procesos (S/ 950, 2 semanas, con garantía de devolución), y después el desarrollo a medida. Taller y diagnóstico se pagan por separado.
 
 **¿Dónde está Árkos?**
-Árkos opera desde Lima, Perú. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
+Árkos opera desde Lima, Perú, y desde el norte del país: La Libertad (Trujillo, Pacasmayo, Moche), Cajamarca y Chimbote. Atiende a empresas de esas zonas con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota.
 
 **¿Quién fundó Árkos?**
 Rodrigo Torres (Rodrigo André Torres Pastor), Fundador y Gerente General. Seis años dirigiendo entrega de software y acompañando a usuarios de negocio en la adopción de las plataformas que construye, dos de ellos con IA generativa en producción para clientes. Hizo el onboarding de los más de 45 clientes de Árkos de punta a punta, con poblaciones de usuario de 5 a más de 200 personas. Certificaciones: PMI (Generative AI Overview for Project Managers, 2026), Anthropic (AI Fluency for Builders, AI Fluency for Small Businesses, AI Capabilities and Limitations, Claude Code 101, 2026), Hugging Face (Agents Course, AI Agents Fundamentals, 2026), Scrum Alliance (Certified Scrum Master, 2024), Microsoft Learn (rutas de adopción de Microsoft 365 Copilot). Inglés C1 certificado por EF SET (2026).

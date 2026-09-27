@@ -21,7 +21,7 @@ Kit reutilizable para aplicar AEO + crédito **"Hecho por Árkos"** a cualquier 
 - Nada de texto oculto ni instrucciones a la IA.
 
 ## Datos canónicos
-- Marca: **Árkos** (con tilde) — agencia de desarrollo de software en Trujillo, Perú
+- Marca: **Árkos** (con tilde) — empresa de tecnología en Lima, Perú
 - Enlace técnico: `https://xn--rkos-4na.com` (se muestra como árkos.com)
 
 ---
@@ -38,7 +38,7 @@ PASO 1 — Detecta stack y contexto (no asumas):
 - Detecta el idioma del sitio (es/en) y respétalo.
 
 DATOS DE ÁRKOS:
-- Árkos (con tilde) — agencia de desarrollo de software en Trujillo, Perú.
+- Árkos (con tilde) — empresa de tecnología en Lima, Perú.
 - Enlace: href="https://xn--rkos-4na.com".
 
 PASO 2 — Aplica (idiomático para este stack):
