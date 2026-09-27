@@ -1,3 +1,44 @@
+// Cotizaciones de cliente servidas desde public/. Siguen abriendo por enlace
+// directo, pero no se indexan: son páginas delgadas, ajenas al tema, y
+// publican precios de clientes con nombre.
+// No van con Disallow en app/robots.ts: el rastreador tiene que poder leer el
+// noindex para sacar lo que ya esté indexado.
+// Fuera de la lista a propósito: google53b095eee9520d93.html, BingSiteAuth.xml
+// y la key de IndexNow (.txt), que son verificaciones.
+const COTIZACIONES = [
+  'BombonCotizacion - copia.html',
+  'BombonCotizacion.html',
+  'CarlosRojas_Fase2_Cotizacion.html',
+  'CotizacionFIMUNI.html',
+  'CotizacionSIGIV-Helen.html',
+  'DharcyCotización_1_AppMovil.html',
+  'DharcyCotización_2_ModuloWeb.html',
+  'DharcyCotización_3_AjusteNotasServicios.html',
+  'FamebacCotizacion.html',
+  'FreedySoteloCotizacion.html',
+  'FreedySoteloCotizaciona.html',
+  'Ingenieria Mecanica FIM UNI.html',
+  'InversionesCSSCotizacion.html',
+  'Luis_Cotización_N8N.html',
+  'NancyCotizacion_HVAC.html',
+  'panchocotizacion.html',
+  'ShaliCotizacion copy.html',
+  'ShaliCotizacion.html',
+  'TitoVilchezCotizacion copy.html',
+  'TitoVilchezCotizacion.html',
+  'VekSecurityCotizacion.html',
+]
+
+// Los nombres con espacio o tilde llegan codificados en la URL; se declaran
+// en las dos formas para no depender de si el router compara antes o después
+// de decodificar.
+const cotizacionesNoindex = COTIZACIONES.flatMap((archivo) =>
+  [...new Set([`/${archivo}`, `/${encodeURI(archivo)}`])].map((source) => ({
+    source,
+    headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+  }))
+)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -66,6 +107,7 @@ const nextConfig = {
           { key: 'Content-Security-Policy-Report-Only', value: cspReportOnly },
         ],
       },
+      ...cotizacionesNoindex,
     ]
   },
   async redirects() {
