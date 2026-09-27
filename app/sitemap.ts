@@ -16,11 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Regla al editar: si cambias el contenido de una de estas páginas, actualiza
   // su fecha aquí. Si solo tocas estilos o refactorizas, NO la toques.
   const LAST_UPDATED: Record<string, string> = {
-    "": "2026-09-10", // reposicionamiento: hero, About, fundador, timeline
+    "": "2026-09-27", // enlace a /facturarkos en Cumplimiento
     "/services": "2026-09-10",
     "/services/integracion-ia": "2026-09-10", // "IA aplicada y adopción"
     "/precios": "2026-09-23", // nota de IA apunta al taller
     "/taller": "2026-09-23",
+    "/facturarkos": "2026-09-27",
     "/diagnostico": "2026-09-23", // paso 2 + garantía 3x
     "/desarrollo-de-software-lima": "2026-08-04",
     "/cumplimiento-sunat": "2026-07-19",
@@ -50,6 +51,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Orden de la oferta: taller (entrada) → diagnóstico → desarrollo.
     { url: `${baseUrl}/taller`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/taller") },
     { url: `${baseUrl}/diagnostico`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/diagnostico") },
+    // La página del producto: antes FacturArkos no tenía ninguna URL
+    // indexable (la ficha /portfolio/21 va con noindex por su caso MOCK).
+    { url: `${baseUrl}/facturarkos`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/facturarkos") },
     { url: `${baseUrl}/necesitas-un-sistema`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/necesitas-un-sistema") },
     { url: `${baseUrl}/cumplimiento-sunat`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/cumplimiento-sunat") },
     { url: `${baseUrl}/costo-del-excel`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/costo-del-excel") },

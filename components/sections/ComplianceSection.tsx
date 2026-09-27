@@ -73,6 +73,15 @@ export default function ComplianceSection() {
               SUNAT, y todo cuadra desde el primer día.
             </p>
           </Reveal>
+          <Reveal effect="fade" delay={0.2}>
+            <p className="text-muted-foreground mt-4 max-w-2xl text-sm md:text-base leading-relaxed">
+              De construir esa capa una y otra vez salió un producto propio:{" "}
+              <Link href="/facturarkos" className="text-brand font-medium hover:underline">
+                FacturArkos, facturación electrónica SUNAT y punto de venta para Mypes
+              </Link>
+              .
+            </p>
+          </Reveal>
         </header>
 
         <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" stagger={0.08}>

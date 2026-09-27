@@ -63,7 +63,7 @@
 *   **Solutec DHA (Dharcy Villafuerte)** — landing + sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes, 15 usuarios activos y cierre de orden 45% más rápido. En 2026 sumó un asistente RAG para técnicos de campo. (https://xn--rkos-4na.com/portfolio/2)
 *   **OrquestadorADM** — PMS + RMS hotelero con revenue management. (https://xn--rkos-4na.com/portfolio/1)
 *   **Rapiditos** — app de delivery nativa publicada en App Store y Google Play. (https://xn--rkos-4na.com/portfolio/8)
-*   **FacturArkos** — facturación electrónica SUNAT + POS para Mypes. (https://xn--rkos-4na.com/portfolio/21)
+*   **FacturArkos** — producto propio de facturación electrónica SUNAT + POS, inventario y tienda online para Mypes; plan gratuito y planes de S/ 59 y S/ 119 al mes. (https://xn--rkos-4na.com/facturarkos)
 *   **Precio Vivo** — producto de datos + IA sobre precios mayoristas públicos; el pronóstico y su evaluación son reproducibles. (https://xn--rkos-4na.com/portfolio/28)
 *   **Precio Justo** — comparador de precios de medicamentos construido sobre datos públicos de DIGEMID. (https://xn--rkos-4na.com/portfolio/29)
 

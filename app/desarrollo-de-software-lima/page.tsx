@@ -552,8 +552,8 @@ export default function DesarrolloDeSoftwareLimaPage() {
                 Mide en 8 preguntas cómo está tu cumplimiento SUNAT
               </Link>{" "}
               o mira{" "}
-              <Link href="/portfolio/21" className="text-brand hover:underline">
-                la ficha de FacturArkos
+              <Link href="/facturarkos" className="text-brand hover:underline">
+                la página de FacturArkos
               </Link>
               .
             </p>

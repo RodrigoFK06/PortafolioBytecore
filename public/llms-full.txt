@@ -106,7 +106,7 @@ Tiendas online listas para vender desde el día uno:
 - Solutec DHA (Dharcy Villafuerte) — landing + sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes, 15 usuarios activos, cierre de orden 45% más rápido; en 2026 sumó un asistente RAG para técnicos de campo: https://xn--rkos-4na.com/portfolio/2
 - OrquestadorADM — PMS + RMS hotelero con revenue management: https://xn--rkos-4na.com/portfolio/1
 - Rapiditos — app de delivery nativa publicada en stores: https://xn--rkos-4na.com/portfolio/8
-- FacturArkos — facturación electrónica SUNAT + POS para Mypes: https://xn--rkos-4na.com/portfolio/21
+- FacturArkos — producto propio de facturación electrónica SUNAT + POS para Mypes; plan gratuito y planes de S/ 59 y S/ 119 al mes: https://xn--rkos-4na.com/facturarkos
 
 ## 4. Catálogo Completo de Proyectos
 
@@ -166,7 +166,7 @@ Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Ag
 - **Qué es:** Facturación electrónica + POS para Mypes del Perú: emite boletas y facturas aceptadas por SUNAT, vende desde el punto de venta, controla inventario y abre tu tienda online — todo en un solo lugar, sin instalación y desde celular, tablet o PC. Producto propio de Árkos.
 - **Año:** 2026
 - **Stack:** Next.js, React, TypeScript, SUNAT, POS, SaaS
-- **Caso de estudio:** https://xn--rkos-4na.com/portfolio/21
+- **Página del producto:** https://xn--rkos-4na.com/facturarkos
 - **En vivo:** https://facturarkos-web.vercel.app
 
 ### App móvil (1)
