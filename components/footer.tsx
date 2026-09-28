@@ -148,6 +148,21 @@ export function Footer() {
           </div>
 
           <div>
+            {/* /facturarkos recibia enlace desde 2 de las 36 URLs del sitemap
+                (el home y la pagina de Lima). Es la unica pagina de producto
+                del sitio y la que los asistentes de IA no encuentran como
+                entidad: el cuello de botella no es contenido, es senal
+                interna. Va en su propio grupo, no dentro de Servicios, porque
+                FacturArkos es un producto, no un servicio a medida. */}
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Producto</h3>
+            <ul className="space-y-4 mb-8">
+              <li>
+                <Link href="/facturarkos" className="text-foreground/70 hover:text-brand transition-colors font-medium">
+                  FacturArkos: facturación electrónica SUNAT y POS
+                </Link>
+              </li>
+            </ul>
+
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-6 text-foreground">Servicios</h3>
             {/* Cada enlace apunta a su subpágina real. Antes los cuatro
                 apuntaban a /services: cuatro enlaces, un solo destino. */}
