@@ -56,8 +56,15 @@ export function middleware(req: NextRequest) {
 
 // Antes solo ['/api/contact/:path*']. Ahora todas las rutas HTML, excluyendo
 // estáticos y assets: el noindex tiene que viajar en cada página del gemelo.
+//
+// El punto va como clase [.], no como \. : en una cadena de TypeScript la barra
+// invertida de "\." se pierde al evaluarla ("\." === "."), así que el matcher
+// llegaba a Next con un punto comodín que casaba cualquier carácter. Efecto
+// medido en producción el 28-sep: /diagnostico acaba en "ico" y quedaba fuera
+// del middleware, o sea seguía indexable en el gemelo. [.] no depende de
+// escapes y expresa lo que se quería: un punto literal antes de la extensión.
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\.(?:png|jpg|jpeg|svg|webp|pdf|xml|txt|ico)$).*)",
+    "/((?!_next/static|_next/image|favicon[.]ico|.*[.](?:png|jpg|jpeg|svg|webp|pdf|xml|txt|ico)$).*)",
   ],
 }
