@@ -527,7 +527,7 @@ export const SERVICES: ServiceContent[] = [
       {
         h2: "Conversión: el catálogo es la tienda",
         paragraphs: [
-          "La mayoría de las ventas perdidas no se pierden en el pago, sino antes: buscador que no encuentra, fotos que no muestran el producto, costo de envío que aparece recién al final. Trabajamos la ficha de producto, la búsqueda y los filtros, y mostramos el costo de envío lo antes posible, porque la sorpresa en el último paso es la principal causa de carrito abandonado.",
+          "La mayoría de las ventas perdidas no se pierden en el pago, sino antes: buscador que no encuentra, fotos que no muestran el producto, costo de envío que aparece recién al final. Trabajamos la ficha de producto, la búsqueda y los filtros, y mostramos el costo de envío lo antes posible: los costos extra que aparecen al final (envío, impuestos, cargos) son el primer motivo para abandonar el checkout. Los cita el 40 % de quienes abandonan por algo más que estar mirando, según el Baymard Institute (compradores online de EE. UU., 2025).",
           "Y medimos: qué se busca sin resultados, dónde se abandona el proceso, qué producto se ve mucho y se compra poco. Sin esos datos, optimizar la tienda es adivinar.",
         ],
       },

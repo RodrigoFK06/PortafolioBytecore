@@ -9,6 +9,8 @@ import { NextRequest, NextResponse } from "next/server"
 // dos hosts indexables con el mismo sitio, las señales se reparten.
 // Se resuelve con cabecera, no con redirect: los previews también son
 // *.vercel.app y una redirección al apex los rompería como vía de prueba.
+// El alias de producción sí redirige al apex (next.config.mjs); aquí solo
+// llega por /api/, y ahí la cabecera sigue sirviendo.
 // Nota: la cabecera Host nunca trae 'árkos.com' con tilde, siempre punycode.
 const HOST_INDEXABLE = "xn--rkos-4na.com"
 

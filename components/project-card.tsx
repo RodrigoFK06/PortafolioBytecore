@@ -58,7 +58,11 @@ export function ProjectCard({
             href={`/portfolio/${id}`}
             className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-semibold text-foreground shadow-hairline hover:shadow-hairline-md hover:bg-secondary transition-all"
           >
-            Ver caso
+            {/* El nombre va en el texto del enlace: 24 "Ver caso" idénticos no le
+                dicen a Google ni a un lector de pantalla a qué caso llevan. */}
+            <span>
+              Ver caso<span className="sr-only">: {title}</span>
+            </span>
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           {link && (

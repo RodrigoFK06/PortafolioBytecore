@@ -55,7 +55,9 @@ function ServiceCard({ icon: Icon, index, title, description, detailedDescriptio
             href={href}
             className="text-sm font-medium text-brand hover:underline"
           >
-            Ver el servicio completo →
+            {/* "Saber más" es un <button> del modal, no un enlace: el ancla real
+                hacia la subpágina es esta, y lleva el nombre del servicio. */}
+            Ver el servicio completo<span className="sr-only"> de {title}</span> →
           </Link>
         </div>
       </div>

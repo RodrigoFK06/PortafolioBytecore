@@ -122,6 +122,20 @@ const nextConfig = {
         destination: 'https://xn--rkos-4na.com/:path*',
         permanent: true,
       },
+      // Alias de producción -> apex. Con solo el noindex del middleware el
+      // gemelo seguía respondiendo 200 con <meta robots="index, follow">: dos
+      // señales opuestas, y ninguna que pase la autoridad de sus URLs ya
+      // indexadas al apex. El redirect sí la pasa.
+      // Solo este host exacto: los previews (*.vercel.app con hash o rama)
+      // siguen sirviendo con el noindex del middleware para poder probarlos.
+      // /api/ queda fuera: un 301/308 sobre un POST de otro origen rompería
+      // el formulario que llame al alias.
+      {
+        source: '/:path((?!api/).*)',
+        has: [{ type: 'host', value: 'portafolio-bytecore.vercel.app' }],
+        destination: 'https://xn--rkos-4na.com/:path',
+        permanent: true,
+      },
       // Redirect 301: el piloto "Megalodon" se consolidó en el producto RestHUB.
       {
         source: '/blog/megalodon-pro-erp-restaurantes-nextjs',
