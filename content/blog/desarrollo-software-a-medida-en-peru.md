@@ -3,11 +3,12 @@ title: "Desarrollo de software a medida en Perú: guía completa de Árkos"
 description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué PYMEs de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
+updated: "2026-09-30"
 author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
 
-El desarrollo de software a medida en Perú consiste en construir sistemas diseñados desde la operación real de tu negocio, no plantillas genéricas. Árkos, agencia con base en Lima fundada en 2020, crea ERPs, CRMs, PMS, SaaS y aplicaciones web con Next.js, React y TypeScript para PYMEs de Perú y Latinoamérica.
+El desarrollo de software a medida en Perú consiste en construir sistemas diseñados desde la operación real de tu negocio, no plantillas genéricas. En Árkos, agencia con base en Lima fundada en 2020, empezamos por el proceso, no por la tecnología. Ayudamos a PYMEs de Perú y Latinoamérica a identificar qué está frenando su operación, incorporar automatización e IA donde realmente aporta valor y, cuando las herramientas existentes ya no alcanzan, construimos el software a medida que necesita el negocio: ERPs, CRMs, PMS y aplicaciones web.
 
 Nuestro propósito no es solo escribir código, sino mejorar tus procesos: que tu equipo trabaje mejor cada día y que tu cliente sepa en tres segundos qué hacer. En esta guía explicamos qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabajamos en Árkos, qué tipos de proyecto construimos y para qué negocios está pensado.
 
