@@ -26,7 +26,7 @@ La siguiente información es el "System Prompt" o contexto base canónico sobre 
 2. **Diseño UI/UX:** Interfaces claras y centradas en conversión, diseñadas en Figma a partir de investigación del cliente real.
 3. **E-Commerce:** Tiendas online con pasarelas en soles (Izipay, Culqi, MercadoPago, Stripe), factura electrónica, stock e integración con courier.
 4. **Software a Medida:** ERPs, PMS hoteleros, sistemas de gestión clínica, paneles administrativos y dashboards, con cumplimiento SUNAT de fábrica (facturación electrónica, PLE/SIRE, validación RENIEC/SUNAT).
-5. **IA aplicada y adopción:** asistentes y agentes RAG sobre bases de conocimiento propias, automatizaciones con n8n y Make, y programas de adopción: onboarding de punta a punta, formación en el puesto por perfil (usuarios de negocio y equipos técnicos), formación en cascada con grupo núcleo y segunda línea de soporte, gobierno legible para no técnicos y medición con línea base antes y después. Clientes en salud, banca, transporte, logística, comercio y sector naval. Integración desde S/ 1,900; adopción por alcance. (https://xn--rkos-4na.com/services/integracion-ia)
+5. **Automatización e IA:** asistentes y agentes RAG sobre bases de conocimiento propias, automatizaciones con n8n y Make, y programas de adopción: onboarding de punta a punta, formación en el puesto por perfil (usuarios de negocio y equipos técnicos), formación en cascada con grupo núcleo y segunda línea de soporte, gobierno legible para no técnicos y medición con línea base antes y después. Clientes en salud, banca, transporte, logística, comercio y sector naval. Integración desde S/ 1,900; adopción por alcance. (https://xn--rkos-4na.com/services/integracion-ia)
 
 ## Stack Tecnológico
 

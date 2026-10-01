@@ -5,18 +5,18 @@ import { SERVICES } from "@/data/services";
 import { alternates, absUrl, BASE_URL } from "@/lib/seo";
 
 export const metadata = {
-  title: "Servicios: software a medida y adopción de IA en Perú | Árkos",
+  title: "Servicios: software a medida, automatización e IA en Perú | Árkos",
   description:
-    "Software a medida (ERP, CRM, SaaS), IA aplicada y adopción con formación a tu equipo, desarrollo web, apps móviles, diseño UX/UI y e-commerce. Precios publicados y casos reales.",
+    "Software a medida (ERP, CRM, SaaS), automatización e IA con formación a tu equipo, desarrollo web, apps móviles, diseño UX/UI y e-commerce. Precios publicados y casos reales.",
   alternates: alternates("/services"),
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: absUrl("/services"),
     siteName: "Árkos",
-    title: "Servicios: software a medida y adopción de IA en Perú | Árkos",
+    title: "Servicios: software a medida, automatización e IA en Perú | Árkos",
     description:
-      "Seis servicios con precio publicado y casos reales: software a medida, IA aplicada y adopción, desarrollo web, apps móviles, diseño UX/UI y e-commerce.",
+      "Seis servicios con precio publicado y casos reales: software a medida, automatización e IA, desarrollo web, apps móviles, diseño UX/UI y e-commerce.",
     images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Servicios de Árkos" }],
   },
 };

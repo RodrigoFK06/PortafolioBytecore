@@ -20,12 +20,12 @@ import { PRECIO_DIAGNOSTICO, GARANTIA_MULTIPLO, GARANTIA_UMBRAL_ANUAL, soles } f
 const baseUrl = "https://xn--rkos-4na.com"
 
 export const metadata: Metadata = {
-  title: "Diagnóstico de sistemas para tu negocio | Árkos",
+  title: "Diagnóstico de procesos y sistemas para tu empresa | Árkos",
   description:
     `Antes de escribir código, un diagnóstico honesto: llamada gratis de 30 min o diagnóstico profundo de 2 semanas (S/ ${PRECIO_DIAGNOSTICO}, descontable del proyecto y con garantía de devolución) con roadmap y costos.`,
   alternates: alternates("/diagnostico"),
   openGraph: {
-    title: "Diagnóstico de sistemas para tu negocio | Árkos",
+    title: "Diagnóstico de procesos y sistemas para tu empresa | Árkos",
     description:
       "A veces la respuesta es un sistema; a veces es ordenar lo que ya tienes. Te lo decimos con honestidad — y con un plan.",
     url: `${baseUrl}/diagnostico`,

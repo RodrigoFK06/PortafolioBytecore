@@ -369,10 +369,10 @@ export const SERVICES: ServiceContent[] = [
   // ────────────────────────────────────────────────────────────────────
   {
     slug: "integracion-ia",
-    navTitle: "IA aplicada y adopción",
+    navTitle: "Automatización e IA",
     icon: "MessageSquare",
     h1: "Integración de IA, automatización y adopción por tu equipo",
-    metaTitle: "Integración y adopción de IA para empresas en Perú | Árkos",
+    metaTitle: "Automatización de procesos e integración de IA en Perú | Árkos",
     metaDescription:
       "Asistentes con tus datos, automatizaciones con n8n y Make, y formación a tu equipo para que la IA se use de verdad. Desde S/ 1,900. Medido antes y después de intervenir.",
     serviceType: "Integración y adopción de inteligencia artificial",

@@ -17,12 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // su fecha aquí. Si solo tocas estilos o refactorizas, NO la toques.
   const LAST_UPDATED: Record<string, string> = {
     "": "2026-09-27", // enlace a /facturarkos en Cumplimiento
-    "/services": "2026-09-10",
-    "/services/integracion-ia": "2026-09-10", // "IA aplicada y adopción"
+    "/services": "2026-10-01", // título: automatización e IA
+    "/services/integracion-ia": "2026-10-01", // "Automatización e IA"
     "/precios": "2026-09-23", // nota de IA apunta al taller
     "/taller": "2026-09-23",
     "/facturarkos": "2026-09-27",
-    "/diagnostico": "2026-09-23", // paso 2 + garantía 3x
+    "/diagnostico": "2026-10-01", // título: procesos y sistemas
     "/desarrollo-de-software-lima": "2026-08-04",
     "/cumplimiento-sunat": "2026-07-19",
     "/costo-del-excel": "2026-07-19",
