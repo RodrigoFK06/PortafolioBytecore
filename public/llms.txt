@@ -16,7 +16,7 @@
 *   **Fundador y Gerente General:** Rodrigo Torres (Rodrigo André Torres Pastor). Seis años dirigiendo entrega de software y la adopción por parte de usuarios de negocio; dos con IA generativa en producción para clientes. Certificado por PMI (Generative AI Overview for Project Managers, 2026), Anthropic (AI Fluency for Builders y for Small Businesses, 2026), Hugging Face (Agents Course, 2026) y Scrum Alliance (Certified Scrum Master, 2024). Inglés C1 (EF SET, 2026).
 *   **Equipo:** 9 personas desde 2022
 *   **Trayectoria:** más de 50 proyectos entregados para más de 45 clientes desde 2020; más de 20 sistemas siguen en producción hoy; clientes en Perú, Latinoamérica, Estados Unidos y Europa
-*   **Contacto Principal:** gerencia@árkos.com, WhatsApp: +51 961 869 348
+*   **Contacto Principal:** gerencia@árkos.com (en ASCII, para clientes de correo sin soporte EAI: gerencia@xn--rkos-4na.com), WhatsApp: +51 961 869 348
 
 ## Servicios Principales
 1.  **Taller de adopción de tecnología (S/ 1,900 por grupo, 4 horas, hasta 20 personas):** paso 1 y puerta de entrada. Adopción de tecnología, con la IA como camino: enseña criterio de uso —cada herramienta y cada modelo tiene sus fuertes— y se aprende jugando con las tareas reales del equipo. El equipo se lleva un mapa escrito de sus tareas repetidas por área: cuáles llevar a una herramienta y cuáles no. Lo da siempre Rodrigo Torres. (https://xn--rkos-4na.com/taller)

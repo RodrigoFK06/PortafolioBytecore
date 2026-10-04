@@ -138,6 +138,16 @@ export default function RootLayout({
               "@id": `${baseUrl}/#organization`,
               name: "Árkos",
               alternateName: ["Arkos", "Arkos Soluciones Informáticas"],
+              // Separa la entidad de sus homónimos. Las consultas "Árkos" y
+              // "arkos.com" devolvían 0 de 2 porque el espacio lo ocupan arkOS
+              // (el sistema operativo Linux: Wikipedia, GitHub, SourceForge),
+              // el videojuego ARKOS de Steam y Arkano Software.
+              // `disambiguatingDescription` es la propiedad de schema.org para
+              // exactamente esto. Su par visible es la tercera pregunta de
+              // HOME_FAQS (components/sections/HomeFaqSection.tsx): si cambia
+              // una, cambia la otra.
+              disambiguatingDescription:
+                "Empresa peruana de mejora de procesos, automatización y adopción de IA, con RUC 20616338782 y dominio árkos.com. No tiene relación con arkOS (sistema operativo Linux), con el videojuego ARKOS, con Arkano Software (Uruguay) ni con arkos.studio.",
               // Entidad legal inscrita en SUNAT el 10/08/2026. El RUC es el
               // identificador verificable de la empresa en Perú: ancla la
               // entidad a un registro público consultable, que es la señal
@@ -166,7 +176,11 @@ export default function RootLayout({
               logo: `${baseUrl}/logo_ico/final%20-%20LOGO%202-02.png`,
               image: `${baseUrl}/og-image.png`,
               telephone: "+51 961 869 348",
-              email: "gerencia@árkos.com",
+              // Forma ASCII (punycode) a propósito: este campo lo leen
+              // máquinas, y "gerencia@árkos.com" con eñe acentuada en el
+              // dominio falla en clientes de correo sin soporte EAI/SMTPUTF8.
+              // El texto visible de la web sigue mostrando gerencia@árkos.com.
+              email: "gerencia@xn--rkos-4na.com",
               priceRange: "$$",
               // Sin `streetAddress`: la dirección exacta no es pública y no se
               // inventa. `addressLocality` sí, porque es desde donde se opera

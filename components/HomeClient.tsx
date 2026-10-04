@@ -11,6 +11,7 @@ import ProjectsSection from "./sections/ProjectsSection"
 import FounderSection from "./sections/FounderSection"
 import ProcessSection from "./sections/ProcessSection"
 import ContactSection from "./sections/ContactSection"
+import HomeFaqSection from "./sections/HomeFaqSection"
 import TestimonialsSection, { type Testimonial } from "./sections/TestimonialsSection"
 
 // 🔹 Estas secciones se renderizan en el servidor (SSR) para que su contenido
@@ -80,6 +81,7 @@ export default function HomeClient() {
       <TestimonialsSection testimonials={testimonialsData} />
       <ProcessSection />
       <ContactSection />
+      <HomeFaqSection />
     </main>
   )
 }
