@@ -47,18 +47,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 
-// Extrae pares pregunta/respuesta de la sección "## Preguntas frecuentes"
-// del markdown (formato: **¿Pregunta?** seguida de su párrafo de respuesta).
+// Extrae pares pregunta/respuesta de la sección "## Preguntas frecuentes" del
+// markdown. Se admiten los dos formatos que usan los posts: la pregunta como
+// encabezado (### ¿Pregunta?) y la pregunta en negrita (**¿Pregunta?**). La
+// respuesta es el texto hasta el siguiente encabezado o la siguiente negrita.
 function extractFaqs(md: string): { q: string; a: string }[] {
   const section = md.split(/^##\s+Preguntas frecuentes\s*$/m)[1]
   if (!section) return []
   const chunk = section.split(/^##\s+/m)[0]
+  const clean = (s: string) =>
+    s.replace(/\s+/g, " ").replace(/\[([^\]]+)\]\([^\)]*\)/g, "$1").trim()
   const faqs: { q: string; a: string }[] = []
+
+  // Formato encabezado: "### ¿Pregunta?" y su cuerpo hasta el siguiente ###.
+  // El chunk ya está cortado antes del próximo "## ", así que basta partir por
+  // los encabezados de nivel 3 o más.
+  for (const part of chunk.split(/^#{3,6}\s+/m).slice(1)) {
+    const nl = part.indexOf("\n")
+    const q = clean((nl === -1 ? part : part.slice(0, nl)).replace(/\*\*/g, ""))
+    const a = nl === -1 ? "" : clean(part.slice(nl + 1))
+    if (q && a) faqs.push({ q, a })
+  }
+  if (faqs.length > 0) return faqs
+
+  // Formato negrita: "**¿Pregunta?**" seguida de su párrafo de respuesta.
   const re = /\*\*(.+?)\*\*\s*\n([\s\S]+?)(?=\n\s*\n\*\*|$)/g
   let m: RegExpExecArray | null
   while ((m = re.exec(chunk)) !== null) {
     const q = m[1].trim()
-    const a = m[2].replace(/\s+/g, " ").replace(/\[([^\]]+)\]\([^\)]*\)/g, "$1").trim()
+    const a = clean(m[2])
     if (q && a) faqs.push({ q, a })
   }
   return faqs
