@@ -363,6 +363,7 @@ export default function RootLayout({
               sameAs: [
                 "https://x.com/ArkosPeru",
                 "https://clutch.co/profile/rkos",
+                "https://github.com/arkosdevs",
               ],
             }),
           }}
