@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Regla al editar: si cambias el contenido de una de estas páginas, actualiza
   // su fecha aquí. Si solo tocas estilos o refactorizas, NO la toques.
   const LAST_UPDATED: Record<string, string> = {
-    "": "2026-09-27", // enlace a /facturarkos en Cumplimiento
+    "": "2026-10-04", // FAQPage + disambiguatingDescription (e94168f)
     "/services": "2026-10-01", // título: automatización e IA
     "/services/integracion-ia": "2026-10-01", // "Automatización e IA"
     "/precios": "2026-09-23", // nota de IA apunta al taller
