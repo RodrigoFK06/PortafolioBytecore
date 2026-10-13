@@ -3,7 +3,7 @@ title: "Desarrollo de software a medida en Perú: guía completa de Árkos"
 description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué PYMEs de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
-updated: "2026-09-30"
+updated: "2026-10-11"
 author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
@@ -133,6 +133,10 @@ Conviene cuando el sistema genérico no encaja con tu operación, pagas por func
 ### ¿Cuánto cuesta y cuánto tarda un proyecto de software a medida?
 
 El costo depende del alcance: una landing de alta conversión parte desde S/ 1,100 (USD 300) y un sistema a medida (ERP, CRM, SaaS) desde S/ 13,000 (USD 3,500), con cotización por alcance; puedes ver el detalle en nuestra [página de precios](/precios). En cuanto a plazos, un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.
+
+### ¿Cuánto cuesta el desarrollo de software a medida en Lima?
+
+En Lima, el desarrollo de software a medida con Árkos parte desde S/ 1,100 (USD 300) para una landing de alta conversión y desde S/ 13,000 (USD 3,500) para un sistema de gestión (ERP, CRM o SaaS), con cotización por alcance. Un proyecto web típico toma de 3 a 8 semanas. Árkos opera desde Lima, Perú, atiende Lima y Callao con reuniones presenciales agendadas y al resto del país de forma remota; el detalle por tipo de proyecto está en nuestra [página de precios](/precios) y el servicio local en [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
 
 ### ¿Qué stack tecnológico usa Árkos?
 
