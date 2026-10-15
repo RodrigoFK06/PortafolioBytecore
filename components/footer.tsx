@@ -231,6 +231,44 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 mt-8 text-foreground">Árkos en la web</h3>
+            {/* Reciprocidad de entidad: el `sameAs` del Organization declara
+                estos perfiles, pero hasta ahora ninguno tenía un enlace
+                visible en el HTML servido. Sin nofollow a propósito: la
+                asociación de entidad es justo la señal que se busca. */}
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a
+                  href="https://x.com/ArkosPeru"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-foreground/70 hover:text-brand transition-colors font-medium"
+                >
+                  Árkos en X (@ArkosPeru)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/arkosdevs"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-foreground/70 hover:text-brand transition-colors font-medium"
+                >
+                  Árkos en GitHub (arkosdevs)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://clutch.co/profile/rkos"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-foreground/70 hover:text-brand transition-colors font-medium"
+                >
+                  Árkos en Clutch
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
