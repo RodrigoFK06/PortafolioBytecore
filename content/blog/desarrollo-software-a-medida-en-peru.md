@@ -78,6 +78,8 @@ Sistemas y plataformas empresariales que se construyen cuando los genéricos no 
 - **OrquestadorADM:** sistema de gestión hotelera PMS + RMS con Revenue Management avanzado —forecasting, análisis What-If, precios dinámicos y analítica diaria granular—. React, Next.js, PostgreSQL, TypeScript y Tailwind. URL: https://orquestador-adm.vercel.app
 - **ATELIER Clinic:** SaaS premium para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso y dashboard médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. URL: https://atelier-seven-beta.vercel.app/
 
+Si el cuello de botella es la facturación, puede que no haga falta un desarrollo nuevo, porque [FacturArkos, nuestro sistema de facturación electrónica y POS para SUNAT](/facturarkos) ya resuelve la emisión de comprobantes. Y si todavía no está claro qué conviene construir, el punto de partida es un [diagnóstico de procesos de 2 semanas](/diagnostico), con hallazgos, números y un plan con costos antes de escribir código.
+
 ### E-commerce y aplicaciones móviles
 
 Cuando el objetivo es vender en línea o llegar al celular del cliente, Árkos también construye tiendas y apps a medida.
