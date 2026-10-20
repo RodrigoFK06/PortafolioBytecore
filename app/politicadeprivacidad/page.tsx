@@ -59,12 +59,12 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="text-2xl font-semibold mb-4">8. Derechos del Usuario</h2>
           <p>
-            Tienes derecho a acceder, corregir o eliminar tu información personal. Si deseas ejercer cualquiera de estos derechos, por favor contacta con nosotros a través de nuestro formulario de contacto o enviando un correo electrónico a <strong>privacidad@arkos.com</strong>.
+            Tienes derecho a acceder, corregir o eliminar tu información personal. Si deseas ejercer cualquiera de estos derechos, por favor contacta con nosotros a través de nuestro formulario de contacto o enviando un correo electrónico a <strong><a href="mailto:gerencia@árkos.com">gerencia@árkos.com</a></strong>.
           </p>
 
           <h2 className="text-2xl font-semibold mb-4">9. Contacto</h2>
           <p>
-            Si tienes preguntas sobre nuestra política de privacidad o cómo tratamos tus datos, por favor contáctanos a través de nuestro correo electrónico: <strong>privacidad@arkos.com</strong>.
+            Si tienes preguntas sobre nuestra política de privacidad o cómo tratamos tus datos, por favor contáctanos a través de nuestro correo electrónico: <strong><a href="mailto:gerencia@árkos.com">gerencia@árkos.com</a></strong>.
           </p>
           </div>
         </div>
