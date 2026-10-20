@@ -38,6 +38,7 @@
 *   Versión en texto plano para agentes y asistentes de IA: https://xn--rkos-4na.com/pricing.md
 
 ## Guías y criterio (blog, firmado por Rodrigo Torres)
+*   **Qué datos de tu empresa puede ver una IA (y qué pide la Ley 29733)** — qué exige el reglamento DS 016-2024-JUS al usar servicios de IA con datos de clientes: proveedores, flujo transfronterizo, incidentes en 48 horas y oficial de datos. (https://xn--rkos-4na.com/blog/ia-con-datos-de-tu-empresa-ley-29733)
 *   **Qué procesos automatizar primero en tu empresa (y cuáles todavía no)** — cuatro preguntas para elegir el primer proceso, cómo ponerlo en soles y qué no automatizar todavía, con cifras de PRODUCE e INEI. (https://xn--rkos-4na.com/blog/que-procesos-automatizar-primero)
 *   **Adopción de IA en empresas: cómo lograr que tu equipo la use de verdad (y cómo medirlo)** — formación por perfil, formación en cascada, gobierno legible y medición con línea base, desde casos reales. (https://xn--rkos-4na.com/blog/adopcion-de-ia-en-empresas)
 *   **5 señales de que tu negocio ya necesita un sistema (y no un Excel más)** — checklist honesta, incluida la respuesta "todavía no". (https://xn--rkos-4na.com/blog/5-senales-tu-negocio-necesita-un-sistema)
