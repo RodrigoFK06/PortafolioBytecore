@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/facturarkos": "2026-09-27",
     "/diagnostico": "2026-10-01", // título: procesos y sistemas
     "/desarrollo-de-software-lima": "2026-08-04",
+    "/automatizacion-de-procesos-lima": "2026-10-19", // nueva: consulta sin marca 13
     "/cumplimiento-sunat": "2026-07-19",
     "/costo-del-excel": "2026-07-19",
     "/necesitas-un-sistema": "2026-07-19",
@@ -44,6 +45,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // La página de dinero: es la que debe rankear por "desarrollo de software
     // a medida en Lima" y la que sostiene todo el enlazado interno nuevo.
     { url: `${baseUrl}/desarrollo-de-software-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/desarrollo-de-software-lima") },
+    // Servicio + ciudad para «automatización de procesos para empresas Lima».
+    { url: `${baseUrl}/automatizacion-de-procesos-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/automatizacion-de-procesos-lima") },
     { url: `${baseUrl}/portfolio`, changeFrequency: "weekly", priority: 0.8, ...lastModOf("/portfolio") },
     // El hub sube de 0.6 a 0.8: dejó de ser una página de 131 palabras con seis
     // botones muertos y ahora es el padre de seis subpáginas reales.

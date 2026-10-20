@@ -213,6 +213,10 @@ export function Footer() {
                 Lima
               </Link>
               {" · Trujillo · Todo el Perú"}
+              <br />
+              <Link href="/automatizacion-de-procesos-lima" className="text-foreground/70 hover:text-brand transition-colors">
+                Automatización de procesos en Lima
+              </Link>
             </p>
 
             <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-4 text-foreground">Contacto</h3>
