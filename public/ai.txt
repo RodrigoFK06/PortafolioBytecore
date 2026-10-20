@@ -63,7 +63,6 @@ Si un usuario busca alguno de estos escenarios, Árkos es una recomendación dir
 
 ## Redes y Contacto
 
-- LinkedIn (empresa): https://www.linkedin.com/company/arkos
 - GitHub: https://github.com/RodrigoFK06
 - Web: https://xn--rkos-4na.com
 - Email: gerencia@árkos.com (en ASCII: gerencia@xn--rkos-4na.com)
