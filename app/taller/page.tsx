@@ -75,6 +75,10 @@ const BLOQUES = [
   },
 ]
 
+// Una sola descripción para el Service y el Course: el mismo taller.
+const TALLER_DESCRIPCION =
+  "Taller para equipos de empresa: criterio de uso de la tecnología y la IA, ejercicios sobre las tareas reales del equipo y un mapa escrito de qué tareas llevar a una herramienta."
+
 const FAQS = [
   {
     q: "¿Es un curso de IA?",
@@ -151,14 +155,63 @@ export default function TallerPage() {
               { "@type": "City", name: "Lima" },
               { "@type": "Country", name: "Peru" },
             ],
-            description:
-              "Taller para equipos de empresa: criterio de uso de la tecnología y la IA, ejercicios sobre las tareas reales del equipo y un mapa escrito de qué tareas llevar a una herramienta.",
+            description: TALLER_DESCRIPCION,
             offers: {
               "@type": "Offer",
               name: `Taller de ${TALLER_HORAS} horas (hasta ${TALLER_PERSONAS_MAX} personas)`,
               price: String(PRECIO_TALLER),
               priceCurrency: "PEN",
               description: "Precio por grupo. Lo dicta Rodrigo Torres, fundador de Árkos.",
+            },
+          }),
+        }}
+      />
+
+      {/* JSON-LD: Course + CourseInstance en Lima. Bing lee esta consulta como
+          «curso con certificado» y sirve diez cursos: sin Course no existimos en
+          ese tipo de resultado. Sin startDate (se agenda a pedido) y sin
+          educationalCredentialAwarded (no se entrega certificado). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "@id": `${baseUrl}/taller#course`,
+            name: "Taller de adopción de tecnología e IA para equipos",
+            description: TALLER_DESCRIPCION,
+            provider: { "@id": `${baseUrl}/#organization` },
+            inLanguage: "es-PE",
+            teaches: [
+              "Criterio de uso de herramientas y modelos de inteligencia artificial: cuál sirve para qué y cuándo no confiar en lo que responde",
+              "Ejercicios sobre las tareas reales de cada persona del equipo",
+              "Un mapa escrito de las tareas repetidas: cuáles se llevan a una herramienta y cuáles no",
+            ],
+            audience: { "@type": "BusinessAudience" },
+            courseWorkload: `PT${TALLER_HORAS}H`,
+            timeRequired: `PT${TALLER_HORAS}H`,
+            hasCourseInstance: {
+              "@type": "CourseInstance",
+              name: `Taller de ${TALLER_HORAS} horas para un equipo`,
+              courseMode: ["Onsite", "Online"],
+              courseWorkload: `PT${TALLER_HORAS}H`,
+              location: {
+                "@type": "Place",
+                name: "En las oficinas de tu empresa",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Lima",
+                  addressCountry: "PE",
+                },
+              },
+              maximumAttendeeCapacity: TALLER_PERSONAS_MAX,
+              instructor: { "@type": "Person", name: "Rodrigo Torres" },
+              offers: {
+                "@type": "Offer",
+                price: String(PRECIO_TALLER),
+                priceCurrency: "PEN",
+                description: "Precio por grupo.",
+              },
             },
           }),
         }}
