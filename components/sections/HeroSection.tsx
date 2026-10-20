@@ -147,12 +147,12 @@ export function HeroSection() {
               </span>
               <span className="hidden md:block w-px h-4 bg-border" aria-hidden="true" />
               <a
-                href="https://apps.apple.com/pe/app/rapiditos-vz/id6748567718"
+                href="https://play.google.com/store/apps/details?id=com.bytecoreapss.rapiditos"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-brand transition-colors"
               >
-                <span className="font-medium text-foreground">Rapiditos</span> en App Store{" "}
+                <span className="font-medium text-foreground">Rapiditos</span> en Google Play{" "}
                 <span className="text-muted-foreground">— delivery activo</span>
               </a>
               <span className="hidden md:block w-px h-4 bg-border" aria-hidden="true" />

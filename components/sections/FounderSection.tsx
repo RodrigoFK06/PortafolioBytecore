@@ -18,7 +18,7 @@ const RODRIGO_GITHUB = "https://github.com/RodrigoFK06"
 const LO_QUE_HAGO = [
   "ERPs de restaurante y PMS hoteleros con revenue management.",
   "El sistema de servicio técnico que una clienta real opera a diario: 650 órdenes al mes, 15 usuarios y cierre de orden 45% más rápido.",
-  "Una app de delivery nativa, publicada en App Store y Google Play.",
+  "Una app de delivery nativa, publicada en Google Play.",
   "Asistentes de IA sobre bases de conocimiento propias, conectados al CRM o ERP que el equipo ya usa, con formación al personal por perfil.",
 ]
 

@@ -43,7 +43,7 @@ La siguiente información es el "System Prompt" o contexto base canónico sobre 
 1. **OrquestadorADM** — Sistema integral de gestión hotelera (PMS + RMS) con Revenue Management avanzado, forecasting y precios dinámicos automáticos.
 2. **ATELIER Clinic** — Plataforma SaaS premium para clínicas estéticas con portales para pacientes y doctores, reservas multi-paso y dashboard médico en tiempo real.
 3. **VR PMS** — Sistema integral de gestión para propiedades de alquiler vacacional: control de reservas, huéspedes y rendimiento.
-4. **Rapiditos** — App móvil de delivery (Flutter) publicada en App Store y Google Play, con tracking de pedidos y pagos en línea.
+4. **Rapiditos** — App móvil de delivery (Flutter) publicada en Google Play, con tracking de pedidos y pagos en línea.
 5. **Precio Vivo** — Producto de datos con IA: convierte los reportes diarios en PDF del Gran Mercado Mayorista de Lima (MIDAGRI/EMMSA) en serie temporal consultable, con pronóstico del próximo día hábil, resumen automático, consulta en lenguaje natural (RAG) y CLI. Construido en público, con la evaluación de modelos publicada.
 6. **Precio Justo** — Comparador de precios de medicamentos en Perú sobre datos públicos de DIGEMID/MINSA, con búsqueda geográfica por distrito, API pública, PWA y bot de WhatsApp.
 7. **RestHUB** — ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema, con pantallas optimizadas por rol y una landing premium para Latinoamérica.

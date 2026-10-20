@@ -47,28 +47,6 @@ export const SITE_CONFIG = {
     // CONTACT_EMAIL - email donde llegan los mensajes de contacto
     apiEndpoint: "/api/contact",
   },
-
-  // Chatbot con Gemini AI
-  chatbot: {
-    apiEndpoint: "/api/chatbot",
-    enabled: true,
-    welcomeMessage: "¡Hola! Soy ArkBot, tu asistente de ventas de Árkos 👋",
-    model: "gemini-2.0-flash-exp",
-    features: {
-      leadQualification: true,
-      quotationGeneration: true,
-      appointmentScheduling: true,
-      crmIntegration: true,
-      realTimeAnalytics: true
-    },
-    ui: {
-      primaryColor: "from-blue-600 to-purple-600",
-      accentColor: "blue-600",
-      borderRadius: "rounded-xl",
-      maxWidth: "380px",
-      maxHeight: "520px"
-    }
-  }
 } as const
 
 // Configuración de breakpoints

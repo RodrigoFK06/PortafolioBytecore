@@ -244,10 +244,10 @@ export const projects: Project[] = [
     id: 8,
     title: "Rapiditos | App móvil de delivery",
     description:
-      "Aplicación móvil para la gestión de pedidos de delivery, publicada en App Store y Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.",
+      "Aplicación móvil para la gestión de pedidos de delivery, publicada en Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.",
     tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
     imageSrc: "/rapiditosvz.png",
-    link: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
+    link: "https://play.google.com/store/apps/details?id=com.bytecoreapss.rapiditos",
     category: "apps",
     year: "2025",
     clientType: "un emprendimiento de delivery local",
@@ -262,11 +262,11 @@ export const projects: Project[] = [
       decision:
         "Decidí ir a app nativa con Flutter sobre un backend robusto (Spring Boot), no a un wrapper barato: si el negocio depende de la app, tiene que sentirse y responder como una app de verdad, no como una web envuelta.",
       built:
-        "Una app móvil nativa para iOS y Android, publicada en App Store y Google Play, con seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y chat con el repartidor.",
+        "Una app móvil nativa para iOS y Android, publicada en Google Play, con seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y chat con el repartidor.",
       result:
         "Salieron de los marketplaces a su propia app en stores, recuperando el margen de comisión y, por primera vez, los datos de sus clientes. Más de 3,000 pedidos procesados en los primeros meses.",
       proof: {
-        liveUrl: "https://apps.apple.com/pe/app/rapiditos-vz/id6748567718",
+        liveUrl: "https://play.google.com/store/apps/details?id=com.bytecoreapss.rapiditos",
         images: ["/rapiditosvz.png"],
       },
       cta: "¿Pagas comisiones altas a un marketplace? Hablemos de tu propia app.",
@@ -412,7 +412,6 @@ export const projects: Project[] = [
       "Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.",
     tags: ["HTML", "CSS", "JavaScript", "PHP"],
     imageSrc: "/casaromahotel.webp",
-    link: "https://casaromahostels.com/",
     category: "paginas-web",
     location: "Lima, Perú",
   },

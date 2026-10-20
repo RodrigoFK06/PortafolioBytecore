@@ -265,7 +265,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     stack: ["Flutter", "Dart", "Firebase", "Spring Boot", "Docker"],
     cases: [
-      { id: 8, title: "Rapiditos", note: "App de delivery publicada en App Store y Google Play: seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con el repartidor." },
+      { id: 8, title: "Rapiditos", note: "App de delivery publicada en Google Play: seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con el repartidor." },
     ],
     priceFrom: { pen: "9,400", usd: "2,500", what: "una app móvil para iOS y Android" },
     faqs: [
@@ -279,7 +279,7 @@ export const SERVICES: ServiceContent[] = [
       },
       {
         q: "¿Puedo ver una app suya funcionando antes de contratar?",
-        a: "Sí. Rapiditos está publicada y descargable en la App Store, así que puedes probarla sin intermediarios.",
+        a: "Sí. Rapiditos está publicada y descargable en Google Play, así que puedes probarla sin intermediarios.",
       },
       {
         q: "¿Necesito una app o me basta con una web?",

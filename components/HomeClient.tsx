@@ -22,9 +22,8 @@ const FloatingDock = dynamic(() => import("./floating-dock"), { ssr: false })
 
 
 export default function HomeClient() {
-  // El dock (chatbot + accesos) solo es visible tras scrollear; su bundle es
-  // el más pesado del home, así que ni siquiera se descarga hasta el primer
-  // scroll — recorta ~6s de script del hilo principal en móvil.
+  // El dock (WhatsApp + volver arriba) solo es visible tras scrollear, así que
+  // ni siquiera se descarga hasta el primer scroll.
   const [dockReady, setDockReady] = useState(false)
   useEffect(() => {
     const arm = () => setDockReady(true)

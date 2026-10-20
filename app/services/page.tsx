@@ -64,7 +64,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Tienen experiencia en mi sector y proyectos reales?",
-    a: "Sí. Árkos ha desarrollado para varios rubros: restaurantes (RestHUB), hotelería y alquiler vacacional (VR PMS, OrquestadorADM), clínicas estéticas (ATELIER Clinic), servicio técnico (Solutec System y su landing Solutec DHA), delivery (Rapiditos, en App Store y Google Play) y audiovisual (Ñawi Producciones).",
+    a: "Sí. Árkos ha desarrollado para varios rubros: restaurantes (RestHUB), hotelería y alquiler vacacional (VR PMS, OrquestadorADM), clínicas estéticas (ATELIER Clinic), servicio técnico (Solutec System y su landing Solutec DHA), delivery (Rapiditos, en Google Play) y audiovisual (Ñawi Producciones).",
   },
 ];
 

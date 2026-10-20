@@ -172,11 +172,11 @@ Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Ag
 ### App móvil (1)
 
 #### 4.9 Rapiditos | App móvil de delivery
-- **Qué es:** Aplicación móvil para la gestión de pedidos de delivery, publicada en App Store y Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.
+- **Qué es:** Aplicación móvil para la gestión de pedidos de delivery, publicada en Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.
 - **Año:** 2025
 - **Stack:** Flutter, Firebase, Dart, Spring Boot, Docker
 - **Caso de estudio:** https://xn--rkos-4na.com/portfolio/8
-- **En vivo:** https://apps.apple.com/pe/app/rapiditos-vz/id6748567718
+- **En vivo:** https://play.google.com/store/apps/details?id=com.bytecoreapss.rapiditos
 
 ### Página web (19)
 
@@ -238,7 +238,6 @@ Los 28 proyectos del portafolio, cada uno con su ficha de caso en árkos.com. Ag
 - **Qué es:** Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.
 - **Stack:** HTML, CSS, JavaScript, PHP
 - **Caso de estudio:** https://xn--rkos-4na.com/portfolio/4
-- **En vivo:** https://casaromahostels.com/
 
 #### 4.20 Tu sonrisa perfecta landing page
 - **Qué es:** Diseño de una landing page para una clínica dental, enfocada en resaltar los servicios ofrecidos y facilitar la captación de nuevos pacientes.
@@ -333,7 +332,7 @@ Principalmente React, Next.js, TypeScript, Tailwind CSS, Node.js, Laravel, CodeI
 Talleres de adopción de tecnología para equipos, diagnósticos de procesos, automatizaciones y asistentes con IA, y sistemas a medida: SaaS, ERPs, CRMs, PMS hoteleros, aplicaciones móviles, landing pages y e-commerce.
 
 **¿Árkos hace aplicaciones móviles?**
-Sí, Árkos desarrolla aplicaciones móviles con Flutter y Dart. Su app "Rapiditos" está publicada en App Store y Google Play.
+Sí, Árkos desarrolla aplicaciones móviles con Flutter y Dart. Su app "Rapiditos" está publicada en Google Play.
 
 **¿Árkos trabaja con inteligencia artificial?**
 Sí, en dos frentes. Integra IA en los sistemas: asistentes y agentes RAG sobre bases de conocimiento propias (Claude, Gemini, OpenAI, Amazon Bedrock), automatizaciones con n8n y Make, y agentes conectados a los CRM y ERP del cliente. Y acompaña la adopción: onboarding, formación en el puesto por perfil de usuario, gobierno legible para no técnicos y medición antes y después.
