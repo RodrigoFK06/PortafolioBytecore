@@ -81,6 +81,10 @@ const FAQS = [
     a: "No. Es un taller de adopción de tecnología, y la IA es el camino. Lo que se enseña es criterio de uso: qué herramienta sirve para qué, cuándo confiar en lo que responde y cuándo no. Las herramientas cambian cada pocos meses; el criterio se queda.",
   },
   {
+    q: "¿Dan talleres de inteligencia artificial para empresas en Lima?",
+    a: `Sí, con un matiz: el taller es de adopción de tecnología, y la IA aplicada a los procesos de la empresa es uno de sus caminos, no el tema único. Son ${TALLER_HORAS} horas para equipos de hasta ${TALLER_PERSONAS_MAX} personas, a S/ ${soles(PRECIO_TALLER)} por grupo. En Lima y Callao es presencial, en las oficinas de tu empresa —Árkos no tiene aula propia—; para el resto del Perú, por videollamada.`,
+  },
+  {
     q: "¿Un taller alcanza para que el equipo adopte la tecnología?",
     a: "No, y no lo prometemos. Adoptar lleva semanas: que el equipo siga usando la herramienta cuando ya nadie se lo recuerda. El taller es el primer paso: el equipo pierde el miedo, aprende el criterio y sale con un mapa de por dónde empezar.",
   },
@@ -143,7 +147,10 @@ export default function TallerPage() {
             name: "Taller de adopción de tecnología e IA para equipos",
             serviceType: "Formación en adopción de tecnología e inteligencia artificial",
             provider: { "@id": `${baseUrl}/#organization` },
-            areaServed: [{ "@type": "Country", name: "Peru" }],
+            areaServed: [
+              { "@type": "City", name: "Lima" },
+              { "@type": "Country", name: "Peru" },
+            ],
             description:
               "Taller para equipos de empresa: criterio de uso de la tecnología y la IA, ejercicios sobre las tareas reales del equipo y un mapa escrito de qué tareas llevar a una herramienta.",
             offers: {
