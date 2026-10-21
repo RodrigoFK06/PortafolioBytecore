@@ -91,7 +91,7 @@ El paso 4 es el que casi todos se saltan, y a veces es el que más ahorra: un pr
 ## ¿Con qué herramienta se automatiza?
 
 - **Una hoja de cálculo bien hecha** alcanza cuando el volumen es bajo y la usa una sola persona. No todo pide un sistema: el [test de 3 minutos](/necesitas-un-sistema) te dice si ya lo necesitas.
-- **n8n o Make** sirven cuando el problema es conectar herramientas que ya tienes: formulario, hoja, correo, WhatsApp, facturación. Es el trabajo de [automatización de procesos e integración de IA](/services/integracion-ia).
+- **n8n o Make** sirven cuando el problema es conectar herramientas que ya tienes: formulario, hoja, correo, WhatsApp, facturación. Es el trabajo de [automatización de procesos e integración de IA](/services/integracion-ia). Si tu empresa está en Lima, empezamos con una reunión presencial: así trabajamos la [automatización de procesos para empresas en Lima](/automatizacion-de-procesos-lima).
 - **Un sistema a medida** conviene cuando ninguna pieza encaja con tu operación y terminas adaptando el negocio al software. Para eso está el [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
 
 ## Preguntas frecuentes
