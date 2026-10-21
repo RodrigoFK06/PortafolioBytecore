@@ -1,104 +1,92 @@
 ---
 title: "Cómo creamos el sistema de registro para un simposio veterinario internacional"
-description: "Caso de estudio sobre la landing page y sistema de registro del II Simposio Veterinario Internacional 2026 en Trujillo, con countdown en vivo, agenda interactiva y diseño académico premium."
+description: "Caso de estudio de la landing y el sistema de registro del II Simposio Veterinario Internacional 2026 en Trujillo: cuenta regresiva, agenda, inscripción y qué hicimos con el sitio cuando terminó el evento."
 image: "/simposio.png"
 date: "2026-01-15"
 author: "Rodrigo Torres"
 tags: ["Next.js", "React", "Landing Page", "Eventos", "Caso de Estudio"]
 ---
 
-## El reto: llenar un evento académico con una web que convierta
+## El reto: llenar un evento académico con una web propia
 
-El Círculo de Estudios Claude Bourgelat estaba organizando el **II Simposio Veterinario Internacional 2026** en Trujillo, Perú — un evento de 4 días (22-25 mayo 2026) con ponentes internacionales, talleres prácticos y certificación profesional.
+El Círculo de Estudios Claude Bourgelat organizaba el **II Simposio Veterinario Internacional 2026** en Trujillo: cuatro días, del 4 al 7 de junio de 2026, con dos días de conferencias en el Hotel Costa del Sol, talleres prácticos antes y después, ponentes nacionales e internacionales y certificado de participación.
 
-Su problema era claro: necesitaban una plataforma de registro que no solo informara sobre el evento, sino que **convirtiera visitantes en inscritos**. La edición anterior se había promocionado por WhatsApp y redes sociales sin una web dedicada, resultando en inscripciones desorganizadas y baja conversión.
+La edición anterior se había promocionado por WhatsApp y redes sociales, sin una web propia, y el resultado fueron inscripciones desordenadas y pocas visitas convertidas en inscritos. Esta vez necesitaban un sitio que explicara el evento y llevara al visitante hasta la inscripción.
 
-## La solución: una landing page que genera urgencia
+## Lo que construimos
 
-Diseñamos una landing page de alta conversión con una estrategia clara: **generar urgencia y demostrar valor profesional en cada scroll**.
-
-### Stack tecnológico
+### Stack
 
 - **Framework:** Next.js + React
 - **Estilos:** Tailwind CSS
-- **Herramientas visuales:** v0 para prototipado rápido
-- **Deploy:** Vercel
+- **Prototipado:** v0
+- **Despliegue:** Vercel
 
-### El diseño: autoridad académica con urgencia comercial
+### El diseño: académico, con la fecha siempre a la vista
 
-#### Paleta visual
+La paleta parte de un azul oscuro, que se asocia a lo académico, con acentos en verde azulado para que no se vea anticuada. Los títulos van en serif, que también remite a lo académico, y el texto en sans-serif, que se lee mejor en pantalla.
 
-La paleta fue intencional — nada es casual:
-- **Azul oscuro:** Transmite autoridad y seriedad académica
-- **Dorado:** Evoca certificación, premiación, valor profesional
-- **Teal/Turquesa:** Acentos modernos que rompen la formalidad sin perder profesionalismo
+### La portada
 
-La tipografía combina **serif para títulos** (evoca academia y tradición) con **sans-serif para body text** (legibilidad y modernidad).
+Mientras las inscripciones estuvieron abiertas, la portada tenía cuatro piezas:
 
-### Sección Hero: el reloj no para
+1. **El logo del evento y la fecha**, grandes
+2. **La sede:** Trujillo, Perú
+3. **Una cuenta regresiva** en días, horas, minutos y segundos
+4. **El botón de inscripción**
 
-El hero tiene cuatro elementos de conversión simultáneos:
+En un evento con fecha fija, la cuenta regresiva le recuerda al visitante que el plazo se acaba.
 
-1. **Logo del evento y fecha prominente** — Identidad visual inmediata
-2. **Ubicación clara:** Trujillo, Perú
-3. **Countdown en tiempo real** — Días, horas, minutos y segundos que cambian en pantalla
-4. **CTA de registro** — Botón grande y visible
+### Las cifras del evento
 
-El countdown es una técnica de conversión probada en eventos: crea la sensación de que el tiempo se agota y activa el FOMO (fear of missing out) del visitante.
+Debajo de la portada, una franja con la cantidad de ponentes internacionales, los días del evento y los talleres prácticos, con números que se animan al aparecer.
 
-### Barra de estadísticas: demostrar escala
+### Sobre el evento
 
-Inmediatamente después del hero, una barra muestra números impactantes:
-- Cantidad de **ponentes internacionales**
-- **Días** del evento
-- **Talleres prácticos** planificados
+Un texto corto que presenta los temas del simposio: cirugía abdominal, ecografía e investigación clínica veterinaria. Sirve para el SEO y para que un profesional decida si le vale la pena dedicarle esos días.
 
-Los números están animados (counter up) para generar mayor impacto visual.
+### Cuatro razones para asistir
 
-### "Sobre el evento": el qué y el por qué
+Cuatro tarjetas: ponencias magistrales con especialistas internacionales, talleres prácticos, encuentro con colegas del sector y certificado de participación. Cada una con un ícono y una línea que dice qué se lleva el asistente.
 
-Una sección de texto que posiciona el simposio como un evento de referencia en cirugía abdominal, ecografía y clínica investigativa veterinaria. Esto es clave para SEO y para convencer a profesionales de que vale la pena invertir su tiempo.
+### Patrocinadores
 
-### Pilares de valor: 4 razones para asistir
+Una franja pequeña con los logos de las marcas e instituciones que respaldaban el evento. A un veterinario que duda, ver nombres que conoce le da confianza.
 
-Cuatro tarjetas que resumen la propuesta de valor:
-1. **Masterclasses** — Sesiones con expertos internacionales
-2. **Talleres Prácticos** — Experiencia hands-on
-3. **Networking** — Conexión con profesionales del sector
-4. **Certificación** — Diploma de participación oficial
+### WhatsApp siempre a mano
 
-Cada tarjeta tiene un ícono descriptivo y un copy corto que vende el beneficio, no la característica.
+Un botón flotante de WhatsApp en todas las pantallas. El público veterinario en Perú consulta más por WhatsApp que por formulario, así que las consultas tenían que entrar por ahí.
 
-### Sponsors: credibilidad por asociación
+## Después del evento
 
-La sección de patrocinadores es pequeña pero estratégica. Mostrar logos de empresas que respaldan el evento genera confianza instantánea en el visitante indeciso.
+El simposio se realizó el 5 y 6 de junio de 2026, con talleres el 4 y el 7. Muchos sitios de eventos quedan abandonados al día siguiente, con la cuenta regresiva en cero y un botón de inscripción que ya no lleva a nada. Aquí se cerró la inscripción y la portada pasó a decir «Edición 2026 realizada». Hoy el sitio muestra el programa tal como se dictó, con sus 15 ponencias, los ponentes, la sede, lo que dijeron los asistentes de la primera edición y un enlace a las próximas ediciones.
 
-### Botón de WhatsApp persistente
+## Lo que aprendimos sobre sitios de eventos
 
-Un botón flotante de WhatsApp está siempre visible. El público veterinario en Perú está más acostumbrado a consultar por WhatsApp que a llenar formularios. Eliminar fricción en el canal de comunicación preferido aumenta las consultas.
+### 1. La cuenta regresiva tiene que ser real
 
-## Lecciones sobre landing pages para eventos
+Una cuenta regresiva que no lleva a nada frustra. La nuestra estaba atada a la fecha real del evento y desaparecía sola el día del inicio.
 
-### 1. El countdown convierte, pero solo si es real
+### 2. En un evento académico, el diseño tiene que verse serio
 
-Un countdown que no lleva a nada genera frustración. El nuestro está conectado a la fecha real del evento y desaparece automáticamente el día del inicio.
+Los veterinarios esperan seriedad. Un diseño que parezca de startup los aleja; la serif, una paleta sobria y la información ordenada como un programa académico dan confianza.
 
-### 2. En eventos académicos, la autoridad visual importa
+### 3. El botón de inscripción tiene que estar siempre a la vista
 
-Los profesionales veterinarios esperan seriedad. Un diseño "demasiado moderno" o "demasiado startup" los aleja. El uso de serif, paleta formal y estructura de información académica genera confianza.
+Tiene que verse sin hacer scroll. Lo pusimos en la portada, en la barra de navegación fija y al final de cada sección.
 
-### 3. El CTA debe estar visible siempre
+### 4. El sitio no termina con el evento
 
-En una landing de evento, el botón de registro debe ser accesible sin hacer scroll. Lo colocamos en el hero, en la barra de navegación fija, y al final de cada sección.
+Cuando el evento acaba, se cierra la inscripción y la web pasa a ser el registro de la edición. La próxima convocatoria arranca con un sitio que ya tiene programa, ponentes y opiniones que mostrar.
 
-## Tecnologías utilizadas
+## Tecnologías
 
 - **Framework:** Next.js, React
 - **Estilos:** Tailwind CSS
 - **Prototipado:** v0
-- **Animaciones:** CSS keyframes (countdown)
-- **Deploy:** Vercel
+- **Animaciones:** CSS keyframes (cuenta regresiva)
+- **Despliegue:** Vercel
 
 ---
 
-*¿Organizas un evento y necesitas una web que llene asientos? En **Árkos** creamos landing pages de alta conversión para eventos profesionales. [Hablemos](https://xn--rkos-4na.com/#contact).*
+*¿Organizas un evento profesional y necesitas que la gente se inscriba? En **Árkos** hacemos la web y el sistema de inscripción. [Hablemos](https://xn--rkos-4na.com/#contact).*

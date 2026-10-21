@@ -1,6 +1,6 @@
 ---
 title: "Desarrollo de software a medida en Perú: guía completa de Árkos"
-description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué PYMEs de Perú y Latinoamérica está pensado."
+description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué pymes de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
 updated: "2026-10-11"
@@ -8,99 +8,97 @@ author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
 
-El desarrollo de software a medida en Perú consiste en construir sistemas diseñados desde la operación real de tu negocio, no plantillas genéricas. En Árkos, agencia con base en Lima fundada en 2020, empezamos por el proceso, no por la tecnología. Ayudamos a PYMEs de Perú y Latinoamérica a identificar qué está frenando su operación, incorporar automatización e IA donde realmente aporta valor y, cuando las herramientas existentes ya no alcanzan, construimos el software a medida que necesita el negocio: ERPs, CRMs, PMS y aplicaciones web.
+El desarrollo de software a medida en Perú consiste en construir un sistema a partir de cómo trabaja tu negocio, en vez de adaptar el negocio a un programa genérico. En Árkos, un estudio de Lima fundado en 2020, empezamos por el proceso y no por la tecnología: vemos con cada pyme qué está frenando su operación, sumamos automatización e IA donde ahorran trabajo y, cuando las herramientas que ya existen no alcanzan, construimos el sistema que hace falta: ERPs, CRMs, PMS y aplicaciones web.
 
-Nuestro propósito no es solo escribir código, sino mejorar tus procesos: que tu equipo trabaje mejor cada día y que tu cliente sepa en tres segundos qué hacer. En esta guía explicamos qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabajamos en Árkos, qué tipos de proyecto construimos y para qué negocios está pensado.
+El código es el final del trabajo, no el principio. Lo que buscamos es que tu equipo pierda menos tiempo y que tu cliente sepa en tres segundos qué hacer. En esta guía explicamos qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabajamos, qué proyectos construimos y para qué negocios está pensado.
 
 ## Qué es el software a medida y cuándo conviene
 
-El software a medida es la construcción de un sistema diseñado específicamente para los procesos de una empresa, en lugar de adaptar la empresa a un programa enlatado. Cada función, campo y flujo responde a cómo trabaja realmente el negocio. Se construye con tecnologías como React, Next.js y TypeScript, y vive en una infraestructura propia (por ejemplo, Vercel) que la empresa controla.
+El software a medida es un sistema construido para los procesos de una empresa, en lugar de adaptar la empresa a un programa enlatado. Cada función, campo y flujo responde a cómo trabaja el negocio. Se construye con tecnologías como React, Next.js y TypeScript, y vive en una infraestructura (por ejemplo, Vercel) que la empresa controla.
 
 Un sistema enlatado (genérico, por suscripción) es una buena opción cuando tu operación es estándar y encaja sin forzarla. El software a medida conviene cuando ese encaje no existe.
 
 ### Cuándo conviene software a medida en lugar de un sistema enlatado
 
-El desarrollo a medida es la mejor decisión cuando:
+Conviene cuando:
 
 - **El sistema genérico no encaja con tu operación.** Terminas adaptando tu forma de trabajar al software, en vez de al revés.
-- **Pagas por funciones que no usas** o, peor, te faltan las que sí necesitas. Herramientas como Salesforce o HubSpot pueden ser excesivas para un servicio técnico o una PYME.
+- **Pagas por funciones que no usas** o, peor, te faltan las que sí necesitas. Herramientas como Salesforce o HubSpot pueden ser excesivas para un servicio técnico o una pyme.
 - **Tu información está dispersa** entre WhatsApp, hojas de Excel sueltas y una agenda física, y nadie tiene una vista única del negocio.
 - **Necesitas integraciones específicas:** pasarelas de pago en soles, [facturación electrónica según los requisitos de SUNAT](https://cpe.sunat.gob.pe/), courier, exportación a Excel respetando filtros o un chatbot de ventas con IA.
 - **Quieres ser dueño del producto y de los datos**, sin depender de la hoja de ruta ni de los precios de un proveedor externo.
 
-Un caso real: para **Solutec System** —el CRM/ERP de Solutec DHA, un servicio técnico a domicilio en Lima— evaluamos un CRM genérico como HubSpot o Salesforce y lo descartamos por ser excesivo para una operación así. En su lugar construimos un sistema enfocado solo en lo que el negocio necesita: listado de clientes con filtros avanzados, búsqueda, exportación a Excel/CSV respetando los filtros activos y fichas con campos del rubro (DNI, distrito, electrodoméstico, garantía, historial), con React 18 y Material UI (MUI DataGrid).
+Un caso real: para **Solutec System**, el CRM de Solutec DHA, un servicio técnico a domicilio en Lima, evaluamos un CRM genérico como HubSpot o Salesforce y lo descartamos por ser demasiado para una operación así. En su lugar construimos un sistema con solo lo que el negocio usa: lista de clientes con filtros, búsqueda, exportación a Excel/CSV respetando los filtros activos y fichas con campos del rubro (DNI, distrito, electrodoméstico, garantía, historial), con React 18 y Material UI (MUI DataGrid).
 
 > **Regla práctica:** si dedicas más tiempo a pelear con tu software que a usarlo, o si tu operación vive en WhatsApp y Excel, el software a medida deja de ser un lujo y pasa a ser la solución más barata a mediano plazo.
 
 ## Cómo trabaja Árkos: del proceso real al producto
 
-En Árkos diseñamos cada producto desde la operación real del cliente, no desde una plantilla. El proceso parte de entender cómo trabaja el negocio antes de escribir una sola línea de código, y se apoya en investigación de usuario real, diseño en Figma y desarrollo con un stack moderno orientado a rendimiento y SEO.
-
-Trabajamos por fases:
+Antes de escribir código entendemos cómo trabaja el negocio. Trabajamos por fases:
 
 1. **Entendimiento del proceso.** Identificamos las preguntas operativas que hoy no puedes responder rápido ("¿qué clientes tengo agendados esta semana?", "¿qué garantías siguen vigentes?") y los puntos donde se pierde tiempo o dinero.
-2. **Investigación y diseño UX/UI.** Diseñamos las interfaces en Figma a partir de investigación de usuario real (entrevistas, personas, journey maps), wireframes y prototipos, con foco en conversión y jerarquía visual. El objetivo: interfaces claras y legibles donde el usuario sepa qué hacer de inmediato.
+2. **Investigación y diseño.** Entrevistamos a quienes van a usar el sistema y diseñamos las pantallas en Figma, primero en wireframes y luego en prototipos, para que cada persona sepa qué hacer apenas entra.
 3. **Desarrollo a medida.** Construimos con React, Next.js y TypeScript en frontend, y Node.js, Next.js API Routes, Laravel, CodeIgniter o Spring Boot en backend, sobre bases de datos como Supabase (PostgreSQL), Firebase, MySQL o MongoDB.
-4. **Rendimiento, SEO y GEO nativos.** Optimizamos Core Web Vitals con arquitectura JAMStack, para que el producto cargue rápido en cualquier conexión y sea visible tanto para buscadores como para modelos de lenguaje.
-5. **IA y automatización (cuando aporta).** Integramos chatbots y agentes de ventas con Gemini o GPT, y automatizaciones con n8n y Make para quitar trabajo manual repetitivo.
-6. **Despliegue y evolución.** Publicamos en Vercel, Docker o AWS y dejamos un producto que puede crecer contigo.
+4. **Rendimiento y SEO.** Cuidamos las Core Web Vitals para que el producto cargue rápido incluso con datos móviles, y lo preparamos para que lo encuentren tanto los buscadores como los asistentes de IA (lo que hoy se llama GEO).
+5. **IA y automatización, cuando ahorran trabajo.** Integramos chatbots y agentes de ventas con Gemini o GPT, y automatizaciones con n8n y Make para quitar trabajo manual repetitivo.
+6. **Despliegue y evolución.** Publicamos en Vercel, Docker o AWS, y el sistema queda listo para sumarle módulos después.
 
 > El plazo estándar es de 3 a 8 semanas según el alcance; un sistema con varios módulos toma más, en función de su complejidad.
 
 ## Tipos de proyecto de software a medida que construimos
 
-Árkos construye desde una landing page de alta conversión hasta un ERP completo, siempre con el mismo enfoque: diseñar desde la operación real y medir resultados de negocio. Estos son los principales tipos de proyecto, anclados a casos reales del portafolio.
+Hacemos desde una landing page hasta un ERP completo. Estos son los tipos de proyecto, cada uno con casos del portafolio.
 
-### Landing pages y sitios web de alta conversión
+### Landing pages y sitios web
 
-Landing pages, sitios corporativos y plataformas web full-stack con Next.js y React, rápidas en cualquier conexión, optimizadas para SEO y con arquitectura JAMStack. Sirven para captar clientes reales y comunicar el valor de un negocio en segundos.
+Landing pages y sitios corporativos con Next.js y React, rápidos con cualquier conexión y preparados para SEO. Sirven para que un cliente entienda en segundos qué haces y te escriba.
 
-- **Solutec DHA (landing):** landing pública del servicio técnico de reparación de electrodomésticos de Dharcy en Lima, con tono cálido, conversaciones reales de WhatsApp y formulario de diagnóstico sin compromiso. Next.js y Tailwind CSS. Trabaja junto al CRM Solutec System: la landing capta y el CRM gestiona end-to-end.
-- **Ñawi Producciones:** sitio corporativo dark-theme para una productora audiovisual de cine documental, con hero a pantalla completa e integración de YouTube como portafolio. Next.js, React, TypeScript y Tailwind, con imágenes optimizadas en WebP/AVIF. Caso: [Ñawi Producciones](/portfolio/14).
-- **II Simposio Veterinario Internacional 2026:** landing de alta conversión y sistema de registro para un evento académico de 4 días en Trujillo, con countdown en tiempo real y botón flotante de WhatsApp. Next.js, React y Tailwind.
+- **Solutec DHA (landing):** la web del servicio técnico de reparación de electrodomésticos de Dharcy en Lima, con su tono cercano, conversaciones reales de WhatsApp y formulario de diagnóstico sin compromiso. Next.js y Tailwind CSS. Trabaja junto al CRM Solutec System: la landing recibe las consultas y el CRM les hace seguimiento.
+- **Ñawi Producciones:** sitio oscuro para una productora audiovisual de cine documental, con video de portada a pantalla completa y su canal de YouTube como portafolio. Next.js, React, TypeScript y Tailwind, con imágenes en WebP/AVIF. Caso: [Ñawi Producciones](/portfolio/14).
+- **II Simposio Veterinario Internacional 2026:** landing y sistema de inscripción para un evento académico de cuatro días en Trujillo, en junio de 2026, con cuenta regresiva hasta el inicio y botón flotante de WhatsApp. Terminado el evento, el sitio quedó como registro de la edición. Next.js, React y Tailwind.
 
 ### Aplicaciones web y paneles administrativos
 
-Aplicaciones web, dashboards y paneles administrativos diseñados desde la operación real del cliente, con datos en tiempo real y exportación a Excel. Son el corazón de la gestión diaria de un negocio.
+Aplicaciones web y paneles de administración para la gestión diaria: lo que el equipo abre cada mañana, con datos al día y exportación a Excel.
 
-- **Solutec System:** CRM/ERP de gestión de clientes con panel de métricas, filtros avanzados, búsqueda y exportación a Excel/CSV respetando filtros activos. React 18 y Material UI (MUI DataGrid).
+- **Solutec System:** CRM de un servicio técnico con panel de métricas, filtros, búsqueda y exportación a Excel/CSV que respeta los filtros activos; hoy también lleva servicios, pagos, técnicos e inventario. React 18 y Material UI (MUI DataGrid).
 
 ### MVP y productos digitales para validar una idea
 
-Cuando una idea necesita salir al mercado rápido para validarse, construimos un producto inicial funcional con el stack adecuado (Next.js, React, TypeScript) y diseño en Figma, listo para iterar con usuarios reales. El mismo enfoque modular permite que ese primer producto crezca después hacia un SaaS o un ERP completo, sin rehacerlo desde cero.
+Cuando una idea tiene que salir rápido para probarse con usuarios, construimos una primera versión que funcione (Next.js, React, TypeScript, diseño en Figma). Se arma por módulos, así que puede crecer después hasta un SaaS o un ERP sin rehacerla desde cero.
 
 ### SaaS, ERPs y sistemas de gestión empresarial
 
-Sistemas y plataformas empresariales que se construyen cuando los genéricos no encajan: ERPs, CRMs, PMS hoteleros, sistemas de gestión clínica, SaaS y dashboards, diseñados desde la operación real y construidos con React, Next.js y TypeScript.
+Cuando los sistemas genéricos no encajan: ERPs, CRMs, PMS hoteleros, sistemas de gestión clínica, SaaS y dashboards, con React, Next.js y TypeScript.
 
-- **RestHUB:** ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema, con una pantalla optimizada por cada rol (mesero, cocina, caja) y una landing premium pensada para Latinoamérica. Next.js, React, TypeScript y Tailwind.
-- **VR PMS:** Property Management System a medida para alquileres vacacionales, alternativa económica a Guesty/Hostaway, con 5 módulos (Dashboard, Schedule tipo Gantt, Bookings, Properties y Guests) y calendario custom sin librería externa. Next.js, React, TypeScript, Tailwind y shadcn/ui. Caso: [VR PMS](/portfolio/11).
-- **OrquestadorADM:** sistema de gestión hotelera PMS + RMS con Revenue Management avanzado —forecasting, análisis What-If, precios dinámicos y analítica diaria granular—. React, Next.js, PostgreSQL, TypeScript y Tailwind. Caso: [OrquestadorADM](/portfolio/1).
-- **ATELIER Clinic:** SaaS premium para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso y dashboard médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. Caso: [ATELIER Clinic](/portfolio/6).
+- **RestHUB:** POS y ERP para restaurantes: comandas a cocina, caja, inventario con costo por plato, contabilidad y facturación SUNAT en un solo sistema, con una pantalla para cada rol (mozo, cocina, caja, contador) y venta sin internet. En el piloto, el cierre de caja pasó de 45 a 5 minutos. Next.js, React, TypeScript y Tailwind. Caso: [RestHUB](/portfolio/19).
+- **VR PMS:** sistema de gestión (PMS) a medida para alquileres vacacionales, más barato que Guesty o Hostaway: calendario hecho sin librería externa, reservas, disponibilidad, limpieza, mantenimientos, finanzas y accesos por rol. Next.js, React, TypeScript, Tailwind y shadcn/ui. Caso: [VR PMS](/portfolio/11).
+- **OrquestadorADM:** sistema de gestión hotelera (PMS + RMS) con revenue management: pronóstico de demanda, análisis What-If, precios dinámicos y analítica diaria. React, Next.js, PostgreSQL, TypeScript y Tailwind. Caso: [OrquestadorADM](/portfolio/1).
+- **ATELIER Clinic:** SaaS para clínicas estéticas con un portal para pacientes y otro para doctores, reserva de citas en varios pasos y panel médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. Caso: [ATELIER Clinic](/portfolio/6).
 
 Si el cuello de botella es la facturación, puede que no haga falta un desarrollo nuevo, porque [FacturArkos, nuestro sistema de facturación electrónica y POS para SUNAT](/facturarkos) ya resuelve la emisión de comprobantes. Y si todavía no está claro qué conviene construir, el punto de partida es un [diagnóstico de procesos de 2 semanas](/diagnostico), con hallazgos, números y un plan con costos antes de escribir código.
 
 ### E-commerce y aplicaciones móviles
 
-Cuando el objetivo es vender en línea o llegar al celular del cliente, Árkos también construye tiendas y apps a medida.
+También hacemos tiendas online y apps.
 
-- **E-commerce:** tiendas online listas para vender, con pasarelas de pago en soles (Izipay, Culqi, MercadoPago, Stripe), factura electrónica, control de stock, integración con courier y métricas en tiempo real. Ejemplo: **[ReLu Coffee](/portfolio/5)**, e-commerce de café gourmet construido con Astro y Tailwind CSS.
-- **Aplicaciones móviles:** apps nativas y multiplataforma con Flutter y Dart, publicadas en App Store y Google Play. Ejemplo: **Rapiditos**, app de delivery para iOS y Android con seguimiento en tiempo real y pagos en línea (Flutter, Firebase, Dart, Spring Boot, Docker).
+- **E-commerce:** tiendas online con pasarelas de pago en soles (Izipay, Culqi, MercadoPago, Stripe), factura electrónica, control de stock e integración con courier. Ejemplos: **[Maré](/portfolio/24)**, una tienda con catálogo por categorías, buscador, favoritos y carrito, y **[ReLu Coffee](/portfolio/5)**, el sitio de una marca de café y cafeteras Saeco con catálogo, cotización y planes de alquiler, hecho con Astro y Tailwind CSS.
+- **Aplicaciones móviles:** apps nativas y multiplataforma con Flutter y Dart, para App Store y Google Play. Ejemplo: **Rapiditos**, app de delivery publicada en Google Play, con seguimiento del pedido en tiempo real y pagos en línea (Flutter, Firebase, Dart, Spring Boot, Docker).
 
-## Para quién es: PYMEs de Perú y Latinoamérica
+## Para quién es: pymes de Perú y Latinoamérica
 
-El software a medida de Árkos está pensado para PYMEs y profesionales independientes de Perú y toda Latinoamérica que necesitan ordenar y mejorar su operación. Atendemos sectores como clínicas, hoteles y alquileres vacacionales, restaurantes, comercios, servicios técnicos y profesionales independientes.
+Trabajamos con pymes y profesionales independientes de Perú y Latinoamérica que necesitan ordenar su operación: clínicas, hoteles y alquileres vacacionales, restaurantes, comercios, servicios técnicos y profesionales independientes.
 
-El portafolio refleja esa especialización por sector:
+Casos por sector:
 
 - **Clínicas y salud:** SaaS con portales de paciente y doctor (ATELIER Clinic).
-- **Hoteles y alquileres vacacionales:** PMS y Revenue Management a medida (VR PMS, OrquestadorADM).
-- **Restaurantes:** ERP integral de gestión gastronómica (RestHUB).
-- **Comercios y retail:** e-commerce con pagos en soles y factura electrónica (ReLu Coffee).
-- **Servicios técnicos:** CRM enfocado y landing de captación (Solutec System y Solutec DHA).
-- **Productoras, eventos y profesionales:** sitios corporativos y landings de alta conversión (Ñawi Producciones, II Simposio Veterinario Internacional 2026).
+- **Hoteles y alquileres vacacionales:** PMS y revenue management a medida (VR PMS, OrquestadorADM).
+- **Restaurantes:** POS y ERP para restaurantes (RestHUB).
+- **Comercios y retail:** tiendas online y catálogos con cotización (Maré, ReLu Coffee).
+- **Servicios técnicos:** CRM y landing para recibir consultas (Solutec System y Solutec DHA).
+- **Productoras, eventos y profesionales:** sitios corporativos y landings (Ñawi Producciones, II Simposio Veterinario Internacional 2026).
 
-Si tu negocio encaja en alguno de estos perfiles —o si tu operación hoy vive en WhatsApp, Excel y una agenda física— el desarrollo a medida puede convertir ese caos en un sistema único, rápido y tuyo.
+Si tu negocio está en alguno de estos rubros, o si tu operación hoy vive en WhatsApp, Excel y una agenda física, el desarrollo a medida puede juntar todo eso en un solo sistema que es tuyo.
 
 Buena parte de estos proyectos son con empresas de la capital: Solutec DHA atiende más de 2,500 clientes en Lima y Casaroma Hostels opera allí. Si ese es tu caso, la página de [desarrollo de software a medida en Lima](/desarrollo-de-software-lima) reúne los casos limeños con métrica y testimonio, los rangos de precio en soles y el detalle de cumplimiento SUNAT.
 
@@ -120,7 +118,7 @@ Buena parte de estos proyectos son con empresas de la capital: Solutec DHA atien
 
 ### ¿Qué es el desarrollo de software a medida?
 
-Es la construcción de un sistema diseñado específicamente para los procesos de una empresa, en lugar de adaptar la empresa a un programa genérico. Cada función responde a la operación real del negocio y se construye con tecnologías como React, Next.js y TypeScript.
+Es la construcción de un sistema diseñado para los procesos de una empresa, en lugar de adaptar la empresa a un programa genérico. Cada función responde a la operación real del negocio y se construye con tecnologías como React, Next.js y TypeScript.
 
 ### ¿Cuándo conviene software a medida en lugar de uno enlatado?
 
@@ -132,11 +130,11 @@ Conviene cuando el sistema genérico no encaja con tu operación, pagas por func
 
 ### ¿Cuánto cuesta y cuánto tarda un proyecto de software a medida?
 
-El costo depende del alcance: una landing de alta conversión parte desde S/ 1,100 (USD 300) y un sistema a medida (ERP, CRM, SaaS) desde S/ 13,000 (USD 3,500), con cotización por alcance; puedes ver el detalle en nuestra [página de precios](/precios). En cuanto a plazos, un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.
+El costo depende del alcance: una landing parte desde S/ 1,100 (USD 300) y un sistema a medida (ERP, CRM, SaaS) desde S/ 13,000 (USD 3,500), con cotización por alcance; puedes ver el detalle en nuestra [página de precios](/precios). En cuanto a plazos, un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.
 
 ### ¿Cuánto cuesta el desarrollo de software a medida en Lima?
 
-En Lima, el desarrollo de software a medida con Árkos parte desde S/ 1,100 (USD 300) para una landing de alta conversión y desde S/ 13,000 (USD 3,500) para un sistema de gestión (ERP, CRM o SaaS), con cotización por alcance. Un proyecto web típico toma de 3 a 8 semanas. Árkos opera desde Lima, Perú, atiende Lima y Callao con reuniones presenciales agendadas y al resto del país de forma remota; el detalle por tipo de proyecto está en nuestra [página de precios](/precios) y el servicio local en [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
+En Lima, el desarrollo de software a medida con Árkos parte desde S/ 1,100 (USD 300) para una landing y desde S/ 13,000 (USD 3,500) para un sistema de gestión (ERP, CRM o SaaS), con cotización por alcance. Un proyecto web típico toma de 3 a 8 semanas. Árkos opera desde Lima, Perú, atiende Lima y Callao con reuniones presenciales agendadas y al resto del país de forma remota; el detalle por tipo de proyecto está en nuestra [página de precios](/precios) y el servicio local en [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
 
 ### ¿Qué stack tecnológico usa Árkos?
 
@@ -144,11 +142,10 @@ En Lima, el desarrollo de software a medida con Árkos parte desde S/ 1,100 (USD
 
 ## Conversemos sobre tu proyecto
 
-Si quieres dejar atrás las plantillas genéricas y construir un sistema diseñado desde tu operación real, en **Árkos** mejoramos tus procesos con software a medida, diseño UX/UI e IA integrada.
+Si tu operación ya no entra en las herramientas que usas, en **Árkos** mejoramos tus procesos con software a medida, automatización e IA.
 
 - **WhatsApp:** +51 961 869 348
 - **Correo:** gerencia@árkos.com
 - **Base:** Lima, Perú — cobertura nacional
 
-Cuéntanos cómo trabajas hoy y te proponemos la solución que mejor encaje con tu negocio. [Escríbenos](/#contact) y empecemos.
-
+Cuéntanos cómo trabajas hoy y te decimos qué conviene construir, o si todavía no conviene construir nada. [Escríbenos](/#contact).

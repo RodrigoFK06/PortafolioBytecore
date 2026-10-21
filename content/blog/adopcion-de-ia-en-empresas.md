@@ -40,6 +40,8 @@ Este es el método que aplico, en el orden en que lo aplico.
 5. **Formar en cascada cuando el equipo es grande.** Se forma directamente a un grupo núcleo, que replica hacia el resto, y se deja una segunda línea de soporte por tickets y consultas durante la adopción. En una organización de salud formé directamente a 20 usuarios que llevaron la herramienta a una población de más de 200 personas.
 6. **Medir antes, medir después.** Línea base levantada antes de intervenir y la misma medición repetida después. Es la única forma de sustentar cualquier mejora.
 
+La formación, resumida por perfil:
+
 - **Usuarios de negocio.** Qué necesitan aprender: qué pedir, cómo verificar, cuándo escalar a una persona. Cómo se forman: en el puesto, con sus casos reales y retroalimentación.
 - **Equipos técnicos.** Qué necesitan aprender: prompting, context engineering, construcción y evaluación de sistemas RAG. Cómo se forman: casos de trabajo reales, revisión de código y de evaluaciones.
 - **Grupo núcleo (organizaciones grandes).** Qué necesita aprender: todo lo anterior más cómo replicar y dar soporte. Cómo se forma: formación directa y segunda línea de soporte durante la adopción.
@@ -55,7 +57,7 @@ En la práctica uso cuatro instrumentos:
 - **Casos de prueba etiquetados a mano.** Para un asistente que responde preguntas, un conjunto de preguntas con su respuesta correcta, revisadas por una persona del negocio. Las métricas se reportan con intervalo de confianza, no con un solo número.
 - **Umbrales que bloquean el despliegue.** Si el asistente no supera el umbral acordado en los casos de prueba, no sale a producción. Así de simple.
 
-Dos ejemplos propios. En el asistente que construimos para los técnicos de campo de [Solutec](/portfolio/2), un servicio de reparación de electrodomésticos, el problema no era el modelo sino el vocabulario: términos que aparecían 88 veces en las notas de los técnicos no figuraban ni una vez en los manuales del fabricante. Un glosario de oficio de nueve entradas, curado a mano y revisable por la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.
+Dos ejemplos propios. En el asistente que construimos para los técnicos de campo de [Solutec](/portfolio/2), un servicio de reparación de electrodomésticos, el problema no era el modelo sino el vocabulario: términos que aparecían 88 veces en las notas de los técnicos no figuraban ni una vez en los manuales del fabricante. Un glosario de oficio de nueve entradas, armado a mano y revisable por la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.
 
 En [Precio Vivo](/portfolio/28), nuestro producto abierto de precios agrícolas, instalé una compuerta de descarte de hipótesis que descartó mi propia hipótesis de partida: el error del modelo empeoró de 0,1667 a 0,1680. Ese resultado negativo está publicado dentro del sitio, junto con la evaluación sobre 165 casos de prueba. Publicar lo que no funcionó es parte de medir en serio.
 

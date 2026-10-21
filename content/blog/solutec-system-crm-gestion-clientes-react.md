@@ -1,6 +1,6 @@
 ---
 title: "Solutec System: cómo construimos un CRM de gestión de clientes con React"
-description: "Caso de estudio sobre Solutec System, el CRM/ERP que construimos para Solutec DHA — servicio técnico a domicilio de reparación de electrodomésticos en Lima — con filtros avanzados, exportación a Excel y panel administrativo moderno."
+description: "Caso de estudio de Solutec System, el CRM que construimos con React para Solutec DHA, un servicio técnico de electrodomésticos a domicilio en Lima: cartera de clientes, filtros y exportación a Excel."
 image: "/solutec.png"
 date: "2026-01-20"
 author: "Rodrigo Torres"
@@ -9,90 +9,92 @@ tags: ["React", "Material UI", "CRM", "Frontend", "Caso de Estudio"]
 
 ## El problema: un servicio técnico con miles de clientes y todo en WhatsApp
 
-Solutec DHA es un servicio técnico a domicilio liderado por Dharcy Villafuerte, especializado en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas, campanas extractoras). Más de **2,500 clientes atendidos** en distritos como San Isidro, Miraflores, La Molina y Surco — y toda esa cartera vivía en **conversaciones de WhatsApp, una agenda física y hojas de Excel sueltas**.
+Solutec DHA es un servicio técnico a domicilio liderado por Dharcy Villafuerte, especializado en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas, campanas extractoras). Tiene más de **2,500 clientes atendidos** en distritos como San Isidro, Miraflores, La Molina y Surco, y toda esa cartera vivía en **conversaciones de WhatsApp, una agenda física y hojas de Excel sueltas**.
 
-Dharcy necesitaba responder preguntas operativas que su flujo no le permitía: ¿qué clientes tengo agendados esta semana?, ¿cuántas reparaciones repetí en el mismo aparato?, ¿qué garantías siguen vigentes?, ¿quiénes son mis clientes recurrentes y a quiénes les debo seguimiento?
+Dharcy necesitaba responder preguntas que su forma de trabajar no le dejaba contestar: ¿qué clientes tengo agendados esta semana?, ¿cuántas reparaciones repetí en el mismo aparato?, ¿qué garantías siguen vigentes?, ¿quiénes son mis clientes recurrentes y a quiénes les debo seguimiento?
 
-## Solutec System: un CRM que hace exactamente lo que necesita un servicio técnico
+## Solutec System: un CRM hecho para un servicio técnico
 
-En vez de implementar un CRM genérico como HubSpot o Salesforce (overkill para un servicio técnico unipersonal), diseñamos **Solutec System** — un sistema enfocado exclusivamente en la operación real del negocio.
+Descartamos un CRM genérico como HubSpot o Salesforce: para un servicio técnico de este tamaño era demasiado sistema. Diseñamos **Solutec System**, que solo tiene lo que la operación usa.
 
-### Stack tecnológico
+### Stack
 
 - **Frontend:** React 18 con JavaScript
-- **UI Library:** Material UI (MUI) — elegida por su apariencia profesional y componentes enterprise-ready
+- **Componentes:** Material UI (MUI)
 - **Tablas:** DataGrid de MUI con filtros, ordenamiento y paginación
-- **Exportación:** Generación de XLSX y CSV desde el navegador
-- **Deploy:** Vercel
+- **Exportación:** XLSX y CSV generados en el navegador
+- **Despliegue:** Vercel
 
-### La decisión de Material UI
+### Por qué Material UI
 
-Para este proyecto, elegimos Material UI en vez de Tailwind CSS por tres razones:
+Aquí elegimos Material UI en vez de Tailwind CSS por tres razones:
 
-1. **Componentes de tabla avanzados:** El DataGrid de MUI incluye filtrado, ordenamiento, selección múltiple y paginación out-of-the-box
-2. **Consistencia operativa:** Es una herramienta de trabajo interno que se usa todos los días — Material UI da una interfaz "de oficina" sobria y predecible que no estorba
-3. **Velocidad de desarrollo:** Los formularios con validación son más rápidos de implementar con los componentes MUI que con componentes custom
+1. **La tabla.** El DataGrid de MUI ya trae filtros, ordenamiento, selección múltiple y paginación.
+2. **Es una herramienta de oficina.** Se usa todo el día, y Material UI da una interfaz sobria y predecible que no distrae.
+3. **Los formularios.** Con validación, salen más rápido con los componentes de MUI que hechos desde cero.
 
-### Funcionalidades principales
+### Qué hace
 
 #### Panel de métricas
 
-Tarjetas resumen que muestran en tiempo real:
+Tarjetas que muestran en tiempo real:
 - Total de clientes registrados
 - Clientes nuevos del mes
 - Servicios en proceso
 - Tasa de reincidencia (clientes que vuelven)
 
-#### Listado de clientes con filtros avanzados
+#### Lista de clientes con filtros
 
 La tabla principal permite:
 - **Buscar** por nombre, distrito o tipo de electrodoméstico
 - **Filtrar** por estado (agendado, en servicio, finalizado, garantía vigente)
 - **Ordenar** por fecha del último servicio, distrito o tipo de equipo
-- **Seleccionar múltiples** registros para acciones masivas
+- **Seleccionar varios** registros para acciones en bloque
 
-#### Exportación de datos
+#### Exportación a Excel
 
-Un requisito no negociable de Dharcy: **"Necesito poder sacar mis datos a Excel en cualquier momento"**. Implementamos exportación directa a:
-- **XLSX** (compatible con Excel)
-- **CSV** (compatible con cualquier herramienta)
+Dharcy lo pidió desde el principio: **"Necesito poder sacar mis datos a Excel en cualquier momento"**. La tabla exporta a:
+- **XLSX** (Excel)
+- **CSV** (cualquier otra herramienta)
 
-La exportación respeta los filtros activos — si Dharcy está viendo solo clientes con garantía vigente este mes, el Excel contiene solo esos registros.
+La exportación respeta los filtros activos: si Dharcy está viendo solo los clientes con garantía vigente este mes, el Excel trae solo esos registros.
 
-#### Registro y edición de clientes
+#### Ficha de cliente
 
-Formularios estructurados con campos específicos del rubro:
+Cada cliente tiene campos propios del rubro:
 - Nombre y datos de contacto
-- DNI (identificación peruana)
+- DNI
 - Distrito y dirección
 - Tipo de electrodoméstico y marca
 - Diagnóstico, repuestos usados y costo
-- Vigencia de garantía
+- Vigencia de la garantía
 - Historial de servicios anteriores
 
-## Lo que aprendimos: los servicios técnicos no necesitan Salesforce
+Con el tiempo, el sistema creció más allá de la cartera: hoy también lleva los servicios, los pagos, los técnicos, el inventario y las cuentas.
 
-La lección más valiosa de este proyecto es que **un servicio técnico a domicilio en Latinoamérica no necesita un CRM con 200 funciones**. Necesita:
+## Lo que aprendimos: un servicio técnico no necesita Salesforce
 
-1. **Ver todos sus clientes en un solo lugar** — No más WhatsApp + Excel disperso
-2. **Buscar y filtrar rápido** — "Muéstrame los clientes de Miraflores con garantía vigente"
-3. **Exportar a Excel** — Porque la contabilidad siempre lo pide en Excel
-4. **Que funcione rápido en celular** — Las visitas pasan en casa del cliente, no en una oficina
+**Un servicio técnico a domicilio no necesita un CRM con 200 funciones.** Necesita cuatro cosas:
 
-Solutec System hace exactamente eso y nada más. Y por eso funciona.
+1. **Ver todos sus clientes en un solo lugar**, no repartidos entre WhatsApp y Excel.
+2. **Buscar y filtrar rápido:** "muéstrame los clientes de Miraflores con garantía vigente".
+3. **Exportar a Excel**, porque la contabilidad siempre lo pide en Excel.
+4. **Que funcione rápido en el celular**, porque las visitas pasan en casa del cliente, no en una oficina.
 
-## Contexto: la landing pública de Solutec DHA
+Solutec System hace eso, y Dharcy lo sigue usando hoy para operar su servicio.
 
-Además del CRM, desarrollamos la landing pública de Solutec DHA (solutecdha.com) con Next.js y Tailwind CSS. Una landing premium con tono cálido y conversacional, conversaciones reales de WhatsApp con clientes satisfechos, galería de trabajos realizados y formulario de diagnóstico sin compromiso. Ambos productos trabajan juntos: la landing capta consultas desde Google y WhatsApp, y el CRM las gestiona end-to-end.
+## La web pública de Solutec DHA
 
-## Tecnologías utilizadas
+Además del CRM, hicimos la web de Solutec DHA ([solutecdha.com](https://www.solutecdha.com)) con Next.js y Tailwind CSS: tono cercano, conversaciones reales de WhatsApp con clientes, galería de trabajos y un formulario de diagnóstico sin compromiso. Las dos piezas trabajan juntas: la web recibe las consultas que llegan desde Google y WhatsApp, y el CRM les hace seguimiento hasta cerrar el servicio.
+
+## Tecnologías
 
 - **Framework:** React 18
-- **UI Library:** Material UI (MUI)
+- **Componentes:** Material UI (MUI)
 - **Tablas:** MUI DataGrid
-- **Exportación:** XLSX, CSV (browser-side)
-- **Deploy:** Vercel
+- **Exportación:** XLSX, CSV (en el navegador)
+- **Despliegue:** Vercel
 
 ---
 
-*¿Tu negocio sigue dependiendo de WhatsApp y Excel para gestionar clientes? En **Árkos** construimos CRMs simples y efectivos para servicios y PYMEs que no necesitan Salesforce. [Contáctanos](https://xn--rkos-4na.com/#contact).*
+*¿Tu negocio todavía lleva sus clientes entre WhatsApp y Excel? En **Árkos** construimos CRMs pequeños para servicios y pymes que no necesitan Salesforce. [Escríbenos](https://xn--rkos-4na.com/#contact).*
