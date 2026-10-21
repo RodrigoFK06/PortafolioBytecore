@@ -6,6 +6,10 @@ import { ArrowRight, Layout, Monitor, Palette, Boxes } from "lucide-react"
 import { KineticText } from "@/components/motion/kinetic-text"
 import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
+import { PRICE_TIERS } from "@/data/pricing"
+
+/** El mismo "desde" que publica /precios para automatización e IA. */
+const PRECIO_AUTOMATIZACION = PRICE_TIERS.find((p) => p.name === "Integración y adopción de IA")!
 
 interface ServiceCardProps {
   icon: LucideIcon
@@ -107,7 +111,7 @@ export function ServicesSection() {
         </StaggerGroup>
 
         {/* Enlazado interno: el home era la única página que Google rastreaba,
-            así que es la mejor rampa hacia el hub y hacia la página de Lima. */}
+            así que es la mejor rampa hacia el hub y hacia las páginas de Lima. */}
         <div className="mt-14 max-w-2xl">
           <Reveal effect="fade">
             <p className="text-muted-foreground leading-relaxed">
@@ -121,7 +125,15 @@ export function ServicesSection() {
                 desarrollo de software a medida en Lima
               </Link>
               : ahí están los casos limeños, los rangos de precio en soles y el detalle de
-              cumplimiento SUNAT.
+              cumplimiento SUNAT. Si lo que te está costando es el trabajo repetitivo, la página de{" "}
+              <Link
+                href="/automatizacion-de-procesos-lima"
+                className="text-brand font-medium hover:underline"
+              >
+                automatización de procesos para empresas en Lima
+              </Link>{" "}
+              explica qué se automatiza primero, cómo se eligen esos procesos midiendo dónde se va
+              el tiempo del equipo, y desde cuánto cuesta: S/ {PRECIO_AUTOMATIZACION.penLabel}.
             </p>
           </Reveal>
         </div>
