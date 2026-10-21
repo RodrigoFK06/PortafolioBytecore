@@ -82,7 +82,7 @@ export interface Project {
  */
 
 /**
- * La home se cura por ID en HOME_PROJECT_IDS (abajo), NO por orden del array:
+ * La home se elige por ID en HOME_PROJECT_IDS (abajo), NO por orden del array:
  * RestHUB (19) va primero porque es el proyecto destacado. El resto del array
  * vive en /portfolio. Priorizamos sistemas B2B / software empresarial (PMS, ERP,
  * SaaS) sobre landings, porque son los que justifican un sistema crítico.
@@ -95,12 +95,12 @@ export const projects: Project[] = [
   // evidencia pública y verificable de la capacidad data + IA que el sitio
   // reclama en sus servicios. Un modelo que cita a Árkos por "integraciones de
   // IA" necesita poder señalar algo que funcione en vivo, no una lista de
-  // tecnologías. La home sigue curada aparte por HOME_PROJECT_IDS.
+  // tecnologías. La home se elige aparte en HOME_PROJECT_IDS.
   {
     id: 28,
     title: "Precio Vivo",
     description:
-      "Inteligencia de precios mayoristas del Perú con IA. Toma los reportes diarios en PDF del Gran Mercado Mayorista de Lima (MIDAGRI/EMMSA), los convierte en serie temporal limpia y publica un tablero vivo con resumen automático, pronóstico del próximo día hábil y consulta en lenguaje natural sobre los datos.",
+      "Precios del Gran Mercado Mayorista de Lima, consultables y con pronóstico. Toma los reportes diarios en PDF que publica MIDAGRI/EMMSA, los convierte en una serie histórica y publica un tablero con el resumen del día, el pronóstico del próximo día hábil y preguntas en lenguaje natural sobre los datos.",
     tags: ["Python", "Next.js", "Machine Learning", "RAG", "Datos abiertos"],
     imageSrc: "/precio-vivo.jpg",
     link: "https://precio-vivo.vercel.app",
@@ -164,7 +164,7 @@ export const projects: Project[] = [
     id: 1,
     title: "OrquestadorADM",
     description:
-      "Sistema integral de gestión hotelera (PMS + RMS) para hoteles de lujo y resorts. Revenue Management avanzado con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria. Reemplaza varios sistemas independientes por una sola operación coordinada.",
+      "Sistema de gestión hotelera (PMS + RMS) para hoteles de lujo y resorts. Junta reservas, tarifas y reportes en un solo sistema y suma revenue management: pronóstico de demanda, análisis What-If, precios dinámicos automáticos y analítica diaria.",
     tags: ["React", "Next.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
     imageSrc: "/LoginOrquestador.jpeg",
     link: "https://orquestador-adm.vercel.app",
@@ -178,11 +178,11 @@ export const projects: Project[] = [
       context:
         "Un hotel boutique de lujo operaba reservas, tarifas y reportes en varios sistemas que no se hablaban entre sí.",
       problem:
-        "Sin un revenue management real, las tarifas se fijaban a mano y a destiempo: cada decisión de pricing llegaba tarde y dejaba dinero sobre la mesa, sobre todo en temporada alta.",
+        "Sin revenue management, las tarifas se fijaban a mano y a destiempo: cada cambio de precio llegaba tarde y el hotel dejaba de ganar, sobre todo en temporada alta.",
       decision:
-        "Decidí que el diferencial no era 'otro PMS más', sino el revenue management. Integré forecasting, análisis What-If y pricing dinámico para que el hotel decidiera con datos del día, no con la intuición de la semana pasada.",
+        "Decidí que lo que diferenciaba al sistema no era ser 'otro PMS más', sino el revenue management. Integré pronóstico de demanda, análisis What-If y precios dinámicos para que el hotel decidiera con datos del día, no con la intuición de la semana pasada.",
       built:
-        "Un PMS + RMS con forecasting, análisis What-If, precios dinámicos automáticos y analítica diaria, que reemplaza varios sistemas independientes por una sola operación coordinada.",
+        "Un PMS + RMS con pronóstico de demanda, análisis What-If, precios dinámicos automáticos y analítica diaria, que reemplaza los sistemas sueltos del hotel por uno solo.",
       result:
         "El hotel pasó de fijar tarifas a mano a un pricing automático con datos diarios, recuperando alrededor de un 15% de RevPAR en temporada alta.",
       proof: {
@@ -196,7 +196,7 @@ export const projects: Project[] = [
     id: 6,
     title: "ATELIER Clinic",
     description:
-      "Plataforma SaaS para clínicas estéticas con portales separados para pacientes y doctores. Sistema de reservas multi-paso, dashboard médico en tiempo real y diseño inspirado en el lujo discreto. Resuelve el problema de coordinar agendas, historia clínica y comunicación con paciente desde un solo lugar.",
+      "SaaS para clínicas estéticas con un portal para pacientes y otro para doctores: reserva de citas en varios pasos y un panel médico en tiempo real. Junta en un solo lugar la agenda, la historia clínica y la comunicación con el paciente.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
     imageSrc: "/atelier.png",
     link: "https://atelier-seven-beta.vercel.app/",
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     id: 19,
     title: "RestHUB",
     description:
-      "ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol opera con su propia pantalla optimizada, sin módulos extra ni costuras, con una landing premium pensada para Latinoamérica.",
+      "POS y ERP para restaurantes, hecho en Perú: comandas a cocina, caja, inventario con costo por plato, facturación electrónica SUNAT y reportes en un solo sistema. Mozo, cocina, caja y contador tienen cada uno su pantalla, y se sigue vendiendo aunque se caiga el internet. Precio fundador: S/ 100 al mes por local.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript", "ERP"],
     imageSrc: "/resthub.webp",
     link: "https://rest-hub-landing.vercel.app/",
@@ -214,27 +214,27 @@ export const projects: Project[] = [
     year: "2025",
     caseStudy: {
       built:
-        "Un ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema. Cada rol —mesa, cocina, caja— opera con su propia pantalla optimizada, sin módulos sueltos que integrar ni costuras entre piezas.",
+        "Un solo sistema para todo el restaurante: POS, comandas a cocina, caja, inventario y contabilidad, con facturación electrónica SUNAT. Cada rol —mozo, cocina, caja, contador— trabaja en su propia pantalla, y no hay módulos de terceros que integrar.",
       proof: {
         liveUrl: "https://rest-hub-landing.vercel.app/",
         images: ["/resthub.webp"],
       },
       cta: "¿Tu restaurante opera a ciegas entre POS, cocina y caja? Conversemos.",
       context:
-        "RestHUB nació para un restaurante independiente peruano que crece operando casi todo en papel, sin un sistema que conecte venta, cocina, caja y finanzas — y para el que los ERP del mercado son inalcanzables. El primer piloto fue un restaurante de Trujillo en exactamente esa situación.",
+        "RestHUB nació para el restaurante independiente peruano que crece operando casi todo en papel, sin un sistema que conecte venta, cocina, caja y finanzas, y para el que los ERP del mercado son inalcanzables. El primer piloto fue un restaurante de Trujillo en exactamente esa situación.",
       problem:
-        "Vivían a ciegas: comandas y registros en papel, caja que no cuadraba y casi ningún control de las finanzas. El software que lo arregla existe, pero la competencia cobraba del orden de S/ 2,000 al mes — inviable para un restaurante independiente. La trampa: o sigues en papel, o pagas precios enterprise que te ahogan.",
+        "Vivían a ciegas: comandas y registros en papel, caja que no cuadraba y casi ningún control de las finanzas. El software que lo arregla existe, pero la competencia cobraba del orden de S/ 2,000 al mes, inviable para un restaurante independiente. O seguían en papel, o pagaban precios de cadena grande.",
       decision:
-        "Decidí construir el sistema completo —POS, cocina, caja y contabilidad en uno— en vez de vender un módulo suelto o integrar piezas de terceros. El criterio fue simple: si la competencia cobra ~S/ 2,000 al mes y ningún negocio real puede pagar eso, la única solución que vale es la que resuelve toda la operación a un precio que una pyme peruana sí pueda sostener. Por eso RestHUB es todo-en-uno, no una integración cara de partes.",
+        "Decidí construir el sistema completo —POS, cocina, caja y contabilidad en uno— en vez de vender un módulo suelto o integrar piezas de terceros. Si la competencia cobra ~S/ 2,000 al mes y un restaurante independiente no puede pagar eso, lo que sirve es resolver toda la operación a un precio que una pyme peruana sí pueda sostener. Hoy ese precio es S/ 100 al mes por local, el precio fundador para los primeros restaurantes.",
       result:
-        "En el piloto, RestHUB los sacó del papel y les dio por primera vez control real de su caja y su operación —reduciendo el tiempo de toma de pedidos casi 60% y el cierre de caja de 45 a 5 minutos— a una fracción del costo de los sistemas enterprise. Validó la tesis: un ERP de restaurante completo, al precio de una pyme peruana, funciona.",
+        "En el piloto, RestHUB los sacó del papel y les dio por primera vez control real de su caja y su operación: el tiempo de toma de pedidos bajó casi 60% y el cierre de caja pasó de 45 a 5 minutos, a una fracción de lo que cuestan los sistemas para cadenas grandes. Validó la tesis: un ERP de restaurante completo, al precio de una pyme peruana, funciona.",
     },
   },
   {
     id: 11,
     title: "VR PMS",
     description:
-      "Property Management System para empresas que operan alquileres vacacionales. Control de reservas, huéspedes y rendimiento de propiedades desde un panel intuitivo. Diseñado para operadores que manejan múltiples unidades distribuidas y necesitan ver la ocupación en un solo dashboard.",
+      "Sistema de gestión de propiedades (PMS) para empresas de alquiler vacacional: reservas, huéspedes, calendario de ocupación por unidad y finanzas en un solo panel. Tiene accesos por rol —administración, ventas, recepción y propietario— y está pensado para operadores con muchas unidades repartidas en distintos lugares.",
     tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
     imageSrc: "/vr-pms.png",
     link: "https://overbookingsol.vercel.app/",
@@ -242,9 +242,9 @@ export const projects: Project[] = [
   },
   {
     id: 8,
-    title: "Rapiditos | App móvil de delivery",
+    title: "Rapiditos",
     description:
-      "Aplicación móvil para la gestión de pedidos de delivery, publicada en Google Play. Seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y comunicación con repartidor. Stack nativo con Flutter sobre backend Spring Boot.",
+      "App de delivery publicada en Google Play: seguimiento del pedido en tiempo real, menús, pagos en línea y chat con el repartidor. Hecha en Flutter, con backend en Spring Boot.",
     tags: ["Flutter", "Firebase", "Dart", "Spring Boot", "Docker"],
     imageSrc: "/rapiditosvz.png",
     link: "https://play.google.com/store/apps/details?id=com.bytecoreapss.rapiditos",
@@ -260,7 +260,7 @@ export const projects: Project[] = [
       problem:
         "Sin app propia, cada pedido pagaba comisión a una plataforma ajena y el negocio no tenía control ni datos de sus propios clientes.",
       decision:
-        "Decidí ir a app nativa con Flutter sobre un backend robusto (Spring Boot), no a un wrapper barato: si el negocio depende de la app, tiene que sentirse y responder como una app de verdad, no como una web envuelta.",
+        "Decidí ir a una app compilada con Flutter sobre un backend en Spring Boot, no a una web empaquetada como app: si el negocio depende de la app, tiene que sentirse y responder como una app de verdad.",
       built:
         "Una app móvil nativa para iOS y Android, publicada en Google Play, con seguimiento de pedidos en tiempo real, gestión de menús, pagos en línea y chat con el repartidor.",
       result:
@@ -276,7 +276,7 @@ export const projects: Project[] = [
     id: 12,
     title: "Solutec System",
     description:
-      "Sistema integral de gestión de clientes con registro, filtrado y exportación de datos detallados. Reemplaza el seguimiento manual en Excel por un CRM ligero pero estructurado, pensado para PYMEs que recién empiezan a sistematizar su cartera.",
+      "CRM de Solutec DHA, el servicio técnico de electrodomésticos de Dharcy Villafuerte en Lima: clientes, servicios, técnicos, pagos e inventario en un solo sistema, con filtros y exportación a Excel. Reemplazó una cartera que vivía en chats de WhatsApp y hojas de Excel sueltas.",
     tags: ["React", "Material UI", "Frontend", "ERP"],
     imageSrc: "/solutec.png",
     link: "https://front-dharcy.vercel.app/",
@@ -286,7 +286,7 @@ export const projects: Project[] = [
     id: 20,
     title: "VetCare",
     description:
-      "Clínica veterinaria integral con atención especializada, emergencias 24/7, servicios, adopción, tienda y blog. Sitio diseñado para captar agendamiento de citas con un tono cálido y profesional centrado en el bienestar de las mascotas.",
+      "Sitio de muestra para una clínica veterinaria: servicios, emergencias 24/7, adopción, tienda con carrito y blog, ordenados para que el visitante termine agendando una cita.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/vetcare.png",
     link: "https://veterinaria-web-tan.vercel.app/",
@@ -296,18 +296,19 @@ export const projects: Project[] = [
     id: 10,
     title: "EcoDrive+",
     description:
-      "Plataforma que transforma cada viaje en una oportunidad, con recompensas, regalos y beneficios exclusivos para conductores. Pensada para mejorar la calidad de vida de las familias peruanas mediante un sistema de puntos canjeables.",
+      "Sitio del programa de recompensas de EcoDrive+, una app de taxi: cada viaje, como pasajero o como conductor, participa en sorteos diarios y en un gran premio mensual, y da descuentos en empresas afiliadas. Funciona con datos de demostración: los premios, beneficios y ganadores son de ejemplo.",
     tags: ["React", "Next.js", "MySQL", "PHP", "Tailwind CSS"],
     imageSrc: "/ecodriveplus.webp",
     link: "https://ecodrive-two.vercel.app/",
     category: "paginas-web",
   },
-  // ↓ Proyectos secundarios — visibles en /portfolio pero no en la home
+  // ↓ Resto del portafolio, en /portfolio. Cuáles salen en la home lo decide
+  //   HOME_PROJECT_IDS, no esta posición.
   {
     id: 21,
     title: "FacturArkos",
     description:
-      "Facturación electrónica + POS para Mypes del Perú: emite boletas y facturas aceptadas por SUNAT, vende desde el punto de venta, controla inventario y abre tu tienda online — todo en un solo lugar, sin instalación y desde celular, tablet o PC. Producto propio de Árkos.",
+      "Facturación electrónica + POS para Mypes del Perú: emite boletas y facturas aceptadas por SUNAT, vende desde el punto de venta, controla inventario y abre tu tienda online. Sin instalación, desde celular, tablet o PC. Producto propio de Árkos.",
     tags: ["Next.js", "React", "TypeScript", "SUNAT", "POS", "SaaS"],
     imageSrc: "/facturarkos.png",
     link: "https://facturarkos-web.vercel.app",
@@ -323,7 +324,7 @@ export const projects: Project[] = [
       problem:
         "Las soluciones de facturación + POS o son caras, o son piezas sueltas que la Mype tiene que pegar a mano. El resultado es tiempo perdido y errores en comprobantes que la SUNAT rechaza.",
       decision:
-        "Construí FacturArkos como un solo lugar —facturación electrónica SUNAT + POS + inventario + tienda online— y sin instalación, porque la Mype no tiene un área de IT: tiene que funcionar desde el celular, hoy, sin fricción.",
+        "Construí FacturArkos como una sola herramienta —facturación electrónica SUNAT + POS + inventario + tienda online— y sin instalación, porque la Mype no tiene un área de TI: tiene que funcionar desde el celular el mismo día.",
       built:
         "Un SaaS de facturación electrónica validada en vivo con SUNAT, con punto de venta, control de inventario y tienda online, desde celular, tablet o PC y sin instalación.",
       result:
@@ -339,7 +340,7 @@ export const projects: Project[] = [
     id: 17,
     title: "Copperline Garage",
     description:
-      "Landing page premium para un taller automotriz de alto rendimiento en Buenos Aires. Diagnóstico computarizado OBD2 (200+ canales), performance & ECU remapping con dinamómetro propio, y proceso de atención transparente con presupuesto aprobado antes de intervenir el vehículo.",
+      "Landing para un taller mecánico de Buenos Aires: diagnóstico computarizado OBD2, mecánica integral, reprogramación de ECU y mantenimiento preventivo. El proceso de atención va en tres pasos y el cliente aprueba el presupuesto antes de que se toque el auto.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/copperline-garage.png",
     link: "https://automotriz-lyart.vercel.app/",
@@ -349,7 +350,7 @@ export const projects: Project[] = [
     id: 3,
     title: "Encrypted Escape Room",
     description:
-      "Experiencia de escape room en línea con enigmas y códigos a resolver en tiempo limitado, ofreciendo diversas salas temáticas con niveles de dificultad variados.",
+      "Sitio de un escape room en Miraflores: salas temáticas con su dificultad, duración y récord, reservas, promociones, registro de equipos y un ranking de tiempos por sala.",
     tags: ["React", "Next.js", "MySQL", "CodeIgniter", "Tailwind CSS"],
     imageSrc: "/encrypted.webp",
     link: "https://kevin-escape-room.vercel.app/",
@@ -359,7 +360,7 @@ export const projects: Project[] = [
     id: 13,
     title: "Kinetic Black",
     description:
-      "Landing page premium para una marca de suplementación de élite. Creatina monohidrato de grado farmacéutico con diseño oscuro de alto impacto, animaciones de onboarding, contadores animados y secciones de características, testimonios y CTA.",
+      "Landing de producto para una creatina monohidrato: fondo oscuro, una pantalla de carga, un recorrido por scroll que abre el envase paso a paso, contadores con los datos de la fórmula y secciones de beneficios y testimonios.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/kinetickblack.jpeg",
     link: "https://kinetic-black.vercel.app/",
@@ -369,7 +370,7 @@ export const projects: Project[] = [
     id: 14,
     title: "Ñawi",
     description:
-      "Productora audiovisual dedicada al cine documental que busca conservar la memoria y fortalecer la identidad cultural a través de relatos comunitarios.",
+      "Sitio de Ñawi Producciones, productora audiovisual peruana de cine documental: video de portada, manifiesto, servicios, proceso de trabajo y su próximo documental, AYARANGA, tierra añorada.",
     tags: ["Next.js", "React", "Tailwind CSS", "Audiovisual"],
     imageSrc: "/nawi.png",
     link: "https://nawi-lac.vercel.app/",
@@ -379,7 +380,7 @@ export const projects: Project[] = [
     id: 18,
     title: "Dr. Ing. Freedy Sotelo Valer",
     description:
-      "Sitio personal editorial de alto contraste. Incluye galería, sección de propuestas y proyectos, preguntas frecuentes y módulo de descarga de materiales, con foco en tipografía y jerarquía visual sobre fondos oscuros.",
+      "Sitio personal y de campaña al Senado por Lima: trayectoria, propuestas legislativas, galería, preguntas frecuentes, audios de campaña y una biblioteca de materiales para descargar. Fondos oscuros y tipografía de alto contraste.",
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     imageSrc: "/freedy-sotelo.png",
     link: "https://freedy-sotelo.vercel.app/",
@@ -389,7 +390,7 @@ export const projects: Project[] = [
     id: 15,
     title: "II Simposio Veterinario Internacional 2026",
     description:
-      "Sistema de registro y landing page para el Segundo Simposio Veterinario Internacional 2026, facilitando la inscripción y el acceso a la agenda para profesionales veterinarios en Trujillo.",
+      "Landing y sistema de inscripción del II Simposio Veterinario Internacional, que se realizó en Trujillo el 5 y 6 de junio de 2026, con talleres el 4 y el 7. Terminado el evento, el sitio quedó como registro de la edición: programa, ponentes y sede.",
     tags: ["Next.js", "Tailwind CSS", "React", "v0"],
     imageSrc: "/simposio.png",
     link: "https://v0-veterinary-symposium-registratio.vercel.app/",
@@ -399,7 +400,7 @@ export const projects: Project[] = [
     id: 5,
     title: "ReLu Coffee",
     description:
-      "Empresa que combina la pasión por el café con la tecnología, ofreciendo cafés gourmet y cafeteras automáticas de alto rendimiento para hogares, oficinas y negocios.",
+      "Sitio de ReLu Coffee, que vende café gourmet y cafeteras automáticas Saeco para hogares, oficinas y negocios: catálogo, cotización por producto y planes de alquiler con mantenimiento incluido.",
     tags: ["Astro", "Tailwind CSS"],
     imageSrc: "/relucoffee.webp",
     link: "https://www.relucoffee.com/",
@@ -409,7 +410,7 @@ export const projects: Project[] = [
     id: 4,
     title: "Casaroma Hostels",
     description:
-      "Alojamiento acogedor en Lima, Perú, fundado por una familia de viajeros, ofreciendo habitaciones cómodas y un ambiente que invita a compartir experiencias con otros viajeros.",
+      "Sitio de Casaroma, un hostel en Lima fundado por una familia de viajeros, con sus habitaciones y espacios comunes.",
     tags: ["HTML", "CSS", "JavaScript", "PHP"],
     imageSrc: "/casaromahotel.webp",
     category: "paginas-web",
@@ -417,9 +418,9 @@ export const projects: Project[] = [
   },
   {
     id: 9,
-    title: "Tu sonrisa perfecta landing page",
+    title: "Sonrisa Perfecta",
     description:
-      "Diseño de una landing page para una clínica dental, enfocada en resaltar los servicios ofrecidos y facilitar la captación de nuevos pacientes.",
+      "Landing de muestra para una clínica dental: tratamientos, un diente en 3D que se puede girar para explicar la planificación digital, el proceso de atención en cuatro pasos, testimonios y reserva de cita por formulario o WhatsApp.",
     tags: ["Next.js", "Tailwind CSS", "React"],
     imageSrc: "/sonrisaperfectalanding.jpeg",
     link: "https://clinica-dental-landing-ten.vercel.app/",
@@ -427,9 +428,9 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: "Agencia. Landing Page",
+    title: "Agencia.",
     description:
-      "Landing page para una agencia de diseño web, destacando sus servicios, proyectos y equipo. Incluye secciones de testimonios, portafolio y un formulario de contacto.",
+      "Landing de muestra para un estudio de diseño y desarrollo web: servicios, proceso, blog y contacto. La sección de trabajos muestra casos reales de Árkos (Meridiano, Maré, Kinetic Black, Ñawi), cada uno con enlace a su sitio publicado.",
     tags: ["React", "Next.js", "Tailwind CSS"],
     imageSrc: "/agencialandingpage.jpeg",
     link: "https://landing-page-place-holder.vercel.app/",
@@ -439,7 +440,7 @@ export const projects: Project[] = [
     id: 2,
     title: "Solutec DHA",
     description:
-      "Landing page premium para Solutec DHA (servicio técnico a domicilio liderado por Dharcy Villafuerte), especializada en reparación de electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Tono cálido y conversacional con conversaciones reales de WhatsApp, galería de trabajos, formulario de diagnóstico sin compromiso y CTAs directos a contacto.",
+      "Sitio de Solutec DHA, el servicio técnico a domicilio de Dharcy Villafuerte que repara electrodomésticos en Lima (refrigeradoras, lavadoras, cocinas, termas). Habla con la voz de Dharcy y muestra conversaciones reales de WhatsApp, una galería de trabajos, un formulario de diagnóstico sin compromiso y botones directos a contacto.",
     tags: ["Next.js", "Tailwind CSS", "React", "TypeScript"],
     imageSrc: "/solutecdha.png",
     link: "https://www.solutecdha.com",
@@ -447,7 +448,7 @@ export const projects: Project[] = [
     client: "Dharcy Villafuerte",
     year: "2026",
     location: "Lima, Perú",
-    services: ["Landing premium", "Sistema de gestión de clientes", "Diseño UX/UI"],
+    services: ["Landing page", "Sistema de gestión de clientes", "Diseño UX/UI"],
     caseStudy: {
       context:
         "Dharcy Villafuerte lidera un servicio técnico a domicilio de reparación de electrodomésticos en Lima y atiende a más de 2,500 clientes — toda esa relación vivía en WhatsApp, de tú a tú. Su marca era cercana; su miedo, que una web la hiciera ver fría o corporativa.",
@@ -456,7 +457,7 @@ export const projects: Project[] = [
       decision:
         "Mi criterio fue no imponerle una identidad corporativa que la traicionara: su negocio se sostiene en el trato cercano. Construí una web que la hace ver profesional al primer clic pero conserva su voz —conversaciones reales de WhatsApp, tono cálido— y, detrás, un sistema que ordena su cartera sin obligarla a cambiar cómo trata a su gente. La tecnología se adaptó a ella, no al revés.",
       built:
-        "Una landing premium (galería de trabajos, formulario de diagnóstico sin compromiso, CTAs directos a contacto) conectada a un sistema de gestión de clientes que captura los leads de WhatsApp y los administra de punta a punta.",
+        "Una landing (galería de trabajos, formulario de diagnóstico sin compromiso, botones directos a contacto) conectada a un sistema de gestión de clientes que recibe las consultas de WhatsApp y les hace seguimiento hasta cerrar el servicio.",
       result:
         "Es el sistema mejor valuado de Árkos y el de uso más constante: Dharcy lo sigue usando hoy para operar su servicio técnico, sin haber dudado ni fallado en el camino. Luce profesional al primer clic, pero quien le escribe sigue encontrándose con la misma Dharcy de siempre.",
       proof: {
@@ -476,7 +477,7 @@ export const projects: Project[] = [
     id: 22,
     title: "Nexora",
     description:
-      "Landing premium para una agencia creativa, bilingüe (ES/EN). Tipografía de alto impacto, scroll suave y secciones de manifiesto, servicios, trabajos destacados y contacto. Pensada para que la agencia conecte marcas con personas y convierta esa conexión en resultados reales.",
+      "Landing de muestra para una agencia creativa, en español e inglés: titulares a gran tamaño, scroll suave y secciones de manifiesto, servicios, trabajos destacados, artículos y contacto.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Lenis", "i18n"],
     imageSrc: "/nexora.png",
     link: "https://nexora-agency-beta.vercel.app/es",
@@ -484,9 +485,9 @@ export const projects: Project[] = [
   },
   {
     id: 23,
-    title: "Pattern Breaking",
+    title: "MercaPerú",
     description:
-      "Pieza editorial de data-storytelling que expone los patrones engañosos (dark patterns) de la moda ultra-rápida: urgencia falsa, stock fingido y otras tácticas de manipulación. Scrollytelling con gráficos animados, contadores y efectos WebGL para narrar el dato con impacto.",
+      "Landing de MercaPerú, un marketplace peruano de concepto que junta a emprendedores de todo el país: cómo abrir una tienda, cómo comprar, categorías, ofertas, pagos con Yape, Plin o tarjeta y envíos a todo el Perú. Se recorre con scroll, con animaciones y efectos WebGL atados al desplazamiento.",
     tags: ["JavaScript", "GSAP", "Lenis", "WebGL", "Scrollytelling"],
     imageSrc: "/pattern-breaking.png",
     link: "https://pattern-breaking.vercel.app/",
@@ -496,7 +497,7 @@ export const projects: Project[] = [
     id: 24,
     title: "Maré",
     description:
-      "Tienda online (e-commerce) de bienestar mediterráneo: comestibles, salud y belleza y hogar de origen vegetal con entrega de producto fresco. Catálogo por categorías y marcas, búsqueda, carrito y una experiencia de compra premium y bilingüe (ES/EN).",
+      "Tienda online de bienestar de inspiración mediterránea, con entrega en Qatar: comestibles frescos, salud y belleza, y productos para el hogar de origen vegetal. Catálogo por categorías y marcas, buscador, favoritos y carrito, en español e inglés.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
     imageSrc: "/mare.jpg",
     link: "https://mare-ecom.vercel.app/",
@@ -506,7 +507,7 @@ export const projects: Project[] = [
     id: 25,
     title: "Colibrí",
     description:
-      "Tienda online para un micro-tostador de café climapositivo. Identidad de alto impacto (tipografía display, color vibrante y marquesinas animadas), catálogo de cafés, suscripciones y storytelling de marca en torno a lo artesanal y lo sostenible.",
+      "Tienda online para un micro-tostador de café «climapositivo»: catálogo de cafés en bolsas de 300 g y 1 kg, suscripciones y la historia de la marca, que tuesta en lotes pequeños con un tostador eléctrico. Tipografía display, colores saturados y marquesinas animadas.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-commerce"],
     imageSrc: "/colibri.png",
     link: "https://colibri-beta.vercel.app/",
@@ -516,7 +517,7 @@ export const projects: Project[] = [
     id: 26,
     title: "Meridiano",
     description:
-      "Sitio corporativo completo para un operador logístico integral: carga aérea y marítima, aduanas, almacenaje y transporte terrestre. Globo 3D en WebGL con la red de corredores, secuencias atadas al scroll, calculadora de huella de carbono, rastreo y tienda corporativa. Pieza propia de Árkos con marca ficticia: marca, contenido, ilustración, 3D y código son originales.",
+      "Sitio corporativo para un operador logístico: carga aérea y marítima, aduanas, almacenaje y transporte terrestre. Globo 3D en WebGL con la red de corredores, secuencias atadas al scroll, calculadora de huella de carbono, rastreo y tienda corporativa. Pieza propia de Árkos con marca ficticia: marca, contenido, ilustración, 3D y código son originales.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Three.js", "Lenis"],
     imageSrc: "/meridiano.webp",
     link: "https://meridiano-arkos.vercel.app/",
@@ -679,18 +680,20 @@ export const getProjectsByCategory = (category: string) =>
 
 export const getProjectById = (id: number) => projects.find(project => project.id === id)
 
-// Selección y orden de la home. RestHUB (19) primero — es el proyecto destacado.
-// Editar aquí para curar la portada sin tocar el orden del array.
-// Ojo: cada filtro (Páginas web / Sistemas web / Apps) debe quedar bien poblado;
-// una categoría con 3-4 cards deja la cuadrícula vacía.
+// Selección y orden de la home: nueve proyectos, tres filas de tres en
+// escritorio. Editar aquí para cambiar la portada sin tocar el orden del array.
+// Antes eran 25 y la home parecía un segundo /portfolio; con nueve, quien entra
+// ve primero lo que Árkos vende (sistemas que una empresa usa a diario) y
+// después una muestra corta de sitios web. El resto sigue en /portfolio.
+// Ojo: con esta selección el filtro "Apps" de la home queda vacío y "Páginas
+// web" tiene solo tres tarjetas.
 export const HOME_PROJECT_IDS = [
-  // 28 y 29 (Precio Vivo, Precio Justo) entran al núcleo: son lo único del
-  // portafolio que demuestra en vivo la capacidad de datos + IA, y la home
-  // era justamente donde no había prueba de eso.
-  // 30, 31 y 32 (RutaPro, RIVET, SignMed) entran arriba: son los casos con
-  // documentación de ingeniería real y los únicos indexables recientes.
-  19, 32, 28, 29, 30, 31, 2, 21, 22, 23, 1, 8, 6, 11, // núcleo B2B + destacados
-  26, 27, 20, 24, 25, 13, 17, 18, 14, 15, 12, // páginas web y e-commerce recientes + Solutec System
+  // RestHUB primero: es el proyecto destacado y tiene métricas reales del
+  // piloto. Precio Vivo es la prueba en vivo de datos + IA. VR PMS y
+  // OrquestadorADM cubren hotelería y alquileres; Solutec System es un cliente
+  // real que lo usa todos los días; RIVET, un producto propio en vivo.
+  19, 28, 11, 12, 1, 31, // sistemas
+  26, 24, 14, // sitios web: Meridiano, Maré, Ñawi
 ]
 export const getHomeProjects = (): Project[] =>
   HOME_PROJECT_IDS
