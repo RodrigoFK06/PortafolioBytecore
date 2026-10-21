@@ -93,13 +93,11 @@ La sidebar utiliza un diseño dark-on-light que contrasta con el contenido princ
 
 ## Tecnologías utilizadas
 
-| Categoría | Herramientas |
-|-----------|-------------|
-| Framework | Next.js 14, React 18, TypeScript |
-| Estilos | Tailwind CSS, shadcn/ui |
-| Iconos | Lucide React |
-| Calendario | Implementación custom (no librería externa) |
-| Deploy | Vercel |
+- **Framework:** Next.js 14, React 18, TypeScript
+- **Estilos:** Tailwind CSS, shadcn/ui
+- **Iconos:** Lucide React
+- **Calendario:** Implementación custom (no librería externa)
+- **Deploy:** Vercel
 
 ---
 

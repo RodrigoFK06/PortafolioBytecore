@@ -12,6 +12,21 @@ const baseUrl = "https://xn--rkos-4na.com"
 
 type Params = { slug: string }
 
+// La narrativa de data/projects.ts es texto plano, pero algunos casos nombran
+// comandos entre comillas invertidas (la CLI `precio` de Precio Vivo): se
+// pintan como código en línea en vez de mostrar las comillas literales.
+function withInlineCode(text: string) {
+  return text.split(/`([^`]+)`/).map((part, i) =>
+    i % 2 === 1 ? (
+      <code key={i} className="font-mono text-[0.9em] px-1.5 py-0.5 rounded bg-secondary text-foreground">
+        {part}
+      </code>
+    ) : (
+      part
+    )
+  )
+}
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: String(p.id) }))
 }
@@ -141,7 +156,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             {project.title}
           </h1>
           <p className="mt-5 text-lg md:text-xl leading-relaxed text-muted-foreground text-pretty">
-            {cs?.context || project.description}
+            {withInlineCode(cs?.context || project.description)}
           </p>
         </header>
 
@@ -151,7 +166,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             {cs?.problem ? (
               <section>
                 <h2 className={sectionLabel}>El problema</h2>
-                <p className={bodyText}>{cs.problem}</p>
+                <p className={bodyText}>{withInlineCode(cs.problem)}</p>
               </section>
             ) : null}
 
@@ -159,7 +174,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               <section className={`${panel} p-6 md:p-8`}>
                 <h2 className={sectionLabel}>La decisión / el criterio</h2>
                 <p className="text-base md:text-lg leading-relaxed text-foreground/90 italic">
-                  {cs.decision}
+                  {withInlineCode(cs.decision)}
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground">— Rodrigo Torres, Árkos</p>
               </section>
@@ -167,13 +182,13 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
             <section>
               <h2 className={sectionLabel}>Qué construimos</h2>
-              <p className={bodyText}>{built}</p>
+              <p className={bodyText}>{withInlineCode(built)}</p>
             </section>
 
             {cs?.result ? (
               <section>
                 <h2 className={sectionLabel}>El resultado</h2>
-                <p className={bodyText}>{cs.result}</p>
+                <p className={bodyText}>{withInlineCode(cs.result)}</p>
               </section>
             ) : null}
 
@@ -298,7 +313,12 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         {project.location?.includes("Lima") ? (
           <section className="mt-16 max-w-2xl mx-auto rounded-2xl border border-border p-6">
             <p className={bodyText}>
-              {project.title} es uno de nuestros clientes en Lima.{" "}
+              {/* Los productos propios (Precio Vivo) no son clientes: la ficha
+                  los declara "Producto propio de Árkos" y el texto no puede
+                  contradecirla. */}
+              {project.clientType?.startsWith("Producto propio")
+                ? `${project.title} es un producto propio de Árkos, hecho en Lima.`
+                : `${project.title} es uno de nuestros clientes en Lima.`}{" "}
               <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">
                 Ver todos nuestros proyectos y servicios para empresas de Lima →
               </Link>
@@ -316,7 +336,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             size="lg"
             className="rounded-lg px-8 bg-brand hover:bg-brand/90 text-brand-foreground font-medium"
           >
-            <Link href="/#contact">Conversemos tu proyecto</Link>
+            <Link href="/#contact">Conversemos sobre tu proyecto</Link>
           </Button>
         </section>
       </div>

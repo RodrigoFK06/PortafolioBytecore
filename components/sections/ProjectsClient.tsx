@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { StaggerGroup } from "@/components/motion/stagger-group"
 import { Reveal } from "@/components/motion/reveal"
+import { ScrollTrigger } from "@/lib/motion"
 
 interface Project {
   id: number
@@ -37,6 +38,14 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
   )
 
   const displayedProjects = isMobile ? filteredProjects.slice(0, 3) : filteredProjects
+
+  // Al pasar a 3 proyectos en móvil (o al filtrar) la página se acorta miles de
+  // px DESPUÉS de que ScrollTrigger midió dónde empiezan las secciones de abajo.
+  // Sin recalcular, sus disparadores quedaban más allá del final de la página:
+  // en móvil los testimonios, el proceso, el contacto y las FAQ nunca aparecían.
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [isMobile, activeFilter])
 
   return (
     <>

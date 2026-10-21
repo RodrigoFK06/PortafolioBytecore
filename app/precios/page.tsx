@@ -121,9 +121,13 @@ export default function PreciosPage() {
           </p>
         </div>
 
+        {/* Bajo 640 px la tabla de 3 columnas no cabe (la columna USD se salía
+            por la derecha y la descripción quedaba en ~100 px): cada fila pasa
+            a ser una tarjeta con el nombre arriba y los dos precios debajo,
+            rotulados con data-label porque el thead se oculta. */}
         <div className="max-w-4xl mx-auto mb-4 overflow-hidden rounded-2xl border border-border">
           <table className="w-full text-left border-collapse">
-            <thead>
+            <thead className="hidden sm:table-header-group">
               <tr className="bg-secondary text-sm">
                 <th className="p-4 font-semibold">Tipo de proyecto</th>
                 <th className="p-4 font-semibold text-right whitespace-nowrap">Desde (S/)</th>
@@ -131,17 +135,30 @@ export default function PreciosPage() {
               </tr>
             </thead>
             <tbody>
-              {tiers.map((t) => (
-                <tr key={t.name} className="border-t border-border align-top">
-                  <td className="p-4">
+              {tiers.map((t, i) => (
+                <tr
+                  key={t.name}
+                  className={`grid grid-cols-2 sm:table-row border-border align-top ${i > 0 ? "border-t" : "sm:border-t"}`}
+                >
+                  <td className="col-span-2 p-4 pb-3 sm:pb-4">
                     <div className="font-medium">
                       {t.name}
                       {t.quote && <span className="ml-2 text-xs text-brand">cotización</span>}
                     </div>
                     <div className="text-sm text-muted-foreground">{t.note}</div>
                   </td>
-                  <td className="p-4 text-right font-semibold whitespace-nowrap">S/ {t.penLabel}</td>
-                  <td className="p-4 text-right whitespace-nowrap text-muted-foreground">$ {t.usdLabel}</td>
+                  <td
+                    data-label="Desde (S/)"
+                    className="px-4 pb-4 sm:p-4 sm:text-right font-semibold whitespace-nowrap before:content-[attr(data-label)] before:block before:text-xs before:font-normal before:text-muted-foreground sm:before:content-none"
+                  >
+                    S/ {t.penLabel}
+                  </td>
+                  <td
+                    data-label="Desde (USD)"
+                    className="px-4 pb-4 sm:p-4 sm:text-right whitespace-nowrap text-muted-foreground before:content-[attr(data-label)] before:block before:text-xs sm:before:content-none"
+                  >
+                    $ {t.usdLabel}
+                  </td>
                 </tr>
               ))}
             </tbody>

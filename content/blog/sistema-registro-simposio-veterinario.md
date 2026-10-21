@@ -93,13 +93,11 @@ En una landing de evento, el botón de registro debe ser accesible sin hacer scr
 
 ## Tecnologías utilizadas
 
-| Categoría | Herramientas |
-|-----------|-------------|
-| Framework | Next.js, React |
-| Estilos | Tailwind CSS |
-| Prototipado | v0 |
-| Animaciones | CSS keyframes (countdown) |
-| Deploy | Vercel |
+- **Framework:** Next.js, React
+- **Estilos:** Tailwind CSS
+- **Prototipado:** v0
+- **Animaciones:** CSS keyframes (countdown)
+- **Deploy:** Vercel
 
 ---
 

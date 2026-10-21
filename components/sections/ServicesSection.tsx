@@ -1,34 +1,25 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
 import type { LucideIcon } from "lucide-react"
 import { ArrowRight, Layout, Monitor, Palette, Boxes } from "lucide-react"
 import { KineticText } from "@/components/motion/kinetic-text"
 import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
-import ServiceModal from "@/components/ServiceModal"
 
 interface ServiceCardProps {
   icon: LucideIcon
   index: number
   title: string
   description: string
-  detailedDescription?: string
   /** Subpágina real del servicio. El home era la única entrada a /services. */
   href: string
 }
 
-function ServiceCard({ icon: Icon, index, title, description, detailedDescription, href }: ServiceCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
+function ServiceCard({ icon: Icon, index, title, description, href }: ServiceCardProps) {
   return (
     <div className="relative h-full flex flex-col">
-      <div
-        className={`relative p-8 rounded-lg bg-card shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 h-full flex flex-col ${
-          isModalOpen ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
-      >
+      <div className="relative p-8 rounded-lg bg-card shadow-hairline hover:shadow-hairline-md transition-shadow duration-300 h-full flex flex-col">
         <div className="mb-8 flex items-center justify-between">
           <span className="spec-label">SVC. {String(index).padStart(2, "0")}</span>
           <div className="w-12 h-12 rounded-md bg-secondary flex items-center justify-center">
@@ -42,33 +33,18 @@ function ServiceCard({ icon: Icon, index, title, description, detailedDescriptio
           {description}
         </p>
 
-        <div className="mt-auto flex flex-col items-start gap-2">
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="group/btn inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-brand transition-colors"
-          >
-            Saber más
-            <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" aria-hidden="true" />
-          </button>
-          <Link
-            href={href}
-            className="text-sm font-medium text-brand hover:underline"
-          >
-            {/* "Saber más" es un <button> del modal, no un enlace: el ancla real
-                hacia la subpágina es esta, y lleva el nombre del servicio. */}
-            Ver el servicio completo<span className="sr-only"> de {title}</span> →
-          </Link>
-        </div>
+        {/* Un solo enlace por tarjeta: antes convivían "Saber más" (un modal con
+            un resumen) y "Ver el servicio completo"; la subpágina ya tiene el
+            detalle, así que queda solo el enlace real, con el nombre del
+            servicio en el texto. */}
+        <Link
+          href={href}
+          className="group/btn mt-auto inline-flex items-center gap-2 self-start text-sm font-semibold text-foreground hover:text-brand transition-colors"
+        >
+          Ver el servicio completo<span className="sr-only"> de {title}</span>
+          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" aria-hidden="true" />
+        </Link>
       </div>
-
-      <ServiceModal
-        title={title}
-        description={detailedDescription || description}
-        icon={<Icon className="w-12 h-12 text-brand" />}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </div>
   )
 }
@@ -106,7 +82,6 @@ export function ServicesSection() {
             href="/services/desarrollo-web"
             title="Desarrollo Web"
             description="Sitios y plataformas que cargan rápido, se ven impecables en celular y traen clientes reales. Tu equipo puede actualizarlos sin pedirle ayuda a nadie."
-            detailedDescription="Construimos landing pages, sitios corporativos y plataformas SaaS con Next.js y React. Listos para que Google los encuentre, rápidos en cualquier conexión, y pensados para conseguir agendamientos, ventas o consultas según tu negocio."
           />
           <ServiceCard
             icon={Palette}
@@ -114,7 +89,6 @@ export function ServicesSection() {
             href="/services/diseno-ux-ui"
             title="Diseño UI/UX"
             description="Interfaces claras donde tu cliente sabe en tres segundos qué tiene que hacer. Diseño que vende sin perder la identidad de tu marca."
-            detailedDescription="Diseñamos en Figma con foco en conversión: jerarquía visual clara, flujos cortos, animaciones que guían en lugar de distraer. Investigamos cómo se mueve tu cliente real antes de dibujar un solo botón."
           />
           <ServiceCard
             icon={Monitor}
@@ -122,7 +96,6 @@ export function ServicesSection() {
             href="/services/ecommerce"
             title="E-Commerce"
             description="Tiendas online listas para vender desde el día uno. Pasarelas en soles, factura electrónica, control de stock e integración con tu courier."
-            detailedDescription="Tiendas con Izipay, Culqi, MercadoPago y Stripe integradas. Catálogo administrable, carrito que no se cae, integración con tu sistema contable y métricas de venta en tiempo real."
           />
           <ServiceCard
             icon={Boxes}
@@ -130,7 +103,6 @@ export function ServicesSection() {
             href="/services/software-a-medida"
             title="Software a Medida"
             description="Sistemas, ERPs y dashboards hechos para tu operación: agendamiento de citas, gestión hotelera, restaurantes, talleres, clínicas. Lo que un Excel ya no resuelve."
-            detailedDescription="Diseñamos software a medida cuando los sistemas genéricos no encajan: PMS hoteleros, ERPs para restaurantes, sistemas de gestión clínica, paneles administrativos y dashboards. Partimos del proceso real de tu equipo y automatizamos lo que hoy se hace a mano; si tu operación lo pide, conectamos facturación electrónica, PLE/SIRE y validación RENIEC. Módulos que crecen contigo."
           />
         </StaggerGroup>
 
@@ -142,7 +114,7 @@ export function ServicesSection() {
               Cada servicio tiene su página con el detalle, el precio «desde» y los proyectos donde
               ya lo hicimos:{" "}
               <Link href="/services" className="text-brand font-medium hover:underline">
-                ver los seis servicios
+                ver todos los servicios
               </Link>
               . Si tu empresa está en la capital, empieza por{" "}
               <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">

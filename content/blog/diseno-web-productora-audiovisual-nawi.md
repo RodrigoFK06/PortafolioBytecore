@@ -77,13 +77,11 @@ Eso es exactamente lo que buscábamos. Una web de productora audiovisual no debe
 
 ## Tecnologías utilizadas
 
-| Categoría | Herramientas |
-|-----------|-------------|
-| Framework | Next.js, React, TypeScript |
-| Estilos | Tailwind CSS (dark theme) |
-| Optimización | next/image, WebP, AVIF |
-| Integración | YouTube embed |
-| Deploy | Vercel |
+- **Framework:** Next.js, React, TypeScript
+- **Estilos:** Tailwind CSS (dark theme)
+- **Optimización:** next/image, WebP, AVIF
+- **Integración:** YouTube embed
+- **Deploy:** Vercel
 
 ---
 

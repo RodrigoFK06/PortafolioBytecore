@@ -40,11 +40,9 @@ Este es el método que aplico, en el orden en que lo aplico.
 5. **Formar en cascada cuando el equipo es grande.** Se forma directamente a un grupo núcleo, que replica hacia el resto, y se deja una segunda línea de soporte por tickets y consultas durante la adopción. En una organización de salud formé directamente a 20 usuarios que llevaron la herramienta a una población de más de 200 personas.
 6. **Medir antes, medir después.** Línea base levantada antes de intervenir y la misma medición repetida después. Es la única forma de sustentar cualquier mejora.
 
-| Perfil | Qué necesita aprender | Cómo se forma |
-|---|---|---|
-| Usuarios de negocio | Qué pedir, cómo verificar, cuándo escalar a una persona | En el puesto, con sus casos reales y retroalimentación |
-| Equipos técnicos | Prompting, context engineering, construcción y evaluación de sistemas RAG | Casos de trabajo reales, revisión de código y de evaluaciones |
-| Grupo núcleo (organizaciones grandes) | Todo lo anterior más cómo replicar y dar soporte | Formación directa y segunda línea de soporte durante la adopción |
+- **Usuarios de negocio.** Qué necesitan aprender: qué pedir, cómo verificar, cuándo escalar a una persona. Cómo se forman: en el puesto, con sus casos reales y retroalimentación.
+- **Equipos técnicos.** Qué necesitan aprender: prompting, context engineering, construcción y evaluación de sistemas RAG. Cómo se forman: casos de trabajo reales, revisión de código y de evaluaciones.
+- **Grupo núcleo (organizaciones grandes).** Qué necesita aprender: todo lo anterior más cómo replicar y dar soporte. Cómo se forma: formación directa y segunda línea de soporte durante la adopción.
 
 ## ¿Cómo se mide si la adopción funcionó?
 

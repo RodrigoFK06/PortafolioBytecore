@@ -87,13 +87,11 @@ Además del CRM, desarrollamos la landing pública de Solutec DHA (solutecdha.co
 
 ## Tecnologías utilizadas
 
-| Categoría | Herramientas |
-|-----------|-------------|
-| Framework | React 18 |
-| UI Library | Material UI (MUI) |
-| Tablas | MUI DataGrid |
-| Exportación | XLSX, CSV (browser-side) |
-| Deploy | Vercel |
+- **Framework:** React 18
+- **UI Library:** Material UI (MUI)
+- **Tablas:** MUI DataGrid
+- **Exportación:** XLSX, CSV (browser-side)
+- **Deploy:** Vercel
 
 ---
 

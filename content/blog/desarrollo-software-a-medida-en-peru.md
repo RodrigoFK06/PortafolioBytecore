@@ -56,7 +56,7 @@ Trabajamos por fases:
 Landing pages, sitios corporativos y plataformas web full-stack con Next.js y React, rápidas en cualquier conexión, optimizadas para SEO y con arquitectura JAMStack. Sirven para captar clientes reales y comunicar el valor de un negocio en segundos.
 
 - **Solutec DHA (landing):** landing pública del servicio técnico de reparación de electrodomésticos de Dharcy en Lima, con tono cálido, conversaciones reales de WhatsApp y formulario de diagnóstico sin compromiso. Next.js y Tailwind CSS. Trabaja junto al CRM Solutec System: la landing capta y el CRM gestiona end-to-end.
-- **Ñawi Producciones:** sitio corporativo dark-theme para una productora audiovisual de cine documental, con hero a pantalla completa e integración de YouTube como portafolio. Next.js, React, TypeScript y Tailwind, con imágenes optimizadas en WebP/AVIF. URL: https://nawi-lac.vercel.app/
+- **Ñawi Producciones:** sitio corporativo dark-theme para una productora audiovisual de cine documental, con hero a pantalla completa e integración de YouTube como portafolio. Next.js, React, TypeScript y Tailwind, con imágenes optimizadas en WebP/AVIF. Caso: [Ñawi Producciones](/portfolio/14).
 - **II Simposio Veterinario Internacional 2026:** landing de alta conversión y sistema de registro para un evento académico de 4 días en Trujillo, con countdown en tiempo real y botón flotante de WhatsApp. Next.js, React y Tailwind.
 
 ### Aplicaciones web y paneles administrativos
@@ -74,9 +74,9 @@ Cuando una idea necesita salir al mercado rápido para validarse, construimos un
 Sistemas y plataformas empresariales que se construyen cuando los genéricos no encajan: ERPs, CRMs, PMS hoteleros, sistemas de gestión clínica, SaaS y dashboards, diseñados desde la operación real y construidos con React, Next.js y TypeScript.
 
 - **RestHUB:** ERP integral para restaurantes que unifica POS, cocina, caja y contabilidad en un solo sistema, con una pantalla optimizada por cada rol (mesero, cocina, caja) y una landing premium pensada para Latinoamérica. Next.js, React, TypeScript y Tailwind.
-- **VR PMS:** Property Management System a medida para alquileres vacacionales, alternativa económica a Guesty/Hostaway, con 5 módulos (Dashboard, Schedule tipo Gantt, Bookings, Properties y Guests) y calendario custom sin librería externa. Next.js, React, TypeScript, Tailwind y shadcn/ui. URL: https://overbookingsol.vercel.app/
-- **OrquestadorADM:** sistema de gestión hotelera PMS + RMS con Revenue Management avanzado —forecasting, análisis What-If, precios dinámicos y analítica diaria granular—. React, Next.js, PostgreSQL, TypeScript y Tailwind. URL: https://orquestador-adm.vercel.app
-- **ATELIER Clinic:** SaaS premium para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso y dashboard médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. URL: https://atelier-seven-beta.vercel.app/
+- **VR PMS:** Property Management System a medida para alquileres vacacionales, alternativa económica a Guesty/Hostaway, con 5 módulos (Dashboard, Schedule tipo Gantt, Bookings, Properties y Guests) y calendario custom sin librería externa. Next.js, React, TypeScript, Tailwind y shadcn/ui. Caso: [VR PMS](/portfolio/11).
+- **OrquestadorADM:** sistema de gestión hotelera PMS + RMS con Revenue Management avanzado —forecasting, análisis What-If, precios dinámicos y analítica diaria granular—. React, Next.js, PostgreSQL, TypeScript y Tailwind. Caso: [OrquestadorADM](/portfolio/1).
+- **ATELIER Clinic:** SaaS premium para clínicas estéticas con portales separados de paciente y doctor, reservas multi-paso y dashboard médico en tiempo real. Next.js, React, TypeScript, Tailwind y Supabase. Caso: [ATELIER Clinic](/portfolio/6).
 
 Si el cuello de botella es la facturación, puede que no haga falta un desarrollo nuevo, porque [FacturArkos, nuestro sistema de facturación electrónica y POS para SUNAT](/facturarkos) ya resuelve la emisión de comprobantes. Y si todavía no está claro qué conviene construir, el punto de partida es un [diagnóstico de procesos de 2 semanas](/diagnostico), con hallazgos, números y un plan con costos antes de escribir código.
 
@@ -84,7 +84,7 @@ Si el cuello de botella es la facturación, puede que no haga falta un desarroll
 
 Cuando el objetivo es vender en línea o llegar al celular del cliente, Árkos también construye tiendas y apps a medida.
 
-- **E-commerce:** tiendas online listas para vender, con pasarelas de pago en soles (Izipay, Culqi, MercadoPago, Stripe), factura electrónica, control de stock, integración con courier y métricas en tiempo real. Ejemplo: **ReLu Coffee**, e-commerce de café gourmet construido con Astro y Tailwind CSS (https://www.relucoffee.com/).
+- **E-commerce:** tiendas online listas para vender, con pasarelas de pago en soles (Izipay, Culqi, MercadoPago, Stripe), factura electrónica, control de stock, integración con courier y métricas en tiempo real. Ejemplo: **[ReLu Coffee](/portfolio/5)**, e-commerce de café gourmet construido con Astro y Tailwind CSS.
 - **Aplicaciones móviles:** apps nativas y multiplataforma con Flutter y Dart, publicadas en App Store y Google Play. Ejemplo: **Rapiditos**, app de delivery para iOS y Android con seguimiento en tiempo real y pagos en línea (Flutter, Firebase, Dart, Spring Boot, Docker).
 
 ## Para quién es: PYMEs de Perú y Latinoamérica
@@ -106,17 +106,15 @@ Buena parte de estos proyectos son con empresas de la capital: Solutec DHA atien
 
 ## Tecnologías que usamos
 
-| Categoría | Herramientas |
-|-----------|--------------|
-| Frontend | React, Next.js, TypeScript, Tailwind CSS, Framer Motion |
-| UI | shadcn/ui, Radix UI, Material UI (MUI), Lucide React |
-| Backend | Node.js, Next.js API Routes, Express, Laravel, CodeIgniter, Spring Boot, PHP |
-| Bases de datos | Supabase (PostgreSQL), Firebase, MySQL, MongoDB, Prisma |
-| Móvil | Flutter, Dart |
-| Pagos | Stripe, Izipay, Culqi, MercadoPago |
-| IA y automatización | Gemini API, GPT API, n8n, Make |
-| Infraestructura | Vercel, Docker, AWS |
-| Diseño | Figma, v0 |
+- **Frontend:** React, Next.js, TypeScript, Tailwind CSS, Framer Motion.
+- **UI:** shadcn/ui, Radix UI, Material UI (MUI), Lucide React.
+- **Backend:** Node.js, Next.js API Routes, Express, Laravel, CodeIgniter, Spring Boot, PHP.
+- **Bases de datos:** Supabase (PostgreSQL), Firebase, MySQL, MongoDB, Prisma.
+- **Móvil:** Flutter, Dart.
+- **Pagos:** Stripe, Izipay, Culqi, MercadoPago.
+- **IA y automatización:** Gemini API, GPT API, n8n, Make.
+- **Infraestructura:** Vercel, Docker, AWS.
+- **Diseño:** Figma, v0.
 
 ## Preguntas frecuentes
 

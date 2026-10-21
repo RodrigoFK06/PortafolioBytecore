@@ -86,7 +86,8 @@ const nextConfig = {
       "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "connect-src 'self' https:",
       "form-action 'self'",
-      "upgrade-insecure-requests",
+      // Sin upgrade-insecure-requests: en Report-Only el navegador la ignora y
+      // lo anuncia como error en la consola de cada página. HSTS ya fuerza HTTPS.
     ].join('; ')
 
     return [

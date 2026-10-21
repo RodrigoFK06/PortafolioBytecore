@@ -40,7 +40,11 @@ export function ProjectCard({
         <h3 className="font-display text-xl font-bold mb-2 text-foreground group-hover:text-brand transition-colors">
           {title || "Untitled Project"}
         </h3>
-        <p className="text-muted-foreground text-sm md:text-base mb-6 flex-grow leading-relaxed line-clamp-3">
+        {/* Alto fijo de 3 líneas (3 × leading-relaxed). Con flex-grow el párrafo
+            se estiraba hasta la altura de la tarjeta vecina y asomaban las
+            líneas que line-clamp debía ocultar: el "…" quedaba a media
+            descripción y la última línea cortada. Así los tags quedan alineados. */}
+        <p className="text-muted-foreground text-sm md:text-base mb-6 leading-relaxed line-clamp-3 h-[4.875em]">
           {description || "No description available"}
         </p>
         <div className="flex flex-wrap gap-1.5 mb-6">
