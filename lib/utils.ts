@@ -17,10 +17,14 @@ export function formatDate(date: Date | string): string {
   if (!date) return ""
   const dateObj = typeof date === "string" ? new Date(date) : date
   if (Number.isNaN(dateObj.getTime())) return ""
+  // "2026-10-20" se interpreta como medianoche UTC: formateada en la hora de
+  // Lima salía "19 de octubre". Las fechas del frontmatter son de calendario,
+  // así que se formatean en UTC para que el día sea el escrito.
   return new Intl.DateTimeFormat("es-ES", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   }).format(dateObj)
 }
 
