@@ -77,7 +77,11 @@ export default function CostoDelExcelPage() {
           }),
         }}
       />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      {/* Columna de 1,024 px centrada, la misma en /diagnostico, /taller,
+          /facturarkos y /costo-del-excel. Antes las secciones iban pegadas a la
+          izquierda de un contenedor de ~1,300 px y en 1440 dejaban un tercio de
+          la pantalla vacío a la derecha. */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[70rem]">
         <header className="max-w-3xl mb-10 md:mb-14">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />

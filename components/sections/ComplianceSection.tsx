@@ -68,9 +68,9 @@ export default function ComplianceSection() {
           </KineticText>
           <Reveal effect="fade" delay={0.15}>
             <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
-              En Perú, cumplir no es opcional — y parcharlo después sale caro. Por eso nuestros
-              sistemas no tratan el cumplimiento como un módulo aparte: nacen integrados con
-              SUNAT, y todo cuadra desde el primer día.
+              En Perú cumplir con SUNAT es obligatorio, y agregarlo después a un sistema que no lo
+              contemplaba sale caro. Por eso la facturación electrónica, los libros y las
+              validaciones van dentro del sistema desde el diseño, no en un módulo aparte.
             </p>
           </Reveal>
           <Reveal effect="fade" delay={0.2}>

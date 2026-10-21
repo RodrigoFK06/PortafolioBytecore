@@ -50,7 +50,7 @@ export function AboutSection() {
                 by="words"
                 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
               >
-                Sobre <span className="text-brand">Nosotros</span>
+                Sobre <span className="text-brand">nosotros</span>
               </KineticText>
             </header>
 

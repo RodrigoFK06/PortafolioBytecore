@@ -2,10 +2,13 @@
 export const SITE_CONFIG = {
   name: "Árkos",
   title: "Árkos - Mejoramos tus procesos",
-  description: "Somos Árkos, una agencia digital especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas innovadoras.",
+  // Lema del pie (sale en todas las páginas). Decía "agencia digital
+  // especializada en desarrollo web, diseño UX/UI y soluciones tecnológicas
+  // innovadoras": justo el posicionamiento que se dejó en 2026-09.
+  description: "Mejoramos los procesos de tu empresa con automatización, IA aplicada y sistemas a medida, con facturación SUNAT incluida. Desde Lima, para todo el Perú.",
   url: "https://xn--rkos-4na.com",
   creator: "@Árkos",
-  keywords: ["desarrollo web", "diseño UX/UI", "soluciones tecnológicas", "Next.js", "React", "TypeScript"],
+  keywords: ["mejora de procesos", "automatización de procesos", "adopción de IA", "software a medida", "facturación electrónica SUNAT", "Lima"],
 
   // Contacto
   contact: {

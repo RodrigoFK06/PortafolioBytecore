@@ -217,7 +217,11 @@ export default function TallerPage() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      {/* Columna de 1,024 px centrada, la misma en /diagnostico, /taller,
+          /facturarkos y /costo-del-excel. Antes las secciones iban pegadas a la
+          izquierda de un contenedor de ~1,300 px y en 1440 dejaban un tercio de
+          la pantalla vacío a la derecha. */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[70rem]">
         {/* Header */}
         <header className="max-w-4xl mb-14 md:mb-20">
           <p className="spec-label mb-6 flex items-center gap-3">
@@ -241,18 +245,23 @@ export default function TallerPage() {
 
         {/* Oferta */}
         <Reveal effect="rise">
-          <article className="relative bg-card p-8 md:p-10 rounded-lg shadow-hairline-md ring-1 ring-brand/30 max-w-3xl mb-16 md:mb-24">
-            <p className="spec-label text-brand mb-4">Formato cerrado — Siempre el mismo</p>
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Taller de adopción de tecnología
-            </h2>
-            <p className="font-mono tabular text-3xl font-medium text-foreground mb-6">
-              S/ {soles(PRECIO_TALLER)}{" "}
-              <span className="text-sm text-muted-foreground">
-                · por grupo · {TALLER_HORAS} horas
-              </span>
-            </p>
-            <ul className="space-y-2.5 mb-8">
+          {/* Ocupa el ancho de la columna: título, precio y botón a la izquierda;
+              lo que incluye, a la derecha (antes, 768 px pegados a la izquierda).
+              En móvil el orden es título → lista → botón. */}
+          <article className="relative bg-card p-8 md:p-10 rounded-lg shadow-hairline-md ring-1 ring-brand/30 mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr] gap-x-12 gap-y-6">
+            <div className="lg:col-start-1 lg:row-start-1">
+              <p className="spec-label text-brand mb-4">Formato cerrado — Siempre el mismo</p>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                Taller de adopción de tecnología
+              </h2>
+              <p className="font-mono tabular text-3xl font-medium text-foreground">
+                S/ {soles(PRECIO_TALLER)}{" "}
+                <span className="text-sm text-muted-foreground whitespace-nowrap">
+                  · por grupo · {TALLER_HORAS} horas
+                </span>
+              </p>
+            </div>
+            <ul className="space-y-3 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:border-l lg:border-border lg:pl-12 lg:self-center">
               {INCLUYE.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
                   <Check className="h-4 w-4 text-brand mt-0.5 shrink-0" aria-hidden="true" />
@@ -260,15 +269,17 @@ export default function TallerPage() {
                 </li>
               ))}
             </ul>
-            <a
-              href={WA_TALLER}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
-            >
-              Agendar el taller
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </a>
+            <div className="lg:col-start-1 lg:row-start-2 lg:self-end">
+              <a
+                href={WA_TALLER}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
+              >
+                Agendar el taller
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </a>
+            </div>
           </article>
         </Reveal>
 

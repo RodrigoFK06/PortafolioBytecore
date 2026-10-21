@@ -16,7 +16,7 @@ export const skills = [
     percentage: 90,
   },
   {
-    name: "UI/UX Design",
+    name: "UX/UI Design",
     percentage: 80,
   },
   {

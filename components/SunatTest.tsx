@@ -31,7 +31,7 @@ const PROFILES: QuizProfile[] = [
     label: "Resultado — Ordenado",
     title: "Tu cumplimiento se ve sano.",
     body:
-      "Emites, registras y cierras sin fricción visible — eso ya te pone por delante de la mayoría. El único riesgo es crecer: más volumen, más locales o más canales suelen romper procesos que hoy funcionan a mano. Si eso está en tu horizonte, vale una conversación preventiva; si no, sigue así.",
+      "Emites, registras y cierras sin tropiezos a la vista. El único riesgo es crecer: más volumen, más locales o más canales suelen romper procesos que hoy funcionan a mano. Si eso está en tu horizonte, vale una conversación preventiva; si no, sigue así.",
     ctas: [{ kind: "internal", href: "/#cumplimiento", label: "Ver cómo integramos cumplimiento" }],
   },
   {
@@ -49,7 +49,7 @@ const PROFILES: QuizProfile[] = [
     label: "Resultado — Riesgo real",
     title: "Hay huecos que pueden costarte multas.",
     body:
-      "Diferencias entre lo declarado y lo vendido, documentos que se pierden, periodos difíciles de sustentar: ese perfil no es solo ineficiencia — es exposición ante SUNAT. El diagnóstico profundo incluye justamente una auditoría de cumplimiento: dónde están los huecos, qué riesgo representan y cómo se cierran integrando la operación.",
+      "Diferencias entre lo declarado y lo vendido, documentos que se pierden, periodos difíciles de sustentar: además de horas perdidas, ese perfil es exposición ante SUNAT. El diagnóstico profundo incluye justamente una auditoría de cumplimiento: dónde están los huecos, qué riesgo representan y cómo se cierran integrando la operación.",
     ctas: [
       { kind: "internal", href: "/diagnostico", label: "Ver el diagnóstico profundo", primary: true },
       { kind: "whatsapp", label: "Conversar mi resultado" },

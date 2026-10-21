@@ -173,7 +173,7 @@ export default function TechnologiesSection() {
             by="words"
             className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
           >
-            Nuestras <span className="text-brand">Tecnologías</span>
+            Nuestras <span className="text-brand">tecnologías</span>
           </KineticText>
           <Reveal effect="fade" delay={0.15}>
             <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">

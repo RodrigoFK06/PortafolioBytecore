@@ -123,7 +123,8 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
         <Reveal effect="fade">
           <div className="mt-14 md:mt-20 flex flex-col items-center text-center">
             <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-xl">
-              ¿Listo para sumar tu operación a esta lista? Construyamos algo que merezca contarse.
+              Si tu operación se parece a alguna de estas, cuéntanos cómo trabajas hoy y vemos si
+              podemos ayudarte.
             </p>
             <Link
               href="#contact"

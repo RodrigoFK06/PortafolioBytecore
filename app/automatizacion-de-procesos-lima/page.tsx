@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { ArrowRight, Check } from "lucide-react"
 
 import { getService } from "@/data/services"
+import { getProjectById } from "@/data/projects"
+import { ProjectCaseCard } from "@/components/project-card"
 import {
   PRICE_TIERS,
   PRICE_FOOTNOTE,
@@ -397,19 +399,15 @@ export default function AutomatizacionDeProcesosLimaPage() {
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-5 tracking-tight">
               Dónde ya lo hicimos
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-4">
               {CASOS.map((c) => (
-                <article key={c.id} className="rounded-2xl border border-border p-6">
-                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{c.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-3">{c.note}</p>
-                  <Link
-                    href={`/portfolio/${c.id}`}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
-                  >
-                    Ver el caso
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </article>
+                <ProjectCaseCard
+                  key={c.id}
+                  id={c.id}
+                  title={c.title}
+                  note={c.note}
+                  imageSrc={getProjectById(c.id)?.imageSrc}
+                />
               ))}
             </div>
           </section>

@@ -24,15 +24,15 @@ export const metadata = {
 const faqs: { q: string; a: string }[] = [
   {
     q: "¿Dónde está ubicada Árkos y atiende a empresas fuera de Lima?",
-    a: "Árkos es una agencia de desarrollo de software a medida con base en Lima, Perú, fundada en 2020 por Rodrigo Torres. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota: PYMEs de clínicas, hoteles, restaurantes, comercios y servicios técnicos en cualquier ciudad. Contacto: gerencia@árkos.com, WhatsApp +51 961 869 348.",
+    a: "Árkos es una empresa de Lima, Perú, que mejora procesos con automatización e IA y desarrolla software a medida; la fundó Rodrigo Torres en 2020. Atiende a empresas de Lima y Callao con reuniones presenciales agendadas, y al resto del Perú y de Latinoamérica de forma remota: PYMEs de clínicas, hoteles, restaurantes, comercios y servicios técnicos en cualquier ciudad. Contacto: gerencia@árkos.com, WhatsApp +51 961 869 348.",
   },
   {
     q: "¿Por qué contratar software a medida en lugar de un sistema enlatado o una plantilla?",
-    a: "El software a medida se construye desde tu operación real, no desde una plantilla genérica que te obliga a adaptar tu negocio al sistema. Árkos diseña ERPs, CRMs y PMS cuando los sistemas enlatados no encajan, como RestHUB (ERP para restaurantes) o VR PMS para alquileres vacacionales, alternativa económica a Guesty u Hostaway.",
+    a: "Porque se construye a partir de cómo opera tu negocio, en lugar de obligarte a operar como dice la plantilla. Árkos diseña ERPs, CRMs y PMS cuando los sistemas enlatados no encajan, como RestHUB (ERP para restaurantes) o VR PMS para alquileres vacacionales, una alternativa más barata a Guesty u Hostaway.",
   },
   {
     q: "¿Conviene un software a medida si mi PYME es pequeña y recién empieza?",
-    a: "Sí. Árkos se especializa en PYMEs latinoamericanas y construye desde lo esencial según tu operación, evitando pagar por módulos que nunca usarás. Casos como Solutec System (CRM de servicio técnico) o ATELIER Clinic (SaaS para clínicas) nacieron resolviendo necesidades concretas. Los proyectos parten desde S/ 1,100 (USD 300) según el alcance.",
+    a: "Sí, si se empieza por lo esencial: Árkos trabaja sobre todo con pymes y construye primero los módulos que tu operación usa, sin cobrarte los que no vas a usar. Casos como Solutec System (CRM de servicio técnico) o ATELIER Clinic (SaaS para clínicas) nacieron resolviendo necesidades concretas. Los proyectos parten desde S/ 1,100 (USD 300) según el alcance.",
   },
   {
     q: "¿Qué tecnologías y stack usa Árkos para desarrollar?",
@@ -44,11 +44,11 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿El sistema funcionará rápido y aparecerá en Google y en buscadores con IA?",
-    a: "Sí. Árkos construye con rendimiento y SEO/GEO nativos: arquitectura JAMStack, optimización de Core Web Vitals y preparación para buscadores y modelos de lenguaje. Sitios como Ñawi Producciones o ReLu Coffee se entregan rápidos en cualquier conexión, con imágenes optimizadas WebP/AVIF y foco en conversión, jerarquía visual y carga ágil.",
+    a: "Sí. Árkos construye con renderizado en servidor, arquitectura JAMStack y Core Web Vitals revisados, y deja el sitio legible para buscadores y modelos de lenguaje (datos estructurados, sitemap, llms.txt). Sitios como Ñawi Producciones o ReLu Coffee cargan rápido incluso con datos móviles, con imágenes en WebP/AVIF servidas al tamaño de cada pantalla.",
   },
   {
     q: "¿Pueden integrar inteligencia artificial, como un chatbot o automatizaciones, en mi negocio?",
-    a: "Sí. La integración de IA es parte central de las soluciones de Árkos: chatbots y agentes de ventas inteligentes con Gemini o GPT, y flujos de automatización con n8n y Make para optimizar procesos empresariales. La IA se incorpora dentro del sistema a medida, conectada a tu operación real, no como un agregado genérico aislado.",
+    a: "Sí. Árkos arma asistentes y agentes que responden con tus datos (catálogo, precios, estado de un pedido) usando Claude, Gemini o GPT, y automatiza con n8n y Make los pasos que hoy alguien hace a mano entre formularios, hojas y correos. La IA va conectada a tu sistema y a tus datos; un chatbot suelto que no sabe tus precios genera más trabajo del que ahorra.",
   },
   {
     q: "¿Cuánto tarda en desarrollarse un proyecto con Árkos?",
@@ -56,11 +56,11 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "¿Cómo es el proceso de trabajo desde que los contacto hasta la entrega?",
-    a: "Árkos parte de investigación de usuario real (entrevistas, personas, journey maps), luego wireframes y prototipos en Figma, y desarrolla con React, Next.js y TypeScript. El propósito es mejorar tus procesos, no solo escribir código. El primer paso es escribir a gerencia@árkos.com o al WhatsApp +51 961 869 348.",
+    a: "Primero entrevistamos a quienes van a usar el sistema y mapeamos cómo trabajan hoy; después vienen los wireframes y un prototipo navegable en Figma, y recién entonces el desarrollo con React, Next.js y TypeScript, por hitos. El primer paso es escribir a gerencia@árkos.com o al WhatsApp +51 961 869 348.",
   },
   {
     q: "¿Árkos hace tiendas online con pagos en soles y factura electrónica?",
-    a: "Sí. Árkos desarrolla e-commerce listo para vender con pasarelas de pago en soles (Izipay, Culqi, MercadoPago y Stripe), factura electrónica, control de stock, integración con courier, catálogo administrable y métricas en tiempo real. Un ejemplo es ReLu Coffee, e-commerce de café gourmet y cafeteras, construido para vender sin fricción.",
+    a: "Sí. Árkos desarrolla e-commerce listo para vender con pasarelas de pago en soles (Izipay, Culqi, MercadoPago y Stripe), factura electrónica, control de stock, integración con courier, catálogo administrable y métricas en tiempo real. Un ejemplo es ReLu Coffee, tienda online de café gourmet y cafeteras.",
   },
   {
     q: "¿Tienen experiencia en mi sector y proyectos reales?",

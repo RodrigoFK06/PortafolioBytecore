@@ -338,7 +338,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Desarrollo web",
                       description:
-                        "Landing pages de alta conversión, sitios corporativos y plataformas web con Next.js y React, servidas con renderizado en servidor.",
+                        "Landings, sitios corporativos y plataformas web con Next.js y React, servidas con renderizado en servidor.",
                       url: `${baseUrl}/services/desarrollo-web`,
                     },
                   },
@@ -348,7 +348,7 @@ export default function RootLayout({
                       "@type": "Service",
                       name: "Diseño UX/UI",
                       description:
-                        "Interfaces modernas, funcionales y centradas en la experiencia del usuario, diseñadas en Figma.",
+                        "Investigación con usuarios, prototipo navegable y sistema de diseño en Figma, antes de programar.",
                       url: `${baseUrl}/services/diseno-ux-ui`,
                     },
                   },

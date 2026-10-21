@@ -27,7 +27,7 @@ const WA_MESSAGE = encodeURIComponent(
 const WA_LINK = `https://wa.me/51961869348?text=${WA_MESSAGE}`
 
 export const metadata: Metadata = {
-  title: "Desarrollo de Software a Medida en Lima | Empresa de Software — Árkos",
+  title: "Desarrollo de software a medida en Lima | Empresa de software — Árkos",
   description:
     "Empresa de desarrollo de software a medida en Lima: ERP, CRM, apps y sistemas con facturación electrónica SUNAT. Precios en soles y casos con clientes limeños.",
   alternates: alternates(PAGE_PATH),
@@ -36,14 +36,14 @@ export const metadata: Metadata = {
     locale: "es_PE",
     url: PAGE_URL,
     siteName: "Árkos",
-    title: "Desarrollo de Software a Medida en Lima | Empresa de Software — Árkos",
+    title: "Desarrollo de software a medida en Lima | Empresa de software — Árkos",
     description:
       "ERP, CRM, apps y sistemas a medida para empresas de Lima, con facturación electrónica SUNAT. Precios publicados en soles y casos con clientes limeños.",
     images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Desarrollo de software a medida en Lima — Árkos" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Desarrollo de Software a Medida en Lima — Árkos",
+    title: "Desarrollo de software a medida en Lima — Árkos",
     description:
       "ERP, CRM, apps y sistemas a medida para empresas de Lima, con facturación electrónica SUNAT. Precios en soles y casos limeños.",
     images: [`${BASE_URL}/og-image.png`],
@@ -78,7 +78,7 @@ const LIMA_CASES = [
     title: "Solutec DHA",
     sector: "Servicio técnico a domicilio · Lima",
     body:
-      "Dharcy Villafuerte atiende más de 2,500 clientes en Lima reparando electrodomésticos a domicilio, y toda esa relación vivía en WhatsApp. Construimos una landing premium —galería de trabajos, formulario de diagnóstico sin compromiso, CTAs directos a contacto— conectada a un sistema de gestión que captura los contactos de WhatsApp y los administra de punta a punta. El reto no era técnico: era que la web la hiciera ver profesional sin traicionar la cercanía que hizo crecer el negocio.",
+      "Dharcy Villafuerte atiende más de 2,500 clientes en Lima reparando electrodomésticos a domicilio, y toda esa relación vivía en WhatsApp. Construimos una landing —galería de trabajos, formulario de diagnóstico sin compromiso, CTAs directos a contacto— conectada a un sistema de gestión que captura los contactos de WhatsApp y los administra de punta a punta. El reto no era técnico: era que la web la hiciera ver profesional sin traicionar la cercanía que hizo crecer el negocio.",
     metric: "+40% de consultas mensuales por canal digital",
     quote:
       "Atiendo a más de 2,500 clientes en Lima desde WhatsApp y mi marca siempre fue cercana, casi de tú a tú. Mi miedo era que una web me hiciera ver fría o corporativa de más. El equipo logró lo contrario: ahora luzco profesional al primer clic, pero quien me escribe sigue encontrándose con la misma Dharcy de siempre.",
@@ -292,7 +292,7 @@ export default function DesarrolloDeSoftwareLimaPage() {
         "@type": "WebPage",
         "@id": `${PAGE_URL}#webpage`,
         url: PAGE_URL,
-        name: "Desarrollo de Software a Medida en Lima | Empresa de Software — Árkos",
+        name: "Desarrollo de software a medida en Lima | Empresa de software — Árkos",
         description:
           "Empresa de desarrollo de software a medida en Lima: ERP, CRM, apps y sistemas con facturación electrónica SUNAT. Precios en soles y casos con clientes limeños.",
         inLanguage: "es-PE",
@@ -418,9 +418,9 @@ export default function DesarrolloDeSoftwareLimaPage() {
               Casos reales con empresas de Lima
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              La parte que casi nadie en esta categoría pone en la página que compite por la
-              búsqueda: clientes limeños con nombre, con métrica y con testimonio firmado. Cada caso
-              enlaza a su ficha completa, con el problema, la decisión de diseño y el resultado.
+              Clientes de Lima con nombre, con la cifra que se midió y con su testimonio firmado.
+              Cada caso enlaza a su ficha completa: el problema, la decisión de diseño y el
+              resultado.
             </p>
 
             <div className="space-y-8">

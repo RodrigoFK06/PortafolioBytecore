@@ -24,7 +24,7 @@ export default async function SearchPage({
   return (
     <main className="pt-24 pb-16 container mx-auto px-4">
       <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-        Buscar <span className="text-brand">Proyectos</span>
+        Buscar <span className="text-brand">proyectos</span>
       </h1>
       <p className="text-muted-foreground mb-8">Resultados para: “{q || "…"}”</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
