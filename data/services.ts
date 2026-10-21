@@ -61,7 +61,7 @@ export const SERVICES: ServiceContent[] = [
     summary:
       "ERPs, CRMs, PMS y sistemas SaaS construidos desde tu operación real, con facturación electrónica SUNAT integrada de fábrica.",
     lead:
-      "El software a medida no es un lujo: es lo que ocurre cuando tu operación deja de caber en un Excel y ningún sistema enlatado del mercado encaja sin obligarte a cambiar cómo trabajas. En Árkos construimos ERPs, CRMs, PMS y plataformas SaaS diseñadas desde la operación real de tu equipo, con React, Next.js y TypeScript, y con cumplimiento peruano incorporado desde el primer sprint.",
+      "El software a medida se vuelve necesario cuando tu operación ya no cabe en un Excel y ningún sistema enlatado encaja sin obligarte a cambiar cómo trabajas. Construimos ERPs, CRMs, PMS y plataformas SaaS a partir de cómo opera tu equipo, con React, Next.js y TypeScript, y con la facturación SUNAT y los libros electrónicos dentro desde el primer sprint.",
     sections: [
       {
         h2: "Cuándo conviene un sistema a medida (y cuándo no)",
@@ -145,9 +145,9 @@ export const SERVICES: ServiceContent[] = [
       "Landings, webs corporativas y plataformas web con Next.js y React: rápidas, indexables y pensadas para convertir. Desde S/ 1,100. Casos y precios publicados.",
     serviceType: "Desarrollo web",
     summary:
-      "Landings, sitios corporativos y plataformas web con Next.js y React: rápidos en cualquier conexión, indexables y orientados a conversión.",
+      "Landings, sitios corporativos y plataformas web con Next.js y React: cargan rápido con datos móviles, Google los lee completos y miden los contactos que traen.",
     lead:
-      "Una web no es un folleto digital: es el primer sistema con el que tu cliente interactúa. Construimos landings de alta conversión, sitios corporativos y plataformas web con Next.js, React y TypeScript, servidos con renderizado en servidor para que Google y los buscadores con IA lean todo el contenido sin ejecutar JavaScript.",
+      "Tu web es lo primero que usa un cliente antes de escribirte, y muchas veces lo único. Construimos landings, sitios corporativos y plataformas web con Next.js, React y TypeScript, servidos con renderizado en servidor para que Google y los buscadores con IA lean todo el contenido sin ejecutar JavaScript.",
     sections: [
       {
         h2: "Rendimiento y visibilidad, no efectos por moda",
@@ -188,7 +188,7 @@ export const SERVICES: ServiceContent[] = [
     cases: [
       { id: 18, title: "Dr. Ing. Freedy Sotelo Valer", note: "Sitio personal académico de alto contraste. Su testimonio destaca una carga por debajo de 1.2 segundos." },
       { id: 14, title: "Ñawi", note: "Sitio para una productora de cine documental centrado en memoria e identidad cultural." },
-      { id: 22, title: "Nexora", note: "Landing premium bilingüe (ES/EN) para una agencia creativa, con scroll suave y tipografía de alto impacto." },
+      { id: 22, title: "Nexora", note: "Landing bilingüe (ES/EN) para una agencia creativa, con scroll suave y titulares de tipografía grande." },
       { id: 15, title: "II Simposio Veterinario Internacional 2026", note: "Landing y sistema de registro para un evento académico de cuatro días, con countdown en vivo y agenda interactiva." },
     ],
     priceFrom: { pen: "1,100", usd: "300", what: "una landing de alta conversión" },
@@ -299,9 +299,9 @@ export const SERVICES: ServiceContent[] = [
       "Diseño UX/UI en Figma: investigación con usuarios reales, arquitectura de información, prototipo navegable y sistema de diseño. Para webs, sistemas y apps.",
     serviceType: "Diseño UX/UI",
     summary:
-      "Investigación, arquitectura de información, prototipo en Figma y sistema de diseño. Interfaces claras que reducen soporte y aumentan conversión.",
+      "Investigación con usuarios, arquitectura de información, prototipo navegable en Figma y sistema de diseño, antes de escribir una línea de código.",
     lead:
-      "El diseño no es la capa bonita que se pone al final: es la decisión de qué ve el usuario primero, qué puede hacer sin pensar y qué se le esconde hasta que lo necesita. Diseñamos en Figma partiendo de cómo trabaja tu usuario real, y entregamos un prototipo navegable antes de que se escriba una línea de código.",
+      "Diseñar es decidir qué ve el usuario primero, qué puede hacer sin pensar y qué se le esconde hasta que lo necesita. Lo hacemos en Figma, partiendo de cómo trabaja tu usuario real, y entregamos un prototipo navegable antes de que se escriba una línea de código.",
     sections: [
       {
         h2: "Del usuario real, no de una plantilla",
@@ -326,7 +326,7 @@ export const SERVICES: ServiceContent[] = [
       {
         h2: "Accesibilidad y diseño responsive",
         paragraphs: [
-          "Diseñamos con contraste suficiente, tamaños de texto legibles, áreas de toque adecuadas para el pulgar y navegación por teclado. No es solo cumplimiento: es el mismo trabajo que hace usable una interfaz para alguien con la pantalla al sol, con una mano ocupada o con prisa.",
+          "Diseñamos con contraste suficiente, tamaños de texto legibles, áreas de toque adecuadas para el pulgar y navegación por teclado. Además de cumplir las pautas de accesibilidad, eso hace usable la interfaz para alguien con la pantalla al sol, con una mano ocupada o con prisa.",
           "Y diseñamos móvil primero, porque en la práctica la mayoría de tus usuarios va a llegar desde un celular. La versión de escritorio se deriva de esa, no al revés.",
         ],
       },
@@ -341,8 +341,8 @@ export const SERVICES: ServiceContent[] = [
     ],
     stack: ["Figma", "Tailwind CSS", "GSAP", "Lenis"],
     cases: [
-      { id: 2, title: "Solutec DHA", note: "El reto era verse profesional sin perder la cercanía que hizo crecer el negocio. El diseño conservó su voz —conversaciones reales de WhatsApp, tono cálido— dentro de una landing premium." },
-      { id: 13, title: "Kinetic Black", note: "Landing de alto impacto para una marca de suplementación, con onboarding animado y jerarquía visual construida sobre fondo oscuro." },
+      { id: 2, title: "Solutec DHA", note: "El reto era verse profesional sin perder la cercanía que hizo crecer el negocio. El diseño conservó su voz —conversaciones reales de WhatsApp, tono cálido— dentro de una landing ordenada." },
+      { id: 13, title: "Kinetic Black", note: "Landing para una marca de suplementación, con onboarding animado y una jerarquía visual pensada para fondo oscuro." },
       { id: 23, title: "Pattern Breaking", note: "Pieza editorial de data-storytelling con scrollytelling, gráficos animados y efectos WebGL al servicio del dato." },
     ],
     priceFrom: { pen: "1,100", usd: "300", what: "un proyecto con diseño UX/UI a medida" },
@@ -392,7 +392,7 @@ export const SERVICES: ServiceContent[] = [
         h2: "Chatbots y agentes conectados a tu operación",
         paragraphs: [
           "Construimos asistentes que responden con tus datos: catálogo, precios, disponibilidad, estado de un pedido o de una cita. Se integran donde ya está tu cliente —tu web o WhatsApp— y saben cuándo dejar de responder y pasar la conversación a una persona, que es la parte que casi nadie implementa y la que evita que el bot arruine una venta.",
-          "El propio sitio de Árkos corre un asistente de este tipo. Puedes probarlo antes de contratarnos: es la forma más honesta de mostrar el servicio.",
+          "Así funciona el asistente RAG que armamos para los técnicos de campo de Solutec: responde a partir de lo que el propio equipo dejó registrado, usa un glosario de oficio armado con la dueña y, cuando dos técnicos se contradicen, no elige uno al azar: se abstiene y lo dice.",
         ],
         bullets: [
           "Respuestas basadas en tus datos reales, no en texto genérico.",
@@ -432,7 +432,7 @@ export const SERVICES: ServiceContent[] = [
         h2: "Medición: línea base antes, la misma medición después",
         paragraphs: [
           "Levantamos una línea base antes de intervenir y repetimos la misma medición después: es la única forma de sustentar una mejora. Distinguimos el uso que la gente reporta del uso sostenido sin recordatorio, y evaluamos los asistentes con conjuntos de casos de prueba etiquetados a mano, con métricas reportadas con intervalo de confianza y umbrales que bloquean el despliegue si no se alcanzan.",
-          "Lo aplicamos también a nuestro propio trabajo. En Precio Vivo, nuestro producto abierto de precios agrícolas, la evaluación corre sobre 165 casos de prueba y el resultado negativo de nuestra hipótesis inicial está publicado dentro del sitio. En el asistente de Solutec para técnicos de campo, un glosario de oficio de nueve entradas, curado a mano con la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.",
+          "Lo aplicamos también a nuestro propio trabajo. En Precio Vivo, nuestro producto abierto de precios agrícolas, la evaluación corre sobre 165 casos de prueba y el resultado negativo de nuestra hipótesis inicial está publicado dentro del sitio. En el asistente de Solutec para técnicos de campo, un glosario de oficio de nueve entradas, armado a mano con la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.",
         ],
       },
     ],
@@ -447,7 +447,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     stack: ["Claude", "Gemini", "GPT", "Amazon Bedrock", "RAG", "n8n", "Make", "Next.js API Routes", "FastAPI", "Webhooks"],
     cases: [
-      { id: 12, title: "Solutec", note: "Sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes y 15 usuarios activos. En 2026 sumó un asistente RAG para técnicos de campo, con glosario de oficio curado con la dueña y abstención cuando dos técnicos se contradicen." },
+      { id: 12, title: "Solutec", note: "Sistema de servicio técnico en producción con mantenimiento continuo por más de dos años: 650 órdenes al mes y 15 usuarios activos. En 2026 sumó un asistente RAG para técnicos de campo, con un glosario de oficio armado con la dueña y abstención cuando dos técnicos se contradicen." },
       { id: 28, title: "Precio Vivo", note: "Producto de datos con IA: pipeline diario automático en AWS, consulta en lenguaje natural y evaluación sobre 165 casos de prueba con intervalos de confianza, resultado negativo incluido." },
       { id: 21, title: "FacturArkos", note: "Producto propio donde la automatización de comprobantes y su validación con SUNAT sustituyen el trabajo manual de emisión." },
       { id: 1, title: "OrquestadorADM", note: "Panel What-If predictivo de 17 parámetros y dashboard ejecutivo de KPIs, presentado y sustentado directamente ante el cliente." },

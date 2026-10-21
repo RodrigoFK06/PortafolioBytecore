@@ -81,8 +81,10 @@ export function Navbar() {
             />
           </Link>
 
-          {/* Desktop */}
-          <nav className="hidden md:flex items-center gap-7 lg:gap-9">
+          {/* Escritorio desde lg: en 768 px los siete enlaces y el botón no
+              cabían junto al logo (se montaban sobre él y "Contáctanos" quedaba
+              cortado). Entre 768 y 1023 px va el menú plegable. */}
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={toHref(link.href)} className={linkClass(link.href)}>
                 {link.label}
@@ -98,9 +100,9 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 -mr-2 text-foreground"
+            className="lg:hidden p-2 -mr-2 text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Abrir menú"
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -110,7 +112,7 @@ export function Navbar() {
 
       {/* Mobile panel */}
       {isMenuOpen && (
-        <nav className="md:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
+        <nav className="lg:hidden border-t border-border bg-background animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-col">
             {NAV_LINKS.map((link) => (
               <Link

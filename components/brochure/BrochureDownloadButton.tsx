@@ -39,7 +39,7 @@ export function BrochureDownloadButton() {
   };
 
   return (
-    <div className="flex flex-col items-center md:items-end gap-2">
+    <div className="flex flex-col items-start md:items-end gap-2">
       <button
         type="button"
         onClick={handleDownload}
@@ -53,7 +53,7 @@ export function BrochureDownloadButton() {
           </>
         ) : (
           <>
-            Descargar Brochure Corporativo
+            Descargar el brochure (PDF)
             <Download className="w-4 h-4" aria-hidden="true" />
           </>
         )}

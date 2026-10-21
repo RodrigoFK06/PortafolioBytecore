@@ -38,14 +38,14 @@ export function ProjectCard({
       </div>
       <div className="p-4 md:p-6 flex-grow flex flex-col">
         <h3 className="font-display text-xl font-bold mb-2 text-foreground group-hover:text-brand transition-colors">
-          {title || "Untitled Project"}
+          {title || "Proyecto sin título"}
         </h3>
         {/* Alto fijo de 3 líneas (3 × leading-relaxed). Con flex-grow el párrafo
             se estiraba hasta la altura de la tarjeta vecina y asomaban las
             líneas que line-clamp debía ocultar: el "…" quedaba a media
             descripción y la última línea cortada. Así los tags quedan alineados. */}
         <p className="text-muted-foreground text-sm md:text-base mb-6 leading-relaxed line-clamp-3 h-[4.875em]">
-          {description || "No description available"}
+          {description || "Sin descripción."}
         </p>
         <div className="flex flex-wrap gap-1.5 mb-6">
           {tags.map((tag) => (
@@ -96,5 +96,45 @@ export function ProjectCard({
         </div>
       </div>
     </div>
+  )
+}
+
+interface ProjectCaseCardProps {
+  id: number
+  title: string
+  /** Nota del caso en el contexto de la página (no la descripción genérica). */
+  note: string
+  imageSrc?: string
+}
+
+/**
+ * Versión compacta de la tarjeta para las listas de casos de las páginas de
+ * servicio: misma miniatura que /portfolio, a la izquierda, y la nota del caso
+ * al lado. Antes esas listas eran solo texto y las páginas de servicio no
+ * tenían ni una imagen.
+ */
+export function ProjectCaseCard({ id, title, note, imageSrc }: ProjectCaseCardProps) {
+  return (
+    <Link
+      href={`/portfolio/${id}`}
+      className="group grid grid-cols-1 sm:grid-cols-[minmax(0,15rem)_1fr] rounded-lg bg-card shadow-hairline hover:shadow-hairline-md transition-shadow overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+    >
+      <div className="relative aspect-video sm:aspect-auto sm:min-h-[9.5rem] bg-secondary overflow-hidden">
+        <Image
+          src={imageSrc || "/placeholder.svg"}
+          alt={`Captura de pantalla del proyecto: ${title}`}
+          fill
+          sizes="(min-width: 640px) 240px, 100vw"
+          className="object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+      <div className="p-5 md:p-6">
+        <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2 group-hover:text-brand transition-colors">
+          {title}
+          <ArrowRight className="h-4 w-4 shrink-0 text-brand transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        </h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">{note}</p>
+      </div>
+    </Link>
   )
 }

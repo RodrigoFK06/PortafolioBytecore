@@ -25,14 +25,14 @@ export const PRICE_TIERS: PriceTier[] = [
     usd: 300,
     usdLabel: "300",
     penLabel: "1,100",
-    note: "Una sola página, pensada para captar leads y convertir.",
+    note: "Una sola página con un objetivo: que quien llega te escriba o te compre.",
   },
   {
     name: "Web corporativa",
     usd: 600,
     usdLabel: "600",
     penLabel: "2,250",
-    note: "Sitio institucional hiper-optimizado para SEO y rendimiento.",
+    note: "Sitio institucional de varias páginas, preparado para Google.",
   },
   {
     name: "E-commerce",
@@ -119,22 +119,22 @@ export const TALLER_PERSONAS_MAX = 20
 export const CREATIVE_SERVICES = [
   {
     num: "16",
-    title: "Diseño Gráfico",
+    title: "Diseño gráfico",
     desc: "Flyers, piezas para redes sociales, catálogos, brochures, papelería y material impreso. Diseño coherente con tu identidad, entregado en los formatos que cada canal necesita.",
   },
   {
     num: "17",
-    title: "Identidad y Piezas de Marca",
+    title: "Identidad y piezas de marca",
     desc: "Logotipo, paleta, tipografía y aplicaciones básicas de marca. Cuando el proyecto es digital, la identidad se define antes de diseñar pantallas: construir una interfaz sobre una marca que va a cambiar es trabajo que se hace dos veces.",
   },
   {
     num: "18",
-    title: "Producción Audiovisual",
+    title: "Producción audiovisual",
     desc: "Video corporativo, edición, motion graphics y piezas cortas para redes. Desde la grabación hasta la entrega final, con las versiones y relaciones de aspecto que cada plataforma pide.",
   },
   {
     num: "19",
-    title: "Contenido Digital",
+    title: "Contenido digital",
     desc: "Producción continua de piezas para tus canales: parrilla de contenidos, plantillas editables y adaptaciones por formato, para que tu equipo publique sin depender de un diseñador cada vez.",
   },
 ] as const

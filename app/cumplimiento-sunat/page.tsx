@@ -13,7 +13,7 @@ const baseUrl = "https://xn--rkos-4na.com"
 
 const FAQS = [
   {
-    q: "¿Qué evalúa este assessment de cumplimiento SUNAT?",
+    q: "¿Qué mide esta evaluación de cumplimiento SUNAT?",
     a: "Ocho puntos de fricción y riesgo operativo frente a SUNAT: doble digitación entre el sistema de emisión y el control interno, registros de ventas y compras armados a mano para el PLE/SIRE, diferencias entre lo declarado y lo vendido, datos de clientes sin validar contra RUC/DNI, notas de crédito sueltas, información contable difícil de reunir y capacidad de sustentar un periodo completo ante una fiscalización.",
   },
   {
@@ -31,12 +31,12 @@ const FAQS = [
 ]
 
 export const metadata: Metadata = {
-  title: "Assessment: ¿Cómo está tu cumplimiento SUNAT? | Árkos",
+  title: "Evaluación: ¿cómo está tu cumplimiento SUNAT? | Árkos",
   description:
     "8 preguntas para medir la fricción y el riesgo de tu operación frente a SUNAT: facturación electrónica, PLE/SIRE, validación de datos y cierre de mes. Resultado al instante, sin registro.",
   alternates: alternates("/cumplimiento-sunat"),
   openGraph: {
-    title: "Assessment: ¿Cómo está tu cumplimiento SUNAT?",
+    title: "Evaluación: ¿cómo está tu cumplimiento SUNAT?",
     description:
       "Mide en 3 minutos cuánta fricción y riesgo tiene tu operación frente a SUNAT — y qué hacer al respecto.",
     url: `${baseUrl}/cumplimiento-sunat`,
@@ -54,10 +54,10 @@ export default function CumplimientoSunatPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "@id": `${baseUrl}/cumplimiento-sunat#app`,
-            name: "Assessment: ¿Cómo está tu cumplimiento SUNAT?",
+            name: "Evaluación: ¿cómo está tu cumplimiento SUNAT?",
             url: `${baseUrl}/cumplimiento-sunat`,
             description:
-              "Assessment gratuito de 8 preguntas que mide la fricción y el riesgo operativo de una pyme peruana frente a SUNAT: facturación electrónica, PLE/SIRE, validación de datos y sustento de periodos.",
+              "Evaluación gratuita de 8 preguntas que mide la fricción y el riesgo operativo de una pyme peruana frente a SUNAT: facturación electrónica, PLE/SIRE, validación de datos y sustento de periodos.",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
             inLanguage: "es-PE",
@@ -81,11 +81,13 @@ export default function CumplimientoSunatPage() {
           }),
         }}
       />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      {/* Columna de lectura de 768 px centrada (antes, pegada a la izquierda
+          de un contenedor de ~1,300 px). */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[54rem]">
         <header className="max-w-3xl mb-10 md:mb-14">
           <p className="spec-label mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-[hsl(var(--border-strong))]" aria-hidden="true" />
-            Assessment de 3 minutos — Sin registro
+            Evaluación de 3 minutos — Sin registro
           </p>
           <KineticText
             as="h1"
@@ -140,7 +142,7 @@ export default function CumplimientoSunatPage() {
             >
               sunat.gob.pe
             </a>
-            . Este assessment mide tu lado del proceso: cuánta fricción y riesgo operativo hay entre
+            . Esta evaluación mide tu lado del proceso: cuánta fricción y riesgo operativo hay entre
             tu negocio y esas obligaciones.
           </p>
 

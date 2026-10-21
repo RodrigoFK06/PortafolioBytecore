@@ -75,8 +75,8 @@ export default function ProcessSection() {
           </KineticText>
           <Reveal effect="fade" delay={0.15}>
             <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
-              Cuatro pasos claros, sin sorpresas. Sabes exactamente qué pasa antes de firmar,
-              durante el desarrollo y después de la entrega.
+              Cuatro pasos con plazos. Antes de firmar sabes qué se entrega, cuándo y cuánto
+              cuesta; durante el desarrollo ves una demo cada dos semanas.
             </p>
           </Reveal>
         </header>

@@ -4,6 +4,7 @@ import matter from "gray-matter"
 import Link from "next/link"
 import Image from "next/image"
 import { formatDate } from "@/lib/utils"
+import { BlogCategoryCover, isTextCover } from "@/components/blog-cover"
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog")
 
@@ -54,7 +55,9 @@ export default function BlogIndexPage() {
             Casos de estudio y artículos técnicos
           </h1>
           <p className="text-lg text-foreground/60 leading-relaxed max-w-2xl">
-            Compartimos cómo resolvemos problemas reales con software. Arquitectura, decisiones técnicas y lecciones aprendidas en cada proyecto.
+            Casos de proyectos que hicimos, con las decisiones que tomamos y por qué, y guías para
+            decidir antes de comprar: qué automatizar primero, cuándo conviene un sistema y qué
+            datos de tu empresa puede ver una IA.
           </p>
         </div>
       </section>
@@ -67,7 +70,12 @@ export default function BlogIndexPage() {
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post, i) => {
+              const textCover = isTextCover(post.image)
+              // Con portada de categoría, las dos primeras etiquetas ya están
+              // en la portada: los chips muestran las siguientes.
+              const chips = textCover ? post.tags.slice(2, 5) : post.tags.slice(0, 3)
+              return (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -76,21 +84,25 @@ export default function BlogIndexPage() {
                 <article className="h-full rounded-2xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 hover:-translate-y-1">
                   {/* Imagen */}
                   <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                    {textCover ? (
+                      <BlogCategoryCover tags={post.tags} index={posts.length - i} />
+                    ) : (
+                      <Image
+                        src={post.image}
+                        alt={`Captura del proyecto del artículo: ${post.title}`}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    )}
                   </div>
 
                   {/* Contenido */}
                   <div className="p-6">
                     {/* Tags */}
-                    {post.tags.length > 0 && (
+                    {chips.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.slice(0, 3).map((tag) => (
+                        {chips.map((tag) => (
                           <span
                             key={tag}
                             className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand/10 text-brand"
@@ -123,25 +135,27 @@ export default function BlogIndexPage() {
                   </div>
                 </article>
               </Link>
-            ))}
+              )
+            })}
           </div>
         )}
       </section>
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-12 mt-20">
-        <div className="rounded-2xl bg-gradient-to-br from-brand/5 to-brand/10 border border-brand/10 p-8 md:p-12 text-center">
+        <div className="rounded-lg bg-secondary shadow-hairline p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            ¿Tienes un proyecto similar?
+            ¿Tu empresa tiene un problema parecido?
           </h2>
           <p className="text-foreground/60 max-w-xl mx-auto mb-6">
-            En Árkos transformamos ideas en software profesional. Si alguno de estos casos te inspiró, hablemos sobre tu proyecto.
+            Cuéntanos cómo trabajan hoy. La primera llamada dura 30 minutos, no cuesta nada y al
+            final te decimos si lo tuyo pide un sistema, un ajuste o nada todavía.
           </p>
           <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand/90 transition-colors"
+            href="/diagnostico"
+            className="inline-flex items-center gap-2 bg-brand text-brand-foreground px-6 py-3 rounded-md font-semibold hover:bg-brand/90 transition-colors"
           >
-            Iniciar conversación
+            Agendar la llamada
           </Link>
         </div>
       </section>

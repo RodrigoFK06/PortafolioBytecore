@@ -4,6 +4,8 @@ import type { Metadata } from "next"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
 
 import { SERVICES, getService } from "@/data/services"
+import { getProjectById } from "@/data/projects"
+import { ProjectCaseCard } from "@/components/project-card"
 import { alternates, absUrl, BASE_URL } from "@/lib/seo"
 
 type Params = { slug: string }
@@ -222,17 +224,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             </h2>
             <div className="space-y-4">
               {service.cases.map((c) => (
-                <Link
+                <ProjectCaseCard
                   key={c.id}
-                  href={`/portfolio/${c.id}`}
-                  className="block rounded-lg p-6 bg-card shadow-hairline hover:shadow-hairline-md transition-shadow"
-                >
-                  <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                    {c.title}
-                    <ArrowRight className="h-4 w-4 text-brand" aria-hidden="true" />
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{c.note}</p>
-                </Link>
+                  id={c.id}
+                  title={c.title}
+                  note={c.note}
+                  imageSrc={getProjectById(c.id)?.imageSrc}
+                />
               ))}
             </div>
           </section>
@@ -293,7 +291,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             <p className="mt-6">
               <Link href="/services" className="inline-flex items-center gap-2 text-brand font-medium hover:underline">
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                Volver al hub de servicios
+                Volver a todos los servicios
               </Link>
             </p>
           </section>

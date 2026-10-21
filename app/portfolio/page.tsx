@@ -15,10 +15,10 @@ export default function PortfolioPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
-            Nuestro <span className="text-brand">Portafolio</span>
+            Nuestro <span className="text-brand">portafolio</span>
           </h1>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Una selección de proyectos reales de Árkos: software a medida, aplicaciones web, e-commerce y diseño UX/UI para PYMEs de Perú y Latinoamérica.
+            Proyectos de Árkos para pymes de Perú y Latinoamérica: sistemas a medida, aplicaciones web, tiendas online y sitios, además de los productos propios que puedes probar en vivo.
           </p>
 
           <ProjectFilter onFilterChange={setActiveFilter} />

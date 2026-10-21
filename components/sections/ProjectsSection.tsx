@@ -3,6 +3,7 @@ import ProjectsClient from "./ProjectsClient"
 import { getHomeProjects } from "@/data/projects"
 
 export default function ProjectsSection() {
+  const homeProjects = getHomeProjects()
   return (
     <section id="projects" className="py-20 md:py-32 bg-background relative border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-14 md:mb-20">
@@ -17,17 +18,18 @@ export default function ProjectsSection() {
             by="words"
             className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground"
           >
-            Proyectos <span className="text-brand">Destacados</span>
+            Proyectos <span className="text-brand">destacados</span>
           </KineticText>
           <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
-            Una selección curada de trabajos recientes. Diseño que empuja límites, desarrollo
-            ultra-rápido y experiencias que conectan directamente con el usuario final.
+            Sistemas que empresas usan todos los días, productos propios que puedes probar en vivo
+            y sitios web para marcas. Cada tarjeta lleva a la ficha del proyecto; el resto está en
+            el portafolio, con filtros por tipo.
           </p>
         </header>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <ProjectsClient projects={getHomeProjects()} />
+        <ProjectsClient projects={homeProjects} />
       </div>
     </section>
   )

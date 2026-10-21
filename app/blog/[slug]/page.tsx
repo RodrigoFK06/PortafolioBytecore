@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 import Markdown from "react-markdown"
 import Link from "next/link"
 import Image from "next/image"
+import { isTextCover } from "@/components/blog-cover"
 import type { Metadata } from "next"
 import { alternates } from "@/lib/seo"
 import { formatDate } from "@/lib/utils"
@@ -147,8 +148,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </header>
 
-      {/* Imagen hero del artículo */}
-      {data.image && (
+      {/* Imagen hero del artículo. Las portadas de texto (/blog-cover-*) llevan
+          escrito el mismo título que está justo arriba: se usan solo como
+          og:image y aquí se omiten. Las capturas de proyectos sí se muestran. */}
+      {data.image && !isTextCover(data.image) && (
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-4xl mb-12">
           <div className="relative aspect-[2/1] rounded-2xl overflow-hidden bg-secondary">
             <Image

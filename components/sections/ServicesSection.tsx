@@ -68,13 +68,13 @@ export function ServicesSection() {
             by="words"
             className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] text-foreground max-w-4xl"
           >
-            Nuestros <span className="text-brand">Servicios</span>
+            Nuestros <span className="text-brand">servicios</span>
           </KineticText>
           <Reveal effect="fade" delay={0.15}>
             <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
-              No vendemos tecnología por moda. Ayudamos a restaurantes, hoteles, clínicas y pymes a
-              dejar de operar a ciegas — con web, diseño, e-commerce y software a la medida de su
-              operación. Lo técnico es el medio; lo que importa es que tu negocio funcione mejor.
+              Trabajamos con restaurantes, hoteles, clínicas y pymes que hoy coordinan su operación
+              entre Excel, WhatsApp y cuadernos. Según el caso, la respuesta es un sistema a medida,
+              una tienda online, una web nueva o rediseñar lo que ya tienen.
             </p>
           </Reveal>
         </header>
@@ -84,28 +84,28 @@ export function ServicesSection() {
             icon={Layout}
             index={1}
             href="/services/desarrollo-web"
-            title="Desarrollo Web"
-            description="Sitios y plataformas que cargan rápido, se ven impecables en celular y traen clientes reales. Tu equipo puede actualizarlos sin pedirle ayuda a nadie."
+            title="Desarrollo web"
+            description="Sitios y plataformas que cargan rápido en el celular y que Google lee completos. Tu equipo cambia textos, fotos y precios sin tener que llamarnos."
           />
           <ServiceCard
             icon={Palette}
             index={2}
             href="/services/diseno-ux-ui"
-            title="Diseño UI/UX"
-            description="Interfaces claras donde tu cliente sabe en tres segundos qué tiene que hacer. Diseño que vende sin perder la identidad de tu marca."
+            title="Diseño UX/UI"
+            description="Pantallas que tu cliente entiende sin que nadie se las explique. Prototipo navegable en Figma antes de programar, sobre la identidad de tu marca."
           />
           <ServiceCard
             icon={Monitor}
             index={3}
             href="/services/ecommerce"
-            title="E-Commerce"
+            title="E-commerce"
             description="Tiendas online listas para vender desde el día uno. Pasarelas en soles, factura electrónica, control de stock e integración con tu courier."
           />
           <ServiceCard
             icon={Boxes}
             index={4}
             href="/services/software-a-medida"
-            title="Software a Medida"
+            title="Software a medida"
             description="Sistemas, ERPs y dashboards hechos para tu operación: agendamiento de citas, gestión hotelera, restaurantes, talleres, clínicas. Lo que un Excel ya no resuelve."
           />
         </StaggerGroup>

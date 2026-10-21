@@ -231,9 +231,10 @@ export default function PreciosPage() {
         </section>
 
         <div className="max-w-3xl mx-auto mt-16 text-center rounded-2xl border border-border p-8 bg-secondary">
-          <h2 className="text-2xl font-bold mb-3 tracking-tight">¿Listo para cotizar tu proyecto?</h2>
+          <h2 className="text-2xl font-bold mb-3 tracking-tight">¿Quieres una cotización?</h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            Cuéntanos qué necesitas y te damos una cotización a medida según tu operación.
+            Cuéntanos qué necesitas y cómo trabajan hoy. Te respondemos con un rango de precio y
+            un plazo, por escrito.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="https://wa.me/51961869348" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-brand px-6 py-3 font-medium text-white transition hover:opacity-90">

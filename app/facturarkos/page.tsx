@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Image from "next/image"
+import { getImageProps } from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react"
 import { KineticText } from "@/components/motion/kinetic-text"
@@ -68,12 +68,20 @@ const FUNCIONES = [
   },
 ]
 
+const WA_PRO = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${encodeURIComponent(
+  "Hola, quiero información del plan Pro de FacturArkos."
+)}`
+
+// Cada plan con su botón (antes los planes no tenían ninguno). Mismos textos y
+// destinos que la tabla de precios de la app; el de Pro va al WhatsApp de Árkos
+// porque "hablar con ventas" es eso.
 const PLANES = [
   {
     name: "Emprende",
     price: 0,
     note: "Para empezar a facturar hoy.",
     features: ["1 usuario", "Hasta 50 comprobantes al mes", "Boletas y facturas SUNAT", "POS y tienda online básica"],
+    cta: { label: "Crear cuenta gratis", href: `${APP_URL}/registro`, primary: false },
   },
   {
     name: "Negocio",
@@ -85,6 +93,7 @@ const PLANES = [
       "Notas de crédito y débito",
       "Inventario, reportes y monitoreo diario SUNAT",
     ],
+    cta: { label: "Empezar prueba de 14 días", href: `${APP_URL}/registro`, primary: true },
   },
   {
     name: "Pro",
@@ -96,8 +105,45 @@ const PLANES = [
       "Guía de remisión electrónica (GRE)",
       "SIRE y PLE (RVIE y RCE)",
     ],
+    cta: { label: "Hablar con ventas", href: WA_PRO, primary: false },
   },
 ]
+
+// La vista previa del hero era la miniatura del portafolio (/facturarkos.png)
+// encogida: titular cortado e ilegible en móvil. Ahora son dos capturas de la
+// portada de la app tomadas a 2x (1280 px de ancho para escritorio y 390 px,
+// vertical, para móvil) y servidas con <picture> según el ancho de pantalla.
+const CAPTURA_ALT =
+  "Portada de FacturArkos en facturarkos-web.vercel.app: «Tu negocio facturando con SUNAT en minutos», con los botones Empezar gratis y Ver precios"
+
+function CapturaLanding() {
+  const {
+    props: { srcSet: desktopSrcSet },
+  } = getImageProps({
+    alt: CAPTURA_ALT,
+    src: "/facturarkos-landing.png",
+    width: 2560,
+    height: 1600,
+    sizes: "(min-width: 1120px) 1024px, 100vw",
+  })
+  const {
+    props: { srcSet: mobileSrcSet, ...rest },
+  } = getImageProps({
+    alt: CAPTURA_ALT,
+    src: "/facturarkos-landing-movil.png",
+    width: 780,
+    height: 1380,
+    sizes: "320px",
+    priority: true,
+  })
+  return (
+    <picture>
+      <source media="(min-width: 768px)" srcSet={desktopSrcSet} sizes="(min-width: 1120px) 1024px, 100vw" />
+      <source media="(max-width: 767px)" srcSet={mobileSrcSet} sizes="320px" />
+      <img {...rest} alt={CAPTURA_ALT} className="block w-full h-auto" />
+    </picture>
+  )
+}
 
 // Cada respuesta abre con la respuesta directa en la primera frase: es la que
 // un asistente extrae cuando le preguntan "qué es FacturArkos".
@@ -200,7 +246,11 @@ export default function FacturArkosPage() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      {/* Columna de 1,024 px centrada, la misma en /diagnostico, /taller,
+          /facturarkos y /costo-del-excel. Antes las secciones iban pegadas a la
+          izquierda de un contenedor de ~1,300 px y en 1440 dejaban un tercio de
+          la pantalla vacío a la derecha. */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-[70rem]">
         {/* Header */}
         <header className="max-w-4xl mb-12 md:mb-16">
           <p className="spec-label mb-6 flex items-center gap-3">
@@ -241,18 +291,37 @@ export default function FacturArkosPage() {
           </div>
         </header>
 
-        {/* Captura */}
+        {/* Captura de la portada de la app, dentro de un marco de navegador */}
         <Reveal effect="rise">
-          <figure className="max-w-5xl mb-16 md:mb-24">
-            <Image
-              src="/facturarkos.png"
-              alt="Pantalla de FacturArkos: facturación electrónica SUNAT y punto de venta"
-              width={1440}
-              height={900}
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              className="w-full h-auto rounded-lg shadow-hairline-md"
-              priority
-            />
+          <figure className="mb-16 md:mb-24">
+            {/* La captura entera abre la app: tiene botones dibujados y un clic
+                sobre ellos no debería quedarse sin respuesta. */}
+            <a
+              href={APP_URL}
+              target="_blank"
+              rel="noopener"
+              aria-label="Abrir FacturArkos (facturarkos-web.vercel.app) en una pestaña nueva"
+              className="block max-w-[20rem] md:max-w-none mx-auto rounded-lg bg-card shadow-hairline-md hover:shadow-[0_0_0_1px_hsl(var(--brand)/0.4),0_8px_24px_-8px_rgb(0_0_0/0.15)] transition-shadow overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              <div className="flex items-center gap-3 px-4 py-2.5 border-b border-border bg-secondary">
+                <span className="flex gap-1.5 shrink-0" aria-hidden="true">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
+                </span>
+                <span className="font-mono text-[11px] text-muted-foreground truncate">
+                  facturarkos-web.vercel.app
+                </span>
+              </div>
+              <CapturaLanding />
+            </a>
+            <figcaption className="mt-4 text-sm text-muted-foreground text-center md:text-left">
+              La portada de FacturArkos tal como se ve hoy.{" "}
+              <a href={APP_URL} target="_blank" rel="noopener" className="text-brand hover:underline whitespace-nowrap">
+                Abrir la app
+              </a>
+              .
+            </figcaption>
           </figure>
         </Reveal>
 
@@ -287,7 +356,7 @@ export default function FacturArkosPage() {
               Precios mensuales en soles. Cambias o cancelas el plan cuando quieras.
             </p>
           </Reveal>
-          <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5" stagger={0.1}>
+          <StaggerGroup className="grid grid-cols-1 lg:grid-cols-3 gap-5" stagger={0.1}>
             {PLANES.map((p) => (
               <article key={p.name} className="bg-card p-7 rounded-lg shadow-hairline flex flex-col">
                 <p className="spec-label text-brand mb-3">{p.name}</p>
@@ -296,7 +365,7 @@ export default function FacturArkosPage() {
                   <span className="text-sm text-muted-foreground"> / mes</span>
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-5">{p.note}</p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 mb-7 flex-grow">
                   {p.features.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
                       <Check className="h-4 w-4 text-brand mt-0.5 shrink-0" aria-hidden="true" />
@@ -304,6 +373,20 @@ export default function FacturArkosPage() {
                     </li>
                   ))}
                 </ul>
+                <a
+                  href={p.cta.href}
+                  target="_blank"
+                  rel="noopener"
+                  className={
+                    p.cta.primary
+                      ? "inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md bg-brand text-brand-foreground text-sm font-semibold hover:bg-brand/90 transition-colors"
+                      : "inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-sm font-semibold text-foreground shadow-hairline hover:shadow-hairline-md hover:bg-secondary transition-all"
+                  }
+                >
+                  {p.cta.label}
+                  <span className="sr-only"> (plan {p.name})</span>
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
               </article>
             ))}
           </StaggerGroup>
@@ -337,7 +420,7 @@ export default function FacturArkosPage() {
 
         {/* Puente a Árkos */}
         <Reveal effect="fade">
-          <div className="max-w-5xl mb-16 md:mb-24 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-6 md:p-8 rounded-lg bg-card shadow-hairline">
+          <div className="max-w-5xl mb-16 md:mb-24 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 p-6 md:p-8 rounded-lg bg-card shadow-hairline">
             <p className="text-foreground text-sm md:text-base leading-relaxed max-w-xl">
               ¿Tu operación necesita más que facturar y vender? Antes de sumar herramientas, mira el
               proceso: el diagnóstico te dice qué conviene automatizar y qué no. Y si no sabes cómo
