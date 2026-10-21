@@ -8,6 +8,21 @@ import { alternates, absUrl, BASE_URL } from "@/lib/seo"
 
 type Params = { slug: string }
 
+// Cada subpágina de servicio apunta a SU landing «servicio + Lima». La de
+// integración de IA es la página Perú de automatización de procesos, cuya
+// landing de ciudad es /automatizacion-de-procesos-lima, no la de software.
+const LANDING_LIMA: Record<string, { href: string; ancla: string }> = {
+  "integracion-ia": {
+    href: "/automatizacion-de-procesos-lima",
+    ancla: "automatización de procesos para empresas en Lima",
+  },
+}
+
+const LANDING_LIMA_DEFAULT = {
+  href: "/desarrollo-de-software-lima",
+  ancla: "desarrollo de software a medida en Lima",
+}
+
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }))
 }
@@ -48,6 +63,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
   if (!service) notFound()
 
   const pageUrl = absUrl(`/services/${service.slug}`)
+  const landingLima = LANDING_LIMA[service.slug] ?? LANDING_LIMA_DEFAULT
 
   // @graph: una sola entidad Service, el FAQPage (cuyas preguntas SÍ están
   // visibles más abajo — marcar FAQPage sin FAQ visible incumple las
@@ -229,9 +245,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             <p className="text-muted-foreground leading-relaxed">
               Operamos desde Lima. Atendemos a empresas de Lima y Callao con reuniones presenciales
               agendadas, y al resto del Perú y de Latinoamérica de forma remota, en el mismo huso
-              horario. Si tu empresa está en la capital, tenemos una página dedicada:{" "}
-              <Link href="/desarrollo-de-software-lima" className="text-brand font-medium hover:underline">
-                desarrollo de software a medida en Lima
+              horario. Si tu empresa está en la capital, tenemos una página dedicada, con precios
+              de referencia, casos locales y cómo trabajamos en la ciudad:{" "}
+              <Link href={landingLima.href} className="text-brand font-medium hover:underline">
+                {landingLima.ancla}
               </Link>
               .
             </p>
