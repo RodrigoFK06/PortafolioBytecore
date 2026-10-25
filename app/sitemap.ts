@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/facturarkos": "2026-09-27",
     "/diagnostico": "2026-10-01", // título: procesos y sistemas
     "/desarrollo-de-software-lima": "2026-08-04",
-    "/automatizacion-de-procesos-lima": "2026-10-19", // nueva: consulta sin marca 13
+    "/automatizacion-de-procesos-lima": "2026-10-21", // texto editado en ab2c593
     "/cumplimiento-sunat": "2026-07-19",
     "/costo-del-excel": "2026-07-19",
     "/necesitas-un-sistema": "2026-07-19",
