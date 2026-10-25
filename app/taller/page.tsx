@@ -48,7 +48,7 @@ const INCLUYE = [
   "Lo da Rodrigo Torres en persona, no un instructor de catálogo.",
   "Los ejercicios salen de las tareas reales de tu equipo, no de ejemplos genéricos.",
   "Un mapa escrito de las tareas repetidas: cuáles se llevan a una herramienta y cuáles no.",
-  "Presencial en Lima y Callao, o por videollamada para el resto del Perú.",
+  "Presencial en Lima y Callao, o virtual en vivo por videollamada para el resto del Perú.",
 ]
 
 const BLOQUES = [
@@ -83,6 +83,10 @@ const FAQS = [
   {
     q: "¿Es un curso de IA?",
     a: "No. Es un taller de adopción de tecnología, y la IA es el camino. Lo que se enseña es criterio de uso: qué herramienta sirve para qué, cuándo confiar en lo que responde y cuándo no. Las herramientas cambian cada pocos meses; el criterio se queda.",
+  },
+  {
+    q: "¿Buscas un curso de inteligencia artificial para empresas en Lima?",
+    a: `Si lo que buscas es un curso con temario fijo, malla y certificado, esto no lo es. Son ${TALLER_HORAS} horas con tu equipo, hasta ${TALLER_PERSONAS_MAX} personas, S/ ${soles(PRECIO_TALLER)} por grupo, presencial en Lima y Callao o virtual en vivo por videollamada para el resto del Perú. Lo doy yo, Rodrigo Torres, en persona, y los ejercicios salen de las tareas reales de tu equipo. No hay certificado ni malla: lo que se llevan es criterio de uso y un mapa escrito de qué tareas conviene llevar a una herramienta.`,
   },
   {
     q: "¿Dan talleres de inteligencia artificial para empresas en Lima?",
