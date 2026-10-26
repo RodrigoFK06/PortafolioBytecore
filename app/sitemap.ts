@@ -35,59 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return d ? { lastModified: new Date(d) } : {}
   }
 
-  // Nota: /projects ya NO va aquí — redirige 301 a /portfolio (ver
-  // next.config.mjs). Una URL que redirige no debe declararse en el sitemap.
-  const staticItems: MetadataRoute.Sitemap = [
-    // Sin barra final: es la forma exacta que Next emite en el canonical del
-    // home. El sitemap la declaraba con barra y el canonical sin ella — dos
-    // formas de la misma URL para Google.
-    { url: baseUrl, changeFrequency: "weekly", priority: 1, ...lastModOf("") },
-    // La página de dinero: es la que debe rankear por "desarrollo de software
-    // a medida en Lima" y la que sostiene todo el enlazado interno nuevo.
-    { url: `${baseUrl}/desarrollo-de-software-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/desarrollo-de-software-lima") },
-    // Servicio + ciudad para «automatización de procesos para empresas Lima».
-    { url: `${baseUrl}/automatizacion-de-procesos-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/automatizacion-de-procesos-lima") },
-    { url: `${baseUrl}/portfolio`, changeFrequency: "weekly", priority: 0.8, ...lastModOf("/portfolio") },
-    // El hub sube de 0.6 a 0.8: dejó de ser una página de 131 palabras con seis
-    // botones muertos y ahora es el padre de seis subpáginas reales.
-    { url: `${baseUrl}/services`, changeFrequency: "monthly", priority: 0.8, ...lastModOf("/services") },
-    // Orden de la oferta: taller (entrada) → diagnóstico → desarrollo.
-    { url: `${baseUrl}/taller`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/taller") },
-    { url: `${baseUrl}/diagnostico`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/diagnostico") },
-    // La página del producto: antes FacturArkos no tenía ninguna URL
-    // indexable (la ficha /portfolio/21 va con noindex por su caso MOCK).
-    { url: `${baseUrl}/facturarkos`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/facturarkos") },
-    { url: `${baseUrl}/necesitas-un-sistema`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/necesitas-un-sistema") },
-    { url: `${baseUrl}/cumplimiento-sunat`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/cumplimiento-sunat") },
-    { url: `${baseUrl}/costo-del-excel`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/costo-del-excel") },
-    { url: `${baseUrl}/precios`, changeFrequency: "monthly", priority: 0.8, ...lastModOf("/precios") },
-    { url: `${baseUrl}/blog`, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${baseUrl}/terminosycondiciones`, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${baseUrl}/politicadeprivacidad`, changeFrequency: "yearly", priority: 0.4 },
-  ]
-
-  // Las seis subpáginas de servicio (600–900 palabras cada una). Antes no
-  // existían: los "Saber más" del hub eran <button> sin href.
-  const serviceItems: MetadataRoute.Sitemap = SERVICES.map((s) => ({
-    url: `${baseUrl}/services/${s.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-    ...lastModOf(`/services/${s.slug}`),
-  }))
-
-  // Solo las fichas con caso de estudio real. Las otras 22 se sirven con
-  // `noindex` (ver INDEXABLE_CASE_IDS en data/projects.ts) y declarar en el
-  // sitemap una URL que pide no ser indexada es una contradicción que resta
-  // confianza al sitemap completo. Siguen visibles y enlazadas desde
-  // /portfolio, que es el hub indexable.
-  const portfolioItems: MetadataRoute.Sitemap = projects
-    .filter((p) => isIndexableCase(p.id))
-    .map((p) => ({
-      url: `${baseUrl}/portfolio/${p.id}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    }))
-
   const blogDir = path.join(process.cwd(), "content/blog")
   const blogItems: MetadataRoute.Sitemap = fs.existsSync(blogDir)
     ? fs
@@ -115,6 +62,68 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
       })
     : []
+
+  // El lastmod del hub /blog sale de aquí: es la puerta de entrada al rastreo
+  // de los posts, así que lleva la fecha del post más nuevo y se mueve solo
+  // cuando hay post nuevo o actualizado, nunca con el build.
+  const blogLastMod = blogItems
+    .map((i) => i.lastModified)
+    .filter((d): d is Date => d instanceof Date)
+    .reduce<Date | undefined>((max, d) => (!max || d > max ? d : max), undefined)
+
+  // Nota: /projects ya NO va aquí — redirige 301 a /portfolio (ver
+  // next.config.mjs). Una URL que redirige no debe declararse en el sitemap.
+  const staticItems: MetadataRoute.Sitemap = [
+    // Sin barra final: es la forma exacta que Next emite en el canonical del
+    // home. El sitemap la declaraba con barra y el canonical sin ella — dos
+    // formas de la misma URL para Google.
+    { url: baseUrl, changeFrequency: "weekly", priority: 1, ...lastModOf("") },
+    // La página de dinero: es la que debe rankear por "desarrollo de software
+    // a medida en Lima" y la que sostiene todo el enlazado interno nuevo.
+    { url: `${baseUrl}/desarrollo-de-software-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/desarrollo-de-software-lima") },
+    // Servicio + ciudad para «automatización de procesos para empresas Lima».
+    { url: `${baseUrl}/automatizacion-de-procesos-lima`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/automatizacion-de-procesos-lima") },
+    { url: `${baseUrl}/portfolio`, changeFrequency: "weekly", priority: 0.8, ...lastModOf("/portfolio") },
+    // El hub sube de 0.6 a 0.8: dejó de ser una página de 131 palabras con seis
+    // botones muertos y ahora es el padre de seis subpáginas reales.
+    { url: `${baseUrl}/services`, changeFrequency: "monthly", priority: 0.8, ...lastModOf("/services") },
+    // Orden de la oferta: taller (entrada) → diagnóstico → desarrollo.
+    { url: `${baseUrl}/taller`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/taller") },
+    { url: `${baseUrl}/diagnostico`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/diagnostico") },
+    // La página del producto: antes FacturArkos no tenía ninguna URL
+    // indexable (la ficha /portfolio/21 va con noindex por su caso MOCK).
+    { url: `${baseUrl}/facturarkos`, changeFrequency: "monthly", priority: 0.9, ...lastModOf("/facturarkos") },
+    { url: `${baseUrl}/necesitas-un-sistema`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/necesitas-un-sistema") },
+    { url: `${baseUrl}/cumplimiento-sunat`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/cumplimiento-sunat") },
+    { url: `${baseUrl}/costo-del-excel`, changeFrequency: "monthly", priority: 0.7, ...lastModOf("/costo-del-excel") },
+    { url: `${baseUrl}/precios`, changeFrequency: "monthly", priority: 0.8, ...lastModOf("/precios") },
+    // El hub es la puerta de entrada al rastreo de los posts: su lastmod es el del post más nuevo.
+    { url: `${baseUrl}/blog`, changeFrequency: "weekly", priority: 0.7, ...(blogLastMod ? { lastModified: blogLastMod } : {}) },
+    { url: `${baseUrl}/terminosycondiciones`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${baseUrl}/politicadeprivacidad`, changeFrequency: "yearly", priority: 0.4 },
+  ]
+
+  // Las seis subpáginas de servicio (600–900 palabras cada una). Antes no
+  // existían: los "Saber más" del hub eran <button> sin href.
+  const serviceItems: MetadataRoute.Sitemap = SERVICES.map((s) => ({
+    url: `${baseUrl}/services/${s.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    ...lastModOf(`/services/${s.slug}`),
+  }))
+
+  // Solo las fichas con caso de estudio real. Las otras 22 se sirven con
+  // `noindex` (ver INDEXABLE_CASE_IDS en data/projects.ts) y declarar en el
+  // sitemap una URL que pide no ser indexada es una contradicción que resta
+  // confianza al sitemap completo. Siguen visibles y enlazadas desde
+  // /portfolio, que es el hub indexable.
+  const portfolioItems: MetadataRoute.Sitemap = projects
+    .filter((p) => isIndexableCase(p.id))
+    .map((p) => ({
+      url: `${baseUrl}/portfolio/${p.id}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }))
 
   return [...staticItems, ...serviceItems, ...portfolioItems, ...blogItems]
 }
