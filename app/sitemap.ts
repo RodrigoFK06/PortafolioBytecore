@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/taller": "2026-10-19", // FAQ «talleres de IA para empresas en Lima» + City Lima
     "/facturarkos": "2026-09-27",
     "/diagnostico": "2026-10-01", // título: procesos y sistemas
-    "/desarrollo-de-software-lima": "2026-08-04",
+    "/desarrollo-de-software-lima": "2026-10-21", // título, schema y cuerpo editados en ab2c593
     "/automatizacion-de-procesos-lima": "2026-10-21", // texto editado en ab2c593
     "/cumplimiento-sunat": "2026-07-19",
     "/costo-del-excel": "2026-07-19",
