@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const LAST_UPDATED: Record<string, string> = {
     "": "2026-10-04", // FAQPage + disambiguatingDescription (e94168f)
     "/services": "2026-10-01", // título: automatización e IA
-    "/services/integracion-ia": "2026-10-01", // "Automatización e IA"
+    "/services/integracion-ia": "2026-10-21", // texto del servicio reescrito en ab2c593
     "/precios": "2026-09-23", // nota de IA apunta al taller
     "/taller": "2026-10-19", // FAQ «talleres de IA para empresas en Lima» + City Lima
     "/facturarkos": "2026-09-27",
