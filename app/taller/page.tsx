@@ -75,6 +75,18 @@ const BLOQUES = [
   },
 ]
 
+// Quién lo dicta — la prueba, no el nombre. Los dos ocupantes que mejor
+// resuelven esta consulta (monifinanzas, academiainteligenciaartificial) no
+// ponen un nombre: ponen a quién dicta con pruebas. Aquí van SOLO hechos que
+// ya están publicados en la home (FounderSection), reescritos para no duplicar
+// bloque. Prohibido añadir títulos, años, certificados o testimonios.
+const QUIEN_LO_DICTA = [
+  "Soy Rodrigo Torres, fundador y gerente general de Árkos. Lo que enseño en el taller no sale de un manual: sale de sistemas que hoy están en producción y de los equipos que tuvieron que aprender a usarlos.",
+  "He puesto en marcha los ERPs con que se opera un restaurante y los PMS con que se vende un hotel, revenue management incluido. Sé lo que cuesta cambiarle a un equipo la forma en que cobra, reserva y cierra su día.",
+  "Uno de esos sistemas, el de servicio técnico, una clienta lo abre todos los días: 650 órdenes al mes, 15 personas trabajando dentro y una orden que se cierra 45 % más rápido que antes. Son números de su operación, no de un caso de estudio.",
+  "También publiqué una app de delivery nativa en Google Play y conecté asistentes de IA, montados sobre bases de conocimiento propias, al CRM o al ERP que el equipo ya tenía abierto. Esa última parte —que la herramienta entre donde la gente ya trabaja— es la que casi nadie cuenta.",
+]
+
 // Una sola descripción para el Service y el Course: el mismo taller.
 const TALLER_DESCRIPCION =
   "Taller para equipos de empresa: criterio de uso de la tecnología y la IA, ejercicios sobre las tareas reales del equipo y un mapa escrito de qué tareas llevar a una herramienta."
@@ -209,7 +221,21 @@ export default function TallerPage() {
                 },
               },
               maximumAttendeeCapacity: TALLER_PERSONAS_MAX,
-              instructor: { "@type": "Person", name: "Rodrigo Torres" },
+              // El instructor era solo un nombre. Los dos ocupantes que mejor
+              // resuelven esta consulta ponen a quién dicta con pruebas, así que
+              // aquí el Person lleva cargo, el ancla al bloque de fundador de la
+              // home y los dos perfiles que ya viven en FounderSection.
+              instructor: {
+                "@type": "Person",
+                name: "Rodrigo Torres",
+                jobTitle: "Fundador y Gerente General de Árkos",
+                worksFor: { "@id": `${baseUrl}/#organization` },
+                url: `${baseUrl}/#fundador`,
+                sameAs: [
+                  "https://www.linkedin.com/in/rodrigo-torres-arkos",
+                  "https://github.com/RodrigoFK06",
+                ],
+              },
               offers: {
                 "@type": "Offer",
                 price: String(PRECIO_TALLER),
@@ -308,6 +334,34 @@ export default function TallerPage() {
               </article>
             ))}
           </StaggerGroup>
+        </section>
+
+        {/* Quién lo dicta */}
+        <section className="max-w-3xl mb-16 md:mb-24">
+          <Reveal effect="fade">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
+              Quién lo dicta
+            </h2>
+          </Reveal>
+          <Reveal effect="rise">
+            <ul className="space-y-4">
+              {QUIEN_LO_DICTA.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-muted-foreground text-sm md:text-base leading-relaxed"
+                >
+                  <span className="text-brand mt-1.5 shrink-0" aria-hidden="true">
+                    ▹
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-foreground text-sm md:text-base leading-relaxed">
+              Por eso el criterio que enseño en las {TALLER_HORAS} horas no es teoría: es el mismo
+              con el que decido, en cada proyecto, qué se automatiza y qué conviene dejar como está.
+            </p>
+          </Reveal>
         </section>
 
         {/* Para quién sí / no */}
