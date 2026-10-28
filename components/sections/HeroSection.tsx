@@ -116,8 +116,10 @@ export function HeroSection() {
               style={{ opacity: 0 }}
             >
               Somos <strong className="text-foreground font-semibold">Árkos</strong>. Hacemos que
-              los procesos de tu empresa funcionen mejor con automatización e IA, y le enseñamos a
-              tu equipo a usarla. Cuando hace falta, construimos el software a medida.
+              los procesos de tu empresa funcionen mejor: consultoría y diagnóstico para ver dónde
+              se va el tiempo, optimización del proceso con automatización e IA, y formación para
+              que tu equipo la use. Medimos la eficiencia antes y después de intervenir; cuando
+              hace falta, construimos el software a medida.
             </p>
 
             {/* CTAs */}
