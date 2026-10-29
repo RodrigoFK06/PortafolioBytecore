@@ -15,6 +15,16 @@ import { KineticText } from "@/components/motion/kinetic-text"
 const RODRIGO_LINKEDIN = "https://www.linkedin.com/in/rodrigo-torres-arkos"
 const RODRIGO_GITHUB = "https://github.com/RodrigoFK06"
 
+// Certificaciones: los nombres son los mismos que ya publica el hasCredential del
+// Person en app/layout.tsx. El schema lo decia y el cuerpo no: aqui se dicen igual.
+const CERTIFICACIONES = [
+  "Certified Scrum Master — Scrum Alliance (2024)",
+  "Generative AI Overview for Project Managers — Project Management Institute (2026)",
+  "AI Fluency for Builders — Anthropic (2026)",
+  "AI Fluency for Small Businesses — Anthropic (2026)",
+  "Agents Course — Hugging Face (2026)",
+]
+
 const LO_QUE_HAGO = [
   "ERPs de restaurante y PMS hoteleros con revenue management.",
   "El sistema de servicio técnico que una clienta real opera a diario: 650 órdenes al mes, 15 usuarios y cierre de orden 45% más rápido.",
@@ -62,6 +72,25 @@ export default function FounderSection() {
             <p className="spec-label mt-1.5">
               Fundador y Gerente General de Árkos
             </p>
+
+            {/* Credenciales — las mismas que declara el schema de la home */}
+            <div className="mt-6 w-full max-w-xs">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Mi formación en metodología de proyectos y en IA, certificada y verificable:
+              </p>
+              <ul className="mt-3 space-y-2">
+                {CERTIFICACIONES.map((cert) => (
+                  <li
+                    key={cert}
+                    className="flex items-start gap-2 text-sm text-muted-foreground leading-snug text-left"
+                  >
+                    <span className="text-brand mt-1 shrink-0" aria-hidden="true">▹</span>
+                    <span>{cert}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div className="flex gap-3 mt-5">
               <a
                 href={RODRIGO_LINKEDIN}
