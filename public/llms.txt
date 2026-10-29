@@ -38,6 +38,7 @@
 *   Versión en texto plano para agentes y asistentes de IA: https://xn--rkos-4na.com/pricing.md
 
 ## Guías y criterio (blog, firmado por Rodrigo Torres)
+*   **Cómo saber si un proceso mejoró de verdad (y qué indicadores lo demuestran)** — los cuatro indicadores que miden la mejora de un proceso (tiempo de ciclo, retrabajo, pasos manuales, costo por transacción), cómo tomar la línea base cuando nunca se midió y qué errores invalidan la comparación. (https://xn--rkos-4na.com/blog/como-saber-si-un-proceso-mejoro)
 *   **Ley de inteligencia artificial en Perú: qué le exige a tu empresa el reglamento de la Ley 31814** — qué usos de IA prohíbe el DS 115-2025-PCM, cuáles son de riesgo alto, qué obligaciones tiene una empresa privada y desde cuándo corre cada plazo (1 a 4 años según sector y tamaño). (https://xn--rkos-4na.com/blog/ley-de-ia-en-peru-reglamento-31814)
 *   **Qué datos de tu empresa puede ver una IA (y qué pide la Ley 29733)** — qué exige el reglamento DS 016-2024-JUS al usar servicios de IA con datos de clientes: proveedores, flujo transfronterizo, incidentes en 48 horas y oficial de datos. (https://xn--rkos-4na.com/blog/ia-con-datos-de-tu-empresa-ley-29733)
 *   **Qué procesos automatizar primero en tu empresa (y cuáles todavía no)** — cuatro preguntas para elegir el primer proceso, cómo ponerlo en soles y qué no automatizar todavía, con cifras de PRODUCE e INEI. (https://xn--rkos-4na.com/blog/que-procesos-automatizar-primero)
