@@ -15,21 +15,29 @@ export async function GET() {
         const slug = file.replace(/\.md$/, "")
         const raw = fs.readFileSync(path.join(blogDir, file), "utf8")
         const { data, content } = matter(raw)
+        const published = data.date ? new Date(data.date) : new Date()
         return {
           slug,
           title: data.title || slug,
-          date: data.date ? new Date(data.date).toUTCString() : new Date().toUTCString(),
+          date: published.toUTCString(),
+          timestamp: published.getTime(),
           description: data.description || content.slice(0, 160),
         }
       })
+      .sort((a, b) => b.timestamp - a.timestamp)
     : []
 
+  const lastBuildDate = items[0]?.date ?? new Date().toUTCString()
+
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Árkos Blog</title>
     <link>${siteUrl}</link>
     <description>Entradas del blog de Árkos</description>
+    <language>es-PE</language>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
+    <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />
     ${items
       .map(
         (i) => `
