@@ -105,6 +105,10 @@ const FAQS = [
     a: `Sí, con un matiz: el taller es de adopción de tecnología, y la IA aplicada a los procesos de la empresa es uno de sus caminos, no el tema único. Son ${TALLER_HORAS} horas para equipos de hasta ${TALLER_PERSONAS_MAX} personas, a S/ ${soles(PRECIO_TALLER)} por grupo. En Lima y Callao es presencial, en las oficinas de tu empresa —Árkos no tiene aula propia—; para el resto del Perú, por videollamada.`,
   },
   {
+    q: "¿Qué incluye un taller de inteligencia artificial para empresas en Lima?",
+    a: `Un taller de inteligencia artificial para empresas en Lima, en el formato de Árkos, son ${TALLER_HORAS} horas con el equipo —hasta ${TALLER_PERSONAS_MAX} personas—, con los ejercicios armados sobre las tareas reales de cada puesto y un mapa escrito de las tareas repetidas: cuáles se llevan a una herramienta, cuáles necesitan ordenar antes el proceso y cuáles no conviene tocar. Lo dicta Rodrigo Torres en persona, es presencial en Lima y Callao o virtual en vivo por videollamada para el resto del Perú, y cuesta S/ ${soles(PRECIO_TALLER)} por grupo. No incluye certificado ni malla de curso.`,
+  },
+  {
     q: "¿Un taller alcanza para que el equipo adopte la tecnología?",
     a: "No, y no lo prometemos. Adoptar lleva semanas: que el equipo siga usando la herramienta cuando ya nadie se lo recuerda. El taller es el primer paso: el equipo pierde el miedo, aprende el criterio y sale con un mapa de por dónde empezar.",
   },
@@ -319,6 +323,16 @@ export default function TallerPage() {
             <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8">
               Qué pasa en esas {TALLER_HORAS} horas
             </h2>
+          </Reveal>
+          <Reveal effect="fade">
+            <p className="text-muted-foreground mb-8 max-w-3xl text-sm md:text-base leading-relaxed">
+              Si lo que buscas es un taller de inteligencia artificial para empresas en Lima,
+              esto es lo que pasa en la práctica: {TALLER_HORAS} horas con tu equipo —hasta{" "}
+              {TALLER_PERSONAS_MAX} personas—, presencial en las oficinas de tu empresa en Lima y
+              Callao o virtual en vivo por videollamada para el resto del Perú, y siempre sobre las
+              tareas que tu gente ya hace. No hay malla ni certificado: lo que se llevan es criterio
+              de uso y un mapa escrito de qué tareas conviene llevar a una herramienta.
+            </p>
           </Reveal>
           <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5" stagger={0.1}>
             {BLOQUES.map((b) => (
