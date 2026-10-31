@@ -74,7 +74,10 @@ export function ServicesSection() {
             <p className="text-muted-foreground mt-6 max-w-2xl text-base md:text-lg leading-relaxed">
               Trabajamos con restaurantes, hoteles, clínicas y pymes que hoy coordinan su operación
               entre Excel, WhatsApp y cuadernos. Según el caso, la respuesta es un sistema a medida,
-              una tienda online, una web nueva o rediseñar lo que ya tienen.
+              una tienda online, una web nueva o rediseñar lo que ya tienen. Y cuando el cuello de
+              botella no es el software sino el trabajo repetitivo, lo que entra es automatización de
+              procesos para empresas en Lima: primero medimos dónde se va el tiempo del equipo,
+              después ordenamos el proceso y recién entonces lo automatizamos.
             </p>
           </Reveal>
         </header>
@@ -134,6 +137,16 @@ export function ServicesSection() {
               </Link>{" "}
               explica qué se automatiza primero, cómo se eligen esos procesos midiendo dónde se va
               el tiempo del equipo, y desde cuánto cuesta: S/ {PRECIO_AUTOMATIZACION.penLabel}.
+            </p>
+          </Reveal>
+          <Reveal effect="fade" delay={0.1}>
+            <p className="text-muted-foreground leading-relaxed mt-5">
+              En automatización de procesos para empresas en Lima los candidatos se repiten: el
+              registro doble de pedidos, el cuadre de caja, la conciliación de pagos, los
+              recordatorios a clientes y los reportes armados a mano. La automatización de procesos
+              no empieza por la herramienta: según el caso conectamos con n8n o Make lo que tu
+              equipo ya usa, sumamos IA conectada a tus datos o construimos un sistema a medida
+              cuando esas piezas no alcanzan.
             </p>
           </Reveal>
         </div>
