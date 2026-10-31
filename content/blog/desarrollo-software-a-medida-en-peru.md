@@ -1,9 +1,10 @@
 ---
 title: "Desarrollo de software a medida en Perú: guía completa de Árkos"
+seoTitle: "Desarrollo de software a medida en Lima y Perú: guía completa"
 description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué pymes de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
-updated: "2026-10-11"
+updated: "2026-10-31"
 author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
