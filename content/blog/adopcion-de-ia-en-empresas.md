@@ -1,14 +1,17 @@
 ---
 title: "Adopción de IA en empresas: cómo lograr que tu equipo la use de verdad (y cómo medirlo)"
-seoTitle: "Adopción de IA en empresas: cómo capacitar a tu equipo"
+seoTitle: "Integración de IA para empresas en Perú: cómo lograr que tu equipo la use"
 description: "Por qué la IA se abandona a las dos semanas, cómo capacitar a tu equipo por perfil y en cascada, qué no automatizar y cómo medir el uso sostenido. Desde casos reales en Perú."
 image: "/blog-cover-adopcion-ia.png"
 date: "2026-09-10"
+updated: "2026-10-31"
 author: "Rodrigo Torres"
 tags: ["IA", "Adopción", "Criterio", "PYMEs", "Formación", "Medición"]
 ---
 
 La adopción de IA en una empresa es el proceso por el cual un equipo pasa de probar una herramienta a usarla de forma sostenida en su trabajo diario, con reglas claras sobre qué puede decidir y qué no, y con resultados medidos antes y después. No es instalar un chatbot. Instalar es un día; adoptar son meses.
+
+La integración de IA para empresas en Perú se decide ahí: no en instalar la herramienta, sino en que el equipo la siga usando semanas después, con reglas escritas sobre qué decide el sistema y qué decide una persona, y con una línea base medida antes de intervenir.
 
 Llevo tres años metiendo IA en el trabajo diario de mi propio equipo y dos acompañando a clientes de salud, banca, transporte, logística, comercio y sector naval a hacer lo mismo. Lo que sigue es lo que he visto funcionar y, sobre todo, lo que he visto fallar.
 
@@ -95,3 +98,6 @@ Debe decirlo y derivar a una persona. La abstención se diseña como función, n
 
 **¿Cómo sé si valió la pena la inversión?**
 Porque hay una línea base medida antes de intervenir y la misma medición repetida después, con la distinción entre uso reportado y uso sostenido. Si no hay línea base, no hay forma honesta de responder esa pregunta, y en Árkos la levantamos siempre antes de empezar.
+
+**¿Qué incluye la integración de IA para empresas en Perú?**
+Cuatro piezas, en este orden: el descubrimiento de los casos de uso con quien hace el trabajo, la formación por perfil —usuarios de negocio y equipos técnicos llevan currículos distintos—, las reglas escritas de qué decide el sistema y qué decide una persona, y la medición antes y después sobre una línea base levantada antes de intervenir. La herramienta es la última decisión, no la primera.
