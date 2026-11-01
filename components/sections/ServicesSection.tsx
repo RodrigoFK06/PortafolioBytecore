@@ -6,7 +6,7 @@ import { ArrowRight, Layout, Monitor, Palette, Boxes } from "lucide-react"
 import { KineticText } from "@/components/motion/kinetic-text"
 import { Reveal } from "@/components/motion/reveal"
 import { StaggerGroup } from "@/components/motion/stagger-group"
-import { PRICE_TIERS } from "@/data/pricing"
+import { GARANTIA_UMBRAL_ANUAL, PRICE_TIERS, soles } from "@/data/pricing"
 
 /** El mismo "desde" que publica /precios para automatización e IA. */
 const PRECIO_AUTOMATIZACION = PRICE_TIERS.find((p) => p.name === "Integración y adopción de IA")!
@@ -147,6 +147,18 @@ export function ServicesSection() {
               no empieza por la herramienta: según el caso conectamos con n8n o Make lo que tu
               equipo ya usa, sumamos IA conectada a tus datos o construimos un sistema a medida
               cuando esas piezas no alcanzan.
+            </p>
+          </Reveal>
+          <Reveal effect="fade" delay={0.15}>
+            <p className="text-muted-foreground leading-relaxed mt-5">
+              Ese orden no se improvisa. Primero revisamos el flujo de trabajo y lo dejamos escrito
+              —qué pasos lo traban, cuáles sobran y en qué orden conviene tocarlos—, porque
+              automatizar un proceso mal definido solo produce caos más rápido. Después se cuenta:
+              el diagnóstico mide las horas manuales y los errores que dejan el registro doble y el
+              cuadre a mano, y de esa misma cuenta sale su garantía —si el informe no encuentra
+              pérdidas de al menos S/ {soles(GARANTIA_UMBRAL_ANUAL)} al año, se devuelve el pago—.
+              Recién entonces se decide qué parte resuelven asistentes y agentes conectados al CRM o
+              al ERP que tu equipo ya opera, y qué parte pide un flujo documentado en n8n o Make.
             </p>
           </Reveal>
         </div>
