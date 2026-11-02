@@ -4,12 +4,12 @@ seoTitle: "Desarrollo de software a medida en Lima y Perú: guía completa"
 description: "Qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabaja Árkos, cuánto cuesta y para qué pymes de Perú y Latinoamérica está pensado."
 image: "/blog-cover-software-a-medida.png"
 date: "2026-06-16"
-updated: "2026-10-31"
+updated: "2026-11-02"
 author: "Rodrigo Torres"
 tags: ["Software a medida", "Perú", "Next.js", "ERP", "SaaS", "Guía"]
 ---
 
-El desarrollo de software a medida en Perú consiste en construir un sistema a partir de cómo trabaja tu negocio, en vez de adaptar el negocio a un programa genérico. En Árkos, un estudio de Lima fundado en 2020, empezamos por el proceso y no por la tecnología: vemos con cada pyme qué está frenando su operación, sumamos automatización e IA donde ahorran trabajo y, cuando las herramientas que ya existen no alcanzan, construimos el sistema que hace falta: ERPs, CRMs, PMS y aplicaciones web.
+El desarrollo de software a medida en Perú consiste en construir un sistema a partir de cómo trabaja tu negocio, en vez de adaptar el negocio a un programa genérico. En Árkos, un estudio de Lima fundado en 2020 —6 años construyendo sistemas, con [31 proyectos publicados en el portafolio](/portfolio)—, empezamos por el proceso y no por la tecnología: vemos con cada pyme qué está frenando su operación, sumamos automatización e IA donde ahorran trabajo y, cuando las herramientas que ya existen no alcanzan, construimos el sistema que hace falta: ERPs, CRMs, PMS y aplicaciones web.
 
 El código es el final del trabajo, no el principio. Lo que buscamos es que tu equipo pierda menos tiempo y que tu cliente sepa en tres segundos qué hacer. En esta guía explicamos qué es el software a medida, cuándo conviene frente a un sistema enlatado, cómo trabajamos, qué proyectos construimos y para qué negocios está pensado.
 
@@ -39,7 +39,7 @@ Antes de escribir código entendemos cómo trabaja el negocio. Trabajamos por fa
 
 1. **Entendimiento del proceso.** Identificamos las preguntas operativas que hoy no puedes responder rápido ("¿qué clientes tengo agendados esta semana?", "¿qué garantías siguen vigentes?") y los puntos donde se pierde tiempo o dinero.
 2. **Investigación y diseño.** Entrevistamos a quienes van a usar el sistema y diseñamos las pantallas en Figma, primero en wireframes y luego en prototipos, para que cada persona sepa qué hacer apenas entra.
-3. **Desarrollo a medida.** Construimos con React, Next.js y TypeScript en frontend, y Node.js, Next.js API Routes, Laravel, CodeIgniter o Spring Boot en backend, sobre bases de datos como Supabase (PostgreSQL), Firebase, MySQL o MongoDB.
+3. **Desarrollo a medida en sprints quincenales (de 2 a 12 semanas).** Construimos con React, Next.js y TypeScript en frontend, y Node.js, Next.js API Routes, Laravel, CodeIgniter o Spring Boot en backend, sobre bases de datos como Supabase (PostgreSQL), Firebase, MySQL o MongoDB. Iteramos en ciclos cortos con una demo funcional cada dos semanas: ves el avance funcionando, no maquetas, y tu feedback entra en el siguiente sprint.
 4. **Rendimiento y SEO.** Cuidamos las Core Web Vitals para que el producto cargue rápido incluso con datos móviles, y lo preparamos para que lo encuentren tanto los buscadores como los asistentes de IA (lo que hoy se llama GEO).
 5. **IA y automatización, cuando ahorran trabajo.** Integramos chatbots y agentes de ventas con Gemini o GPT, y automatizaciones con n8n y Make para quitar trabajo manual repetitivo.
 6. **Despliegue y evolución.** Publicamos en Vercel, Docker o AWS, y el sistema queda listo para sumarle módulos después.
@@ -131,11 +131,15 @@ Conviene cuando el sistema genérico no encaja con tu operación, pagas por func
 
 ### ¿Cuánto cuesta y cuánto tarda un proyecto de software a medida?
 
-El costo depende del alcance: una landing parte desde S/ 1,100 (USD 300) y un sistema a medida (ERP, CRM, SaaS) desde S/ 13,000 (USD 3,500), con cotización por alcance; puedes ver el detalle en nuestra [página de precios](/precios). En cuanto a plazos, un proyecto web típico toma de 3 a 8 semanas según el alcance; un sistema a medida toma más, en función de su complejidad.
+El costo depende del alcance y los rangos «desde» están publicados: una landing de alta conversión desde S/ 1,100 (USD 300); una web corporativa desde S/ 2,250 (USD 600); un e-commerce desde S/ 3,400 (USD 900); una web app o MVP a medida desde S/ 4,500 (USD 1,200); una app móvil para iOS y Android desde S/ 9,400 (USD 2,500); un sistema a medida (CRM, ERP, PMS o SaaS) desde S/ 13,000 (USD 3,500); y una integración y adopción de IA desde S/ 1,900 (USD 500). Precios “desde”, referenciales a 2026. Tipo de cambio aproximado S/ 3.75 = USD 1. Los sistemas a medida y apps móviles se cotizan por alcance. En cuanto a plazos, un proyecto web típico toma de 3 a 8 semanas según el alcance y avanza en sprints quincenales con demo funcional cada dos semanas; un sistema a medida toma más, en función de su complejidad. El detalle por tipo de proyecto está en nuestra [página de precios](/precios).
 
 ### ¿Cuánto cuesta el desarrollo de software a medida en Lima?
 
 En Lima, el desarrollo de software a medida con Árkos parte desde S/ 1,100 (USD 300) para una landing y desde S/ 13,000 (USD 3,500) para un sistema de gestión (ERP, CRM o SaaS), con cotización por alcance. Un proyecto web típico toma de 3 a 8 semanas. Árkos opera desde Lima, Perú, atiende Lima y Callao con reuniones presenciales agendadas y al resto del país de forma remota; el detalle por tipo de proyecto está en nuestra [página de precios](/precios) y el servicio local en [desarrollo de software a medida en Lima](/desarrollo-de-software-lima).
+
+### ¿De quién es el código fuente al terminar el proyecto?
+
+Es tuyo. Al cierre del proyecto te entregamos el código fuente y la base de datos, y quedan a tu nombre. No trabajamos con esquemas que te obliguen a seguir contratándonos para poder usar tu propio sistema: si mañana decides cambiar de proveedor, puedes hacerlo sin rehacer nada.
 
 ### ¿Qué stack tecnológico usa Árkos?
 
@@ -149,4 +153,4 @@ Si tu operación ya no entra en las herramientas que usas, en **Árkos** mejoram
 - **Correo:** gerencia@árkos.com
 - **Base:** Lima, Perú — cobertura nacional
 
-Cuéntanos cómo trabajas hoy y te decimos qué conviene construir, o si todavía no conviene construir nada. [Escríbenos](/#contact).
+Cuéntanos cómo trabajas hoy y te decimos qué conviene construir, o si todavía no conviene construir nada. La puerta de entrada no cuesta nada: una llamada gratis de 30 minutos, sin compromiso, en la que revisamos tu operación y te decimos si esto pinta a sistema, a ajuste o a nada todavía. Si prefieres el análisis completo antes de comprometer presupuesto, el [diagnóstico de procesos de 2 semanas](/diagnostico) cuesta S/ 950, se descuenta íntegro del proyecto si avanzamos y lleva garantía de devolución si el informe no encuentra pérdidas de al menos S/ 2,850 al año. [Escríbenos](/#contact).
