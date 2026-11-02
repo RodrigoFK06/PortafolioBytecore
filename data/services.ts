@@ -379,7 +379,7 @@ export const SERVICES: ServiceContent[] = [
     summary:
       "Asistentes y automatizaciones conectados a tu operación, más la formación y el gobierno para que tu equipo los use de verdad, no como un widget suelto.",
     lead:
-      "La IA solo sirve si está conectada a tus datos y si tu equipo la sigue usando después de la novedad. Un chatbot que no sabe tus precios, tu stock ni tus horarios genera más trabajo del que ahorra; una herramienta que nadie adoptó es plata perdida. Integramos modelos como Claude, Gemini y GPT dentro de tu sistema, automatizamos con n8n y Make los pasos manuales que hoy consumen el tiempo de tu equipo, y acompañamos a las personas que van a usarlo: onboarding, formación por perfil y medición de uso sostenido. Llevamos tres años haciéndolo con nuestro propio equipo y dos con clientes de salud, banca, transporte, logística, comercio y sector naval.",
+      "La inteligencia artificial (IA) solo sirve si está conectada a tus datos y si tu equipo la sigue usando después de la novedad. Un chatbot que no sabe tus precios, tu stock ni tus horarios genera más trabajo del que ahorra; una herramienta que nadie adoptó es plata perdida. Integramos modelos como Claude, Gemini y GPT dentro de tu sistema, automatizamos con n8n y Make los pasos manuales que hoy consumen el tiempo de tu equipo, y acompañamos a las personas que van a usarlo: onboarding, formación por perfil y medición de uso sostenido. Llevamos tres años haciéndolo con nuestro propio equipo y dos con clientes de salud, banca, transporte, logística, comercio y sector naval. Todo el trabajo se hace con empresas peruanas y bajo normativa peruana: la Ley 29733 de Protección de Datos Personales se aplica desde el diseño, no al final.",
     sections: [
       {
         h2: "Dónde la IA paga y dónde no",
@@ -422,9 +422,9 @@ export const SERVICES: ServiceContent[] = [
         ],
       },
       {
-        h2: "Gobierno, datos y costos",
+        h2: "Gobernanza, datos y costos",
         paragraphs: [
-          "Definimos desde el inicio qué información puede ver el modelo y cuál no, en línea con la Ley 29733 de Protección de Datos Personales. El control de acceso se aplica en la recuperación de documentos, no se le pide al modelo por prompt; los datos personales se redactan antes de salir de tu sistema y cada respuesta queda trazada a la fuente que la produjo. También dejamos por escrito, en lenguaje no técnico, qué no se automatiza y dónde una persona debe aprobar.",
+          "La gobernanza de la inteligencia artificial se escribe antes de conectar nada, y empieza por listar los riesgos que no se aceptan. Definimos desde el inicio qué información puede ver el modelo y cuál no, en línea con la Ley 29733 de Protección de Datos Personales. El control de acceso se aplica en la recuperación de documentos, no se le pide al modelo por prompt; los datos personales se redactan antes de salir de tu sistema y cada respuesta queda trazada a la fuente que la produjo. También dejamos por escrito, en lenguaje no técnico, qué no se automatiza y dónde una persona debe aprobar.",
           "Y dejamos claro el costo recurrente: los modelos se pagan por uso, así que estimamos el consumo esperado y ponemos topes. Que un asistente funcione no debe significar una factura sorpresa a fin de mes.",
         ],
       },
@@ -432,7 +432,7 @@ export const SERVICES: ServiceContent[] = [
         h2: "Medición: línea base antes, la misma medición después",
         paragraphs: [
           "Levantamos una línea base antes de intervenir y repetimos la misma medición después: es la única forma de sustentar una mejora. Distinguimos el uso que la gente reporta del uso sostenido sin recordatorio, y evaluamos los asistentes con conjuntos de casos de prueba etiquetados a mano, con métricas reportadas con intervalo de confianza y umbrales que bloquean el despliegue si no se alcanzan.",
-          "Lo aplicamos también a nuestro propio trabajo. En Precio Vivo, nuestro producto abierto de precios agrícolas, la evaluación corre sobre 165 casos de prueba y el resultado negativo de nuestra hipótesis inicial está publicado dentro del sitio. En el asistente de Solutec para técnicos de campo, un glosario de oficio de nueve entradas, armado a mano con la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.",
+          "Lo aplicamos también a nuestro propio trabajo. En Precio Vivo, nuestro producto abierto de precios agrícolas, la evaluación corre sobre 165 casos de prueba y el resultado negativo de nuestra hipótesis inicial está publicado dentro del sitio. En el asistente de Solutec para técnicos de campo, un glosario de oficio de nueve entradas, armado a mano con la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba: del 20 % al 80 %, según nuestra propia evaluación sobre ese conjunto etiquetado a mano.",
         ],
       },
     ],
