@@ -4,7 +4,7 @@ seoTitle: "Integración de IA para empresas en Perú: cómo lograr que tu equipo
 description: "Por qué la IA se abandona a las dos semanas, cómo capacitar a tu equipo por perfil y en cascada, qué no automatizar y cómo medir el uso sostenido. Desde casos reales en Perú."
 image: "/blog-cover-adopcion-ia.png"
 date: "2026-09-10"
-updated: "2026-10-31"
+updated: "2026-11-03"
 author: "Rodrigo Torres"
 tags: ["IA", "Adopción", "Criterio", "PYMEs", "Formación", "Medición"]
 ---
@@ -63,6 +63,18 @@ En la práctica uso cuatro instrumentos:
 Dos ejemplos propios. En el asistente que construimos para los técnicos de campo de [Solutec](/portfolio/2), un servicio de reparación de electrodomésticos, el problema no era el modelo sino el vocabulario: términos que aparecían 88 veces en las notas de los técnicos no figuraban ni una vez en los manuales del fabricante. Un glosario de oficio de nueve entradas, armado a mano y revisable por la dueña del negocio, subió el desempeño de la búsqueda de 1 de 5 a 4 de 5 casos de prueba.
 
 En [Precio Vivo](/portfolio/28), nuestro producto abierto de precios agrícolas, instalé una compuerta de descarte de hipótesis que descartó mi propia hipótesis de partida: el error del modelo empeoró de 0,1667 a 0,1680. Ese resultado negativo está publicado dentro del sitio, junto con la evaluación sobre 165 casos de prueba. Publicar lo que no funcionó es parte de medir en serio.
+
+## ¿Qué casos de uso de integración de IA funcionan hoy en empresas peruanas?
+
+Los casos de uso que sobreviven no se eligen por sector, sino por tarea: repetitiva, de alto volumen y con un resultado que se puede medir antes y después. Los cinco casos de uso que siguen son propios de Árkos o de clientes ya publicados, y cada uno trae su cifra y el caso abierto para revisarla.
+
+1. **Comercio y abastecimiento — pronosticar el precio de compra del próximo día hábil.** 72 productos con pronóstico sobre 534 días de historia, y el mejor modelo reduce el error 26% frente al baseline: resultó ser un AR(1) lineal, no el gradient boosting que yo esperaba que ganara. Los datos y la evaluación son públicos y reproducibles en [Precio Vivo](/portfolio/28).
+2. **Datos que solo viven en PDF — convertirlos en serie histórica consultable en lenguaje natural.** Un pipeline toma los reportes diarios en PDF de MIDAGRI/EMMSA, los normaliza a serie temporal y deja consulta con RAG sobre el propio dataset, más una CLI que entrega lo mismo en la terminal: así se construyó [el tablero de Precio Vivo](/portfolio/28).
+3. **Salud — reconocer lengua de señas médica en tiempo real.** El navegador captura los puntos de la mano, el cuerpo y la cara con MediaPipe y un modelo CNN+LSTM clasifica la seña, con práctica guiada y exámenes para aprender el vocabulario clínico: [SignMed](/portfolio/32).
+4. **Un modelo ya en producción — auditar su métrica antes de construir encima.** La auditoría técnica de [SignMed](/portfolio/32) encontró que el 0,80 de exactitud publicado no medía reconocimiento de señas: las manos iban al final de un vector que se recortaba a 150 valores y pose y cara ya sumaban 160, así que el modelo se había entrenado sin ver una sola mano.
+5. **Servicio técnico de campo — ordenar una cartera que vivía en WhatsApp.** Más de 2,500 clientes atendidos de tú a tú en chats sueltos pasaron a un sistema de gestión de clientes que recibe las consultas y les hace seguimiento hasta cerrar el servicio, sin cambiarle el tono con el que la dueña trata a su gente: [Solutec DHA](/portfolio/2).
+
+Lo que estos casos de uso tienen en común no es el sector, es el método: una tarea concreta, una cifra medida y el resultado publicado incluso cuando fue negativo. El resto de los casos de uso, con su sector y su stack, está en [el catálogo de proyectos](/portfolio).
 
 ## ¿Qué no se debe automatizar con IA?
 
